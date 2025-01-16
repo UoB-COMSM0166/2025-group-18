@@ -13,12 +13,13 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 Add a group photo here!
 
-- Group member 1, name, email, role
-- Group member 2, name, email, role
-- Group member 3, name, email, role
-- Group member 4, name, email, role
-- Group member 5, name, email, role
-- Group member 6, name, email, role
+|Name|Email|GithubID|Role|
+|:---:|:---:|:---:|
+|Tianyu Qi|yn24649@bristol.ac.uk|qtyohh|TBD|
+|Likun Liang|oy24839@bristol.ac.uk|lycorisadiata|TBD|
+|Yutong Liu|xm24685@bristol.ac.uk|WILLOW579|TBD|
+|Zihao Xia|qh24613@bristol.ac.uk|WeirdDruid|TBD|
+|Guanglong Xia|iu24606@bristol.ac.uk|X-Theodore|TBD|
 
 ## Project Report
 
