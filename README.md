@@ -14,7 +14,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 Add a group photo here!
 
 |Name|Email|GithubID|Role|
-|:---:|:---:|:---:|
+|:------:|:------:|:------:|:------:|
 |Tianyu Qi|yn24649@bristol.ac.uk|qtyohh|TBD|
 |Likun Liang|oy24839@bristol.ac.uk|lycorisadiata|TBD|
 |Yutong Liu|xm24685@bristol.ac.uk|WILLOW579|TBD|
