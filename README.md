@@ -21,12 +21,23 @@ Add a group photo here!
 |Zihao Xia|qh24613@bristol.ac.uk|WeirdDruid|TBD|
 |Guanglong Xia|iu24606@bristol.ac.uk|X-Theodore|TBD|
 
-## kanban
+## Kanban link
+
 https://github.com/users/qtyohh/projects/1
 
 ## Weekly work
-### game idea research
-### Choice of ideas
+
+### Week 01
+
+
+
+### Week 02
+
+[Paint App](https://uoB-COMSM0166.github.io/2025-group-18/labprocess/week02/paint/)
+
+### Week 03
+
+
 
 ## Project Report
 
