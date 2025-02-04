@@ -21,6 +21,13 @@ Add a group photo here!
 |Zihao Xia|qh24613@bristol.ac.uk|WeirdDruid|TBD|
 |Guanglong Xia|iu24606@bristol.ac.uk|X-Theodore|TBD|
 
+## kanban
+https://github.com/users/qtyohh/projects/1
+
+## Weekly work
+### game idea research
+### Choice of ideas
+
 ## Project Report
 
 ### Introduction
