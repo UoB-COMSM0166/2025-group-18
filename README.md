@@ -29,13 +29,13 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ### Week 01
 
-1. Research games
-2. A list of inspiration (including game mechanics)
-3. Game ideas
+1. [Research game](docs/labprocess/week01/research-game.xlsx)
+2. [A list of inspiration (including game mechanics)](docs/labprocess/week01/Game-mechanics-example.docx)
+3. [Game ideas](docs/labprocess/week01/Inspiration-of-Knight.docx)
 
 ### Week 02
 
-1. [Paint Work](https://uoB-COMSM0166.github.io/2025-group-18/labprocess/week02/paint/)
+1. [Paint Work](docs/labprocess/week02/paint/)
 2. Two game ideas
 
 ### Week 03
