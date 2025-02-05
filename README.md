@@ -36,12 +36,12 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 ### Week 02
 
 1. [🖱️ Paint Work](https://uoB-COMSM0166.github.io/2025-group-18/labprocess/week02/paint/)
-2. [📜Two game ideas](docs/labprocess/week02/Two-Game-Ideas.md)
+2. [📜 Two game ideas](docs/labprocess/week02/Two-Game-Ideas.md)
 
 ### Week 03
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
-2. ![Digital wireframe](docs/labprocess/week03/)
+2. ![🎞️ Digital wireframe](docs/labprocess/week03/)
 3. [📜 Additional requirements](docs/labprocess/week03/.md)
 
 ### Week 04
