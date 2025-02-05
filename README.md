@@ -13,40 +13,40 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ![描述文本](docs/labprocess/week01/ourphoto.jpeg)
 
-|Name|Email|GithubID|Role|
-|:------:|:------:|:------:|:------:|
-|Tianyu Qi|yn24649@bristol.ac.uk|qtyohh|TBD|
-|Likun Liang|oy24839@bristol.ac.uk|lycorisadiata|TBD|
-|Yutong Liu|xm24685@bristol.ac.uk|WILLOW579|TBD|
-|Zihao Xia|qh24613@bristol.ac.uk|WeirdDruid|TBD|
-|Guanglong Xia|iu24606@bristol.ac.uk|X-Theodore|TBD|
+|Name|Email|GithubID|Role|Completed Work|
+|:------:|:------:|:------:|:------:|:------:|
+|Tianyu Qi|yn24649@bristol.ac.uk|qtyohh|TBD|TBD|
+|Likun Liang|oy24839@bristol.ac.uk|lycorisadiata|TBD|TBD|
+|Yutong Liu|xm24685@bristol.ac.uk|WILLOW579|TBD|TBD|
+|Zihao Xia|qh24613@bristol.ac.uk|WeirdDruid|TBD|TBD|
+|Guanglong Xia|iu24606@bristol.ac.uk|X-Theodore|TBD|TBD|
 
 ## Kanban link
 
-> https://github.com/users/qtyohh/projects/1
+> [🧩 Board · 2025-Group-18](https://github.com/orgs/UoB-COMSM0166/projects/129)
 
 ## Weekly work
 
 ### Week 01
 
-1. [Research game](docs/labprocess/week01/research-game.xlsx)
-2. [A list of inspiration (including game mechanics)](docs/labprocess/week01/Game-mechanics-example.docx)
-3. [Game ideas](docs/labprocess/week01/Inspiration-of-Knight.docx)
+1. [📊 Research game](docs/labprocess/week01/research-game.xlsx)
+2. [📝 A list of inspiration (including game mechanics)](docs/labprocess/week01/Game-mechanics-example.docx)
+3. [📝 Game ideas](docs/labprocess/week01/Inspiration-of-Knight.docx)
 
 ### Week 02
 
-1. [Paint Work](docs/labprocess/week02/paint/)
-2. Two game ideas
+1. [🖱️ Paint Work](https://uoB-COMSM0166.github.io/2025-group-18/labprocess/week02/paint/)
+2. [📜Two game ideas](docs/labprocess/week02/Two-Game-Ideas.md)
 
 ### Week 03
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
-2. Digital wireframe
-3. Additional requirements
+2. ![Digital wireframe](docs/labprocess/week03/)
+3. [📜 Additional requirements](docs/labprocess/week03/.md)
 
 ### Week 04
 
-1. Requirements section
+1. [📜 Requirements section](docs/labprocess/week04/.md)
 
 ## Project Report
 
