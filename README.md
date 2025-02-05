@@ -11,7 +11,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ## Your Group
 
-Add a group photo here!
+![描述文本](docs/labprocess/week01/ourphoto.jpeg)
 
 |Name|Email|GithubID|Role|
 |:------:|:------:|:------:|:------:|
@@ -23,21 +23,30 @@ Add a group photo here!
 
 ## Kanban link
 
-https://github.com/users/qtyohh/projects/1
+> https://github.com/users/qtyohh/projects/1
 
 ## Weekly work
 
 ### Week 01
 
-
+1. Research games
+2. A list of inspiration (including game mechanics)
+3. Game ideas
 
 ### Week 02
 
-[Paint App](https://uoB-COMSM0166.github.io/2025-group-18/labprocess/week02/paint/)
+1. [Paint Work](https://uoB-COMSM0166.github.io/2025-group-18/labprocess/week02/paint/)
+2. Two game ideas
 
 ### Week 03
 
+1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
+2. Digital wireframe
+3. Additional requirements
 
+### Week 04
+
+1. Requirements section
 
 ## Project Report
 
@@ -46,7 +55,7 @@ https://github.com/users/qtyohh/projects/1
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
 
-### Requirements 
+### Requirements
 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
