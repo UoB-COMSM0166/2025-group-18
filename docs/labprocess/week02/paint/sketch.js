@@ -38,7 +38,7 @@ function setup() {
 let colourR = 0;
 let colourG = 0;
 let colourB = 0;
-let ERASER = 255;
+let ERASER = 225;
 let ifEraser = false;
     
 function draw() {
