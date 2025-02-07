@@ -45,7 +45,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 ### Week 03
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
-2. ![🎞️ Digital wireframe](docs/labprocess/week03/)
+2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
 3. [📜 Additional requirements](docs/labprocess/week03/.md)
 
 ### Week 04
