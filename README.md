@@ -13,13 +13,17 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ![描述文本](docs/labprocess/week01/ourphoto.jpeg)
 
-|Name|Email|GithubID|Role|Completed Work|
-|:------:|:------:|:------:|:------:|:------:|
-|Tianyu Qi|yn24649@bristol.ac.uk|qtyohh|TBD|TBD|
-|Likun Liang|oy24839@bristol.ac.uk|lycorisadiata|TBD|TBD|
-|Yutong Liu|xm24685@bristol.ac.uk|WILLOW579|TBD|TBD|
-|Zihao Xia|qh24613@bristol.ac.uk|WeirdDruid|TBD|TBD|
-|Guanglong Xia|iu24606@bristol.ac.uk|X-Theodore|TBD|TBD|
+<div align="center">
+
+| Name | Email | GithubID | Role | Completed Work |
+| :-: | :-: | :-: | :-: | :-: |
+| Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | TBD | TBD |
+| Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | TBD |TBD |
+| Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | TBD | TBD |
+| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | TBD | TBD |
+| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | TBD | TBD |
+
+</div>
 
 ## Kanban link
 
@@ -46,7 +50,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ### Week 04
 
-1. [📜 Requirements section](docs/labprocess/week04/.md)
+1. [📜 Requirements section](docs/labprocess/week04/Epic.md)
 
 ## Project Report
 
