@@ -1,4 +1,5 @@
 # 2025-group-18
+
 2025 COMSM0166 group 18
 
 ## Your Game
@@ -46,23 +47,80 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
 2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
-3. [📜 Additional requirements](docs/labprocess/week03/.md)
+3. [📜 Additional requirements](docs/labprocess/week03/AdditionalRequirements.md)
 
 ### Week 04
 
 1. [📜 Requirements section](docs/labprocess/week04/Epic.md)
+1. [📜 Feedback section](docs/labprocess/week04/Feedback.md)
 
 ## Project Report
 
 ### Introduction
 
-- 5% ~250 words 
-- Describe your game, what is based on, what makes it novel? 
+- Game background
+  - The game depicts conflicts and technological changes driven by rising sea levels. In the early 22nd century, climate change caused a dramatic rise in sea levels, submerging most land. Humanity survives on floating cities, sea bases, and artificial highlands, but resource scarcity and environmental decline fuel tensions. Major factions battle for islands, ruins, and ocean resources, while corruption, pirates, and mercenary groups threaten the survivors. 
+  - The protagonist, a vengeful exile, lost their home to these upheavals. Navigating between floating cities and ruins, they face pirates, corrupt forces, deep-sea monsters, sudden superstorms, and mysterious ocean anomalies.
+
+- Game  mechanics
+  - This game features a highly replayable roguelike core loop, where each playthrough presents unique strategic choices. Key mechanics include procedurally generated levels, diverse weapon and skill combinations, progressively increasing difficulty, and a reward and penalty system, ensuring fresh challenges and opportunities in every run.
+  - Players will engage in a continuous cycle of “Start - Explore - Battle - Decision-Making - Death/Victory - Progress/Restart”, gradually enhancing their abilities, unlocking new content, and delving deeper into strategic gameplay. The game aims to deliver intense combat experiences while fostering a sense of achievement and enjoyment through repeated trials and growth.
+- Game innovation:
+  - A roguelike shooting survival game where each playthrough is unique, requiring players to fight, survive, and strategize in an ever-changing environment. Features various weapons and skill combinations, along with resource collection and upgrades, allowing players to enhance their abilities while facing intense combat.
+  - A dynamic climate system where weather and environmental changes directly impact gameplay. Superstorms may alter navigation routes, ocean currents affect movement speed, and mysterious ocean anomalies introduce new biological threats. Players must adapt to extreme weather conditions, adjusting their tactics to survive and fight effectively.
+  - An environmental pollution system where pollution levels fluctuate based on player and enemy activities, affecting the ecosystem, resource availability, and enemy strength. High-pollution areas may spawn mutated creatures, lower resource yields, and corrosive ocean conditions, while reducing pollution can unlock technological upgrades and allied support. Players can either purify the environment for long-term benefits or exploit pollution-induced chaos as a tactical advantage.
 
 ### Requirements
 
-- 15% ~750 words
-- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
+#### Epic
+
+| Bot | User Story | Acceptance Criteria |
+| :---: | :---: | :---: |
+| Action Shooter Enthusiast | As an action shooter game enthusiast, I have a lot of time recently, but most action shooters are too repetitive. I want to play a game that includes more randomness. | 1. Enemies, weapons, and battlefields are randomly generated in each session.<br />2. The difficulty of the game and the types of enemies dynamically adjust based on player progress.<br />3. The game has multiple random event triggers, such as sudden tasks and randomly dropped powerful equipment.<br />4. Players can experience a different gameplay process and challenges every time they play.<br />5. There is a random mode where players can choose to generate different challenges randomly. |
+| Rogue-like Enthusiast | As a roguelike game enthusiast, I've played many roguelike games, but few of them incorporate battlefield changes as part of the strategy. I want to play a roguelike game that includes battlefield changes as part of the strategy. | 1. The battlefield changes dynamically based on game progress or player choices.<br />2. The battlefield changes affect the player’s tactical decisions, such as the addition of obstacles or environmental changes (e.g., hazardous areas, terrain traps).<br />3. Players can actively alter the battlefield using specific skills or items.<br />4. Changing the battlefield requires players to weigh their strategy and resource management.<br />5. The impact of battlefield changes is clearly feedbacked in the game, such as increased combat difficulty or tactical advantages. |
+| Casual Gamer | As a casual gamer, I’ve always wanted to try roguelike games, but the learning curve of games like *The Binding of Isaac* and *Slay the Spire* is too steep for me. I find it hard to keep playing. I want the ability to customize the game difficulty so I can choose the difficulty based on my gaming level. | 1. The game offers multiple difficulty settings that players can adjust based on their skill level.<br />2. The game includes tutorials or guidance to help new players understand the basic gameplay.<br />3. The game provides progressively unlocked difficulty options, allowing players to gradually challenge higher levels as their skills improve.<br />4. At lower difficulties, enemy attack strength and numbers are reduced, making tasks easier to complete.<br />5. The game provides clear progress tracking and feedback, allowing players to see their achievements in the game. |
+| Game Auditor | As a game auditor, I want the game to have a wider audience, so I need to minimize graphic violence. | 1. The game avoids excessive graphic violence, including bloody or overly gory scenes.<br />2. Combat effects can be represented through non-lethal means, such as stunning or controlling, instead of direct killing.<br />3. The game’s content complies with age classification standards, avoiding excessively violent or disgusting elements.<br />4. The game avoids using vulgar, insulting, or extremist language or visual effects.<br />5. If necessary, the game provides adjustable violence levels to suit different audiences. |
+| Colorblind Player | As a colorblind player, I often find it difficult to distinguish between characters, items, etc., in fast-paced action games. I hope the game features elements with clear visual effects, such as different colored outlines, to improve my visual experience. | 1. Each character, item, enemy, and other elements in the game have clearly distinguishable marks, such as different colored borders or outlines.<br />2. The game offers colorblind modes or customizable color options to help colorblind players differentiate between elements.<br />3. The UI elements in the game (e.g., menus, buttons) are designed with colorblind players in mind to ensure all information is clearly visible.<br />4. Environmental and combat elements in the game are differentiated through shapes, textures, and other features to reduce reliance on color for identification.<br />5. The game offers visual effect options, allowing players to adjust visual markers according to their needs. |
+
+#### Early stages design
+
+![frame](docs/labprocess/week04/frame01.png)
+
+- Player Units:
+  1. **Character Status:** Health, Mana (for skills), Buff/Debuff, Attack Power, Damage Bonus, Movement Speed, Armor
+  2. **Weapons:** Types (melee, ranged), Parameters (damage, range, etc.), Ammunition management
+  3. **Skills:** Targeted or area-based, Cooldown, Effects, Skill upgrades (level scaling)
+  4. **Equipment:** Types (armor, accessories), Parameters, Effects, Limited quantity (e.g., consumables)
+  5. **Companions/Summons:** Number, Positioning, AI behavior, Attributes (health, attack power)
+- Enemy Units:
+  1. **Character Status:** Health, Buff/Debuff, Attributes (damage, armor, etc.)
+  2. **Weapons:** Types, Parameters (damage, range)
+  3. **Skills:** Independent skill set, AI-controlled usage (attacks, special moves)
+  4. **Equipment:** Impact on behavior or strength (e.g., more armor, stronger attacks)
+  5. **Special Cases:** Spawn locations, Strength scaling with progression, Unique behavior patterns (e.g., retreat when low health)
+- Neutral Units:
+  1. **Interaction:** Players can interact (e.g., trading, quest giving, combat)
+  2. **Other Functions:** Environmental impact (e.g., triggering events), NPC behaviors (e.g., healing, providing information)
+- Environment:
+  1. **Destructible Objects:** Interactive barriers, traps, walls that can be destroyed or altered by players (using weapons or skills)
+  2. **Indestructible Objects:** Static obstacles that remain throughout gameplay (e.g., terrain, background scenery)
+- User Interface & Interaction:
+  1. **Reward System:** Distributed based on performance (e.g., combat efficiency, quest completion), Scaling rewards based on progress (e.g., more powerful items as players advance)
+  2. **Portals & Teleportation:** Activate portals with specific conditions (e.g., key item, skill), Random destination selection for exploration
+  3. **Other Interactive Elements:** Shops (purchase items with in-game currency), Dialogue (with consequences for decisions), Decision-making events (moral choices, combat choices)
+- Randomization & Procedural Elements:
+  1. **Enemies:** Random selection from enemy types or predefined boss list based on player progression
+  2. **Weapon Acquisition:** Random drops from enemies, higher chance of finding similar weapons (based on player progression), Tiered unlocking system for better equipment
+  3. **Attribute/Buff Enhancements:** Random or tiered system (e.g., low-level buffs at the beginning, powerful buffs later)
+  4. **Random Events:** Pool of diverse events (e.g., ambushes, discoveries), Ensure no consecutive repeat events, Event dependencies (e.g., some events only trigger after certain conditions are met)
+
+#### Ideation process
+
+.keep
+
+#### The process of development
+
+.keep
 
 ### Design
 
