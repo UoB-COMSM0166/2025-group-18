@@ -114,13 +114,21 @@ Include a demo video of your game here (you don't have to wait until the end, yo
   3. **Attribute/Buff Enhancements:** Random or tiered system (e.g., low-level buffs at the beginning, powerful buffs later)
   4. **Random Events:** Pool of diverse events (e.g., ambushes, discoveries), Ensure no consecutive repeat events, Event dependencies (e.g., some events only trigger after certain conditions are met)
 
-#### Ideation process
+#### The process of development and ideation
 
-.keep
+- Initially, we planned to develop a Rogue-like dungeon-crawling game, drawing inspiration from classic titles such as *The Binding of Isaac* and *Soul Knight*. Based on these influences, we designed the core development modules and created preliminary sketches to visualize the game's overall structure and artistic style (as shown below).
 
-#### The process of development
+![process-01](docs/labprocess/week04/process-01.jpg)
 
-.keep
+- However, during subsequent discussions and iterations, we realized that our game lacked sufficient innovation and engaging gameplay elements. To address this, we held multiple discussions to explore possible improvements and ultimately decided to reimagine the game’s setting and mechanics. After careful deliberation, we shifted the game’s background to the vast open sea, allowing players to embark on an adventurous maritime journey across uncharted waters.
+
+  With this new direction in mind, we redesigned the game's initial concept, including multi-view ship models, conceptual environment art, and revamped gameplay mechanics (as shown below). This transformation not only gave our game a more distinctive theme but also provided a richer creative foundation for further development.
+
+| **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="1200"> |
+
+![process-02](docs/labprocess/week04/process-02.jpg)
 
 ### Design
 
