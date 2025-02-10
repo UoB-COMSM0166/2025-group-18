@@ -126,7 +126,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 | **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="200"> |
+| <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="300"> |
 
 ![process-02](docs/labprocess/week04/process-02.jpg)
 
