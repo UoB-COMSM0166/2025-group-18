@@ -52,16 +52,44 @@ class Bullet extends BasicObject {
         this.ySpeed = ySpeed;
         this.toDelete = false;
         this.exploded = false;
+        this.frames = [];   
+        this.currentFrame = 0;  
+        this.frameRate = 10;  
+        this.frameCount = 0; 
+    }
+
+    preload() {
+        console.log('加载子弹动画帧');
+        this.frames[0] = loadImage('../../images/docs/img/png/bullet/1.png');
+        this.frames[1] = loadImage('../../images/docs/img/png/bullet/2.png');
+        this.frames[2] = loadImage('../../images/docs/img/png/bullet/3.png');
     }
 
     updateStatus() {
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 0) {
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
+    }
+
+    drawBullet() {
+        
+        imageMode(CENTER);
+        image(this.frames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              this.frames[this.currentFrame].width/7, this.frames[this.currentFrame].height/7 );
     }
 
     show() {
-        fill(0, 255, 0);
-        super.show();
+        if (this.frames.length === 0) {
+            this.preload();
+        }
+        console.log("发射了子弹图片");
+        // fill(0, 255, 0);
+        // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+        this.drawBullet();
     }
 
     /*explode() {
