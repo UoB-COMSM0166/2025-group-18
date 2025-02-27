@@ -10,6 +10,10 @@ Your game lives in the [/docs](/docs) folder, and is published using Github page
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
 
+>  [!IMPORTANT] 
+>
+> Our team previously developed and modified code in this [📦 GitHub repository](https://github.com/qtyohh/Plan-Roguelike-Knight)
+
 ## Your Group
 
 ![描述文本](docs/labprocess/week01/ourphoto.jpeg)
