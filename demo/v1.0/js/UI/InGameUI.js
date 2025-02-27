@@ -14,7 +14,7 @@ class InGameUI {
 
     preload() {
         try {
-            this.font = loadFont('./UI/Orbitron.ttf');
+            this.font = loadFont('./demo/v1.0/js/UI/Orbitron.ttf');
         } catch (e) {
             console.log('error:', e);
         }
