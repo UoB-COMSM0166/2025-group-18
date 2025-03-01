@@ -71,7 +71,7 @@ class WaveManager {
     constructor() {
         this.waves = [];
         this.lastWaveTime = 0;
-        this.interval = 150;
+        this.interval = 1500;
     }
 
     update(islands, player, enemies) {

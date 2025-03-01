@@ -1,5 +1,5 @@
 class Enemy extends BasicObject {
-    constructor(xCoordinate, yCoordinate, enemyModelType, enemyAttackCallBack, enemyMoveCallBack) {
+    constructor(xCoordinate, yCoordinate, enemyModelType, enemyAttackCallBack, enemyMoveCallBack, pollutionInstance) {
         const enemyModel = getEnemyModel(enemyModelType);
         super(
             enemyModel.name,
@@ -13,7 +13,6 @@ class Enemy extends BasicObject {
             enemyModel.speed,
         );
         this.modelType = enemyModel.type;
-
         this.attackPower = enemyModel.attackPower;
         this.attackCD = enemyModel.attackCD;
         this.lastAttackTime = 0;
@@ -24,6 +23,25 @@ class Enemy extends BasicObject {
         this.lastCollideTime = 0;
         this.wavePushX = 0;
         this.wavePushY = 0;
+
+        this.baseSpeed = enemyModel.speed;
+        this.baseAttack = enemyModel.attackPower;
+        this.baseHP = enemyModel.HP;
+        this.pollutionInstance = pollutionInstance;
+        const pollutionEffect = this.pollutionInstance.getEffect();
+        this.maxHP = this.baseHP * pollutionEffect.healthMul;
+        this.HP = this.maxHP;
+    }
+
+    updateStatus() {
+        const pollutionEffect = this.pollutionInstance.getEffect();
+        this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
+        this.attackPower = this.baseAttack * pollutionEffect.damageMul;
+        let newMaxHP = this.baseHP * pollutionEffect.healthMul;
+        if (this.maxHP !== newMaxHP) {
+            this.HP = Math.min(this.HP, newMaxHP);
+        }
+        this.maxHP = newMaxHP;
     }
 
     show() {
@@ -38,6 +56,14 @@ class Enemy extends BasicObject {
 
             fill(255, 0, 0);
             rect(this.xCoordinate, this.yCoordinate - 10, hpBar, 5);
+            
+            //测试用
+            fill(255);
+            textSize(12);
+            textAlign(CENTER, CENTER);
+            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, this.yCoordinate - 20);
+            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, this.yCoordinate - 35);
+            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, this.yCoordinate - 50);
         }
     }
 
@@ -56,6 +82,7 @@ class Enemy extends BasicObject {
     }
 
     enemyAI(playerX, playerY, enemy) {
+        this.updateStatus()
         if (this.isAlive) {
             let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
             if (distance > this.seeRange) {

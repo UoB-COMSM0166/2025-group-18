@@ -58,14 +58,17 @@ class Game {
             EASY_ENEMY_MODEL_1_TYPE,
             (xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) => this.addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+            this.#pollution
         );
         this.#enemies.push(enemy);
+
         const enemy_1 = new Enemy(
             400, 
             100, 
             EASY_ENEMY_MODEL_2_TYPE,
             (xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) => this.addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+            this.#pollution
         );
         this.#enemies.push(enemy_1);
     }
@@ -179,6 +182,7 @@ class Game {
             this.#gameOver = true;
             console.log("Game Over!");
         }
+
         this.#playerController.updateStatus();
         this.#player.show();    
 
