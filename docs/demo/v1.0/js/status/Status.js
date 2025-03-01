@@ -1,20 +1,20 @@
 class Status {
     #playerStatus = {
-        xSize : 0,
-        ySize : 0,
-        HPmax : 0,
-        HP : 0,
-        speed : 0,
-        shipType : 0,
-        gold : 0, 
-        skillCD : 0, 
-        maxSkillCD : 0
+        xSize: 0,
+        ySize: 0,
+        HPmax: 0,
+        HP: 0,
+        speed: 0,
+        shipType: 0,
+        gold: 0,
+        skillCD: 0,
+        maxSkillCD: 0,
+        pollution: 0,
+        pollutionLevel: 1
     };
-    #pollution;
     #equipments = [];
-    
     constructor() {
-        
+
     }
 
     setShipBasicStatus(shipType) {
@@ -25,6 +25,8 @@ class Status {
         this.#playerStatus.speed = SHIP_MODEL[shipType].speed;
         this.#playerStatus.skillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
+        this.#playerStatus.pollution = 0;
+        this.#playerStatus.pollutionLevel = 1;
     }
 
     getShipStatus() {
@@ -37,5 +39,10 @@ class Status {
 
     updateSkillCD(skillCD) {
         this.#playerStatus.skillCD = skillCD;
+    }
+    
+    updatePollution(pollution, pollutionLevel) {
+        this.#playerStatus.pollution = pollution;
+        this.#playerStatus.pollutionLevel = pollutionLevel;
     }
 }

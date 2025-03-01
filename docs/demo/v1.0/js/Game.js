@@ -10,6 +10,7 @@ class Game {
     #gameWin;
     #playerBuffController;
     #enemyBuffController;
+    #pollution
 
     constructor(updateStepCallBack) {
         this.#player = null;
@@ -25,6 +26,7 @@ class Game {
         this.#playerBuffController = null;
         this.#enemyBuffController = new Map();
         this.curTime = Date.now();
+        this.#pollution = new Pollution();
     }
 
     initPlayer(playerBasicStatus) {
@@ -102,7 +104,9 @@ class Game {
             HP : this.#player.HP,
             HPmax : this.#player.HPmax, 
             skillCD : this.#player.skillCD, 
-            maxSkillCD : this.#player.maxSkillCD
+            maxSkillCD : this.#player.maxSkillCD,
+            pollution: this.#pollution.pollution,
+            pollutionLevel: this.#pollution.pollutionLevel
         };
         return playerStatus;
     }
@@ -189,7 +193,6 @@ class Game {
 
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
-
     }   
 
     checkCollideBullet(bullet) {
@@ -319,6 +322,7 @@ class Game {
             currentWeapon.bulletSpeed
         );
         this.#bullets.push(bullet);
+        this.#pollution.increasePollution();
     }
 
     addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) {
