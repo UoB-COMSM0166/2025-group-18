@@ -7,7 +7,7 @@ class Wave {
         this.type = type;
 
         this.speed = Math.sqrt(vx * vx + vy * vy);
-        this.pushForce = (this.type == "big") ? 0.9 : 0.5;
+        this.pushForce = (this.type == "big") ? 1.2 : 0.8;
 
         if (Math.abs(vx) > Math.abs(vy)) {
             this.xSize = (this.type == "big") ? 100 : 66;
@@ -71,7 +71,7 @@ class WaveManager {
     constructor() {
         this.waves = [];
         this.lastWaveTime = 0;
-        this.interval = 1500;
+        this.interval = 1000;
     }
 
     update(islands, player, enemies) {
