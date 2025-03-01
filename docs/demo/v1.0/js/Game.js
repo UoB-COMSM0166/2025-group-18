@@ -79,7 +79,8 @@ class Game {
             height * 0.3,
             BOSS_MODEL_OCTOPUS_TYPE,
             (xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) => this.addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower),
-            (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy)
+            (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+            this.#pollution
         );
         this.#enemies.push(boss);
     }
@@ -181,6 +182,13 @@ class Game {
         if (this.#player.HP <= 0) {
             this.#gameOver = true;
             console.log("Game Over!");
+        }
+
+        const pollutionEffect = this.#pollution.getEffect();
+        if (pollutionEffect.playerDeath) {
+            this.#gameOver = true;
+            console.log("污染环境的渣渣！去死吧！");
+            return;
         }
 
         this.#playerController.updateStatus();

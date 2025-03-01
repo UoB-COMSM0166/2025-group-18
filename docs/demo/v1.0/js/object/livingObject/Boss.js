@@ -1,5 +1,5 @@
 class Boss extends BasicObject {
-    constructor(xCoordinate, yCoordinate, bossModelType, enemyAttackCallBack, enemyMoveCallBack) {
+    constructor(xCoordinate, yCoordinate, bossModelType, enemyAttackCallBack, enemyMoveCallBack, pollutionInstance) {
         const bossModel = getBossModel(bossModelType);
         console.log(bossModel);
         super(
@@ -30,6 +30,32 @@ class Boss extends BasicObject {
         this.lastCollideTime = 0;
         this.wavePushX = 0;
         this.wavePushY = 0;
+
+        this.baseSpeed = bossModel.speed;
+        this.baseAttack = bossModel.attackPower;
+        this.baseHP = bossModel.HP;
+        this.baseAttackCD = bossModel.attackCD;
+        this.pollutionInstance = pollutionInstance;
+
+        const pollutionEffect = this.pollutionInstance.getEffect();
+        this.maxHP = this.baseHP * pollutionEffect.healthMul;
+        this.HP = this.maxHP;
+        this.attackPower = this.baseAttack * pollutionEffect.damageMul;
+        this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
+    }
+
+    updateStatus() {
+        const pollutionEffect = this.pollutionInstance.getEffect();
+
+        this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
+        this.attackPower = this.baseAttack * pollutionEffect.damageMul;
+        this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
+
+        let newMaxHP = this.baseHP * pollutionEffect.healthMul;
+        if (this.maxHP !== newMaxHP) {
+            this.HP = Math.min(this.HP, newMaxHP);
+        }
+        this.maxHP = newMaxHP;
     }
 
     show() {
@@ -62,6 +88,7 @@ class Boss extends BasicObject {
     }
 
     enemyAI(playerX, playerY) {
+        this.updateStatus();
         if (this.isAlive) {
             let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
         

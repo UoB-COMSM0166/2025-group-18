@@ -109,18 +109,18 @@ const ENEMY_MODEL = [
         xSize : 30,  
         ySize : 30,
         HP : 5,
-        speed : 1,
+        speed : 2,
         attackPower : 1,
         attackCD : 1,
         attackRange : 400,
-        seeRange : 500
+        seeRange : 1000
     }, {
         name : "easy_enemy_2",
         type : EASY_ENEMY_MODEL_2_TYPE,
         xSize : 30,  
         ySize : 30,
         HP : 10,
-        speed : 2,
+        speed : 3,
         attackPower : 2,
         attackCD : 1,
         attackRange : 10,
