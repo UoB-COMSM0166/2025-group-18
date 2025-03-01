@@ -26,7 +26,22 @@ class Building extends BasicObject {
     }
 
     show() {
-        fill(255, 255, 255);
+        switch (this.modelType) {
+            case BUILDING_MODEL_CHEMICAL_BOX_TYPE:
+                fill(0, 255, 0);
+                break;
+            case BUILDING_MODEL_TNT_TYPE:
+                fill(255, 0, 0);
+                break;
+            case BUILDING_MODEL_CHEST_TYPE:
+                fill(139, 69, 19);
+                break;
+            case BUILDING_MODEL_BOMB_TYPE:
+                fill(139, 0, 0);
+                break;
+            default:
+                fill(255, 255, 255);
+        }
         super.show();
         if (this.modelType == BUILDING_MODEL_BOMB_TYPE) {
             this.updateHP(-1);

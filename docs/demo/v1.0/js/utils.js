@@ -245,7 +245,7 @@ const BUILDING_MODEL = [
         type: BUILDING_MODEL_CHEMICAL_BOX_TYPE,
         xSize: 30,
         ySize: 30,
-        HP: 3
+        HP: 2
     }
 ];
 
