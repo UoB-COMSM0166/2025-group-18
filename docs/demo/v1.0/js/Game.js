@@ -27,6 +27,7 @@ class Game {
         this.#enemyBuffController = new Map();
         this.curTime = Date.now();
         this.#pollution = new Pollution();
+        Building.setPollutionInstance(this.#pollution);
     }
 
     initPlayer(playerBasicStatus) {
@@ -88,16 +89,33 @@ class Game {
     }
 
     initBuilding() {
-
-        const building = new Building(
+        const chemicalBox = new Building(
             300, 
             300, 
-            BUILDING_MODEL_TNT_TYPE,
+            BUILDING_MODEL_CHEMICAL_BOX_TYPE,  
             (xCoor, yCoor, harm, attackBit, explodeType) => 
-                this.addExplode(xCoor, yCoor, harm, attackBit, explodeType)
+                this.addExplode(xCoor, yCoor, harm, attackBit, explodeType),
         );
-        this.#buildings.push(building);
+        this.#buildings.push(chemicalBox);
+    
+        const tnt = new Building(
+            400, 
+            400, 
+            BUILDING_MODEL_TNT_TYPE,  
+            (xCoor, yCoor, harm, attackBit, explodeType) => 
+                this.addExplode(xCoor, yCoor, harm, attackBit, explodeType),
+        );
+        this.#buildings.push(tnt);
+    
+        const chest = new Building(
+            500, 
+            500, 
+            BUILDING_MODEL_CHEST_TYPE,  
+            null,
+        );
+        this.#buildings.push(chest);
     }
+    
 
     getPlayerStatus() {
         const playerStatus = {
@@ -354,7 +372,7 @@ class Game {
                 this.addExplode(x, y, harm, attackBit, explodeType)
         );
         this.#buildings.push(bomb);
-        this.#pollution.increasePollution("Bomb");
+        this.#pollution.increasePollution("skill");
     }
 
     addExplode(xCoor, yCoor, harm, attackBit, explodeType) {

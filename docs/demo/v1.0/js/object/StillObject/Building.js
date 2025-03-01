@@ -3,6 +3,7 @@ const EXPLORE_WAITING_TIME = 100;
 const TNT_EXPLODE_HARM = 2;
 
 class Building extends BasicObject {
+    static #pollution;
     constructor(xCoor, yCoor, modelType, explodeCallBack) {
         const buildingModel = getBuildingModel(modelType);
         super(
@@ -19,6 +20,11 @@ class Building extends BasicObject {
         this.modelType = buildingModel.type;
         this.explodeCallBack = explodeCallBack;
     }
+
+    static setPollutionInstance(pollutionInstance) {
+        Building.#pollution = pollutionInstance;
+    }
+
     show() {
         fill(255, 255, 255);
         super.show();
@@ -49,8 +55,12 @@ class Building extends BasicObject {
                     EXPLODE_ATTACK_BIT,
                     EXPLODE_MODEL_TNT_TYPE
                 );
+                if (Building.#pollution) { 
+                    Building.#pollution.increasePollution("TNT");
+                }
                 break;
             }
+        
             case BUILDING_MODEL_BOMB_TYPE: {
                 this.explodeCallBack(
                     this.xCoordinate,
@@ -59,8 +69,26 @@ class Building extends BasicObject {
                     EXPLODE_ATTACK_BIT,
                     EXPLODE_MODEL_BOMB_TYPE
                 );
+                if (Building.#pollution) {
+                    Building.#pollution.increasePollution("bomb");
+                }
                 break;
             }
+            
+            case BUILDING_MODEL_CHEMICAL_BOX_TYPE: {
+                this.explodeCallBack(
+                    this.xCoordinate,
+                    this.yCoordinate,
+                    TNT_EXPLODE_HARM,
+                    EXPLODE_ATTACK_BIT,
+                    EXPLODE_MODEL_BOMB_TYPE
+                );
+                if (Building.#pollution) {
+                    Building.#pollution.increasePollution("chemical_box");
+                }
+                break;
+            }
+
         }
     }
 

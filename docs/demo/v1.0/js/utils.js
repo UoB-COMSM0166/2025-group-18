@@ -212,7 +212,8 @@ const BUILDING_MODEL_ERROR_TYPE = 0;
 const BUILDING_MODEL_TNT_TYPE = 1;
 const BUILDING_MODEL_CHEST_TYPE = 2;
 const BUILDING_MODEL_BOMB_TYPE = 3;
-const BUILDING_MODEL_MAX_TYPE = 4;
+const BUILDING_MODEL_CHEMICAL_BOX_TYPE = 4;
+const BUILDING_MODEL_MAX_TYPE = 5;
 
 const BUILDING_MODEL = [
     {
@@ -239,6 +240,12 @@ const BUILDING_MODEL = [
         xSize : 20,
         ySize : 20,
         HP : 200
+    },{
+        name: "chemical_box",
+        type: BUILDING_MODEL_CHEMICAL_BOX_TYPE,
+        xSize: 30,
+        ySize: 30,
+        HP: 3
     }
 ];
 

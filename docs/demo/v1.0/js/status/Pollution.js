@@ -4,7 +4,11 @@ class Pollution {
         this.pollutionLevel = 1;
         this.pollutionSources = {
             bullet: 1,
-            Bomb: 10,
+            skill: 10,
+            bomb: 10,
+            TNT: 20,
+            chemical_box: 50,
+
         };
     }
 
