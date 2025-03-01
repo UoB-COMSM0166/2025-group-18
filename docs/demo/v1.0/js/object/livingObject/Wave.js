@@ -53,7 +53,7 @@ class Wave {
                     this.finished = true;
                     return;
                 }*/
-                if (typeof enemy.applyWaveForce === "function") {
+                if (typeof enemy.applyWaveForce == "function") {
                     enemy.applyWaveForce(pushX, pushY);
                 }
             }
@@ -62,7 +62,7 @@ class Wave {
 
     show() {
         noStroke();
-        fill(this.type === "big" ? [255, 0, 0, 127] : [0, 0, 255, 127]);
+        fill(this.type == "big" ? [255, 0, 0, 127] : [0, 0, 255, 127]);
         rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
     }
 }
@@ -102,7 +102,7 @@ class WaveManager {
         let randomEdge = random(edges);
         let x, y, vx, vy, speed = random(1.5, 4);
 
-        if (randomEdge === "left") {
+        if (randomEdge == "left") {
             x = 10;
             y = random(height);
             vx = speed;

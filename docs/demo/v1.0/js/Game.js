@@ -129,7 +129,6 @@ class Game {
             bullet.updateStatus();
             if (this.checkCollideBullet(bullet)) {
                 this.#bullets[i].toDelete = true;
-                console.log(bullet);
                 this.addExplode(
                     bullet.xCoordinate,
                     bullet.yCoordinate,
@@ -322,7 +321,7 @@ class Game {
             currentWeapon.bulletSpeed
         );
         this.#bullets.push(bullet);
-        this.#pollution.increasePollution();
+        this.#pollution.increasePollution("bullet");
     }
 
     addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) {
@@ -355,6 +354,7 @@ class Game {
                 this.addExplode(x, y, harm, attackBit, explodeType)
         );
         this.#buildings.push(bomb);
+        this.#pollution.increasePollution("Bomb");
     }
 
     addExplode(xCoor, yCoor, harm, attackBit, explodeType) {

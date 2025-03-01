@@ -2,21 +2,26 @@ class Pollution {
     constructor() {
         this.pollution = 0;
         this.pollutionLevel = 1;
+        this.pollutionSources = {
+            bullet: 1,
+            Bomb: 10,
+        };
     }
 
-    increasePollution(amount = 1) {
+    increasePollution(source, amount = this.pollutionSources[source]) {
         this.pollution += amount;
         this.updatePollutionLevel();
-        console.log(`Pollution: ${this.pollution}, Level: ${this.pollutionLevel}`);
+        console.log(`Pollution +${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
     }
+    
 
     updatePollutionLevel() {
         let pollution = this.pollution;
-        if (pollution < 20) this.pollutionLevel = 1;
-        else if (pollution < 40) this.pollutionLevel = 2;
-        else if (pollution < 60) this.pollutionLevel = 3;
-        else if (pollution < 80) this.pollutionLevel = 4;
-        else if (pollution < 100) this.pollutionLevel = 5;
+        if (pollution < 200) this.pollutionLevel = 1;
+        else if (pollution < 400) this.pollutionLevel = 2;
+        else if (pollution < 600) this.pollutionLevel = 3;
+        else if (pollution < 800) this.pollutionLevel = 4;
+        else if (pollution < 1000) this.pollutionLevel = 5;
         else this.pollutionLevel = 6;
     }
 
