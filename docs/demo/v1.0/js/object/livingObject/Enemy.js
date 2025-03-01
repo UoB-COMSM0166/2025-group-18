@@ -127,8 +127,9 @@ class Enemy extends BasicObject {
     }
 
     applyWaveForce(forceX, forceY) {
-        this.wavePushX = forceX;
-        this.wavePushY = forceY;
+    let speedFactor = this.speed > 0 ? this.speed : 1;
+    this.wavePushX = forceX / speedFactor;
+    this.wavePushY = forceY / speedFactor;
     }
 
 }
