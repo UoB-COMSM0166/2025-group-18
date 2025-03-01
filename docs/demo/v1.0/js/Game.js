@@ -60,7 +60,6 @@ class Game {
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
             this.#pollution
         );
-        enemy.HP = enemy.maxHP;
         this.#enemies.push(enemy);
 
         const enemy_1 = new Enemy(
@@ -71,7 +70,6 @@ class Game {
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
             this.#pollution
         );
-        enemy.HP = enemy.maxHP;
         this.#enemies.push(enemy_1);
     }
 
@@ -84,7 +82,6 @@ class Game {
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
             this.#pollution
         );
-        boss.HP = boss.maxHP;
         this.#enemies.push(boss);
     }
 

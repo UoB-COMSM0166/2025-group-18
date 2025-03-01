@@ -52,8 +52,8 @@ class Boss extends BasicObject {
         this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
 
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
-        if (this.maxHP !== newMaxHP) {
-            this.HP = Math.min(this.HP, newMaxHP);
+        if (this.maxHP !== newMaxHP && this.maxHP > 0) {  
+            this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
     }
