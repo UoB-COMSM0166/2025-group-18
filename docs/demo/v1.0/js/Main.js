@@ -35,7 +35,7 @@ class Main {
         }
         
         this.#game.initPlayer(playerBasicStatus);
-    
+        this.#game.setPollution(this.#status.getShipStatus().pollution);
         //this.#game.initEnemies();
         this.#game.initIslands();
         this.#game.initBuilding();
@@ -173,6 +173,7 @@ class Main {
         const playerStatus = this.#game.getPlayerStatus();
         this.#status.updateHP(playerStatus.HP);
         this.#status.updateSkillCD(playerStatus.skillCD);
+        this.#status.updatePollution(playerStatus.pollution, playerStatus.pollutionLevel);
     }
 
     updateStep(stepChangeType) {
