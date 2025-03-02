@@ -26,7 +26,7 @@ class Building extends BasicObject {
     }
 
     show() {
-        switch (this.modelType) {
+        switch(this.modelType) {
             case BUILDING_MODEL_CHEMICAL_BOX_TYPE:
                 fill(0, 255, 0);
                 break;
@@ -64,7 +64,7 @@ class Building extends BasicObject {
 
     deadRattle() {
         console.log("----dead rattle----");
-        switch (this.modelType) {
+        switch(this.modelType) {
             case BUILDING_MODEL_TNT_TYPE: {
                 this.explodeCallBack(
                     this.xCoordinate,
