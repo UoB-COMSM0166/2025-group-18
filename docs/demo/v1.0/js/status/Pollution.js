@@ -2,7 +2,7 @@ class Pollution {
     constructor() {
         this.pollution = 0;
         this.pollutionLevel = 1;
-        this.enemyKillReductionMul = 0.5;
+        this.enemyKillReductionMul = 5;
         this.pollutionSources = {
             bullet: 1,
             skill: 10,
@@ -10,7 +10,8 @@ class Pollution {
             TNT: 20,
             chemical_box: 50,
             rubbish: -200,
-            enemy_kill: "relevance_maxHP"
+            enemy_kill: "relevance_maxHP",
+            boss_kill: "relevance_maxHP"
         };
 
         this.pollutionEffects = {
