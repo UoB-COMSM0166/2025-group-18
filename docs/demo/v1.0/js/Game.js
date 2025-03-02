@@ -216,7 +216,7 @@ class Game {
                 let enemy = this.#enemies[i];
                 if (!enemy.isAlive) {
                     if (enemy instanceof Boss) {
-                        this.#pollution.increasePollution("boss_kill", enemy.maxHP);
+                        this.#pollution.increasePollution("boss_kill", 1000*enemy.maxHP);
                     } else {
                         this.#pollution.increasePollution("enemy_kill", enemy.maxHP);
                     }
