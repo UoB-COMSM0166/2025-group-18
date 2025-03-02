@@ -10,6 +10,10 @@ class InGameUI {
         this.cdFlash = 0;
         this.pulse = 0;
         this.font = null;
+        this.pollution = 1;
+        this.maxPollution = 1;
+        this.pollutionLevel = 1;
+        this.maxPollutionLevel = 1;
     }
 
     preload() {
@@ -31,12 +35,18 @@ class InGameUI {
         this.currentHP = Math.max(0, Math.min(this.currentHP, this.targetHP));
 
         // dynamic scaling
-        this.pulse = sin(frameCount * 0.01) * 0.01;
+        this.pulse = sin(frameCount * 0.01) * 0.002;
         this.uiScale = 1 + this.pulse;
 
         // flash effect
         this.hpFlash *= 0.95;
         this.cdFlash *= 0.95;
+
+        // pollution update
+        this.maxPollution = Status.MAX_POLLUTION;
+        this.maxPollutionLevel = Status.POLLUTION_MAX_LEVEL;
+        this.pollution = this.pollution = lerp(this.pollution, playerStatus.pollution, 0.1);
+        this.pollutionLevel = playerStatus.pollutionLevel;
     }
 
     show(playerStatus) {
@@ -45,6 +55,48 @@ class InGameUI {
         this.drawHolographicFrame();
         this.drawHealthBar();
         this.drawSkillStatus(playerStatus);
+        this.drawPollutionStatus();
+        pop();
+    }
+
+    drawPollutionStatus() {
+        push();
+        rectMode(CORNER);
+        translate(-120, 650);
+
+        const barHeight = 200;
+        const levelHeight = barHeight / this.maxPollutionLevel;
+        const pollutionPercent = Math.min(this.pollution / this.maxPollution, 1);
+        const barFillHeight = barHeight * pollutionPercent;
+
+        // pollution bar bg
+        fill(50, 100);
+        noStroke();
+        rect(20, 30, 20, barHeight, 5);
+
+        // pollution bar fill
+        fill(100, 255, 100);
+        rect(20, 30 + barHeight - barFillHeight, 20, barFillHeight, 5);
+
+        // level lines
+        stroke(255);
+        strokeWeight(2);
+        for (let i = 1; i <= this.maxPollutionLevel; i++) {
+            const y = 30 + barHeight - i * levelHeight;
+            line(20, y, 40, y);
+        }
+
+        // text
+        push();
+        translate(50, 20 + barHeight);
+        textFont(this.font || 'Arial Black');
+        textSize(15);
+        fill(255);
+        noStroke();
+        textAlign(LEFT, CENTER);
+        text(`Pollution: ${Math.round(this.pollution)}/${this.maxPollution}`, 0, 0);
+        pop();
+
         pop();
     }
 
