@@ -8,7 +8,7 @@ class Pollution {
             bomb: 300,
             TNT: 20,
             chemical_box: 50,
-            rubbish: -50
+            rubbish: -200
         };
 
         this.pollutionEffects = {
@@ -22,7 +22,7 @@ class Pollution {
     }
 
     increasePollution(source, amount = this.pollutionSources[source]) {
-        this.pollution += amount;
+        this.pollution = Math.max(0, this.pollution + amount);
         this.updatePollutionLevel();
         console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
     }
