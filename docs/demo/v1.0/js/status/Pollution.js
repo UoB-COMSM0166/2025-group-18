@@ -4,7 +4,7 @@ class Pollution {
         this.pollutionLevel = 1;
         this.enemyKillReductionMul = 5;
         this.pollutionSources = {
-            bullet: 1,
+            bullet: 2,
             skill: 10,
             bomb: 300,
             TNT: 20,
@@ -46,7 +46,6 @@ class Pollution {
             this.pollutionLevel = Math.floor(this.pollution / 200) + 1;
         }
     }
-
 
     getEffect() {
         return this.pollutionEffects[this.pollutionLevel] ||
