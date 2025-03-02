@@ -9,10 +9,10 @@ class Building extends BasicObject {
         super(
             buildingModel.name,
             BUILDING_TYPE,
-            xCoor, 
-            yCoor, 
-            buildingModel.xSize, 
-            buildingModel.ySize, 
+            xCoor,
+            yCoor,
+            buildingModel.xSize,
+            buildingModel.ySize,
             NO_HARM_ATTACK_BIT,
             buildingModel.HP,
             0
@@ -50,7 +50,7 @@ class Building extends BasicObject {
             this.updateHP(-1);
         }
     }
-    
+
     updateHP(change) {
         super.updateHP(change);
         if (!this.isAlive) {
@@ -64,7 +64,7 @@ class Building extends BasicObject {
 
     deadRattle() {
         console.log("----dead rattle----");
-        switch(this.modelType) {
+        switch (this.modelType) {
             case BUILDING_MODEL_TNT_TYPE: {
                 this.explodeCallBack(
                     this.xCoordinate,
@@ -73,12 +73,12 @@ class Building extends BasicObject {
                     EXPLODE_ATTACK_BIT,
                     EXPLODE_MODEL_TNT_TYPE
                 );
-                if (Building.#pollution) { 
+                if (Building.#pollution) {
                     Building.#pollution.increasePollution("TNT");
                 }
                 break;
             }
-        
+
             case BUILDING_MODEL_BOMB_TYPE: {
                 this.explodeCallBack(
                     this.xCoordinate,
@@ -92,7 +92,7 @@ class Building extends BasicObject {
                 }
                 break;
             }
-            
+
             case BUILDING_MODEL_CHEMICAL_BOX_TYPE: {
                 this.explodeCallBack(
                     this.xCoordinate,
@@ -108,12 +108,12 @@ class Building extends BasicObject {
             }
 
             case BUILDING_MODEL_RUBBISH_TYPE: {
-                if (Building.#pollution) { 
+                if (Building.#pollution) {
                     Building.#pollution.increasePollution("rubbish");
                 }
                 break;
             }
-            
+
 
         }
     }

@@ -1,4 +1,6 @@
 class Status {
+    static MAX_POLLUTION = 1000;
+    static POLLUTION_MAX_LEVEL = 6;
     #playerStatus = {
         xSize: 0,
         ySize: 0,
@@ -33,6 +35,14 @@ class Status {
         return this.#playerStatus;
     }
 
+    getMaxPollution() {
+        return Status.MAX_POLLUTION;
+    }
+
+    getPollutionLevelRange() {
+        return Status.POLLUTION_MAX_LEVEL;
+    }
+
     updateHP(HP) {
         this.#playerStatus.HP = HP;
     }
@@ -40,7 +50,7 @@ class Status {
     updateSkillCD(skillCD) {
         this.#playerStatus.skillCD = skillCD;
     }
-    
+
     updatePollution(pollution, pollutionLevel) {
         this.#playerStatus.pollution = pollution;
         this.#playerStatus.pollutionLevel = pollutionLevel;

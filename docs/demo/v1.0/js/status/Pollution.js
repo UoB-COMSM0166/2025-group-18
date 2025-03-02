@@ -27,7 +27,7 @@ class Pollution {
     increasePollution(source, amount = this.pollutionSources[source]) {
         let baseAmount = this.pollutionSources[source];
 
-        if (baseAmount === "relevance_maxHP") {
+        if (baseAmount == "relevance_maxHP") {
             amount = -Math.round(amount * this.enemyKillReductionMul);
         } else {
             amount = baseAmount;
@@ -40,17 +40,20 @@ class Pollution {
 
 
     updatePollutionLevel() {
+        let maxPollution = Status.MAX_POLLUTION;
+        let maxLevel = Status.POLLUTION_MAX_LEVEL;
         let pollution = this.pollution;
-        if (pollution < 200) this.pollutionLevel = 1;
-        else if (pollution < 400) this.pollutionLevel = 2;
-        else if (pollution < 600) this.pollutionLevel = 3;
-        else if (pollution < 800) this.pollutionLevel = 4;
-        else if (pollution < 1000) this.pollutionLevel = 5;
-        else this.pollutionLevel = 6;
+
+        if (pollution >= maxPollution) {
+            this.pollutionLevel = maxLevel;
+        } else {
+            this.pollutionLevel = Math.floor(pollution / 200) + 1;
+        }
     }
 
+
     getEffect() {
-        return this.pollutionEffects[this.pollutionLevel] || 
-               { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, playerDeath: false };
+        return this.pollutionEffects[this.pollutionLevel] ||
+            { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, playerDeath: false };
     }
 }
