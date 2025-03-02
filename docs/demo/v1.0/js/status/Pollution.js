@@ -2,13 +2,15 @@ class Pollution {
     constructor() {
         this.pollution = 0;
         this.pollutionLevel = 1;
+        this.enemyKillReductionMul = 0.5;
         this.pollutionSources = {
             bullet: 1,
             skill: 10,
             bomb: 300,
             TNT: 20,
             chemical_box: 50,
-            rubbish: -200
+            rubbish: -200,
+            enemy_kill: "relevance_maxHP"
         };
 
         this.pollutionEffects = {
@@ -22,6 +24,14 @@ class Pollution {
     }
 
     increasePollution(source, amount = this.pollutionSources[source]) {
+        let baseAmount = this.pollutionSources[source];
+
+        if (baseAmount === "relevance_maxHP") {
+            amount = -Math.round(amount * this.enemyKillReductionMul);
+        } else {
+            amount = baseAmount;
+        }
+
         this.pollution = Math.max(0, this.pollution + amount);
         this.updatePollutionLevel();
         console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);

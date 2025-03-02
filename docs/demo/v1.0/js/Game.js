@@ -215,6 +215,7 @@ class Game {
             for (let i = this.#enemies.length - 1; i >= 0; --i) {
                 let enemy = this.#enemies[i];
                 if (!enemy.isAlive) {
+                    this.#pollution.increasePollution("enemy_kill", enemy.maxHP);
                     this.#enemies.splice(i, 1);
                 } else {
                     enemy.enemyAI(this.#player.xCoordinate, this.#player.yCoordinate, enemy);
