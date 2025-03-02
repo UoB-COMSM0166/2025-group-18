@@ -118,6 +118,14 @@ class Game {
             null,
         );
         this.#buildings.push(chest);
+
+        const rubbish = new Building(
+            600,
+            600,
+            BUILDING_MODEL_RUBBISH_TYPE,
+            null
+        );
+        this.#buildings.push(rubbish);
     }
 
 

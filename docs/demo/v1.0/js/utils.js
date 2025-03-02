@@ -213,7 +213,8 @@ const BUILDING_MODEL_TNT_TYPE = 1;
 const BUILDING_MODEL_CHEST_TYPE = 2;
 const BUILDING_MODEL_BOMB_TYPE = 3;
 const BUILDING_MODEL_CHEMICAL_BOX_TYPE = 4;
-const BUILDING_MODEL_MAX_TYPE = 5;
+const BUILDING_MODEL_RUBBISH_TYPE = 5;
+const BUILDING_MODEL_MAX_TYPE = 6;
 
 const BUILDING_MODEL = [
     {
@@ -246,6 +247,12 @@ const BUILDING_MODEL = [
         xSize: 30,
         ySize: 30,
         HP: 2
+    },{
+        name: "rubbish",
+        type: BUILDING_MODEL_RUBBISH_TYPE,
+        xSize: 40,
+        ySize: 40,
+        HP: 3
     }
 ];
 

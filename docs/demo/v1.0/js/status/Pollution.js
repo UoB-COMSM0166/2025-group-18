@@ -8,8 +8,9 @@ class Pollution {
             bomb: 300,
             TNT: 20,
             chemical_box: 50,
-
+            rubbish: -50
         };
+
         this.pollutionEffects = {
             1: { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, playerDeath: false },
             2: { enemySpeedMul: 1.2, healthMul: 1.2, damageMul: 1.0, playerDeath: false },
@@ -23,7 +24,7 @@ class Pollution {
     increasePollution(source, amount = this.pollutionSources[source]) {
         this.pollution += amount;
         this.updatePollutionLevel();
-        console.log(`Pollution +${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
+        console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
     }
 
 

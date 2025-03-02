@@ -39,6 +39,9 @@ class Building extends BasicObject {
             case BUILDING_MODEL_BOMB_TYPE:
                 fill(139, 0, 0);
                 break;
+            case BUILDING_MODEL_RUBBISH_TYPE:
+                fill(255, 165, 0);
+                break;
             default:
                 fill(255, 255, 255);
         }
@@ -103,6 +106,14 @@ class Building extends BasicObject {
                 }
                 break;
             }
+
+            case BUILDING_MODEL_RUBBISH_TYPE: {
+                if (Building.#pollution) { 
+                    Building.#pollution.increasePollution("rubbish");
+                }
+                break;
+            }
+            
 
         }
     }
