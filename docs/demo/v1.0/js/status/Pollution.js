@@ -40,14 +40,10 @@ class Pollution {
 
 
     updatePollutionLevel() {
-        let maxPollution = Status.MAX_POLLUTION;
-        let maxLevel = Status.POLLUTION_MAX_LEVEL;
-        let pollution = this.pollution;
-
-        if (pollution >= maxPollution) {
-            this.pollutionLevel = maxLevel;
+        if (this.pollution >= Status.MAX_POLLUTION) {
+            this.pollutionLevel = Status.POLLUTION_MAX_LEVEL;
         } else {
-            this.pollutionLevel = Math.floor(pollution / 200) + 1;
+            this.pollutionLevel = Math.floor(this.pollution / 200) + 1;
         }
     }
 

@@ -39,7 +39,7 @@ class Status {
         return Status.MAX_POLLUTION;
     }
 
-    getPollutionLevelRange() {
+    getPollutionMaxLeverl() {
         return Status.POLLUTION_MAX_LEVEL;
     }
 
