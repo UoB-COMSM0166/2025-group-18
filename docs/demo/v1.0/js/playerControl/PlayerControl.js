@@ -111,9 +111,17 @@ class PlayerControl {
     updateStatus() {
         this.updateCoordinate();
         this.updateSkillCD();
-        
-        this.#player.wavePushX *= 0.95;
-        this.#player.wavePushY *= 0.95;
+        this.updateWavePush();
+    }
+
+    updateWavePush() {
+        this.playerMoveCallBack(this.#player.wavePushX, this.#player.wavePushY);
+
+        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, width - this.xSize / 2);
+        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, height - this.ySize / 2);
+
+        this.wavePushX *= 0.95;
+        this.wavePushY *= 0.95;
     }
 
     updateSkillCD() {

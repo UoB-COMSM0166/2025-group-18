@@ -412,11 +412,7 @@ class Game {
     }
 
     playerMove(xMove, yMove) {
-
-        xMove += this.#player.wavePushX / this.#player.speed;
-        yMove += this.#player.wavePushY / this.#player.speed;
-
-        if (this.checkCollidePlayer(xMove, yMove) == false) {
+         if (this.checkCollidePlayer(xMove, yMove) == false) {
             this.#player.move(xMove, yMove);
         }
         else {
