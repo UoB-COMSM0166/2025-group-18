@@ -88,9 +88,9 @@ class ChooseShipUI {
         const y = height / 2 - btnHeight / 2;
     
         this.buttons.push(
-            new this.ShipButton(startX, y, btnWidth, btnHeight, '#Ship 1#', SHIP_MODEL_1_TYPE),
-            new this.ShipButton(startX + btnWidth + spacing, y, btnWidth, btnHeight, '#Ship 2#', SHIP_MODEL_2_TYPE),
-            new this.ShipButton(startX + 2 * (btnWidth + spacing), y, btnWidth, btnHeight, '#Ship 3#', SHIP_MODEL_3_TYPE)
+            new this.ShipButton(startX, y, btnWidth, btnHeight, '#Level 1#', SHIP_MODEL_1_TYPE),
+            new this.ShipButton(startX + btnWidth + spacing, y, btnWidth, btnHeight, '#Level 2#', SHIP_MODEL_2_TYPE),
+            new this.ShipButton(startX + 2 * (btnWidth + spacing), y, btnWidth, btnHeight, '#Level 3#', SHIP_MODEL_3_TYPE)
         );
     }
   

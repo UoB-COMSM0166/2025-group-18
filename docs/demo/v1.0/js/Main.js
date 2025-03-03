@@ -6,8 +6,8 @@ class Main {
     #cursorPos = null;
     #nextGameType;
     #gameReward = {
-        gold : 0,
-        buff : []
+        gold: 0,
+        buff: []
     };
 
     constructor() {
@@ -33,13 +33,13 @@ class Main {
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
             this.#game.initEnemies();
         }
-        
+
         this.#game.initPlayer(playerBasicStatus);
-    
+        this.#game.setPollution(this.#status.getShipStatus().pollution);
         //this.#game.initEnemies();
         this.#game.initIslands();
         this.#game.initBuilding();
-    
+
     }
 
     continueGame() {
@@ -62,7 +62,7 @@ class Main {
     }
 
     updateAll() {
-        switch(this.#step) {
+        switch (this.#step) {
             case MAIN_STEP_START_UI: {
                 this.#UI.showStartUI();
                 break;
@@ -83,7 +83,7 @@ class Main {
             case MAIN_STEP_GAME_REWARD: {
                 this.gameReward();
                 break;
-            }   
+            }
         }
 
         if (this.#step != MAIN_STEP_IN_GAME) {
@@ -96,7 +96,7 @@ class Main {
     }
 
     keyPressed() {
-        switch(this.#step) {
+        switch (this.#step) {
             case MAIN_STEP_START_UI: {
                 // this.#UI.startUIPressed();
                 break;
@@ -119,12 +119,12 @@ class Main {
                 }
                 break;
             }
-        
+
         }
     }
 
     mousePressed() {
-        switch(this.#step) {
+        switch (this.#step) {
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIPressed();
                 break;
@@ -149,7 +149,7 @@ class Main {
     }
 
     mouseReleased() {
-        switch(this.#step) {
+        switch (this.#step) {
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIReleased();
                 break;
@@ -168,11 +168,12 @@ class Main {
             }
         }
     }
-    
+
     updatePlayerStatus() {
         const playerStatus = this.#game.getPlayerStatus();
         this.#status.updateHP(playerStatus.HP);
         this.#status.updateSkillCD(playerStatus.skillCD);
+        this.#status.updatePollution(playerStatus.pollution, playerStatus.pollutionLevel);
     }
 
     updateStep(stepChangeType) {

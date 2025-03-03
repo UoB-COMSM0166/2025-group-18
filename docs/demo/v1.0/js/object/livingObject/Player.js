@@ -42,8 +42,8 @@ class Player extends BasicObject {
     }
 
     applyWaveForce(forceX, forceY) {
-        this.wavePushX = forceX;
-        this.wavePushY = forceY;
+        this.wavePushX = forceX / this.speed;
+        this.wavePushY = forceY / this.speed;
     }
 
 

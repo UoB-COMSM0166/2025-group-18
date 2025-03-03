@@ -1,60 +1,39 @@
-
-const PLAYER_BULLET_TYPE = 0;
-const ENEMY_BULLET_TYPE  = 1;
-const BOSS_BULLET_TYPE   = 2;
-
 class Bullet extends BasicObject {
-    constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, attackPower, explosionSize, size, speed) {
+    constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, explosionSize, size, speed, targetCallBack) {
+        super(
+            "bullet", 
+            BULLET_TYPE,
+            xCoordinate, 
+            yCoordinate, 
+            size, // bullet size
+            size, 
+            0,
+            10, 
+            speed, 
+        );
         if (bulletType == PLAYER_BULLET_TYPE) {
-            super(
-                "bullet", 
-                BULLET_TYPE,
-                xCoordinate, 
-                yCoordinate, 
-                size, // bullet size
-                size, 
-                PLAYER_BULLET_ATTACK_BIT,
-                10, 
-                speed, 
-            );
-            this.harm = attackPower;
-            this.explosionSize = explosionSize;
-        } else if (bulletType == ENEMY_BULLET_TYPE) {
-            super(
-                "bullet", 
-                BULLET_TYPE,
-                xCoordinate, 
-                yCoordinate, 
-                2, 
-                2, 
-                ENEMY_BULLET_ATTACK_BIT,
-                1, 
-                3
-            );
-            this.harm = attackPower;
-            this.explosionSize = 1;
-        } else if (bulletType == BOSS_BULLET_TYPE) {
-            super(
-                "bullet", 
-                BULLET_TYPE,
-                xCoordinate, 
-                yCoordinate, 
-                3, 
-                3, 
-                ENEMY_BULLET_ATTACK_BIT,
-                1, 
-                5
-            );
-            this.harm = 1;
-            this.explosionSize = 2;
+            this.attackBit = PLAYER_BULLET_ATTACK_BIT;
+        } else if (bulletType == ENEMY_BULLET_TYPE || bulletType == BOSS_BULLET_TYPE) {
+            this.attackBit = ENEMY_BULLET_ATTACK_BIT;
         }
+        this.bulletMoveType = bulletMoveType;
+        this.harm = attackPower;
+        this.explosionSize = explosionSize;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.toDelete = false;
         this.exploded = false;
+        this.targetCallBack = targetCallBack;
     }
 
     updateStatus() {
+        if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
+            const target = this.targetCallBack(this);
+            const distance = dist(this.xCoordinate, this.yCoordinate, target.xCoordinate, target.yCoordinate);
+            this.xSpeed = (target.xCoordinate - this.xCoordinate) / distance;
+            this.ySpeed = (target.yCoordinate - this.yCoordinate) / distance;
+        }
+
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
     }
