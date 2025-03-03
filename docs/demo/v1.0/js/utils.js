@@ -29,8 +29,8 @@ const EXPLODE_ATTACK_BIT = 0b1110;
  * bullet type
  */
 const PLAYER_BULLET_TYPE = 0;
-const ENEMY_BULLET_TYPE  = 1;
-const BOSS_BULLET_TYPE   = 2;
+const ENEMY_BULLET_TYPE = 1;
+const BOSS_BULLET_TYPE = 2;
 
 const BULLET_MOVE_TYPE_NORMAL = 0;
 const BULLET_MOVE_TYPE_HOMING = 1;
@@ -50,7 +50,6 @@ const GAME_TYPE_NORMAL_ENEMY = 1;
 const GAME_TYPE_BOSS_ENEMY = 2;
 const GAME_TYPE_SHOP = 3;
 const GAME_TYPE_RANDOM_EVENT = 4;
-
 
 /** basic values of ships */
 const SHIP_MODEL_ERROR_TYPE = 0;
@@ -183,6 +182,56 @@ function getBossModel(bossType) {
         return BOSS_MODEL[BOSS_MODEL_ERROR_TYPE];
     }
     return BOSS_MODEL[bossType];
+}
+
+/* basic values of Vortex */
+const VORTEX_TYPE_ERROR = 0;
+const VORTEX_TYPE_SMALL = 1;
+const VORTEX_TYPE_BIG = 2;
+const VORTEX_TYPE_MAX = 3;
+
+const VORTEX_MODEL = [
+    {
+        name: 0,
+        type: 0,
+        sizeX: 0,
+        sizeY: 0,
+        MIN_STRENGTH: 0,
+        MAX_STRENGTH: 0,
+        strengthX: 0,
+        strengthY: 0,
+        color: [0, 0, 0, 0]
+    },
+    {
+        name: "small_vortex",
+        type: VORTEX_TYPE_SMALL,
+        sizeX: 100,
+        sizeY: 100,
+        MIN_STRENGTH: 1,
+        MAX_STRENGTH: 3,
+        strengthX: 0,
+        strengthY: 0,
+        color: [200, 100, 255, 127]
+    },
+    {
+        name: "big_vortex",
+        type: VORTEX_TYPE_BIG,
+        sizeX: 200,
+        sizeY: 200,
+        MIN_STRENGTH: 2,
+        MAX_STRENGTH: 5,
+        strengthX: 0,
+        strengthY: 0,
+        color: [100, 0, 200, 127]
+    }
+];
+
+function getVortexModel(vortexType) {
+    if (vortexType >= VORTEX_TYPE_MAX || vortexType < 0) {
+        console.log("getVortexModel: vortexType error.");
+        return VORTEX_MODEL[VORTEX_TYPE_ERROR];
+    }
+    return VORTEX_MODEL[vortexType];
 }
 
 /* basic values of islands */
