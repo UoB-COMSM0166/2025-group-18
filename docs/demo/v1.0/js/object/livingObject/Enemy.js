@@ -86,14 +86,14 @@ class Enemy extends BasicObject {
         if (this.isAlive) {
             let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
             if (distance > this.seeRange) {
-                
+                let xSpeed = cos(millis() / 1000);
+                let ySpeed = sin(millis() / 1000);
+                this.enemyMove(xSpeed, ySpeed, enemy);
             } else if (distance > this.attackRange && distance <= this.seeRange) {
                 let xSpeed = (playerX - this.xCoordinate) / distance;
                 let ySpeed = (playerY - this.yCoordinate) / distance;
-                /* xSpeed += this.wavePushX;
-                ySpeed += this.wavePushY; */
                 this.enemyMove(xSpeed, ySpeed, enemy);
-            } else if (distance <= this.attackRange && millis() - this.lastAttackTime > this.attackCD * 1000) {
+            } else if (distance <= this.attackRange && millis() - this.lastAttackTime > this.attackCD * 1000 && this.attackRange > 10) {
                 let xSpeed = (playerX - this.xCoordinate) / distance;
                 let ySpeed = (playerY - this.yCoordinate) / distance;
                 this.enemyAttack(xSpeed, ySpeed);

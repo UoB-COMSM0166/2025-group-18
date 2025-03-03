@@ -360,8 +360,8 @@ class Game {
             }
         }
         if (myCollide(location, this.#player)) {
-            if (millis() - enemy.lastCollideTime > 1000) {
-                this.#player.updateHP(enemy.attackPower * -1);
+            if (millis() - enemy.lastCollideTime > 500) {
+                this.#player.updateHP(enemy.attackPower * -0.5);
                 enemy.lastCollideTime = millis();
             }
             // return true;
