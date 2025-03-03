@@ -122,11 +122,10 @@ class Boss extends BasicObject {
 
     bossAttack(xSpeed, ySpeed) {
         this.enemyAttackCallBack(
-            xSpeed,
-            ySpeed,
-            this.xCoordinate,
-            this.yCoordinate + this.ySize * 0.5,
-            this.attackPower
+            xSpeed, ySpeed,
+            BOSS_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
+            this.attackPower,
+            this
         );
     }
 

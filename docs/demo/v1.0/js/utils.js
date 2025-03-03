@@ -26,6 +26,16 @@ const ENVIRONMENT_ATTACK_BIT = 0b1100;
 const EXPLODE_ATTACK_BIT = 0b1110;
 
 /**
+ * bullet type
+ */
+const PLAYER_BULLET_TYPE = 0;
+const ENEMY_BULLET_TYPE  = 1;
+const BOSS_BULLET_TYPE   = 2;
+
+const BULLET_MOVE_TYPE_NORMAL = 0;
+const BULLET_MOVE_TYPE_HOMING = 1;
+
+/**
  *  
  */
 const PLAYER_TYPE = 0b1000;

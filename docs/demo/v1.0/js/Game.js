@@ -44,7 +44,15 @@ class Game {
         );
         this.#playerController = new PlayerControl(
             this.#player,
-            (xSpeed, ySpeed, bulletType) => this.addBullet(xSpeed, ySpeed, bulletType),
+            (
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower
+            ) => this.addBullet(
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower
+            ),
             (xMove, yMove) => this.playerMove(xMove, yMove),
             () => this.addBomb()
         );
@@ -56,7 +64,17 @@ class Game {
             300,
             100,
             EASY_ENEMY_MODEL_1_TYPE,
-            (xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) => this.addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower),
+            (
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower, 
+                enemy
+            ) => this.addBullet(
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower, 
+                enemy
+            ),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
             this.#pollution
         );
@@ -66,7 +84,17 @@ class Game {
             400,
             100,
             EASY_ENEMY_MODEL_2_TYPE,
-            (xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) => this.addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower),
+            (
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower, 
+                enemy
+            ) => this.addBullet(
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower, 
+                enemy
+            ),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
             this.#pollution
         );
@@ -78,7 +106,17 @@ class Game {
             width * 0.5,
             height * 0.3,
             BOSS_MODEL_OCTOPUS_TYPE,
-            (xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) => this.addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower),
+            (
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower, 
+                enemy
+            ) => this.addBullet(
+                xSpeed, ySpeed, 
+                bulletType, bulletMoveType,
+                attackPower, 
+                enemy
+            ),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
             this.#pollution
         );
@@ -255,7 +293,7 @@ class Game {
             }
         }
 
-        if (myCollide(this.#player, bullet)) {
+        if ((bullet.attackBit & PLAYER_TYPE) && myCollide(this.#player, bullet)) {
             return true;
         }
 
@@ -355,24 +393,71 @@ class Game {
         }
     }
 
-    addBullet(xSpeed, ySpeed, bulletType) {
-        const currentWeapon = this.#player.equipment.getCurrentWeapon();
+    addBullet(xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, enemy) {
+        let xCoordinate = 0;
+        let yCoordinate = 0;
+        let explosionSize = 0;
+        let bulletSize = 0;
+        let bulletSpeed = 0;
+        if (bulletType == PLAYER_BULLET_TYPE) {
+            this.#pollution.increasePollution("bullet");
+            xCoordinate = this.#player.xCoordinate;
+            yCoordinate = this.#player.yCoordinate;
+            explosionSize =this.#player.equipment.getCurrentWeapon().explosionSize;
+            bulletSize = this.#player.equipment.getCurrentWeapon().bulletSize;
+            bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;            
+        } else if (bulletType == ENEMY_BULLET_TYPE) {
+            xCoordinate = enemy.xCoordinate;
+            yCoordinate = enemy.yCoordinate;
+            explosionSize = 1;
+            bulletSize = 2;
+            bulletSpeed = 3;
+        } else if (bulletType == BOSS_BULLET_TYPE) {
+            xCoordinate = enemy.xCoordinate;
+            yCoordinate = enemy.yCoordinate + enemy.ySize / 2;
+            explosionSize = 2;
+            bulletSize = 3;
+            bulletSpeed = 5;
+        }
         const bullet = new Bullet(
-            this.#player.xCoordinate + xSpeed * 10,
-            this.#player.yCoordinate + ySpeed * 10,
+            xCoordinate + xSpeed * 10,
+            yCoordinate + ySpeed * 10,
             xSpeed,
             ySpeed,
             bulletType,
-            currentWeapon.attackPower,
-            currentWeapon.explosionSize,
-            currentWeapon.bulletSize,
-            currentWeapon.bulletSpeed
+            bulletMoveType,
+            attackPower,
+            explosionSize,
+            bulletSize,
+            bulletSpeed,
+            (bullet) => this.findClosestTarget(bullet)
         );
         this.#bullets.push(bullet);
-        this.#pollution.increasePollution("bullet");
     }
 
-    addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) {
+    findClosestTarget(bullet) {
+        let target = null;
+        let minDistance = Infinity;
+        if (bullet.attackBit & ENEMY_TYPE) {
+            for (let enemy of this.#enemies) {
+                const distance = dist(
+                    bullet.xCoordinate,
+                    bullet.yCoordinate,
+                    enemy.xCoordinate,
+                    enemy.yCoordinate
+                );
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    target = enemy;
+                }
+            }
+        } else if (bullet.attackBit & PLAYER_TYPE) {
+            target = this.#player;
+        }
+        return target;
+    }
+
+    /* addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) {
         const bullet = new Bullet(
             xCoordinate + xSpeed * 10,
             yCoordinate + ySpeed * 10,
@@ -385,7 +470,7 @@ class Game {
             0
         );
         this.#bullets.push(bullet);
-    }
+    } */
 
     addBomb() {
         if (this.#player.skillCD > 0) {

@@ -74,20 +74,11 @@ class PlayerControl {
 
     shoot(xSpeed, ySpeed) {
         console.log("Shooting!");
-        const currentWeapon = this.#player.equipment.getCurrentWeapon();
-        if (currentWeapon) {
-            this.shootCallBack(
-                xSpeed, 
-                ySpeed, 
-                PLAYER_BULLET_TYPE, 
-                /*currentWeapon.attackPower,
-                currentWeapon.bulletSize, 
-                currentWeapon.bulletSpeed, 
-                currentWeapon.explosionSize*/
-            );
-        } else {
-            console.log("No weapon equipped");
-        }
+        this.shootCallBack(
+            xSpeed, ySpeed,
+            PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
+            this.#player.equipment.getCurrentWeapon().attackPower,
+        );
     }
 
     updateCoordinate() {
@@ -117,11 +108,11 @@ class PlayerControl {
     updateWavePush() {
         this.playerMoveCallBack(this.#player.wavePushX, this.#player.wavePushY);
 
-        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, width - this.xSize / 2);
-        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, height - this.ySize / 2);
+        this.#player.xCoordinate = constrain(this.#player.xCoordinate, this.#player.xSize / 2, width - this.#player.xSize / 2);
+        this.#player.yCoordinate = constrain(this.#player.yCoordinate, this.#player.ySize / 2, height - this.#player.ySize / 2);
 
-        this.wavePushX *= 0.95;
-        this.wavePushY *= 0.95;
+        this.#player.wavePushX *= 0.95;
+        this.#player.wavePushY *= 0.95;
     }
 
     updateSkillCD() {
@@ -139,7 +130,13 @@ class PlayerControl {
         }
 
         console.log("playerControl() Using skill");
-        this.skillUseCallBack();
+        // this.skillUseCallBack();
+        this.shootCallBack(
+            0, 0,
+            PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
+            10 * this.#player.equipment.getCurrentWeapon().attackPower,
+        );
+
         this.#player.skillCD = this.#player.maxSkillCD;
     }
 }

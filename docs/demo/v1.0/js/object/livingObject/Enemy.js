@@ -106,12 +106,12 @@ class Enemy extends BasicObject {
     }
 
     enemyAttack(xSpeed, ySpeed) {
+        console.log("enemy attack");
         this.enemyAttackCallBack(
-            xSpeed,
-            ySpeed,
-            this.xCoordinate,
-            this.yCoordinate,
-            this.attackPower
+            xSpeed, ySpeed,
+            ENEMY_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
+            this.attackPower,
+            this
         );
         this.lastAttackTime = millis();
     }
@@ -127,9 +127,9 @@ class Enemy extends BasicObject {
     }
 
     applyWaveForce(forceX, forceY) {
-    let speedFactor = this.speed > 0 ? this.speed : 1;
-    this.wavePushX = forceX / speedFactor;
-    this.wavePushY = forceY / speedFactor;
+        let speedFactor = this.speed > 0 ? this.speed : 1;
+        this.wavePushX = forceX / speedFactor;
+        this.wavePushY = forceY / speedFactor;
     }
 
 }
