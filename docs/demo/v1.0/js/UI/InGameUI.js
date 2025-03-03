@@ -14,6 +14,25 @@ class InGameUI {
         this.maxPollution = 1;
         this.pollutionLevel = 1;
         this.maxPollutionLevel = 1;
+
+        this.updatePositions();
+    }
+
+    updatePositions() {
+        this.uiX = 30;
+        this.uiY = 30;
+        
+        this.pollutionX = 30;
+        this.pollutionY = height - 250;
+    }
+
+    handleWindowResized() {
+        this.updatePositions();
+    }
+    
+    applyDynamicScaling() {
+        translate(this.uiX + 120, this.uiY + 50);
+        scale(this.uiScale);
     }
 
     preload() {
@@ -55,14 +74,16 @@ class InGameUI {
         this.drawHolographicFrame();
         this.drawHealthBar();
         this.drawSkillStatus(playerStatus);
-        this.drawPollutionStatus();
         pop();
+
+        this.drawPollutionStatus();
     }
 
     drawPollutionStatus() {
         push();
         rectMode(CORNER);
-        translate(-120, 650);
+        // translate(-120, 650);
+        translate(this.pollutionX, this.pollutionY);
 
         const barHeight = 200;
         const levelHeight = barHeight / this.maxPollutionLevel;

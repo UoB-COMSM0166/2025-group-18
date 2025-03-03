@@ -137,6 +137,11 @@ class MainUI {
                     this.#mapUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_IN_GAME:
+                if (this.#inGameUI) {
+                    this.#inGameUI.handleWindowResized();
+                }
+                break;
         }
     }
     
