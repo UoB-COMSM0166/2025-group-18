@@ -81,17 +81,17 @@ const SHIP_MODEL = [
         type: SHIP_MODEL_2_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 7,
-        speed: 1,
+        HPmax: 5,
+        speed: 3,
         skillCD: 10
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
         xSize: 8,
         ySize: 8,
-        HPmax: 4,
-        speed: 10,
-        skillCD: 10
+        HPmax: 1,
+        speed: 3,
+        skillCD: 15
     }
 ];
 

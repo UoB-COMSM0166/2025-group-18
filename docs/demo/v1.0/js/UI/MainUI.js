@@ -132,6 +132,11 @@ class MainUI {
                     this.#chooseShipUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_MAP_UI:
+                if (this.#mapUI) {
+                    this.#mapUI.handleWindowResized();
+                }
+                break;
         }
     }
     
