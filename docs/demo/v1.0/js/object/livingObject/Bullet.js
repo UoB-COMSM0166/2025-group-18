@@ -52,6 +52,9 @@ class Bullet extends BasicObject {
 
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
+        if (this.xCoordinate < 0 || this.xCoordinate > width || this.yCoordinate < 0 || this.yCoordinate > height) {
+            this.toDelete = true;
+        }
     }
 
     drawBullet() {
