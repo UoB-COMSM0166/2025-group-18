@@ -96,6 +96,50 @@ class PlayerControl {
         if (this.keyMap.right) {
             xMove++;
         }
+        if(xMove > 0 && yMove == 0){
+
+            this.#player.setAnimation('D');//调用向右移动帧
+        }
+
+        if(xMove < 0 && yMove == 0){
+
+            this.#player.setAnimation('A');//调用向右移动帧
+        }
+
+        if(yMove > 0 && xMove == 0){
+
+            this.#player.setAnimation('S');//调用向右移动帧
+        }
+
+        if(yMove < 0 && xMove == 0){
+
+            this.#player.setAnimation('W');//调用向右移动帧
+        }
+
+        if(xMove > 0  && yMove > 0){
+
+            this.#player.setAnimation('DS');//调用向右移动帧
+        }
+
+        if(xMove > 0  && yMove < 0){
+
+            this.#player.setAnimation('DW');//调用向右移动帧
+        }
+
+        if(xMove < 0  && yMove < 0){
+
+            this.#player.setAnimation('AW');//调用向右移动帧
+        }
+
+        if(xMove < 0  && yMove > 0){
+
+            this.#player.setAnimation('AS');//调用向右移动帧
+        }
+
+        if(xMove == 0  && yMove == 0  ){
+
+            this.#player.setAnimation('idleD');//调用向右移动         
+        }
         this.playerMoveCallBack(xMove, yMove);
     }
 

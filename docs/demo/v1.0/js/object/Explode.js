@@ -8,13 +8,44 @@ class Explode {
         this.ySize = explodeModel.ySize;
         this.harm = harm;
         this.attackBit = attackBit;
-        this.type = explodeType;
+        this.type = explodeType; this.frames = []; 
+        this.frames = []; 
+        this.currentFrame = 0;
+        this.frameRate = 5;  
+        this.frameCount = 0;
     }
 
+    preload() {
+        
+        this.frames[0] = loadImage('../../images/docs/img/png/explode/1.png');
+        this.frames[1] = loadImage('../../images/docs/img/png/explode/2.png');
+        this.frames[2] = loadImage('../../images/docs/img/png/explode/3.png');
+        this.frames[3] = loadImage('../../images/docs/img/png/explode/4.png');
+        this.frames[5] = loadImage('../../images/docs/img/png/explode/5.png');
+    }
+
+    updateStatus() {
+        this.frameCount++;
+        if (this.frameCount % this.frameRate == 0) {
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
+    }
+
+    drawExplode() {
+        
+        imageMode(CENTER);
+        image(this.frames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              this.frames[this.currentFrame].width/7, this.frames[this.currentFrame].height/7);
+        }
+
     show() {
-        fill(255);
-        let xCoor = this.xCoordinate;
-        let yCoor = this.yCoordinate;
-        rect(xCoor, yCoor, this.xSize, this.ySize);
+
+        this.drawExplode();
+        this.updateStatus();
+        // fill(255);
+        // let xCoor = this.xCoordinate;
+        // let yCoor = this.yCoordinate;
+        // rect(xCoor, yCoor, this.xSize, this.ySize);
     }
 }
