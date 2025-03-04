@@ -59,8 +59,7 @@ class Game {
             (xMove, yMove) => this.playerMove(xMove, yMove),
             () => this.addBomb()
         );
-        this.#playerBuffController = new BuffController(this.#player);
-        this.#player.preload();
+        this.#playerBuffController = new BuffController(this.#player);     
     }
 
     initEnemies() {
@@ -125,7 +124,6 @@ class Game {
             this.#pollution
         );
         this.#enemies.push(boss);
-        boss.preload();
     }
 
     initIslands() {

@@ -8,7 +8,8 @@ class Explode {
         this.ySize = explodeModel.ySize;
         this.harm = harm;
         this.attackBit = attackBit;
-        this.type = explodeType; this.frames = []; 
+        this.type = explodeType;
+
         this.frames = []; 
         this.currentFrame = 0;
         this.frameRate = 5;  
@@ -40,12 +41,11 @@ class Explode {
         }
 
     show() {
-
         this.drawExplode();
-        this.updateStatus();
-        // fill(255);
-        // let xCoor = this.xCoordinate;
-        // let yCoor = this.yCoordinate;
-        // rect(xCoor, yCoor, this.xSize, this.ySize);
+            this.updateStatus();
+            // fill(255);
+            // let xCoor = this.xCoordinate;
+            // let yCoor = this.yCoordinate;
+            // rect(xCoor, yCoor, this.xSize, this.ySize);
     }
 }

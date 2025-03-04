@@ -42,27 +42,27 @@ class Boss extends BasicObject {
         this.HP = this.maxHP;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
-        this.frames = [];   
+        // this.frames = [];   
         this.currentFrame = 0;  
         this.frameRate = 20;
         this.frameCount = 0; 
     }
 
-    preload(){
+    // preload(){
 
-        console.log('加载子弹动画帧');
-        this.frames[0] = loadImage('../../images/docs/img/png/BOSS/1.png');
-        this.frames[1] = loadImage('../../images/docs/img/png/BOSS/2.png');
-        this.frames[2] = loadImage('../../images/docs/img/png/BOSS/3.png');
-        this.frames[3] = loadImage('../../images/docs/img/png/BOSS/4.png');
-        this.frames[4] = loadImage('../../images/docs/img/png/BOSS/5.png');
-        this.frames[5] = loadImage('../../images/docs/img/png/BOSS/6.png');
-        this.frames[6] = loadImage('../../images/docs/img/png/BOSS/7.png');
-        this.frames[7] = loadImage('../../images/docs/img/png/BOSS/8.png');
+    //     console.log('加载子弹动画帧');
+    //     this.frames[0] = loadImage('../../images/docs/img/png/BOSS/1.png');
+    //     this.frames[1] = loadImage('../../images/docs/img/png/BOSS/2.png');
+    //     this.frames[2] = loadImage('../../images/docs/img/png/BOSS/3.png');
+    //     this.frames[3] = loadImage('../../images/docs/img/png/BOSS/4.png');
+    //     this.frames[4] = loadImage('../../images/docs/img/png/BOSS/5.png');
+    //     this.frames[5] = loadImage('../../images/docs/img/png/BOSS/6.png');
+    //     this.frames[6] = loadImage('../../images/docs/img/png/BOSS/7.png');
+    //     this.frames[7] = loadImage('../../images/docs/img/png/BOSS/8.png');
         
 
 
-    }
+    // }
 
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
@@ -79,16 +79,16 @@ class Boss extends BasicObject {
 
         this.frameCount++;
         if (this.frameCount % this.frameRate === 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % bossFrames.length;
         }
     }
 
     drawBoss() {
         
         imageMode(CENTER);
-        image(this.frames[this.currentFrame], 
+        image(bossFrames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frames[this.currentFrame].width/1.5, this.frames[this.currentFrame].height/1.5 );
+              bossFrames[this.currentFrame].width/1.5, bossFrames[this.currentFrame].height/1.5 );
     }
 
     show() {

@@ -24,20 +24,11 @@ class Bullet extends BasicObject {
         this.toDelete = false;
         this.exploded = false;
         this.targetCallBack = targetCallBack;
-        /* this.frames = [];    */
         this.currentFrame = 0;  
         this.frameRate = 10;  
         this.frameCount = 0; 
     }
-
-    /* preload() {
-        console.log('加载子弹动画帧');
-        this.frames[0] = loadImage('../../images/docs/img/png/bullet/1.png');
-        this.frames[1] = loadImage('../../images/docs/img/png/bullet/2.png');
-        this.frames[2] = loadImage('../../images/docs/img/png/bullet/3.png');
-    } */
     
-
     updateStatus() {
         if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
             const target = this.targetCallBack(this);
