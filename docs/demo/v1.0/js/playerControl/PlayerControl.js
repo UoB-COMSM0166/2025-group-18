@@ -3,9 +3,17 @@ class PlayerControl {
     constructor(player, shootCallBack, playerMoveCallBack, skillUseCallBack) {
         this.#player = player;
         this.shootCallBack = shootCallBack;
-        this.playerMoveCallBack = playerMoveCallBack; 
+        this.playerMoveCallBack = playerMoveCallBack;
         this.skillUseCallBack = skillUseCallBack;
         this.keyMap = {
+            up: false,
+            down: false,
+            left: false,
+            right: false
+        };
+        this.shootCD = 1;
+        this.lastShootTime = 0;
+        this.shootKeyMap = {
             up: false,
             down: false,
             left: false,
@@ -30,16 +38,28 @@ class PlayerControl {
 
         //shoot
         if (keyCode == UP_ARROW) {
-            this.shoot(0, -1);
+            this.shootKeyMap.up = true;
+            this.shootKeyMap.down = false;
+            this.shootKeyMap.left = false;
+            this.shootKeyMap.right = false;
         }
         if (keyCode == DOWN_ARROW) {
-            this.shoot(0, 1);
+            this.shootKeyMap.down = true;
+            this.shootKeyMap.up = false;
+            this.shootKeyMap.left = false;
+            this.shootKeyMap.right = false;
         }
         if (keyCode == LEFT_ARROW) {
-            this.shoot(-1, 0);
+            this.shootKeyMap.left = true;
+            this.shootKeyMap.up = false;
+            this.shootKeyMap.down = false;
+            this.shootKeyMap.right = false;
         }
         if (keyCode == RIGHT_ARROW) {
-            this.shoot(1, 0);
+            this.shootKeyMap.right = true;
+            this.shootKeyMap.up = false;
+            this.shootKeyMap.down = false;
+            this.shootKeyMap.left = false;
         }
 
         // switch weapon
@@ -66,10 +86,22 @@ class PlayerControl {
         if (key == 'd' || key == 'D') {
             this.keyMap.right = false;
         }
+        if (keyCode == UP_ARROW) {
+            this.shootKeyMap.up = false;
+        }
+        if (keyCode == LEFT_ARROW) {
+            this.shootKeyMap.left = false;
+        }
+        if (keyCode == DOWN_ARROW) {
+            this.shootKeyMap.down = false;
+        }
+        if (keyCode == RIGHT_ARROW) {
+            this.shootKeyMap.right = false;
+        }
     }
-    
+
     mousePressed() {
-        
+
     }
 
     shoot(xSpeed, ySpeed) {
@@ -79,6 +111,7 @@ class PlayerControl {
             PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
             this.#player.equipment.getCurrentWeapon().attackPower,
         );
+        this.lastShootTime = millis();
     }
 
     updateCoordinate() {
@@ -86,7 +119,7 @@ class PlayerControl {
         let yMove = 0;
         if (this.keyMap.up) {
             yMove--;
-        } 
+        }
         if (this.keyMap.down) {
             yMove++;
         }
@@ -99,10 +132,29 @@ class PlayerControl {
         this.playerMoveCallBack(xMove, yMove);
     }
 
+    updateShoot() {
+        if (millis() - this.lastShootTime >= this.shootCD * 1000) {
+            if (this.shootKeyMap.up) {
+                console.log("updateShoot()");
+                this.shoot(0, -1);
+            }
+            if (this.shootKeyMap.down) {
+                this.shoot(0, 1);
+            }
+            if (this.shootKeyMap.left) {
+                this.shoot(-1, 0);
+            }
+            if (this.shootKeyMap.right) {
+                this.shoot(1, 0);
+            }
+        }
+    }
+
     updateStatus() {
         this.updateCoordinate();
         this.updateSkillCD();
         this.updateWavePush();
+        this.updateShoot();
     }
 
     updateWavePush() {
@@ -134,7 +186,7 @@ class PlayerControl {
         this.shootCallBack(
             0, 0,
             PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
-            10 * this.#player.equipment.getCurrentWeapon().attackPower,
+            2 * this.#player.equipment.getCurrentWeapon().attackPower,
         );
 
         this.#player.skillCD = this.#player.maxSkillCD;

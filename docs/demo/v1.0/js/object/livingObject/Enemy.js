@@ -38,7 +38,7 @@ class Enemy extends BasicObject {
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
-        if (this.maxHP !== newMaxHP && this.maxHP > 0) {  
+        if (this.maxHP !== newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
