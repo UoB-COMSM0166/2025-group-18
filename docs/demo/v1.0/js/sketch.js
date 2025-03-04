@@ -98,8 +98,6 @@ function setup() {
     main = new Main();
 }
 
-
-
 function draw() {
     background(0);
     main.updateAll();

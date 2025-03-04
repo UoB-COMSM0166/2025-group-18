@@ -18,11 +18,8 @@ class Explode {
 
     preload() {
         
-        this.frames[0] = loadImage('../../images/docs/img/png/explode/1.png');
-        this.frames[1] = loadImage('../../images/docs/img/png/explode/2.png');
-        this.frames[2] = loadImage('../../images/docs/img/png/explode/3.png');
-        this.frames[3] = loadImage('../../images/docs/img/png/explode/4.png');
-        this.frames[5] = loadImage('../../images/docs/img/png/explode/5.png');
+        this.frames = explodeFrames;
+        
     }
 
     updateStatus() {
