@@ -84,6 +84,14 @@ class Main {
                 this.gameReward();
                 break;
             }
+            case MAIN_STEP_GAME_OVER: {
+                this.#UI.showGameOverUI();
+                break;
+            }
+            case MAIN_STEP_WIN_BOSS: {
+                this.#UI.showGameWinBossUI();
+                break;
+            }
         }
 
         if (this.#step != MAIN_STEP_IN_GAME) {
@@ -145,6 +153,13 @@ class Main {
                 this.#UI.chooseGameRewardUIMousePressed();
                 break;
             }
+            case MAIN_STEP_GAME_OVER: {
+                //this.#UI.
+                break;
+            }
+            case MAIN_STEP_WIN_BOSS: {
+                break;
+            }
         }
     }
 
@@ -193,6 +208,10 @@ class Main {
             ];
         }
     }
+    
+    setShipBasic() {
+
+    }
 
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
@@ -216,24 +235,4 @@ class Main {
 
     }
 
-    setShipBasic(shipType) {
-        this.#status.setShipBasicStatus(shipType);
-    }
-
-
-    callChooseShipUI() {
-
-    }
-    callChooseModeUI() {
-
-    }
-    callChooseSeamanUI() {
-
-    }
-    callInfomationBoardInGameUI() {
-
-    }
-    callMenuBoardInGameUI() {
-
-    }
 }   

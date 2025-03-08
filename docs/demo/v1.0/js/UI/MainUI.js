@@ -6,6 +6,8 @@ class MainUI {
     #inGameUI;
     #gameRewardUI;
     #mapUI;
+    #gameOverUI;
+    #gameWinBossUI;
   
     constructor(updateStep, 
                 updateShipStatus, 
@@ -24,6 +26,8 @@ class MainUI {
         this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
         this.#mapUI.init();
+        this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
+        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
     }
   
     showStartUI() {
@@ -66,6 +70,20 @@ class MainUI {
         }
         this.#gameRewardUI.init(buff);
         this.#gameRewardUI.draw(gold);
+    }
+
+    showGameOverUI() {
+        if (this.#gameOverUI == null) {
+            this.#gameOverUI = new GameOverUI();
+        }
+        this.#gameOverUI.draw();
+    }
+
+    showGameWinBossUI() {
+        if (this.#gameWinBossUI == null) {
+            this.#gameWinBossUI = new GameWinBossUI();
+        }
+        this.#gameWinBossUI.draw();
     }
 
     gameFinishGetSeamanUI() {
@@ -117,6 +135,29 @@ class MainUI {
     chooseGameRewardUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_GAME_REWARD && this.#gameRewardUI) {
             this.#gameRewardUI.handleMouseReleased();
+        }
+    }
+
+    chooseGameOverMousePressed() {
+        if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
+            this.#gameOverUI.handleMousePressed();
+        }
+    }
+
+    chooseGameOverUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
+            this.#gameOverUI.handleMouseReleased();
+        }
+    }
+    chooseGameWinBossMousePressed() {
+        if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
+            this.#gameOverUI.handleMousePressed();
+        }
+    }
+
+    chooseGameWinBossUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
+            this.#gameOverUI.handleMouseReleased();
         }
     }
     
@@ -211,6 +252,14 @@ class MainUI {
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_MAP_UI);
         }
+    }
+
+    #handleGameOver() {
+        this.updateStep(MAIN_STEP_START_UI);
+    }
+
+    #handleGameWinBoss(gameStep) {
+        this.updateStep(gameStep);
     }
 
     changeCurrentStep(step) {
