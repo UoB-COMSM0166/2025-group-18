@@ -138,24 +138,24 @@ class MainUI {
         }
     }
 
-    chooseGameOverMousePressed() {
+    gameOverMousePressed() {
         if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
             this.#gameOverUI.handleMousePressed();
         }
     }
 
-    chooseGameOverUIMouseReleased() {
+    gameOverUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
             this.#gameOverUI.handleMouseReleased();
         }
     }
-    chooseGameWinBossMousePressed() {
+    gameWinBossMousePressed() {
         if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
             this.#gameOverUI.handleMousePressed();
         }
     }
 
-    chooseGameWinBossUIMouseReleased() {
+    gameWinBossUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
             this.#gameOverUI.handleMouseReleased();
         }

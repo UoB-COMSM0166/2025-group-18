@@ -154,10 +154,11 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
-                //this.#UI.
+                this.#UI.gameOverMousePressed();
                 break;
             }
             case MAIN_STEP_WIN_BOSS: {
+                this.#UI.gameWinBossMousePressed();
                 break;
             }
         }
@@ -179,6 +180,14 @@ class Main {
             }
             case MAIN_STEP_GAME_REWARD: {
                 this.#UI.chooseGameRewardUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_GAME_OVER: {
+                this.#UI.gameOverUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_WIN_BOSS: {
+                this.#UI.gameWinBossMouseReleased();
                 break;
             }
         }
@@ -209,8 +218,8 @@ class Main {
         }
     }
     
-    setShipBasic() {
-
+    setShipBasic(shipType) {
+        this.#status.setShipBasicStatus(shipType);
     }
 
     gameReward() {
