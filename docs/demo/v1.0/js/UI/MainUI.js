@@ -56,6 +56,11 @@ class MainUI {
         this.#mapUI.draw();
     }
 
+    initMap() {
+        this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
+        this.#mapUI.init();
+    }
+
     showInGameUI(playerStatus) {
         if (this.#inGameUI == null) {
             this.#inGameUI = new InGameUI();
@@ -83,6 +88,7 @@ class MainUI {
         if (this.#gameWinBossUI == null) {
             this.#gameWinBossUI = new GameWinBossUI();
         }
+        this.#gameWinBossUI.init();
         this.#gameWinBossUI.draw();
     }
 
@@ -150,13 +156,13 @@ class MainUI {
         }
     }
     gameWinBossMousePressed() {
-        if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
+        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameOverUI) {
             this.#gameOverUI.handleMousePressed();
         }
     }
 
-    gameWinBossUIMouseReleased() {
-        if (this.#currentStep == MAIN_STEP_GAME_OVER && this.#gameOverUI) {
+    gameWinBossMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameOverUI) {
             this.#gameOverUI.handleMouseReleased();
         }
     }

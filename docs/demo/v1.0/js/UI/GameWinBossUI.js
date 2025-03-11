@@ -114,6 +114,7 @@ class GameWinBossUI {
                 selectedType = btn.type;
             }
         });
+        console.log(selectedType);
         if(selectedType != null && this.gameWinBossCallBack) {
             this.gameWinBossCallBack(selectedType);
         }
