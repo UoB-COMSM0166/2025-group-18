@@ -21,25 +21,33 @@ class Main {
         this.#cursorPos = new CursorPos();
     }
 
+    initMain() {
+        this.#status = new Status();
+        this.#UI.initMap();
+    }
+
     initNewGame() {
         let playerBasicStatus = this.#status.getShipStatus();
         this.#game = new Game(
             (stepChangeType) => this.updateStep(stepChangeType)
         );
 
+        this.#game.initPlayer(playerBasicStatus);
+        this.#game.setPollution(this.#status.getShipStatus().pollution);
+        this.initInGameMap();
+        //this.#game.initEnemies();
+
+    }
+
+    initInGameMap() {
         if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
             this.#game.initBoss();
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
             this.#game.initEnemies();
         }
-
-        this.#game.initPlayer(playerBasicStatus);
-        this.#game.setPollution(this.#status.getShipStatus().pollution);
-        //this.#game.initEnemies();
         this.#game.initIslands();
         this.#game.initBuilding();
-
     }
 
     continueGame() {
@@ -51,7 +59,11 @@ class Main {
 
         // check if game is ended
         if (this.#game.getGameWin()) {
-            this.updateStep(MAIN_STEP_GAME_REWARD);
+            if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
+                this.updateStep(MAIN_STEP_WIN_BOSS);
+            } else {
+                this.updateStep(MAIN_STEP_GAME_REWARD);
+            }
             this.#game = null;
         } else if (this.#game.getGameOver()) {
             console.log("Game Over!");
@@ -69,6 +81,7 @@ class Main {
             }
             case MAIN_STEP_CHOOSE_SHIP_UI: {
                 this.#UI.showChooseShipUI();
+                this.#UI.initMap();
                 break;
             }
             case MAIN_STEP_MAP_UI: {
@@ -82,6 +95,15 @@ class Main {
             }
             case MAIN_STEP_GAME_REWARD: {
                 this.gameReward();
+                break;
+            }
+            case MAIN_STEP_GAME_OVER: {
+                this.#UI.showGameOverUI();
+                this.initMain();
+                break;
+            }
+            case MAIN_STEP_WIN_BOSS: {
+                this.#UI.showGameWinBossUI();
                 break;
             }
         }
@@ -145,6 +167,14 @@ class Main {
                 this.#UI.chooseGameRewardUIMousePressed();
                 break;
             }
+            case MAIN_STEP_GAME_OVER: {
+                this.#UI.gameOverMousePressed();
+                break;
+            }
+            case MAIN_STEP_WIN_BOSS: {
+                this.#UI.gameWinBossMousePressed();
+                break;
+            }
         }
     }
 
@@ -164,6 +194,14 @@ class Main {
             }
             case MAIN_STEP_GAME_REWARD: {
                 this.#UI.chooseGameRewardUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_GAME_OVER: {
+                this.#UI.gameOverUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_WIN_BOSS: {
+                this.#UI.gameWinBossMouseReleased();
                 break;
             }
         }
@@ -193,6 +231,10 @@ class Main {
             ];
         }
     }
+    
+    setShipBasic(shipType) {
+        this.#status.setShipBasicStatus(shipType);
+    }
 
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
@@ -216,24 +258,4 @@ class Main {
 
     }
 
-    setShipBasic(shipType) {
-        this.#status.setShipBasicStatus(shipType);
-    }
-
-
-    callChooseShipUI() {
-
-    }
-    callChooseModeUI() {
-
-    }
-    callChooseSeamanUI() {
-
-    }
-    callInfomationBoardInGameUI() {
-
-    }
-    callMenuBoardInGameUI() {
-
-    }
 }   
