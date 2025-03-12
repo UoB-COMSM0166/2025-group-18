@@ -177,7 +177,7 @@ class PlayerControl {
     }
 
     updateShoot() {
-        if (millis() - this.lastShootTime >= this.shootCD * 1000) {
+        if (millis() - this.lastShootTime >= this.shootCD * 100) {
             if (this.shootKeyMap.up) {
                 console.log("updateShoot()");
                 this.shoot(0, -1);

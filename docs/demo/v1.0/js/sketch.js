@@ -11,6 +11,12 @@ let framesAW =[];
 let framesDW =[];
 let bossFrames = [];
 let explodeFrames = [];
+let enemyFrames = [];
+let TNTFrames = [];
+let waveFramesW = [];
+let waveFramesA = [];
+let waveFramesS = [];
+let waveFramesD = [];
 
 function preload() {
     //加载子弹图片
@@ -89,6 +95,42 @@ function preload() {
     explodeFrames.push(loadImage('../../images/docs/img/png/explode/3.png'));
     explodeFrames.push(loadImage('../../images/docs/img/png/explode/4.png'));
     explodeFrames.push(loadImage('../../images/docs/img/png/explode/5.png'));
+
+    //加载敌人图片-------------------------------------------------------------------------------------------------------------
+
+    enemyFrames.push(loadImage('../../images/docs/img/png/enemy/1.png'));
+    enemyFrames.push(loadImage('../../images/docs/img/png/enemy/2.png'));
+    enemyFrames.push(loadImage('../../images/docs/img/png/enemy/3.png'));
+
+    //加载TNT图片-------------------------------------------------------------------------------------------------------------
+
+    TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/1.png'));
+    TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/2.png'));
+    TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/3.png'));
+    TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/4.png'));
+    TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/5.png'));
+
+     //加载Wave图片-------------------------------------------------------------------------------------------------------------
+
+     waveFramesW.push(loadImage('../../images/docs/img/png/wave/to_up/1.png'));
+     waveFramesW.push(loadImage('../../images/docs/img/png/wave/to_up/2.png'));
+     waveFramesW.push(loadImage('../../images/docs/img/png/wave/to_up/3.png'));
+
+     waveFramesA.push(loadImage('../../images/docs/img/png/wave/to_left/1.png'));
+     waveFramesA.push(loadImage('../../images/docs/img/png/wave/to_left/2.png'));
+     waveFramesA.push(loadImage('../../images/docs/img/png/wave/to_left/3.png'));
+
+     waveFramesS.push(loadImage('../../images/docs/img/png/wave/to_down/1.png'));
+     waveFramesS.push(loadImage('../../images/docs/img/png/wave/to_down/2.png'));
+     waveFramesS.push(loadImage('../../images/docs/img/png/wave/to_down/3.png'));
+
+     waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/1.png'));
+     waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/2.png'));
+     waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/3.png'));
+     
+
+
+ 
 
 
 }

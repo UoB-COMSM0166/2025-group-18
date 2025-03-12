@@ -19,22 +19,46 @@ class Building extends BasicObject {
         );
         this.modelType = buildingModel.type;
         this.explodeCallBack = explodeCallBack;
+        this.currentFrame = 0;  
+        this.frameRate = 10;
+        this.frameCount = 0; 
     }
 
     static setPollutionInstance(pollutionInstance) {
         Building.#pollution = pollutionInstance;
     }
 
+    TNTupdate(){
+
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 0) 
+            this.currentFrame = (this.currentFrame + 1) % TNTFrames.length;
+    }
+
+    drawTNT() {
+        
+        imageMode(CENTER);
+        image(TNTFrames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              TNTFrames[this.currentFrame].width/3, TNTFrames[this.currentFrame].height/3 );
+    }
+
     show() {
+
+        this.TNTupdate();
         switch(this.modelType) {
-            case BUILDING_MODEL_CHEMICAL_BOX_TYPE:
-                fill(0, 255, 0);
+            
+            case BUILDING_MODEL_CHEMICAL_BOX_TYPE:{
+                fill(0, 255, 0, );
                 break;
-            case BUILDING_MODEL_TNT_TYPE:
-                fill(255, 0, 0);
+            }
+            case BUILDING_MODEL_TNT_TYPE:{
+                fill(100, 0, 0, 0);
+                this.drawTNT();
                 break;
+            }
             case BUILDING_MODEL_CHEST_TYPE:
-                fill(139, 69, 19);
+                fill(255, 69, 19);
                 break;
             case BUILDING_MODEL_BOMB_TYPE:
                 fill(139, 0, 0);

@@ -31,6 +31,9 @@ class Enemy extends BasicObject {
         const pollutionEffect = this.pollutionInstance.getEffect();
         this.maxHP = this.baseHP * pollutionEffect.healthMul;
         this.HP = this.maxHP;
+        this.currentFrame = 0;  
+        this.frameRate = 20;  
+        this.frameCount = 0; 
     }
 
     updateStatus() {
@@ -42,6 +45,19 @@ class Enemy extends BasicObject {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
+
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 0) {
+            this.currentFrame = (this.currentFrame + 1) % enemyFrames.length;
+        }
+    }
+
+    drawEnemy() {
+        
+        imageMode(CENTER);
+        image(enemyFrames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              enemyFrames[this.currentFrame].width/3, enemyFrames[this.currentFrame].height/3 );
     }
 
     show() {
@@ -56,6 +72,8 @@ class Enemy extends BasicObject {
 
             fill(255, 0, 0);
             rect(this.xCoordinate, this.yCoordinate - 10, hpBar, 5);
+
+            this.drawEnemy();
             
             //测试用
             fill(255);
@@ -65,6 +83,8 @@ class Enemy extends BasicObject {
             text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, this.yCoordinate - 35);
             text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, this.yCoordinate - 50);
         }
+
+        
     }
 
     updateHP(change) {
