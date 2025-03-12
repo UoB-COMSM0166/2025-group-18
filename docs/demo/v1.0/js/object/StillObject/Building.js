@@ -26,16 +26,13 @@ class Building extends BasicObject {
 
     static setPollutionInstance(pollutionInstance) {
         Building.#pollution = pollutionInstance;
-    }
+    }   
 
-    TNTupdate(){
+    drawTNT() {
 
         this.frameCount++;
         if (this.frameCount % this.frameRate === 0) 
             this.currentFrame = (this.currentFrame + 1) % TNTFrames.length;
-    }
-
-    drawTNT() {
         
         imageMode(CENTER);
         image(TNTFrames[this.currentFrame], 
@@ -43,13 +40,62 @@ class Building extends BasicObject {
               TNTFrames[this.currentFrame].width/3, TNTFrames[this.currentFrame].height/3 );
     }
 
+    drawRubbish() {
+
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 0) 
+            this.currentFrame = (this.currentFrame + 1) % rubbishFrames.length;
+        
+        imageMode(CENTER);
+        image(rubbishFrames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              rubbishFrames[this.currentFrame].width/3, rubbishFrames[this.currentFrame].height/3 );
+    }
+
+    drawChest() {
+
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 3) 
+            this.currentFrame = (this.currentFrame + 1) % chestFrames.length;
+        
+        imageMode(CENTER);
+        image(chestFrames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              chestFrames[this.currentFrame].width/4, chestFrames[this.currentFrame].height/4 );
+    }
+
+    drawBomb() {
+
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 0) 
+            this.currentFrame = (this.currentFrame + 1) % bombFrames.length;
+        
+        imageMode(CENTER);
+        image(bombFrames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              bombFrames[this.currentFrame].width/3, bombFrames[this.currentFrame].height/3 );
+    }
+
+    drawChbox() {
+
+        this.frameCount++;
+        if (this.frameCount % this.frameRate === 0) 
+            this.currentFrame = (this.currentFrame + 1) % chboxFrames.length;
+        
+        imageMode(CENTER);
+        image(chboxFrames[this.currentFrame], 
+              this.xCoordinate, this.yCoordinate, 
+              chboxFrames[this.currentFrame].width/8, chboxFrames[this.currentFrame].height/8 );
+    }
+
     show() {
 
-        this.TNTupdate();
+        
         switch(this.modelType) {
             
             case BUILDING_MODEL_CHEMICAL_BOX_TYPE:{
-                fill(0, 255, 0, );
+                fill(0, 255, 0, 0 );
+                this.drawChbox();
                 break;
             }
             case BUILDING_MODEL_TNT_TYPE:{
@@ -57,15 +103,21 @@ class Building extends BasicObject {
                 this.drawTNT();
                 break;
             }
-            case BUILDING_MODEL_CHEST_TYPE:
-                fill(255, 69, 19);
+            case BUILDING_MODEL_CHEST_TYPE:{
+                fill(255, 69, 19, 0);
+                this.drawChest();
                 break;
-            case BUILDING_MODEL_BOMB_TYPE:
-                fill(139, 0, 0);
+            }
+            case BUILDING_MODEL_BOMB_TYPE:{
+                fill(0, 255, 255, 0);
+                this.drawBomb();
                 break;
-            case BUILDING_MODEL_RUBBISH_TYPE:
-                fill(255, 165, 0);
+            }
+            case BUILDING_MODEL_RUBBISH_TYPE:{
+                fill(255, 165, 0, 0);
+                this.drawRubbish();
                 break;
+            }
             default:
                 fill(255, 255, 255);
         }

@@ -15,9 +15,15 @@
         this.modelType = islandModel.type;
     }
 
+    
+
+    
+
     show() {
-        fill(255, 255, 255);
+        fill(255, 255, 255, 0);
         super.show();
+        imageMode(CENTER);
+        image(islandA, this.xCoordinate, this.yCoordinate, 120, 120 );
     }
 
     updateHP(change) {

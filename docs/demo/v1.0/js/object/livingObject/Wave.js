@@ -93,14 +93,25 @@ class Wave {
         imageMode(CENTER);
         image(this.currentFrames[this.frameIndex], 
               this.xCoordinate , this.yCoordinate , 
-              this.currentFrames[this.frameIndex].width/1.6, this.currentFrames[this.frameIndex].height/1.6 );
+              this.currentFrames[this.frameIndex].width/1.6, this.currentFrames[this.frameIndex].height/1. );
+    }
+
+    drawWaveGreen() {
+        push(); // 保存当前颜色状态
+        tint(100, 255, 100, 200); // 绿色滤镜
+        this.drawWave();
+        pop(); // 恢复颜色状态
     }
 
     show() {
         noStroke();
-        fill(this.type == "big" ? [255, 0, 0, 127] : [0, 0, 255, 127]);
-        rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
-        this.drawWave();
+        // fill(this.type == "big" ? [255, 0, 0, 127,] : [0, 0, 255, 127]);
+        // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+        if (this.type == "big") {
+            this.drawWaveGreen();  // big
+        } else {
+            this.drawWave();  // normal
+        }
     }
 }
 

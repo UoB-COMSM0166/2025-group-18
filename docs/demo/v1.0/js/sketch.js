@@ -13,10 +13,15 @@ let bossFrames = [];
 let explodeFrames = [];
 let enemyFrames = [];
 let TNTFrames = [];
+let bombFrames = [];
+let rubbishFrames = [];
+let chestFrames = [];
+let chboxFrames = [];
 let waveFramesW = [];
 let waveFramesA = [];
 let waveFramesS = [];
 let waveFramesD = [];
+let islandA;
 
 function preload() {
     //加载子弹图片
@@ -110,6 +115,33 @@ function preload() {
     TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/4.png'));
     TNTFrames.push(loadImage('../../images/docs/img/png/building/TNT/5.png'));
 
+     //加载bomb图片-------------------------------------------------------------------------------------------------------------
+
+     bombFrames.push(loadImage('../../images/docs/img/png/building/bomb/1.png'));
+     bombFrames.push(loadImage('../../images/docs/img/png/building/bomb/2.png'));
+     bombFrames.push(loadImage('../../images/docs/img/png/building/bomb/3.png'));
+     bombFrames.push(loadImage('../../images/docs/img/png/building/bomb/4.png'));
+     bombFrames.push(loadImage('../../images/docs/img/png/building/bomb/5.png'));
+
+     //加载rubbish图片-------------------------------------------------------------------------------------------------------------
+
+     rubbishFrames.push(loadImage('../../images/docs/img/png/building/rubbish/1.png'));
+     rubbishFrames.push(loadImage('../../images/docs/img/png/building/rubbish/2.png'));
+     rubbishFrames.push(loadImage('../../images/docs/img/png/building/rubbish/3.png'));
+
+     //加载chest图片-------------------------------------------------------------------------------------------------------------
+
+     chestFrames.push(loadImage('../../images/docs/img/png/building/chest/1.png'));
+     chestFrames.push(loadImage('../../images/docs/img/png/building/chest/2.png'));
+     chestFrames.push(loadImage('../../images/docs/img/png/building/chest/3.png'));
+
+      //加载污染箱图片-------------------------------------------------------------------------------------------------------------
+
+      chboxFrames.push(loadImage('../../images/docs/img/png/building/chbox/1.png'));
+      chboxFrames.push(loadImage('../../images/docs/img/png/building/chbox/2.png'));
+      chboxFrames.push(loadImage('../../images/docs/img/png/building/chbox/3.png'));
+   
+
      //加载Wave图片-------------------------------------------------------------------------------------------------------------
 
      waveFramesW.push(loadImage('../../images/docs/img/png/wave/to_up/1.png'));
@@ -127,6 +159,8 @@ function preload() {
      waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/1.png'));
      waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/2.png'));
      waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/3.png'));
+
+     islandA = loadImage('../../images/docs/img/png/island/A.png');
      
 
 

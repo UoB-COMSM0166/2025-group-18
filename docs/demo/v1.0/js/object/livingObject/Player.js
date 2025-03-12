@@ -20,7 +20,7 @@ class Player extends BasicObject {
         this.currentFrames = [];
         this.frameIndex = 0;
         this.lastFrameTime = 0;
-        this.frameInterval = 100;
+        this.frameInterval = 35;
     }
 
     updateAnimation() {
