@@ -22,6 +22,7 @@ let waveFramesA = [];
 let waveFramesS = [];
 let waveFramesD = [];
 let islandA;
+let sea;
 
 function preload() {
     //加载子弹图片
@@ -160,7 +161,14 @@ function preload() {
      waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/2.png'));
      waveFramesD.push(loadImage('../../images/docs/img/png/wave/to_right/3.png'));
 
-     islandA = loadImage('../../images/docs/img/png/island/A.png');
+     //加载岛屿图片-------------------------------------------------------------------------------------------------------------
+
+     islandA = loadImage('../../images/docs/img/png/island/C.png');
+
+     
+     //加载背景图片-------------------------------------------------------------------------------------------------------------
+
+     sea = loadImage('../../images/docs/img/png/background/1.png')
      
 
 
@@ -176,6 +184,10 @@ function setup() {
 
 function draw() {
     background(0);
+    image(sea, 0, 0, windowWidth, windowHeight);
+    image(sea, windowWidth/2, 0, windowWidth, windowHeight);
+    image(sea, 0, windowHeight/2, windowWidth, windowHeight);
+    image(sea, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
     main.updateAll();
 }
 

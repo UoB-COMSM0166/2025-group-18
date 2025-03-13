@@ -23,7 +23,7 @@
         fill(255, 255, 255, 0);
         super.show();
         imageMode(CENTER);
-        image(islandA, this.xCoordinate, this.yCoordinate, 120, 120 );
+        image(islandA, this.xCoordinate, this.yCoordinate, 200, 200 );
     }
 
     updateHP(change) {
