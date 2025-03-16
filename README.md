@@ -2,7 +2,7 @@
 
 2025 COMSM0166 group 18
 
-## Your Game
+## Sink or Pollute
 
 [🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
 
