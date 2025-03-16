@@ -52,18 +52,18 @@ class Enemy extends BasicObject {
             let hpBar = this.xSize * (this.HP / this.maxHP);
 
             fill(220);
-            rect(this.xCoordinate, this.yCoordinate - 10, this.xSize, 5);
+            rect(this.xCoordinate, this.yCoordinate - this.ySize / 2 - 5, this.xSize, 5);
 
             fill(255, 0, 0);
-            rect(this.xCoordinate, this.yCoordinate - 10, hpBar, 5);
+            rect(this.xCoordinate, this.yCoordinate - this.ySize / 2 - 5, hpBar, 5);
             
             //测试用
             fill(255);
             textSize(12);
             textAlign(CENTER, CENTER);
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, this.yCoordinate - 20);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, this.yCoordinate - 35);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, this.yCoordinate - 50);
+            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, this.yCoordinate - this.xSize / 2 - 20);
+            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, this.yCoordinate - this.xSize / 2 - 35);
+            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, this.yCoordinate - this.xSize / 2 - 50);
         }
     }
 
