@@ -100,6 +100,8 @@ const SHIP_MODEL = [
 const ENEMY_MODEL_ERROR_TYPE = 0;
 const EASY_ENEMY_MODEL_1_TYPE = 1;
 const EASY_ENEMY_MODEL_2_TYPE = 2;
+const EASY_ENEMY_MODEL_3_TYPE = 3;
+const EASY_ENEMY_MODEL_4_TYPE = 4;
 
 const ENEMY_MODEL = [
     {
@@ -116,9 +118,9 @@ const ENEMY_MODEL = [
     }, {
         name: "easy_enemy_1",
         type: EASY_ENEMY_MODEL_1_TYPE,
-        xSize: 30,
-        ySize: 30,
-        HP: 5,
+        xSize: 35,
+        ySize: 35,
+        HP: 4,
         speed: 2,
         attackPower: 1,
         attackCD: 1,
@@ -127,10 +129,32 @@ const ENEMY_MODEL = [
     }, {
         name: "easy_enemy_2",
         type: EASY_ENEMY_MODEL_2_TYPE,
-        xSize: 30,
-        ySize: 30,
-        HP: 10,
+        xSize: 40,
+        ySize: 40,
+        HP: 6,
         speed: 3,
+        attackPower: 1.5,
+        attackCD: 2,
+        attackRange: 10,
+        seeRange: 500
+    }, {
+        name: "easy_enemy_3",
+        type: EASY_ENEMY_MODEL_3_TYPE,
+        xSize: 80,
+        ySize: 80,
+        HP: 15,
+        speed: 0,
+        attackPower: 2,
+        attackCD: 1,
+        attackRange: 400,
+        seeRange: 1500
+    }, {
+        name: "easy_enemy_4",
+        type: EASY_ENEMY_MODEL_4_TYPE,
+        xSize: 50,
+        ySize: 50,
+        HP: 20,
+        speed: 1,
         attackPower: 2,
         attackCD: 1,
         attackRange: 10,
@@ -188,7 +212,12 @@ function getBossModel(bossType) {
 /* basic values of islands */
 const ISLAND_MODEL_ERROR_TYPE = 0;
 const ISLAND_MODEL_1_TYPE = 1;
-const ISLAND_MODEL_BOSS_TYPE = 2;
+const ISLAND_MODEL_2_TYPE = 2;
+const ISLAND_MODEL_3_TYPE = 3;
+const ISLAND_MODEL_4_TYPE = 4;
+const ISLAND_MODEL_5_TYPE = 5;
+const ISLAND_MODEL_BOSS_TYPE = 6;
+
 
 const ISLAND_MODEL = [
     {
@@ -201,6 +230,26 @@ const ISLAND_MODEL = [
         type: ISLAND_MODEL_1_TYPE,
         xSize: 50,
         ySize: 50
+    }, {
+        name: "island_2",
+        type: ISLAND_MODEL_2_TYPE,
+        xSize: 100,
+        ySize: 100
+    }, {
+        name: "island_3",
+        type: ISLAND_MODEL_3_TYPE,
+        xSize: 100,
+        ySize: 20
+    }, {
+        name: "island_4",
+        type: ISLAND_MODEL_4_TYPE,
+        xSize: 20,
+        ySize: 100
+    }, {
+        name: "island_5",
+        type: ISLAND_MODEL_5_TYPE,
+        xSize: 20,
+        ySize: 20
     }, {
         name: "island_boss",
         type: ISLAND_MODEL_BOSS_TYPE,
@@ -236,8 +285,8 @@ const BUILDING_MODEL = [
     }, {
         name: "TNT",
         type: BUILDING_MODEL_TNT_TYPE,
-        xSize: 10,
-        ySize: 10,
+        xSize: 20,
+        ySize: 20,
         HP: 1
     }, {
         name: "chest",

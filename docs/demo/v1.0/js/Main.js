@@ -44,10 +44,8 @@ class Main {
             this.#game.initBoss();
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
-            this.#game.initEnemies();
+            this.#game.initRandomMap();
         }
-        this.#game.initIslands();
-        this.#game.initBuilding();
     }
 
     continueGame() {
