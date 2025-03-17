@@ -73,7 +73,7 @@ class Player extends BasicObject {
         imageMode(CENTER);
         image(this.currentFrames[this.frameIndex], 
               this.xCoordinate , this.yCoordinate , 
-              this.currentFrames[this.frameIndex].width/7, this.currentFrames[this.frameIndex].height/7 );
+              this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5 );
     }
 
 

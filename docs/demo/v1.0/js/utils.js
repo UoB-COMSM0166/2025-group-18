@@ -228,8 +228,8 @@ const ISLAND_MODEL = [
     }, {
         name: "island_1",
         type: ISLAND_MODEL_1_TYPE,
-        xSize: 50,
-        ySize: 50
+        xSize: 150,
+        ySize: 75
     }, {
         name: "island_2",
         type: ISLAND_MODEL_2_TYPE,
