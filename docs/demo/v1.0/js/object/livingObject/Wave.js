@@ -18,6 +18,30 @@ class Wave {
         }
 
         this.finished = false;
+
+        this.currentFrames = [];
+        this.frameIndex = 0;
+        this.lastFrameTime = 0;
+        this.frameInterval = 100;
+        
+    }
+
+    setAnimation(type) {
+        if (type == 'D') {
+            this.currentFrames = waveFramesD;
+        } 
+        
+        else if(type == 'S'){
+            this.currentFrames = waveFramesS;
+        }
+        
+        else if(type == 'A'){
+            this.currentFrames = waveFramesA;
+        }
+        
+        else if(type == 'W'){
+            this.currentFrames = waveFramesW;
+        }
     }
 
     updateStatus(islands = [], player, enemies) {
@@ -58,12 +82,36 @@ class Wave {
                 }
             }
         }
+
+        if (millis() - this.lastFrameTime > this.frameInterval) {
+            this.frameIndex = (this.frameIndex + 1) % this.currentFrames.length;
+            this.lastFrameTime = millis();
+        }
+    }
+
+    drawWave(){
+        imageMode(CENTER);
+        image(this.currentFrames[this.frameIndex], 
+              this.xCoordinate , this.yCoordinate , 
+              this.currentFrames[this.frameIndex].width/1.6, this.currentFrames[this.frameIndex].height/1. );
+    }
+
+    drawWaveGreen() {
+        push(); // 保存当前颜色状态
+        tint(100, 255, 100, 200); // 绿色滤镜
+        this.drawWave();
+        pop(); // 恢复颜色状态
     }
 
     show() {
         noStroke();
-        fill(this.type == "big" ? [255, 0, 0, 127] : [0, 0, 255, 127]);
-        rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+        // fill(this.type == "big" ? [255, 0, 0, 127,] : [0, 0, 255, 127]);
+        // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+        if (this.type == "big") {
+            this.drawWaveGreen();  // big
+        } else {
+            this.drawWave();  // normal
+        }
     }
 }
 
@@ -72,6 +120,7 @@ class WaveManager {
         this.waves = [];
         this.lastWaveTime = 0;
         this.interval = 5000;
+        this.direction;
     }
 
     update(islands, player, enemies) {
@@ -107,25 +156,33 @@ class WaveManager {
             y = random(height);
             vx = speed;
             vy = 0;
+            this.direction = 'D'; // 波浪向左
         } else if (randomEdge == "right") {
             x = width - 10;
             y = random(height);
             vx = -speed;
             vy = 0;
+            this.direction = 'A'; // 波浪向右
         } else if (randomEdge == "up") {
             x = random(width);
             y = 10;
             vx = 0;
             vy = speed;
+            this.direction = 'S'; // 波浪向下
         } else {
             x = random(width);
             y = height - 10;
             vx = 0;
             vy = -speed;
+            this. direction = 'W'; // 波浪向上
         }
 
+        
         let type = random() < 0.2 ? "big" : "normal";
-        this.waves.push(new Wave(x, y, vx, vy, type));
+        let wave = new Wave(x, y, vx, vy, type);
+
+        wave.setAnimation(this.direction); // 在实例上调用 setAnimation
+        this.waves.push(wave); // 添加到 waves 数组 
     }
 
     checkWaveCollisions() {
@@ -152,7 +209,7 @@ class WaveManager {
                         newWaves.push(new Wave(newX, newY, newVx, newVy, newType));
                     }
 
-                    this.waves = this.waves.filter((Wave, index) => !wavesToRemove.has(index));
+                    this.Wave = this.waves.filter((Wave, index) => !wavesToRemove.has(index));
                 }
             }
         }
