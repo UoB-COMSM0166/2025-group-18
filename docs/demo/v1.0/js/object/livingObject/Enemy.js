@@ -56,9 +56,9 @@ class Enemy extends BasicObject {
     drawEnemy() {
         
         imageMode(CENTER);
-        image(enemyFrames[this.currentFrame], 
+        image(enemyFrames[this.modelType][this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              enemyFrames[this.currentFrame].width/3, enemyFrames[this.currentFrame].height/3 );
+              enemyFrames[this.modelType][this.currentFrame].width/3, enemyFrames[this.modelType][this.currentFrame].height/3 );
     }
 
 

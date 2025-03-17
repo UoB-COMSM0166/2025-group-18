@@ -119,7 +119,7 @@ class WaveManager {
     constructor() {
         this.waves = [];
         this.lastWaveTime = 0;
-        this.interval = 500;
+        this.interval = 5000;
         this.direction;
     }
 

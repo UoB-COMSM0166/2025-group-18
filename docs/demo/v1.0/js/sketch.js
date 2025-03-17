@@ -129,11 +129,19 @@ function preload() {
     waveFramesD.push(loadImage('images/docs/img/png/wave/to_right/3.png'));
 
     //加载敌人图片-------------------------------------------------------------------------------------------------------------
+    enemyFrames.push([]);
 
-    enemyFrames.push(loadImage('images/docs/img/png/enemy/1.png'));
-    enemyFrames.push(loadImage('images/docs/img/png/enemy/2.png'));
-    enemyFrames.push(loadImage('images/docs/img/png/enemy/3.png'));
+    let enemyFramesTmp1 = [];
+    enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/1.png'));
+    enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/2.png'));
+    enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/3.png'));
+    enemyFrames.push(enemyFramesTmp1);
 
+    let enemyFramesTmp2 = [];
+    enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/1.png'));
+    enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/2.png'));
+    enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/3.png'));
+    enemyFrames.push(enemyFramesTmp2);
       //加载TNT图片-------------------------------------------------------------------------------------------------------------
 
     TNTFrames.push(loadImage('images/docs/img/png/building/TNT/1.png'));

@@ -104,7 +104,7 @@ const EASY_ENEMY_MODEL_2_TYPE = 2;
 const ENEMY_MODEL = [
     {
         name: 0,
-        type: 0,
+        type: ENEMY_MODEL_ERROR_TYPE,
         xSize: 0,
         ySize: 0,
         HP: 0,
