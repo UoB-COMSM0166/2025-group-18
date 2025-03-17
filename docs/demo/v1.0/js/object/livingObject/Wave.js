@@ -92,8 +92,10 @@ class Wave {
     drawWave(){
         imageMode(CENTER);
         image(this.currentFrames[this.frameIndex], 
-              this.xCoordinate , this.yCoordinate , 
-              this.currentFrames[this.frameIndex].width/1.6, this.currentFrames[this.frameIndex].height/1. );
+              this.xCoordinate,
+              this.yCoordinate,
+              this.currentFrames[this.frameIndex].width/1.6,
+              this.currentFrames[this.frameIndex].height/1.6);
     }
 
     drawWaveGreen() {
