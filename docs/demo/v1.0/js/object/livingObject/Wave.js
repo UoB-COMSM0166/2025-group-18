@@ -119,7 +119,7 @@ class WaveManager {
     constructor() {
         this.waves = [];
         this.lastWaveTime = 0;
-        this.interval = 5000;
+        this.interval = 500;
         this.direction;
     }
 
@@ -206,10 +206,18 @@ class WaveManager {
 
                     if (newSpeed >= 1.8) {
                         let newType = newSpeed > 2.5 ? "big" : "normal";
-                        newWaves.push(new Wave(newX, newY, newVx, newVy, newType));
+                        let newWave = new Wave(newX, newY, newVx, newVy, newType);
+                        if (Math.abs(newVx) > Math.abs(newVy)) {
+                            this.direction = newVx > 0 ? 'D' : 'A';
+                        } else {
+                            this.direction = newVy > 0 ? 'S' : 'W';
+                        }
+                        newWave.setAnimation(this.direction);
+                        newWaves.push(newWave);
+                        // newWaves.push(new Wave(newX, newY, newVx, newVy, newType));
                     }
 
-                    this.Wave = this.waves.filter((Wave, index) => !wavesToRemove.has(index));
+                    this.waves = this.waves.filter((Wave, index) => !wavesToRemove.has(index));
                 }
             }
         }
