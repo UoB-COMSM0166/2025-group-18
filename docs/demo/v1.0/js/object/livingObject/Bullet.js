@@ -54,7 +54,7 @@ class Bullet extends BasicObject {
         
         image(bulletFrames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              bulletFrames[this.currentFrame].width/7, bulletFrames[this.currentFrame].height/7 );
+              bulletFrames[this.currentFrame].width/4, bulletFrames[this.currentFrame].height/4 );
     }
 
     show() {

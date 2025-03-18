@@ -6,9 +6,7 @@
 
 [🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
 
-Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
-
-Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
+Video of Demo - TBD
 
 >  [!IMPORTANT] 
 >
@@ -56,7 +54,21 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 ### Week 04
 
 1. [📜 Requirements section](docs/labprocess/week04/Epic.md)
-1. [📜 Feedback section](docs/labprocess/week04/Feedback.md)
+2. [📜 Feedback section](docs/labprocess/week04/Feedback.md)
+
+### Week 05
+
+### Week 06 (Reading week - nothing need)
+
+### Week 07
+
+1. [📊 Heuristic Evaluation](docs/labprocess/week07/heuristic-evaluation.md)
+
+
+### Week 08
+1. [📜 Three Challenges](docs/labprocess/week08/three-challenges.md)
+2. [📊 User Evaluations (SUS & NASA-TLX)](docs/labprocess/week08/user-evaluations.md)
+
 
 ## Project Report
 
@@ -141,19 +153,45 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ### Implementation
 
-- 15% ~750 words
+- 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
 
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
+1. **Dynamic Pollution System**  
+   **Description:**  
+   One of the core mechanics of our game is the pollution system, which influences enemy strength, available resources, and environmental interactions. Pollution levels change dynamically based on player actions, such as destroying enemies, using specific weapons, or completing missions. This system requires real-time updates that affect gameplay elements without causing performance issues.  
+
+   **Solution:**  
+   To handle these real-time updates, we designed an optimized pollution tracking system that continuously monitors changes and recalculates environmental effects in a non-blocking manner. Pollution data is stored in a lightweight grid-based structure, allowing efficient access and modification. We also introduced threshold-based triggers that activate gameplay effects, such as enemy mutations or resource depletion, only when significant pollution changes occur.  
+
+2. **Advanced Enemy AI**  
+   **Description:**  
+   Traditional roguelike games often rely on predictable enemy patterns, such as simple patrol routes or direct pursuit of players. Our goal is to develop enemies with adaptive behaviors that respond to player actions, increasing the challenge while maintaining fair gameplay.  
+
+   **Solution:**  
+   We implemented a behavior tree-based AI system, allowing enemies to switch between different states, such as patrolling, searching, attacking, and retreating. Enemies dynamically adjust their behaviors based on pollution levels, terrain conditions, and the player's combat tactics. Additionally, we incorporated group coordination mechanics, where enemies communicate and alter their strategies based on nearby threats.  
+
+3. **Procedural Map Generation**  
+   **Description:**  
+   Since our game follows the roguelike tradition, we wanted each playthrough to feel unique, preventing players from memorizing optimal routes. Manually designing multiple maps would be time-consuming and lack scalability, so we opted for procedural generation.  
+
+   **Solution:**  
+   We designed a hybrid procedural generation system combining predefined map segments with randomly generated layouts. The game creates maps by stitching together pre-designed sections while adjusting enemy placements, obstacles, and resource locations based on pollution levels and difficulty settings. We also implemented a validation system to ensure maps remain traversable and balanced.  
+
 
 ### Evaluation
 
-- 15% ~750 words
+- 15% ~750 words[One qualitative evaluation (your choice) /One quantitative evaluation (of your choice)/Description of how code was tested.]
+#### Heuristic Evaluation: *Sink or Pollute*
 
-- One qualitative evaluation (your choice) 
+| Interface | Issue | Heuristic(s) | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
+|-----------|------|-------------|-----------------|-------------|----------------|------------------|
+| **Gameplay** | No pause option, leading to player fatigue in long sessions | User Control and Freedom | 4 | 2 | 4 | 3.33 |
+| **Enemy AI** | Enemies freeze when out of player vision, making combat less engaging | Consistency and Standards | 3 | 4 | 3 | 3.33 |
+| **Level Design** | Lack of path choices reduces exploration, which is essential in roguelike games | Flexibility and Efficiency of Use | 4 | 2 | 4 | 3.33 |
+| **Visual Feedback** | Character, enemy, and bullet sizes lack clear contrast, making it difficult for players to track action | Visibility of System Status | 3 | 4 | 4 | 3.67 |
+| **UI/UX** | No skill cooldown feedback, making ability timing difficult | Visibility of System Status | 3 | 3 | 3 | 3.00 |
+| **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints | Error Prevention | 3 | 4 | 4 | 3.67 |
 
-- One quantitative evaluation (of your choice) 
 
-- Description of how code was tested. 
 
 ### Process 
 

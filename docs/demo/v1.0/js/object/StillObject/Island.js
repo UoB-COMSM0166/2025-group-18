@@ -16,8 +16,10 @@
     }
 
     show() {
-        fill(255, 255, 255);
+        fill(255, 255, 255, 0);
         super.show();
+        imageMode(CENTER);
+        image(islandA, this.xCoordinate, this.yCoordinate, 150, 150 );
     }
 
     updateHP(change) {
