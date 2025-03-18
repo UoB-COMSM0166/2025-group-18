@@ -34,7 +34,7 @@ class Explode {
         imageMode(CENTER);
         image(this.frames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frames[this.currentFrame].width/7, this.frames[this.currentFrame].height/7);
+              this.frames[this.currentFrame].width/5, this.frames[this.currentFrame].height/5);
         }
 
     show() {
