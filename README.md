@@ -6,9 +6,7 @@
 
 [🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
 
-Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
-
-Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
+Video of Demo - TBD
 
 >  [!IMPORTANT] 
 >
@@ -57,6 +55,10 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 1. [📜 Requirements section](docs/labprocess/week04/Epic.md)
 2. [📜 Feedback section](docs/labprocess/week04/Feedback.md)
+
+### Week 05
+
+### Week 06 (Reading week - nothing need)
 
 ### Week 07
 
