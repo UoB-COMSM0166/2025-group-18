@@ -366,6 +366,7 @@ class MapUI {
                         //   比如当内圈有多个节点时，只保留这次点击的 btn
                         if (this.rings[btn.ring]) {
                             this.rings[btn.ring] = [btn]; 
+                            this.playerLocation.index = 0;
                         }
     
                         // 若到达 ring=0，视为 BOSS，否则普通
