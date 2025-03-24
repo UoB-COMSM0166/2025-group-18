@@ -153,7 +153,7 @@ Video of Demo - TBD
 - System architecture. Class diagrams, behavioural diagrams. 
 
 #### Class Diagram
-[<img src="docs/labprocess/week05/classDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
+[<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
 
 ### Implementation
 
