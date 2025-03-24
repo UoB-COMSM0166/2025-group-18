@@ -57,7 +57,7 @@ Video of Demo - TBD
 2. [📜 Feedback section](docs/labprocess/week04/Feedback.md)
 
 ### Week 05
-1. [🧩 Class Diagram](docs/labprocess/week05/classDiagram.png)
+1. [🧩 Class Diagram](docs/labprocess/week05/ClassDiagram.png)
 
 ### Week 06 (Reading week - nothing need)
 
@@ -153,7 +153,7 @@ Video of Demo - TBD
 - System architecture. Class diagrams, behavioural diagrams. 
 
 #### Class Diagram
-[<img src="docs/labprocess/week05/classDiagram.png" width="1200"/>](docs/labprocess/week05/classDiagram.png)
+[<img src="docs/labprocess/week05/classDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
 
 ### Implementation
 
