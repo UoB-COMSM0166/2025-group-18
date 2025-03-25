@@ -1,10 +1,11 @@
 class PlayerControl {
     #player;
-    constructor(player, shootCallBack, playerMoveCallBack, skillUseCallBack) {
+    constructor(player, shootCallBack, playerMoveCallBack, skillUseCallBack, targetCallBack) {
         this.#player = player;
         this.shootCallBack = shootCallBack;
         this.playerMoveCallBack = playerMoveCallBack;
         this.skillUseCallBack = skillUseCallBack;
+        this.targetCallBack = targetCallBack;
         this.keyMap = {
             up: false,
             down: false,
@@ -129,47 +130,47 @@ class PlayerControl {
         if (this.keyMap.right) {
             xMove++;
         }
-        if(xMove > 0 && yMove == 0){
+        if (xMove > 0 && yMove == 0) {
 
             this.#player.setAnimation('D');//调用向右移动帧
         }
 
-        if(xMove < 0 && yMove == 0){
+        if (xMove < 0 && yMove == 0) {
 
             this.#player.setAnimation('A');//调用向右移动帧
         }
 
-        if(yMove > 0 && xMove == 0){
+        if (yMove > 0 && xMove == 0) {
 
             this.#player.setAnimation('S');//调用向右移动帧
         }
 
-        if(yMove < 0 && xMove == 0){
+        if (yMove < 0 && xMove == 0) {
 
             this.#player.setAnimation('W');//调用向右移动帧
         }
 
-        if(xMove > 0  && yMove > 0){
+        if (xMove > 0 && yMove > 0) {
 
             this.#player.setAnimation('DS');//调用向右移动帧
         }
 
-        if(xMove > 0  && yMove < 0){
+        if (xMove > 0 && yMove < 0) {
 
             this.#player.setAnimation('DW');//调用向右移动帧
         }
 
-        if(xMove < 0  && yMove < 0){
+        if (xMove < 0 && yMove < 0) {
 
             this.#player.setAnimation('AW');//调用向右移动帧
         }
 
-        if(xMove < 0  && yMove > 0){
+        if (xMove < 0 && yMove > 0) {
 
             this.#player.setAnimation('AS');//调用向右移动帧
         }
 
-        if(xMove == 0  && yMove == 0  ){
+        if (xMove == 0 && yMove == 0) {
 
             this.#player.setAnimation('idleD');//调用向右移动         
         }
@@ -227,11 +228,23 @@ class PlayerControl {
 
         console.log("playerControl() Using skill");
         // this.skillUseCallBack();
-        this.shootCallBack(
-            0, 0,
-            PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
-            2 * this.#player.equipment.getCurrentWeapon().attackPower,
-        );
+        let target = this.targetCallBack(this.#player);
+        let dx = this.#player.xCoordinate - target.xCoordinate;
+        let dy = this.#player.yCoordinate - target.yCoordinate;
+        let baseAngle = Math.atan2(dy, dx);
+        let totalAngle = Math.PI / 3 * 2;
+        let angleStep = totalAngle / 7;
+
+        for (let i = 0; i < 8; i++) {
+            let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
+            let targetXSpeed = Math.cos(offsetAngle);
+            let targetYSpeed = Math.sin(offsetAngle);
+            this.shootCallBack(
+                targetXSpeed, targetYSpeed,
+                PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
+                2 * this.#player.equipment.getCurrentWeapon().attackPower,
+            );
+        }
 
         this.#player.skillCD = this.#player.maxSkillCD;
     }
