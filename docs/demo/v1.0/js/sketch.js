@@ -173,18 +173,41 @@ function preload() {
 
 
 }
+
+let logicCanvas;
+const logicWidth = 1920;
+const logicHeight = 960;
+
+let logicX;
+let logicY;
+let scaleRatio;
+
 function setup() {
-    rectMode(CENTER);
     createCanvas(windowWidth, windowHeight);
+    rectMode(CENTER);
+    logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
 }
 
 function draw() {
-    background(0);
-    image(sea, 0, 0, windowWidth, windowHeight);
-    image(sea, windowWidth/2, 0, windowWidth, windowHeight);
-    image(sea, 0, windowHeight/2, windowWidth, windowHeight);
-    image(sea, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+    rectMode(CORNER);
+    logicCanvas.background(0);
+    // background(0);
+    // logicCanvas.image(sea, 0, 0, logicWidth, logicHeight);
+    // logicCanvas.image(sea, logicWidth/2, 0, logicWidth, logicHeight);
+    // logicCanvas.image(sea, 0, logicHeight/2, logicWidth, logicHeight);
+    // logicCanvas.image(sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
+    const scaleX = width / logicWidth;
+    const scaleY = height / logicHeight;
+    scaleRatio = min(scaleX, scaleY);
+    translate(
+        (width - logicWidth * scaleRatio) / 2,
+        (height - logicHeight * scaleRatio) / 2
+    );
+    scale(scaleRatio);
+    // scale(scaleX, scaleY);
+    // rectMode(CORNER);
+    image(logicCanvas, 0, 0);
     main.updateAll();
 }
 

@@ -205,8 +205,8 @@ class PlayerControl {
     updateWavePush() {
         this.playerMoveCallBack(this.#player.wavePushX, this.#player.wavePushY);
 
-        this.#player.xCoordinate = constrain(this.#player.xCoordinate, this.#player.xSize / 2, width - this.#player.xSize / 2);
-        this.#player.yCoordinate = constrain(this.#player.yCoordinate, this.#player.ySize / 2, height - this.#player.ySize / 2);
+        this.#player.xCoordinate = constrain(this.#player.xCoordinate, this.#player.xSize / 2, logicWidth - this.#player.xSize / 2);
+        this.#player.yCoordinate = constrain(this.#player.yCoordinate, this.#player.ySize / 2, logicHeight - this.#player.ySize / 2);
 
         this.#player.wavePushX *= 0.95;
         this.#player.wavePushY *= 0.95;

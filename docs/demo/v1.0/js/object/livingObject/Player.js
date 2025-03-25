@@ -92,8 +92,8 @@ class Player extends BasicObject {
         let newX = this.xCoordinate + xSpeed * this.speed;
         let newY = this.yCoordinate + ySpeed * this.speed;
 
-        newX = constrain(newX, this.xSize / 2, width - this.xSize / 2);
-        newY = constrain(newY, this.ySize / 2, height - this.ySize / 2);
+        newX = constrain(newX, this.xSize / 2, logicWidth - this.xSize / 2);
+        newY = constrain(newY, this.ySize / 2, logicHeight - this.ySize / 2);
 
         this.xCoordinate = newX;
         this.yCoordinate = newY;

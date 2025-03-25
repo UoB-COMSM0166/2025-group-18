@@ -25,6 +25,7 @@ class StartUI {
   
         draw() {
             drawingContext.save();
+            rectMode(CENTER);
             
             // Color of bd, text, bg
             const mainColor = this.type == MAIN_STEP_START_UI ? color(100, 255, 218) : color(255);
@@ -90,17 +91,18 @@ class StartUI {
 
     createButtons() {
         this.buttons = [];
-        const btnY = height / 2 - 100;
+        const btnY = logicHeight / 2 - 100;
         this.buttons.push(
-            new this.Button(width / 2 - 225, btnY - 50, 450, 120, 'PLAN ROGUELIKE KNIGHT', MAIN_STEP_START_UI),
-            new this.Button(width / 2 - 125, btnY + 150, 250, 50, 'Team Overview', MAIN_STEP_START_UI_TEAM)
+            new this.Button(logicWidth / 2 - 225, btnY - 50, 450, 120, 'PLAN ROGUELIKE KNIGHT', MAIN_STEP_START_UI),
+            new this.Button(logicWidth / 2 - 125, btnY + 150, 250, 50, 'Team Overview', MAIN_STEP_START_UI_TEAM)
         );
     }
     
     draw() {
         
         push();
-        image(this.bgImg, 0, 0, width, height);
+        image(this.bgImg, 0, 0, logicWidth, logicHeight);
+        rectMode(CORNER);
         pop();
 
         // Update buttons

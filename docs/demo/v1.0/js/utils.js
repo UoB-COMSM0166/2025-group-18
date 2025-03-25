@@ -75,7 +75,7 @@ const SHIP_MODEL = [
         ySize: 10,
         HPmax: 50,
         speed: 5,
-        skillCD: 10
+        skillCD: 1
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
