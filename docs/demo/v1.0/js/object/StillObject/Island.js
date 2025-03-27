@@ -13,13 +13,22 @@
             0
         );
         this.modelType = islandModel.type;
+        this.frames = this.getFrames();
+
+    }
+
+    getFrames() {
+        if (this.modelType >= frames.island.length || this.modelType <= 0) {
+            return frames.island[0];
+        }
+        return frames.island[this.modelType - 1];
     }
 
     show() {
         fill(255, 255, 255, 0);
         super.show();
         imageMode(CENTER);
-        image(islandA, this.xCoordinate, this.yCoordinate, 150, 150 );
+        image(this.frames, this.xCoordinate, this.yCoordinate, 150, 150 );
     }
 
     updateHP(change) {

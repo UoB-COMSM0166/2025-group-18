@@ -12,7 +12,7 @@ class Game {
     #enemyBuffController;
     #pollution
     #bulletExplode;
-    
+
 
     constructor(updateStepCallBack) {
         this.#player = null;
@@ -48,18 +48,19 @@ class Game {
         this.#playerController = new PlayerControl(
             this.#player,
             (
-                xSpeed, ySpeed, 
+                xSpeed, ySpeed,
                 bulletType, bulletMoveType,
                 attackPower
             ) => this.addBullet(
-                xSpeed, ySpeed, 
+                xSpeed, ySpeed,
                 bulletType, bulletMoveType,
                 attackPower
             ),
             (xMove, yMove) => this.playerMove(xMove, yMove),
-            () => this.addBomb()
+            () => this.addBomb(),
+            (player) => this.findPlayerClosestTarget(player)
         );
-        this.#playerBuffController = new BuffController(this.#player);     
+        this.#playerBuffController = new BuffController(this.#player);
     }
 
     initRandomMap() {
@@ -101,14 +102,14 @@ class Game {
             height * 0.3,
             BOSS_MODEL_OCTOPUS_TYPE,
             (
-                xSpeed, ySpeed, 
+                xSpeed, ySpeed,
                 bulletType, bulletMoveType,
-                attackPower, 
+                attackPower,
                 enemy
             ) => this.addBullet(
-                xSpeed, ySpeed, 
+                xSpeed, ySpeed,
                 bulletType, bulletMoveType,
-                attackPower, 
+                attackPower,
                 enemy
             ),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
@@ -222,14 +223,14 @@ class Game {
         if (this.#bulletExplode.length != 0) {
             for (let i = this.#bulletExplode.length - 1; i >= 0; --i) {
                 let explode = this.#bulletExplode[i];
-                if (explode.frameCount <10) {
-                    
+                if (explode.frameCount < 10) {
+
                     explode.show();
-                    
-                } else{
+
+                } else {
                     this.#bulletExplode.splice(i, 1);
 
-                    }
+                }
             }
         }
 
@@ -306,7 +307,7 @@ class Game {
                 return true;
             }
         }
-    
+
         return false;
     }
 
@@ -408,9 +409,9 @@ class Game {
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
-            explosionSize =this.#player.equipment.getCurrentWeapon().explosionSize;
+            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize;
             bulletSize = this.#player.equipment.getCurrentWeapon().bulletSize;
-            bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;            
+            bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
@@ -435,12 +436,12 @@ class Game {
             explosionSize,
             bulletSize,
             bulletSpeed,
-            (bullet) => this.findClosestTarget(bullet)
+            (bullet) => this.findBulletClosestTarget(bullet)
         );
         this.#bullets.push(bullet);
     }
 
-    findClosestTarget(bullet) {
+    findBulletClosestTarget(bullet) {
         let target = null;
         let minDistance = Infinity;
         if (bullet.attackBit & ENEMY_TYPE) {
@@ -458,6 +459,24 @@ class Game {
             }
         } else if (bullet.attackBit & PLAYER_TYPE) {
             target = this.#player;
+        }
+        return target;
+    }
+
+    findPlayerClosestTarget(player) {
+        let target = null;
+        let minDistance = Infinity;
+        for (let enemy of this.#enemies) {
+            const distance = dist(
+                player.xCoordinate,
+                player.yCoordinate,
+                enemy.xCoordinate,
+                enemy.yCoordinate
+            );
+            if (distance < minDistance) {
+                minDistance = distance;
+                target = enemy;
+            }
         }
         return target;
     }
@@ -504,7 +523,7 @@ class Game {
     }
 
     playerMove(xMove, yMove) {
-         if (this.checkCollidePlayer(xMove, yMove) == false) {
+        if (this.checkCollidePlayer(xMove, yMove) == false) {
             this.#player.move(xMove, yMove);
         }
         else {

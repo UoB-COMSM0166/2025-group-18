@@ -1,15 +1,15 @@
 class Bullet extends BasicObject {
     constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, explosionSize, size, speed, targetCallBack) {
         super(
-            "bullet", 
+            "bullet",
             BULLET_TYPE,
-            xCoordinate, 
-            yCoordinate, 
+            xCoordinate,
+            yCoordinate,
             size, // bullet size
-            size, 
+            size,
             0,
-            10, 
-            speed, 
+            10,
+            speed,
         );
         if (bulletType == PLAYER_BULLET_TYPE) {
             this.attackBit = PLAYER_BULLET_ATTACK_BIT;
@@ -21,26 +21,46 @@ class Bullet extends BasicObject {
         this.explosionSize = explosionSize;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
+            this.maxTurnAngle = Math.PI / 36;
+        }
         this.toDelete = false;
         this.exploded = false;
         this.targetCallBack = targetCallBack;
-        this.currentFrame = 0;  
-        this.frameRate = 10;  
-        this.frameCount = 0; 
+        this.currentFrame = 0;
+        this.frameRate = 10;
+        this.frameCount = 0;
+        this.frames = frames.bullet;
     }
-    
+
     updateStatus() {
         if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
             const target = this.targetCallBack(this);
             const distance = dist(this.xCoordinate, this.yCoordinate, target.xCoordinate, target.yCoordinate);
-            this.xSpeed = (target.xCoordinate - this.xCoordinate) / distance;
-            this.ySpeed = (target.yCoordinate - this.yCoordinate) / distance;
+            let targetXSpeed = (target.xCoordinate - this.xCoordinate) / distance;
+            let targetYSpeed = (target.yCoordinate - this.yCoordinate) / distance;
 
-            if (this.frameCount % this.frameRate === 0) {
-                this.currentFrame = (this.currentFrame + 1) % bulletFrames.length;
+            const needTurnAngleCos = this.xSpeed * targetXSpeed + this.ySpeed * targetYSpeed;
+            const needTurnAngle = Math.acos(Math.min(Math.max(needTurnAngleCos, -1), 1));
+
+            if (Math.abs(needTurnAngle) > this.maxTurnAngle) {
+                const cross = this.xSpeed * targetYSpeed - this.ySpeed * targetXSpeed;
+                const rotationDir = Math.sign(cross);
+                const cos = Math.cos(rotationDir * this.maxTurnAngle);
+                const sin = Math.sin(rotationDir * this.maxTurnAngle);
+                const newX = this.xSpeed * cos - this.ySpeed * sin;
+                const newY = this.xSpeed * sin + this.ySpeed * cos;
+                this.xSpeed = newX;
+                this.ySpeed = newY;
+            } else {
+                this.xSpeed = targetXSpeed;
+                this.ySpeed = targetYSpeed;
             }
         }
-
+        if (this.frameCount % this.frameRate == 0) {
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
+        this.frameCount++;
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
         if (this.xCoordinate < 0 || this.xCoordinate > width || this.yCoordinate < 0 || this.yCoordinate > height) {
@@ -49,12 +69,12 @@ class Bullet extends BasicObject {
     }
 
     drawBullet() {
-        
+
         imageMode(CENTER);
-        
-        image(bulletFrames[this.currentFrame], 
-              this.xCoordinate, this.yCoordinate, 
-              bulletFrames[this.currentFrame].width/4, bulletFrames[this.currentFrame].height/4 );
+
+        image(this.frames[this.currentFrame],
+            this.xCoordinate, this.yCoordinate,
+            this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
     }
 
     show() {

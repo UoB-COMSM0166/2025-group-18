@@ -7,6 +7,7 @@ class StartUI {
         this.borderColor = null;
         this.cursorPos = { x: 0, y: 0 };
         this.onButtonClick = onButtonClick; // 回调
+        this.bgImg = loadImage('images/docs/img/png/background/startUI.png');
     }
   
     Button = class {
@@ -86,7 +87,7 @@ class StartUI {
         noStroke();
         this.createButtons();
     }
-        
+
     createButtons() {
         this.buttons = [];
         const btnY = height / 2 - 100;
@@ -97,8 +98,11 @@ class StartUI {
     }
     
     draw() {
-        background(0);
         
+        push();
+        image(this.bgImg, 0, 0, width, height);
+        pop();
+
         // Update buttons
         this.buttons.forEach(btn => {
             btn.checkHover(this);

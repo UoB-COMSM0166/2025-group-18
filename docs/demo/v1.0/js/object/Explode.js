@@ -18,7 +18,7 @@ class Explode {
 
     preload() {
         
-        this.frames = explodeFrames;
+        this.frames = frames.explode;
         
     }
 

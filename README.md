@@ -203,6 +203,12 @@ Video of Demo - TBD
 
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together. 
 
+### Sustainability, ethics and accessibility
+
+- 10% ~750 words
+
+- Evidence of the impact of your game across the environment and two of the other areas: **Environmental** + 2 of the following : *Scoial, Economic, Technical, Individual*
+
 ### Conclusion
 
 - 10% ~500 words

@@ -42,7 +42,7 @@ class Boss extends BasicObject {
         this.HP = this.maxHP;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
-        // this.frames = [];   
+        this.frames = frames.boss;   
         this.currentFrame = 0;  
         this.frameRate = 20;
         this.frameCount = 0; 
@@ -79,16 +79,16 @@ class Boss extends BasicObject {
 
         this.frameCount++;
         if (this.frameCount % this.frameRate === 0) {
-            this.currentFrame = (this.currentFrame + 1) % bossFrames.length;
+            this.currentFrame = (this.currentFrame + 1) % this.frame.length;
         }
     }
 
     drawBoss() {
         
         imageMode(CENTER);
-        image(bossFrames[this.currentFrame], 
+        image(this.frame[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              bossFrames[this.currentFrame].width/1.5, bossFrames[this.currentFrame].height/1.5 );
+              this.frame[this.currentFrame].width/1.5, this.frame[this.currentFrame].height/1.5 );
     }
 
     show() {
