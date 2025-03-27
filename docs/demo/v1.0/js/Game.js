@@ -35,8 +35,8 @@ class Game {
     initPlayer(playerBasicStatus) {
         this.#player = new Player(
             "Player",
-            300,
-            200,
+            width * 0.1,
+            height * 0.5,
             playerBasicStatus.xSize,
             playerBasicStatus.ySize,
             playerBasicStatus.HP,
@@ -63,7 +63,7 @@ class Game {
     }
 
     initRandomMap() {
-        this.mapType = MAP_MODEL_2_TYPE;
+        this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + 1;
         let info = getMapModel(this.mapType);
         this.initEnemies(info.enemy);
         this.initIslands(info.island);

@@ -39,8 +39,8 @@ class Enemy extends BasicObject {
     }
 
     getFrames() {
-        if (this.modelType > frames.enemy.length || this.modelType <= 0) {
-            return frames.enemy[0];
+        if (this.modelType >= frames.enemy.length || this.modelType <= 0) {
+            return frames.enemy[1];
         }
         return frames.enemy[this.modelType];
     }

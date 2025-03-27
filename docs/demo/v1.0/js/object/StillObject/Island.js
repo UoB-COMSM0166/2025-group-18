@@ -28,7 +28,7 @@
         fill(255, 255, 255, 0);
         super.show();
         imageMode(CENTER);
-        image(this.frames, this.xCoordinate, this.yCoordinate, 150, 150 );
+        image(this.frames, this.xCoordinate, this.yCoordinate, this.xSize * 1.1, this.ySize * 1.1);
     }
 
     updateHP(change) {
