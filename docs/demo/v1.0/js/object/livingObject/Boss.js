@@ -77,18 +77,18 @@ class Boss extends BasicObject {
         }
         this.maxHP = newMaxHP;
 
-        this.frameCount++;
-        if (this.frameCount % this.frameRate === 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frame.length;
-        }
     }
 
     drawBoss() {
-        
+        this.frameCount++;
+        if (this.frameCount % this.frameRate == 0) {
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
+
         imageMode(CENTER);
-        image(this.frame[this.currentFrame], 
+        image(this.frames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frame[this.currentFrame].width/1.5, this.frame[this.currentFrame].height/1.5 );
+              this.xSize * 1.5, this.ySize * 1.5);
     }
 
     show() {

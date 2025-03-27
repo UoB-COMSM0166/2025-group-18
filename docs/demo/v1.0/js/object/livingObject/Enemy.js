@@ -35,7 +35,14 @@ class Enemy extends BasicObject {
         this.currentFrame = 0;  
         this.frameRate = 20;  
         this.frameCount = 0; 
-        this.frames = frames.enemy;
+        this.frames = this.getFrames();
+    }
+
+    getFrames() {
+        if (this.modelType > frames.enemy.length || this.modelType <= 0) {
+            return frames.enemy[0];
+        }
+        return frames.enemy[this.modelType];
     }
 
     updateStatus() {
@@ -43,23 +50,23 @@ class Enemy extends BasicObject {
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
-        if (this.maxHP !== newMaxHP && this.maxHP > 0) {
+        if (this.maxHP != newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
 
-        this.frameCount++;
-        if (this.frameCount % this.frameRate === 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
-        }
     }
 
     drawEnemy() {
-        
+        this.frameCount++;
+        if (this.frameCount % this.frameRate == 0) {
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
+
         imageMode(CENTER);
-        image(this.frames[this.modelType][this.currentFrame], 
+        image(this.frames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frames[this.modelType][this.currentFrame].width/3, this.frames[this.modelType][this.currentFrame].height/3 );
+              this.xSize * 2, this.ySize * 2);
     }
 
 

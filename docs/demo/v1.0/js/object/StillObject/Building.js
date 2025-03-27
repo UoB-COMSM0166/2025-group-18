@@ -46,7 +46,7 @@ class Building extends BasicObject {
 
     draw() {
         this.frameCount++;
-        if (this.frameCount % this.frameRate === 0) 
+        if (this.frameCount % this.frameRate == 0) 
             this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         
         imageMode(CENTER);

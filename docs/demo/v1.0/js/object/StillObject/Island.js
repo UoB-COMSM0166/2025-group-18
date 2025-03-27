@@ -21,7 +21,7 @@
         if (this.modelType >= frames.island.length || this.modelType <= 0) {
             return frames.island[0];
         }
-        return frames.island[this.modelType - 1];
+        return frames.island[this.modelType];
     }
 
     show() {

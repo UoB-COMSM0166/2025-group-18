@@ -480,21 +480,6 @@ class Game {
         return target;
     }
 
-    /* addEnemyBullet(xSpeed, ySpeed, xCoordinate, yCoordinate, attackPower) {
-        const bullet = new Bullet(
-            xCoordinate + xSpeed * 10,
-            yCoordinate + ySpeed * 10,
-            xSpeed,
-            ySpeed,
-            ENEMY_BULLET_TYPE,
-            attackPower,
-            0,
-            0,
-            0
-        );
-        this.#bullets.push(bullet);
-    } */
-
     addBomb() {
         if (this.#player.skillCD > 0) {
             console.log("addBomb() Skill is not ready");
@@ -515,7 +500,6 @@ class Game {
 
     addExplode(xCoor, yCoor, harm, attackBit, explodeType) {
         const explode = new Explode(xCoor, yCoor, harm, attackBit, explodeType);
-        explode.preload();
         explode.show();
         this.checkCollideExplode(explode);
         this.#bulletExplode.push(explode);
