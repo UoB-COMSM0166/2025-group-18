@@ -32,37 +32,37 @@ class Player extends BasicObject {
 
     setAnimation(type) {
         if (type == 'D') {
-            this.currentFrames = framesD;
+            this.currentFrames = frames.shipMove.D;
         } 
         else if(type == 'idleD'){
-            this.currentFrames = framesIdleD;
+            this.currentFrames = frames.shipMove.IdleD;
         }
         else if(type == 'S'){
-            this.currentFrames = framesS;
+            this.currentFrames = frames.shipMove.S;
         }
         
         else if(type == 'A'){
-            this.currentFrames = framesA;
+            this.currentFrames = frames.shipMove.A;
         }
         
         else if(type == 'W'){
-            this.currentFrames = framesW;
+            this.currentFrames = frames.shipMove.W;
         }
         
         else if(type == 'DS'){
-            this.currentFrames = framesDS;
+            this.currentFrames = frames.shipMove.DS;
         }
 
         else if(type == 'AS'){
-            this.currentFrames = framesAS;
+            this.currentFrames = frames.shipMove.AS;
         }
 
         else if(type == 'AW'){
-            this.currentFrames = framesAW;
+            this.currentFrames = frames.shipMove.AW;
         }
 
         else if(type == 'DW'){
-            this.currentFrames = framesDW;
+            this.currentFrames = frames.shipMove.DW;
         }
        
         this.frameIndex = 0

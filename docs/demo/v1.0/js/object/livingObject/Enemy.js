@@ -35,6 +35,7 @@ class Enemy extends BasicObject {
         this.currentFrame = 0;  
         this.frameRate = 20;  
         this.frameCount = 0; 
+        this.frames = frames.enemy;
     }
 
     updateStatus() {
@@ -49,16 +50,16 @@ class Enemy extends BasicObject {
 
         this.frameCount++;
         if (this.frameCount % this.frameRate === 0) {
-            this.currentFrame = (this.currentFrame + 1) % enemyFrames.length;
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         }
     }
 
     drawEnemy() {
         
         imageMode(CENTER);
-        image(enemyFrames[this.modelType][this.currentFrame], 
+        image(this.frames[this.modelType][this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              enemyFrames[this.modelType][this.currentFrame].width/3, enemyFrames[this.modelType][this.currentFrame].height/3 );
+              this.frames[this.modelType][this.currentFrame].width/3, this.frames[this.modelType][this.currentFrame].height/3 );
     }
 
 
