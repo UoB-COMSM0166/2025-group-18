@@ -13,7 +13,6 @@ class Game {
     #pollution
     #bulletExplode;
 
-
     constructor(updateStepCallBack) {
         this.#player = null;
         this.#enemies = [];
@@ -63,46 +62,37 @@ class Game {
         this.#playerBuffController = new BuffController(this.#player);
     }
 
-    initEnemies() {
-        const enemy = new Enemy(
-            300,
-            100,
-            EASY_ENEMY_MODEL_1_TYPE,
-            (
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ) => this.addBullet(
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ),
-            (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
-            this.#pollution
-        );
-        this.#enemies.push(enemy);
+    initRandomMap() {
+        this.mapType = MAP_MODEL_2_TYPE;
+        let info = getMapModel(this.mapType);
+        this.initEnemies(info.enemy);
+        this.initIslands(info.island);
+        this.initBuilding(info.building);
+    }
 
-        const enemy_1 = new Enemy(
-            400,
-            100,
-            EASY_ENEMY_MODEL_2_TYPE,
-            (
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ) => this.addBullet(
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ),
-            (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
-            this.#pollution
-        );
-        this.#enemies.push(enemy_1);
+
+    initEnemies(enemies) {
+        for (let enemy of enemies) {
+            const newEnemy = new Enemy(
+                enemy.x * width,
+                enemy.y * height,
+                enemy.type,
+                (
+                    xSpeed, ySpeed, 
+                    bulletType, bulletMoveType,
+                    attackPower, 
+                    enemy
+                ) => this.addBullet(
+                    xSpeed, ySpeed, 
+                    bulletType, bulletMoveType,
+                    attackPower, 
+                    enemy
+                ),
+                (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+                this.#pollution
+            );
+            this.#enemies.push(newEnemy);
+        }
     }
 
     initBoss() {
@@ -127,32 +117,28 @@ class Game {
         this.#enemies.push(boss);
     }
 
-    initIslands() {
-        const island = new Island(200, 300, ISLAND_MODEL_1_TYPE);
-        this.#islands.push(island);
-        //const island1 = new Island(width * 0.5, height * 0.3, ISLAND_MODEL_BOSS_TYPE);
-        //this.#islands.push(island1);
+    initIslands(islands) {
+        for (let island of islands) {
+            const newIsland = new Island(
+                island.x * width,
+                island.y * height,
+                island.type
+            );
+            this.#islands.push(newIsland);
+        }
     }
 
-    initBuilding() {
-        const chemicalBox = new Building(
-            300,
-            300,
-            BUILDING_MODEL_CHEMICAL_BOX_TYPE,
-            (xCoor, yCoor, harm, attackBit, explodeType) =>
-                this.addExplode(xCoor, yCoor, harm, attackBit, explodeType),
-        );
-        this.#buildings.push(chemicalBox);
-
-        const tnt = new Building(
-            400,
-            400,
-            BUILDING_MODEL_TNT_TYPE,
-            (xCoor, yCoor, harm, attackBit, explodeType) =>
-                this.addExplode(xCoor, yCoor, harm, attackBit, explodeType),
-        );
-        this.#buildings.push(tnt);
-
+    initBuilding(buildings) {
+        for (let building of buildings) {
+            const newBuilding = new Building(
+                building.x * width,
+                building.y * height,
+                building.type,
+                (x, y, harm, attackBit, explodeType) =>
+                    this.addExplode(x, y, harm, attackBit, explodeType)
+            );
+            this.#buildings.push(newBuilding);
+        }
         const chest = new Building(
             500,
             500,
