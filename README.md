@@ -58,6 +58,7 @@ Video of Demo - TBD
 
 ### Week 05
 1. [🧩 Class Diagram](docs/labprocess/week05/ClassDiagram.png)
+2. [🧩 Sequence Diagram](docs/labprocess/week05/SequenceDiagram.png)
 
 ### Week 06 (Reading week - nothing need)
 
@@ -154,6 +155,9 @@ Video of Demo - TBD
 
 #### Class Diagram
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
+
+#### Sequence Diagram
+[<img src="docs/labprocess/week05/SequenceDiagram.png" width="1200"/>](docs/labprocess/week05/SequenceDiagram.png)
 
 ### Implementation
 
