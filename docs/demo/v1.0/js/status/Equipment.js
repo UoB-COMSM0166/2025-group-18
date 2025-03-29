@@ -17,7 +17,7 @@ class Equipment {
     addDefaultWeapon() {
         const defaultWeapon = {
             name: "Default Weapon",
-            attackPower: 1,
+            attackPower: 10,
             pollutionValue: 0,
             bulletSize: 2, 
             bulletSpeed: 5, 

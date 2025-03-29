@@ -214,7 +214,7 @@ class PlayerControl {
 
     updateSkillCD() {
         if (this.#player.skillCD > 0) {
-            this.#player.skillCD -= (this.#player.maxSkillCD / 10000) * deltaTime;
+            this.#player.skillCD -= (deltaTime / 1000);
             // this.#player.skillCD = this.#player.skillCD;
             this.#player.skillCD = Math.max(0, this.#player.skillCD);
         }

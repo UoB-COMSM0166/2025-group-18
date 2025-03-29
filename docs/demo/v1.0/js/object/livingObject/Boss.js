@@ -92,23 +92,23 @@ class Boss extends BasicObject {
     }
 
     show() {
-        let hpBarX = width * 0.5;
-        let hpBarY = height * 0.9;
-        let xSize = width * 0.7;
+        let hpBarX = logicWidth * 0.5;
+        let hpBarY = logicHeight * 0.9;
+        let xSize = logicWidth * 0.7;
         let ySize = 20;
         let hpBar = xSize * (this.HP / this.maxHP);
 
         text("octopus", hpBarX, hpBarY * 0.95);
 
         fill(220);
-        rect(hpBarX, hpBarY, xSize, ySize);
+        rect(hpBarX - xSize / 2, hpBarY - ySize / 2, xSize, ySize);
         
         fill(255, 0, 0);
-        rect(hpBarX, hpBarY, hpBar, ySize);
+        rect(hpBarX - xSize / 2, hpBarY - ySize / 2, hpBar, ySize);
 
         if (this.isAlive) {
             fill(100);
-            rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+            rect(this.xCoordinate - this.xSize / 2, this.yCoordinate - this.ySize / 2, this.xSize, this.ySize);
         }
         this.drawBoss();
     }

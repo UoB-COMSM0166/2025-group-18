@@ -37,6 +37,10 @@ class MainUI {
         this.#startUI.init();
         this.#startUI.draw();
     }
+
+    initStartUI() {
+        this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
+    }
   
     showChooseShipUI() {
         if (!this.#chooseShipUI) {
@@ -45,6 +49,10 @@ class MainUI {
         this.#currentStep = MAIN_STEP_CHOOSE_SHIP_UI;
         this.#chooseShipUI.init();
         this.#chooseShipUI.draw();
+    }
+
+    initChooseShipUI() {
+        this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
     }
     
     showMapUI() {
@@ -69,12 +77,21 @@ class MainUI {
         this.#inGameUI.show(playerStatus);
     }
 
+    initInGameUI() {
+        this.#inGameUI = new InGameUI();
+        this.#inGameUI.preload();
+    }
+
     showGameRewardUI(gold, buff) {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         }
         this.#gameRewardUI.init(buff);
         this.#gameRewardUI.draw(gold);
+    }
+
+    initGameRewardUI() {
+        this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
     }
 
     showGameOverUI() {
@@ -84,12 +101,20 @@ class MainUI {
         this.#gameOverUI.draw();
     }
 
+    initGameOverUI() {
+        this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
+    }
+
     showGameWinBossUI() {
         if (this.#gameWinBossUI == null) {
             this.#gameWinBossUI = new GameWinBossUI();
         }
         this.#gameWinBossUI.init();
         this.#gameWinBossUI.draw();
+    }
+
+    initGameWinBossUI() {
+        this.#gameWinBossUI = new GameWinBossUI();
     }
 
     gameFinishGetSeamanUI() {

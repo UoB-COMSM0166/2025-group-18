@@ -48,9 +48,9 @@ class Wave {
         this.xCoordinate += this.vx;
         this.yCoordinate += this.vy;
         if (
-            this.xCoordinate - this.xSize / 2 > width ||
+            this.xCoordinate - this.xSize / 2 > logicWidth ||
             this.xCoordinate + this.xSize / 2 < 0 ||
-            this.yCoordinate - this.ySize / 2 > height ||
+            this.yCoordinate - this.ySize / 2 > logicHeight ||
             this.yCoordinate + this.ySize / 2 < 0
         ) {
             this.finished = true;
@@ -153,25 +153,25 @@ class WaveManager {
 
         if (randomEdge == "left") {
             x = 10;
-            y = random(height);
+            y = random(logicHeight);
             vx = speed;
             vy = 0;
             this.direction = 'D'; // 波浪向左
         } else if (randomEdge == "right") {
-            x = width - 10;
-            y = random(height);
+            x = logicWidth - 10;
+            y = random(logicHeight);
             vx = -speed;
             vy = 0;
             this.direction = 'A'; // 波浪向右
         } else if (randomEdge == "up") {
-            x = random(width);
+            x = random(logicWidth);
             y = 10;
             vx = 0;
             vy = speed;
             this.direction = 'S'; // 波浪向下
         } else {
-            x = random(width);
-            y = height - 10;
+            x = random(logicWidth);
+            y = logicHeight - 10;
             vx = 0;
             vy = -speed;
             this. direction = 'W'; // 波浪向上

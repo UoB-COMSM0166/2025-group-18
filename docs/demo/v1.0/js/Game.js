@@ -107,8 +107,8 @@ class Game {
 
     initBoss() {
         const boss = new Boss(
-            width * 0.5,
-            height * 0.3,
+            logicWidth * 0.5,
+            logicHeight * 0.3,
             BOSS_MODEL_OCTOPUS_TYPE,
             (
                 xSpeed, ySpeed,

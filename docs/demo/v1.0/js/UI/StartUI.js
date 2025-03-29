@@ -59,10 +59,10 @@ class StartUI {
     
         checkHover(startUI) {
             this.isHovered = (
-                mouseX > this.x && 
-                mouseX < this.x + this.w &&
-                mouseY > this.y && 
-                mouseY < this.y + this.h
+                logicX > this.x && 
+                logicX < this.x + this.w &&
+                logicY > this.y && 
+                logicY < this.y + this.h
             );
             
             if(this.isHovered) {
@@ -101,8 +101,10 @@ class StartUI {
     draw() {
         
         push();
-        image(this.bgImg, 0, 0, logicWidth, logicHeight);
         rectMode(CORNER);
+        imageMode(CORNER);
+        image(this.bgImg, 0, 0, logicWidth, logicHeight);
+        // rectMode(CORNER);
         pop();
 
         // Update buttons
@@ -117,8 +119,8 @@ class StartUI {
     
     updateCursor() {
         // Mouse location
-        this.cursorPos.x = lerp(this.cursorPos.x, mouseX, 0.25);
-        this.cursorPos.y = lerp(this.cursorPos.y, mouseY, 0.25);
+        this.cursorPos.x = lerp(this.cursorPos.x, logicX, 0.25);
+        this.cursorPos.y = lerp(this.cursorPos.y, logicY, 0.25);
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
         
         // Mouse shadow
@@ -130,7 +132,7 @@ class StartUI {
         // Mouse center
         noStroke();
         fill(255);
-        ellipse(mouseX, mouseY, this.cursorSize);
+        ellipse(logicX, logicY, this.cursorSize);
         
         // Reset mouse
         if(!this.buttons.some(b => b.isHovered)) {

@@ -62,7 +62,7 @@ class Bullet extends BasicObject {
         this.frameCount++;
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
-        if (this.xCoordinate < 0 || this.xCoordinate > width || this.yCoordinate < 0 || this.yCoordinate > height) {
+        if (this.xCoordinate < 0 || this.xCoordinate > logicWidth || this.yCoordinate < 0 || this.yCoordinate > logicHeight) {
             this.toDelete = true;
         }
     }

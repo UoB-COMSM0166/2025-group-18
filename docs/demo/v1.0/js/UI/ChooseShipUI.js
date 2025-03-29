@@ -29,7 +29,7 @@ class ChooseShipUI {
             const bgColor = this.isHovered ? hoverColor : color(0, 0);
             
             const currentScale = lerp(this.scale, 1, 0.2);
-            translate(this.x + this.w / 2, this.y + this.h / 2);
+            translate(this.x, this.y);
             scale(currentScale);
             
             drawingContext.shadowColor = mainColor;
@@ -43,17 +43,17 @@ class ChooseShipUI {
             noStroke();
             textSize(24);
             textAlign(CENTER, CENTER);
-            text(this.label, 0, 0);
+            text(this.label, this.w / 2, this.h / 2);
     
             drawingContext.restore();
         }
   
         checkHover(chooseShipUI) {
             this.isHovered = (
-                mouseX > this.x && 
-                mouseX < this.x + this.w &&
-                mouseY > this.y && 
-                mouseY < this.y + this.h
+                logicX > this.x && 
+                logicX < this.x + this.w &&
+                logicY > this.y && 
+                logicY < this.y + this.h
             );
         
             if(this.isHovered) {
@@ -84,8 +84,8 @@ class ChooseShipUI {
         const btnHeight = 300;
         const spacing = 50;
         const totalWidth = 3 * btnWidth + 2 * spacing;
-        const startX = (width - totalWidth) / 2;
-        const y = height / 2 - btnHeight / 2;
+        const startX = (logicWidth - totalWidth) / 2;
+        const y = logicHeight / 2 - btnHeight / 2;
     
         this.buttons.push(
             new this.ShipButton(startX, y, btnWidth, btnHeight, '#Level 1#', SHIP_MODEL_1_TYPE),

@@ -23,7 +23,7 @@ class InGameUI {
         this.uiY = 30;
         
         this.pollutionX = 30;
-        this.pollutionY = height - 250;
+        this.pollutionY = logicHeight - 250;
     }
 
     handleWindowResized() {
@@ -70,6 +70,7 @@ class InGameUI {
 
     show(playerStatus) {
         push();
+        logicCanvas.image(sea, 0, 0, logicWidth, logicHeight);
         this.applyDynamicScaling();
         this.drawHolographicFrame();
         this.drawHealthBar();

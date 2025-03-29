@@ -95,8 +95,8 @@ class Enemy extends BasicObject {
         let newX = this.xCoordinate + xSpeed * this.speed;
         let newY = this.yCoordinate + ySpeed * this.speed
 
-        newX = constrain(newX, this.xSize / 2, width - this.xSize / 2);
-        newY = constrain(newY, this.ySize / 2, height - this.ySize / 2);
+        newX = constrain(newX, this.xSize / 2, logicWidth - this.xSize / 2);
+        newY = constrain(newY, this.ySize / 2, logicHeight - this.ySize / 2);
         this.xCoordinate = newX;
         this.yCoordinate = newY;
     }
@@ -139,8 +139,8 @@ class Enemy extends BasicObject {
     updateWavePush() {
         this.enemyMove(this.wavePushX, this.wavePushY, this);
 
-        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, width - this.xSize / 2);
-        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, height - this.ySize / 2);
+        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, logicWidth - this.xSize / 2);
+        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, logicHeight - this.ySize / 2);
 
         this.wavePushX *= 0.95;
         this.wavePushY *= 0.95;

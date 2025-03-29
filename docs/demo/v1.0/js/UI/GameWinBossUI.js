@@ -25,7 +25,7 @@ class GameWinBossUI {
             const bgColor = this.isHovered ? hoverColor : color(0, 0);
             
             const currentScale = lerp(this.scale, 1, 0.2);
-            translate(this.x + this.w / 2, this.y + this.h / 2);
+            translate(this.x, this.y);
             scale(currentScale);
             
             drawingContext.shadowColor = mainColor;
@@ -39,17 +39,17 @@ class GameWinBossUI {
             noStroke();
             textSize(24);
             textAlign(CENTER, CENTER);
-            text(this.label, 0, 0);
+            text(this.label, this.w / 2, this.h / 2);
 
             drawingContext.restore();
         }
 
         checkHover(chooseShipUI) {
             this.isHovered = (
-                mouseX > this.x && 
-                mouseX < this.x + this.w &&
-                mouseY > this.y && 
-                mouseY < this.y + this.h
+                logicX > this.x && 
+                logicX < this.x + this.w &&
+                logicY > this.y && 
+                logicY < this.y + this.h
             );
         
             if(this.isHovered) {
@@ -80,8 +80,8 @@ class GameWinBossUI {
         const btnHeight = 300;
         const spacing = 50;
         const totalWidth = 3 * btnWidth + 2 * spacing;
-        const startX = (width - totalWidth) / 2;
-        const y = height / 2 - btnHeight / 2;
+        const startX = (logicWidth - totalWidth) / 2;
+        const y = logicHeight / 2 - btnHeight / 2;
 
         this.buttons.push(
             new this.ChooseBuffButton(
@@ -95,8 +95,8 @@ class GameWinBossUI {
 
     draw() {
         background(0);
-        text("Ye've vanquished the boss 'ere!", width / 2, height * 0.3);
-        text("Be ye ready to set sail for the next territory?", width / 2, height * 0.4);
+        text("Ye've vanquished the boss 'ere!", logicWidth / 2, logicHeight * 0.3);
+        text("Be ye ready to set sail for the next territory?", logicWidth / 2, logicHeight * 0.4);
         this.buttons.forEach(btn => {
             btn.checkHover(this);
             btn.draw();

@@ -3,14 +3,14 @@ class MapUI {
         this.inGameCallBack = inGameCallBack;
 
         // 画面和半径
-        this.xCoor = width / 2;
-        this.yCoor = height / 2;
-        this.xSize = width * 0.8;
-        this.ySize = height * 0.8;
+        this.xCoor = logicWidth / 2;
+        this.yCoor = logicHeight / 2;
+        this.xSize = logicWidth * 0.8;
+        this.ySize = logicHeight * 0.8;
 
-        this.centerRadius = Math.min(width, height) * 0.06;  // 中心圈半径
-        this.outerRadius = Math.min(width, height) * 0.4;    // 最外层罗盘半径
-        this.buttonSize = Math.min(width, height) * 0.035;
+        this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;  // 中心圈半径
+        this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;    // 最外层罗盘半径
+        this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
         // 5 作为最外圈(outer ring)，0 作为中心
         this.maxRing = 5; // 最外圈是 5
@@ -111,8 +111,8 @@ class MapUI {
         }
 
         checkHover() {
-            const dx = mouseX - this.x;
-            const dy = mouseY - this.y;
+            const dx = logicX - this.x;
+            const dy = logicY - this.y;
             const distance = sqrt(dx * dx + dy * dy);
             this.isHovered = (distance < this.w / 2);
         }
@@ -391,16 +391,17 @@ class MapUI {
 
     // =============== 窗口尺寸变化 ===============
     handleWindowResized() {
-        this.xCoor = width / 2;
-        this.yCoor = height / 2;
-        this.xSize = width * 0.8;
-        this.ySize = height * 0.8;
-        this.centerRadius = Math.min(width, height) * 0.06;
-        this.outerRadius = Math.min(width, height) * 0.4;
-        this.buttonSize = Math.min(width, height) * 0.035;
+        this.xCoor = logicWidth / 2;
+        this.yCoor = logicHeight / 2;
+        this.xSize = logicWidth * 0.8;
+        this.ySize = logicHeight * 0.8;
+        this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;
+        this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;
+        this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
         // 简单处理：重新 init()
-        this.init();
+        // 窗口变化不需要 init 了
+        // this.init();
     }
 
     // =============== 绘制 ===============

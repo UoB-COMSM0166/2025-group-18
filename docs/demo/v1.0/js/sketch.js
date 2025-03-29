@@ -175,8 +175,10 @@ function preload() {
 }
 
 let logicCanvas;
-const logicWidth = 1920;
-const logicHeight = 960;
+// const logicWidth = 1920;
+// const logicHeight = 960;
+const logicWidth = window.screen.width;
+const logicHeight = window.screen.height;
 
 let logicX;
 let logicY;
@@ -184,6 +186,8 @@ let scaleRatio;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    // logicWidth = window.screen.width;
+    // logicHeight = window.screen.height;
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
@@ -191,14 +195,17 @@ function setup() {
 
 function draw() {
     rectMode(CORNER);
-    logicCanvas.background(0);
-    // background(0);
+    // logicCanvas.background(0);
+    background(0);
     // logicCanvas.image(sea, 0, 0, logicWidth, logicHeight);
     // logicCanvas.image(sea, logicWidth/2, 0, logicWidth, logicHeight);
     // logicCanvas.image(sea, 0, logicHeight/2, logicWidth, logicHeight);
     // logicCanvas.image(sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
+    logicX = map(mouseX, 0, width, 0, logicWidth);
+    logicY = map(mouseY, 0, height, 0, logicHeight);
+
     scaleRatio = min(scaleX, scaleY);
     translate(
         (width - logicWidth * scaleRatio) / 2,
@@ -207,7 +214,7 @@ function draw() {
     scale(scaleRatio);
     // scale(scaleX, scaleY);
     // rectMode(CORNER);
-    image(logicCanvas, 0, 0);
+    image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
 }
 
