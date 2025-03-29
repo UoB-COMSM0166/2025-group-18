@@ -1,178 +1,164 @@
 let main;
-let bulletFrames = [];
-let framesD =[];
-let framesIdleD =[];
-let framesS =[];
-let framesA =[];
-let framesW =[];
-let framesDS =[];
-let framesAS =[];
-let framesAW =[];
-let framesDW =[];
-let bossFrames = [];
-let explodeFrames = [];
-let waveFramesW = [];
-let waveFramesA = [];
-let waveFramesS = [];
-let waveFramesD = [];
-let enemyFrames = [];
-let TNTFrames = [];
-let rubbishFrames = [];
-let chestFrames = [];
-let chboxFrames = [];
-let islandA;
-let sea;
+// 重定义的 frames 对象
+let frames = {
+    bullet: [],
+    shipMove: {
+      D: [],
+      IdleD: [],  // 为静止状态另加一个 IdleD，方便区分
+      S: [],
+      A: [],
+      W: [],
+      DS: [],
+      AS: [],
+      AW: [],
+      DW: [],
+    },
+    boss: [],
+    explode: [],
+    wave: {
+      W: [],
+      A: [],
+      S: [],
+      D: [],
+    },
+    enemy: [],
+    building: {
+      TNT: [],
+      rubbish: [],
+      chest: [],
+      chbox: [],
+    },
+    island: [],
+    sea: null,
+  };
+  
+  function preload() {
+    // 加载岛屿图片
+    frames.island.push(loadImage('images/docs/img/png/island/C.png'));
 
-function preload() {
+    // 加载背景图片（只需单张，不用 push）
+    frames.sea = loadImage('images/docs/img/png/background/3.png');
 
-     //加载岛屿图片-------------------------------------------------------------------------------------------------------------
+    // ------------------------ 子弹 ------------------------
+    frames.bullet.push(loadImage('images/docs/img/png/bullet/1.png'));
+    frames.bullet.push(loadImage('images/docs/img/png/bullet/2.png'));
+    frames.bullet.push(loadImage('images/docs/img/png/bullet/3.png'));
 
-     islandA = loadImage('images/docs/img/png/island/C.png');
+    // ------------------------ 船移动(船头向右) ------------------------
+    frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/1.png'));
+    frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/2.png'));
+    frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/3.png'));
 
-     //加载背景图片-------------------------------------------------------------------------------------------------------------
+    // ------------------------ 船移动(船头向右静止) ------------------------
+    frames.shipMove.IdleD.push(loadImage('images/docs/img/png/main_boat/move_right/4.png'));
+    frames.shipMove.IdleD.push(loadImage('images/docs/img/png/main_boat/move_right/5.png'));
 
-     sea = loadImage('images/docs/img/png/background/3.png')
-     
-    //加载子弹图片
-    bulletFrames.push(loadImage('images/docs/img/png/bullet/1.png'));
-    bulletFrames.push(loadImage('images/docs/img/png/bullet/2.png'));
-    bulletFrames.push(loadImage('images/docs/img/png/bullet/3.png'));
+    // ------------------------ 船移动(船头向下) ------------------------
+    frames.shipMove.S.push(loadImage('images/docs/img/png/main_boat/move_down/1.png'));
+    frames.shipMove.S.push(loadImage('images/docs/img/png/main_boat/move_down/2.png'));
+    frames.shipMove.S.push(loadImage('images/docs/img/png/main_boat/move_down/3.png'));
 
-    //加载船头向右的图片-----------------------------------------------------------------------------------------------
+    // ------------------------ 船移动(船头向左) ------------------------
+    frames.shipMove.A.push(loadImage('images/docs/img/png/main_boat/move_left/1.png'));
+    frames.shipMove.A.push(loadImage('images/docs/img/png/main_boat/move_left/2.png'));
+    frames.shipMove.A.push(loadImage('images/docs/img/png/main_boat/move_left/3.png'));
 
-    framesD.push(loadImage('images/docs/img/png/main_boat/move_right/1.png'));
-    framesD.push(loadImage('images/docs/img/png/main_boat/move_right/2.png'));
-    framesD.push(loadImage('images/docs/img/png/main_boat/move_right/3.png'));
+    // ------------------------ 船移动(船头向上) ------------------------
+    frames.shipMove.W.push(loadImage('images/docs/img/png/main_boat/move_up/1.png'));
+    frames.shipMove.W.push(loadImage('images/docs/img/png/main_boat/move_up/2.png'));
+    frames.shipMove.W.push(loadImage('images/docs/img/png/main_boat/move_up/3.png'));
 
-    //加载船头向右静止的图片-----------------------------------------------------------------------------------------------
+    // ------------------------ 船移动(船头右下) ------------------------
+    frames.shipMove.DS.push(loadImage('images/docs/img/png/main_boat/right_down/1.png'));
+    frames.shipMove.DS.push(loadImage('images/docs/img/png/main_boat/right_down/2.png'));
+    frames.shipMove.DS.push(loadImage('images/docs/img/png/main_boat/right_down/3.png'));
 
-    framesIdleD.push(loadImage('images/docs/img/png/main_boat/move_right/4.png'));
-    framesIdleD.push(loadImage('images/docs/img/png/main_boat/move_right/5.png'));
+    // ------------------------ 船移动(船头左下) ------------------------
+    frames.shipMove.AS.push(loadImage('images/docs/img/png/main_boat/left_down/1.png'));
+    frames.shipMove.AS.push(loadImage('images/docs/img/png/main_boat/left_down/2.png'));
+    frames.shipMove.AS.push(loadImage('images/docs/img/png/main_boat/left_down/3.png'));
 
-    //加载船头向下的图片-----------------------------------------------------------------------------------------------
+    // ------------------------ 船移动(船头左上) ------------------------
+    frames.shipMove.AW.push(loadImage('images/docs/img/png/main_boat/left_up/1.png'));
+    frames.shipMove.AW.push(loadImage('images/docs/img/png/main_boat/left_up/2.png'));
+    frames.shipMove.AW.push(loadImage('images/docs/img/png/main_boat/left_up/3.png'));
 
-    framesS.push(loadImage('images/docs/img/png/main_boat/move_down/1.png'));
-    framesS.push(loadImage('images/docs/img/png/main_boat/move_down/2.png'));
-    framesS.push(loadImage('images/docs/img/png/main_boat/move_down/3.png'));
+    // ------------------------ 船移动(船头右上) ------------------------
+    frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/1.png'));
+    frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/2.png'));
+    frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/3.png'));
 
-    //加载船头向左的图片-----------------------------------------------------------------------------------------------
+    // ------------------------ BOSS ------------------------
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/1.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/2.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/3.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/4.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/5.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/6.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/7.png'));
+    frames.boss.push(loadImage('images/docs/img/png/BOSS/8.png'));
 
-    framesA.push(loadImage('images/docs/img/png/main_boat/move_left/1.png'));
-    framesA.push(loadImage('images/docs/img/png/main_boat/move_left/2.png'));
-    framesA.push(loadImage('images/docs/img/png/main_boat/move_left/3.png'));
+    // ------------------------ 爆炸 ------------------------
+    frames.explode.push(loadImage('images/docs/img/png/explode/1.png'));
+    frames.explode.push(loadImage('images/docs/img/png/explode/2.png'));
+    frames.explode.push(loadImage('images/docs/img/png/explode/3.png'));
+    frames.explode.push(loadImage('images/docs/img/png/explode/4.png'));
+    frames.explode.push(loadImage('images/docs/img/png/explode/5.png'));
 
-    //加载船头向上的图片-----------------------------------------------------------------------------------------------
+    // ------------------------ 波浪 ------------------------
+    frames.wave.W.push(loadImage('images/docs/img/png/wave/to_up/1.png'));
+    frames.wave.W.push(loadImage('images/docs/img/png/wave/to_up/2.png'));
+    frames.wave.W.push(loadImage('images/docs/img/png/wave/to_up/3.png'));
 
-    framesW.push(loadImage('images/docs/img/png/main_boat/move_up/1.png'));
-    framesW.push(loadImage('images/docs/img/png/main_boat/move_up/2.png'));
-    framesW.push(loadImage('images/docs/img/png/main_boat/move_up/3.png'));
+    frames.wave.A.push(loadImage('images/docs/img/png/wave/to_left/1.png'));
+    frames.wave.A.push(loadImage('images/docs/img/png/wave/to_left/2.png'));
+    frames.wave.A.push(loadImage('images/docs/img/png/wave/to_left/3.png'));
 
-    //加载船头右下-------------------------------------------------------------------------------------------------------------
+    frames.wave.S.push(loadImage('images/docs/img/png/wave/to_down/1.png'));
+    frames.wave.S.push(loadImage('images/docs/img/png/wave/to_down/2.png'));
+    frames.wave.S.push(loadImage('images/docs/img/png/wave/to_down/3.png'));
 
-    framesDS.push(loadImage('images/docs/img/png/main_boat/right_down/1.png'));
-    framesDS.push(loadImage('images/docs/img/png/main_boat/right_down/2.png'));
-    framesDS.push(loadImage('images/docs/img/png/main_boat/right_down/3.png'));
+    frames.wave.D.push(loadImage('images/docs/img/png/wave/to_right/1.png'));
+    frames.wave.D.push(loadImage('images/docs/img/png/wave/to_right/2.png'));
+    frames.wave.D.push(loadImage('images/docs/img/png/wave/to_right/3.png'));
 
-    //加载船头左下-------------------------------------------------------------------------------------------------------------
-
-    framesAS.push(loadImage('images/docs/img/png/main_boat/left_down/1.png'));
-    framesAS.push(loadImage('images/docs/img/png/main_boat/left_down/2.png'));
-    framesAS.push(loadImage('images/docs/img/png/main_boat/left_down/3.png'));
-
-    //加载船头左上-------------------------------------------------------------------------------------------------------------
-
-    framesAW.push(loadImage('images/docs/img/png/main_boat/left_up/1.png'));
-    framesAW.push(loadImage('images/docs/img/png/main_boat/left_up/2.png'));
-    framesAW.push(loadImage('images/docs/img/png/main_boat/left_up/3.png'));
-
-    //加载船头右上-------------------------------------------------------------------------------------------------------------
-
-    framesDW.push(loadImage('images/docs/img/png/main_boat/right_up/1.png'));
-    framesDW.push(loadImage('images/docs/img/png/main_boat/right_up/2.png'));
-    framesDW.push(loadImage('images/docs/img/png/main_boat/right_up/3.png'));
-
-    //加载BOSS图片-------------------------------------------------------------------------------------------------------------
-
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/1.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/2.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/3.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/4.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/5.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/6.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/7.png'));
-    bossFrames.push(loadImage('images/docs/img/png/BOSS/8.png'));
-
-    //加载爆炸图片-------------------------------------------------------------------------------------------------------------
-
-    explodeFrames.push(loadImage('images/docs/img/png/explode/1.png'));
-    explodeFrames.push(loadImage('images/docs/img/png/explode/2.png'));
-    explodeFrames.push(loadImage('images/docs/img/png/explode/3.png'));
-    explodeFrames.push(loadImage('images/docs/img/png/explode/4.png'));
-    explodeFrames.push(loadImage('images/docs/img/png/explode/5.png'));
-
-    //加载Wave图片-------------------------------------------------------------------------------------------------------------
-
-    waveFramesW.push(loadImage('images/docs/img/png/wave/to_up/1.png'));
-    waveFramesW.push(loadImage('images/docs/img/png/wave/to_up/2.png'));
-    waveFramesW.push(loadImage('images/docs/img/png/wave/to_up/3.png'));
-
-    waveFramesA.push(loadImage('images/docs/img/png/wave/to_left/1.png'));
-    waveFramesA.push(loadImage('images/docs/img/png/wave/to_left/2.png'));
-    waveFramesA.push(loadImage('images/docs/img/png/wave/to_left/3.png'));
-
-    waveFramesS.push(loadImage('images/docs/img/png/wave/to_down/1.png'));
-    waveFramesS.push(loadImage('images/docs/img/png/wave/to_down/2.png'));
-    waveFramesS.push(loadImage('images/docs/img/png/wave/to_down/3.png'));
-
-    waveFramesD.push(loadImage('images/docs/img/png/wave/to_right/1.png'));
-    waveFramesD.push(loadImage('images/docs/img/png/wave/to_right/2.png'));
-    waveFramesD.push(loadImage('images/docs/img/png/wave/to_right/3.png'));
-
-    //加载敌人图片-------------------------------------------------------------------------------------------------------------
-    enemyFrames.push([]);
-
+    // ------------------------ 敌人 ------------------------
+    // 如果需要和原先一样保持二维结构，可继续像这样做：
+    frames.enemy.push([]); // enemy[0]：一个空的占位
     let enemyFramesTmp1 = [];
     enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/1.png'));
     enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/2.png'));
     enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/3.png'));
-    enemyFrames.push(enemyFramesTmp1);
+    frames.enemy.push(enemyFramesTmp1);
 
     let enemyFramesTmp2 = [];
     enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/1.png'));
     enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/2.png'));
     enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/3.png'));
-    enemyFrames.push(enemyFramesTmp2);
-      //加载TNT图片-------------------------------------------------------------------------------------------------------------
+    frames.enemy.push(enemyFramesTmp2);
 
-    TNTFrames.push(loadImage('images/docs/img/png/building/TNT/1.png'));
-    TNTFrames.push(loadImage('images/docs/img/png/building/TNT/2.png'));
-    TNTFrames.push(loadImage('images/docs/img/png/building/TNT/3.png'));
-    TNTFrames.push(loadImage('images/docs/img/png/building/TNT/4.png'));
-    TNTFrames.push(loadImage('images/docs/img/png/building/TNT/5.png'));
+    // ------------------------ 建筑(TNT) ------------------------
+    frames.building.TNT.push(loadImage('images/docs/img/png/building/TNT/1.png'));
+    frames.building.TNT.push(loadImage('images/docs/img/png/building/TNT/2.png'));
+    frames.building.TNT.push(loadImage('images/docs/img/png/building/TNT/3.png'));
+    frames.building.TNT.push(loadImage('images/docs/img/png/building/TNT/4.png'));
+    frames.building.TNT.push(loadImage('images/docs/img/png/building/TNT/5.png'));
 
-    //加载rubbish图片-------------------------------------------------------------------------------------------------------------
+    // ------------------------ 建筑(rubbish) ------------------------
+    frames.building.rubbish.push(loadImage('images/docs/img/png/building/rubbish/1.png'));
+    frames.building.rubbish.push(loadImage('images/docs/img/png/building/rubbish/2.png'));
+    frames.building.rubbish.push(loadImage('images/docs/img/png/building/rubbish/3.png'));
 
-    rubbishFrames.push(loadImage('images/docs/img/png/building/rubbish/1.png'));
-    rubbishFrames.push(loadImage('images/docs/img/png/building/rubbish/2.png'));
-    rubbishFrames.push(loadImage('images/docs/img/png/building/rubbish/3.png'));
+    // ------------------------ 建筑(chest) ------------------------
+    frames.building.chest.push(loadImage('images/docs/img/png/building/chest/1.png'));
+    frames.building.chest.push(loadImage('images/docs/img/png/building/chest/2.png'));
+    frames.building.chest.push(loadImage('images/docs/img/png/building/chest/3.png'));
 
-    //加载chest图片-------------------------------------------------------------------------------------------------------------
-
-    chestFrames.push(loadImage('images/docs/img/png/building/chest/1.png'));
-    chestFrames.push(loadImage('images/docs/img/png/building/chest/2.png'));
-    chestFrames.push(loadImage('images/docs/img/png/building/chest/3.png'));
-
-     //加载污染箱图片-------------------------------------------------------------------------------------------------------------
-
-     chboxFrames.push(loadImage('images/docs/img/png/building/chbox/1.png'));
-     chboxFrames.push(loadImage('images/docs/img/png/building/chbox/2.png'));
-     chboxFrames.push(loadImage('images/docs/img/png/building/chbox/3.png'));
-
-
-     
-
-
-}
+    // ------------------------ 建筑(chbox) ------------------------
+    frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/1.png'));
+    frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/2.png'));
+    frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/3.png'));
+  }
 
 let logicCanvas;
 // const logicWidth = 1920;
@@ -197,10 +183,10 @@ function draw() {
     rectMode(CORNER);
     // logicCanvas.background(0);
     background(0);
-    // logicCanvas.image(sea, 0, 0, logicWidth, logicHeight);
-    // logicCanvas.image(sea, logicWidth/2, 0, logicWidth, logicHeight);
-    // logicCanvas.image(sea, 0, logicHeight/2, logicWidth, logicHeight);
-    // logicCanvas.image(sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, 0, 0, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, logicWidth/2, 0, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, 0, logicHeight/2, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
     logicX = map(mouseX, 0, width, 0, logicWidth);

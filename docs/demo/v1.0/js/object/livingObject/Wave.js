@@ -28,19 +28,19 @@ class Wave {
 
     setAnimation(type) {
         if (type == 'D') {
-            this.currentFrames = waveFramesD;
+            this.currentFrames = frames.wave.D;
         } 
         
         else if(type == 'S'){
-            this.currentFrames = waveFramesS;
+            this.currentFrames = frames.wave.S;
         }
         
         else if(type == 'A'){
-            this.currentFrames = waveFramesA;
+            this.currentFrames = frames.wave.A;
         }
         
         else if(type == 'W'){
-            this.currentFrames = waveFramesW;
+            this.currentFrames = frames.wave.W;
         }
     }
 

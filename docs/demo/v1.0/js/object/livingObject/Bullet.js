@@ -30,6 +30,7 @@ class Bullet extends BasicObject {
         this.currentFrame = 0;
         this.frameRate = 10;
         this.frameCount = 0;
+        this.frames = frames.bullet;
     }
 
     updateStatus() {
@@ -57,7 +58,7 @@ class Bullet extends BasicObject {
             }
         }
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % bulletFrames.length;
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         }
         this.frameCount++;
         this.xCoordinate += this.xSpeed * this.speed;
@@ -71,9 +72,9 @@ class Bullet extends BasicObject {
 
         imageMode(CENTER);
 
-        image(bulletFrames[this.currentFrame],
+        image(this.frames[this.currentFrame],
             this.xCoordinate, this.yCoordinate,
-            bulletFrames[this.currentFrame].width / 4, bulletFrames[this.currentFrame].height / 4);
+            this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
     }
 
     show() {

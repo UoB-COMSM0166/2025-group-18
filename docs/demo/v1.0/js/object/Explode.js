@@ -10,16 +10,10 @@ class Explode {
         this.attackBit = attackBit;
         this.type = explodeType;
 
-        this.frames = []; 
+        this.frames = frames.explode;
         this.currentFrame = 0;
         this.frameRate = 5;  
         this.frameCount = 0;
-    }
-
-    preload() {
-        
-        this.frames = explodeFrames;
-        
     }
 
     updateStatus() {
@@ -34,7 +28,7 @@ class Explode {
         imageMode(CENTER);
         image(this.frames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frames[this.currentFrame].width/5, this.frames[this.currentFrame].height/5);
+              this.frames[this.currentFrame].width / 5, this.frames[this.currentFrame].height / 5);
         }
 
     show() {

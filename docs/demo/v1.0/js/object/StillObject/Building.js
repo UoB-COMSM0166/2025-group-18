@@ -22,95 +22,42 @@ class Building extends BasicObject {
         this.currentFrame = 0;  
         this.frameRate = 10;
         this.frameCount = 0; 
+        this.frames = this.getFrames();
     }
 
     static setPollutionInstance(pollutionInstance) {
         Building.#pollution = pollutionInstance;
     }
 
-    drawTNT() {
-
-        this.frameCount++;
-        if (this.frameCount % this.frameRate === 0) 
-            this.currentFrame = (this.currentFrame + 1) % TNTFrames.length;
-        
-        imageMode(CENTER);
-        image(TNTFrames[this.currentFrame], 
-              this.xCoordinate, this.yCoordinate, 
-              TNTFrames[this.currentFrame].width/3, TNTFrames[this.currentFrame].height/3 );
+    getFrames() {
+        switch(this.modelType) {
+            case BUILDING_MODEL_CHEMICAL_BOX_TYPE:
+                return frames.building.chbox;
+            case BUILDING_MODEL_TNT_TYPE:
+                return frames.building.TNT;
+            case BUILDING_MODEL_CHEST_TYPE:
+                return frames.building.chest;
+            case BUILDING_MODEL_RUBBISH_TYPE:
+                return frames.building.rubbish;
+            default:
+                return [];
+        }
     }
 
-    drawRubbish() {
-
+    draw() {
         this.frameCount++;
-        if (this.frameCount % this.frameRate === 0) 
-            this.currentFrame = (this.currentFrame + 1) % rubbishFrames.length;
+        if (this.frameCount % this.frameRate == 0) 
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         
         imageMode(CENTER);
-        image(rubbishFrames[this.currentFrame], 
+        image(this.frames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              rubbishFrames[this.currentFrame].width/3, rubbishFrames[this.currentFrame].height/3 );
+              this.frames[this.currentFrame].width/3, this.frames[this.currentFrame].height/3 );
     }
-
-    drawChest() {
-
-        this.frameCount++;
-        if (this.frameCount % this.frameRate === 3) 
-            this.currentFrame = (this.currentFrame + 1) % chestFrames.length;
-        
-        imageMode(CENTER);
-        image(chestFrames[this.currentFrame], 
-              this.xCoordinate, this.yCoordinate, 
-              chestFrames[this.currentFrame].width/4, chestFrames[this.currentFrame].height/4 );
-    }
-
-    drawChbox() {
-
-        this.frameCount++;
-        if (this.frameCount % this.frameRate === 0) 
-            this.currentFrame = (this.currentFrame + 1) % chboxFrames.length;
-        
-        imageMode(CENTER);
-        image(chboxFrames[this.currentFrame], 
-              this.xCoordinate, this.yCoordinate, 
-              chboxFrames[this.currentFrame].width/8, chboxFrames[this.currentFrame].height/8 );
-    }
-
-
     show() {
 
-        
-        switch(this.modelType) {
-            
-            case BUILDING_MODEL_CHEMICAL_BOX_TYPE:{
-                fill(0, 255, 0, 0 );
-                this.drawChbox();
-                break;
-            }
-            case BUILDING_MODEL_TNT_TYPE:{
-                fill(100, 0, 0, 0);
-                this.drawTNT();
-                break;
-            }
-            case BUILDING_MODEL_CHEST_TYPE:{
-                fill(255, 69, 19, 0);
-                this.drawChest();
-                break;
-            }
-            case BUILDING_MODEL_BOMB_TYPE:{
-                fill(0, 255, 255, 0);
-                this.drawBomb();
-                break;
-            }
-            case BUILDING_MODEL_RUBBISH_TYPE:{
-                fill(255, 165, 0, 0);
-                this.drawRubbish();
-                break;
-            }
-            default:
-                fill(255, 255, 255);
-        }
-        super.show();
+        this.draw();
+        //super.show();
         if (this.modelType == BUILDING_MODEL_BOMB_TYPE) {
             this.updateHP(-1);
         }
