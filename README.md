@@ -55,6 +55,7 @@ Video of Demo - TBD
 
 1. [📜 Requirements section](docs/labprocess/week04/Epic.md)
 2. [📜 Feedback section](docs/labprocess/week04/Feedback.md)
+3. [🧩 Onion Model of Stakeholders](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
 
 ### Week 05
 1. [🧩 Class Diagram](docs/labprocess/week05/ClassDiagram.png)
@@ -90,6 +91,8 @@ Video of Demo - TBD
 
 ### Requirements
 
+#### Identifying Stakeholders
+[<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="1200"/>](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
 #### Epic
 
 | Bot | User Story | Acceptance Criteria |

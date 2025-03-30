@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>5</zoom_level><element><id>UMLSequenceAllInOne</id><coordinates><x>270</x><y>0</y><w>930</w><h>1065</h></coordinates><panel_attributes>title=*Sink or Pollute*\n*Sequence Diagram*
+<diagram program="umletino" version="15.1"><zoom_level>4</zoom_level><element><id>UMLSequenceAllInOne</id><coordinates><x>232</x><y>0</y><w>744</w><h>824</h></coordinates><panel_attributes>title=*Sink or Pollute*\n*Sequence Diagram*
 obj=*Game*\n*Controller*~a
 obj=Level\nManager~b
 obj=Map\nManager~c
@@ -73,14 +73,12 @@ k-&gt;&gt;&gt;d : apply pollution effect
 l-&gt;&gt;&gt;f : modify bullet speed;
 l-&gt;&gt;&gt;g : modify explosion damage;
 l-&gt;&gt;&gt;k : modify pollution effect;
-l-&gt;&gt;&gt;e : modify status;
-l-&gt;&gt;&gt;h : modify status;
-l-&gt;&gt;&gt;i : modify status;
+l-&gt;&gt;&gt;d : modify status;
 
 m-&gt;&gt;&gt;e : affect movement;
 m-&gt;&gt;&gt;h : affect movement;
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>70</y><w>65</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;-
-Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>70</y><w>65</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;-
-Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>870</x><y>70</y><w>65</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;-
-Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>940</x><y>70</y><w>65</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;-
-Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>560</x><y>20</y><w>625</w><h>1040</h></coordinates><panel_attributes>*In-Game Runtime Entities*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>275</x><y>20</y><w>285</w><h>1040</h></coordinates><panel_attributes>*Game Logic and Control Modules*</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>656</x><y>56</y><w>52</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;-
+Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>488</x><y>56</y><w>52</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;-
+Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>712</x><y>56</y><w>52</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;-
+Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>768</x><y>56</y><w>52</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;-
+Check HP</panel_attributes><additional_attributes>10;50;60;50;60;10;10;10</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>464</x><y>16</y><w>500</w><h>800</h></coordinates><panel_attributes>*In-Game Runtime Entities*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>236</x><y>16</y><w>228</w><h>800</h></coordinates><panel_attributes>*Game Logic and Control Modules*</panel_attributes><additional_attributes></additional_attributes></element></diagram>
