@@ -9,6 +9,7 @@ class Main {
         gold: 0,
         buff: []
     };
+    #buffSet;
 
     constructor() {
         this.#UI = new MainUI(
@@ -19,6 +20,9 @@ class Main {
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
+        this.#buffSet = [];
+        let buff = createMaxHealthBuff();
+        this.#buffSet.push(buff);
     }
 
     initMain() {
@@ -29,7 +33,8 @@ class Main {
     initNewGame() {
         let playerBasicStatus = this.#status.getShipStatus();
         this.#game = new Game(
-            (stepChangeType) => this.updateStep(stepChangeType)
+            (stepChangeType) => this.updateStep(stepChangeType),
+            this.#buffSet
         );
 
         this.#game.initPlayer(playerBasicStatus);
@@ -252,7 +257,6 @@ class Main {
             return;
         }
         this.#nextGameType = gameType;
-        console.log(gameType);
 
     }
 

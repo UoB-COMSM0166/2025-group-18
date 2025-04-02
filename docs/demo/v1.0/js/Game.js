@@ -12,8 +12,9 @@ class Game {
     #enemyBuffController;
     #pollution
     #bulletExplode;
+    #buffSet;
 
-    constructor(updateStepCallBack) {
+    constructor(updateStepCallBack, buff) {
         this.#player = null;
         this.#enemies = [];
         this.#bullets = [];
@@ -30,6 +31,8 @@ class Game {
         this.#pollution = new Pollution();
         Building.setPollutionInstance(this.#pollution);
         this.#bulletExplode = [];
+        this.#buffSet = buff;
+        console.log(this.#buffSet);
     }
 
     initPlayer(playerBasicStatus) {
@@ -394,6 +397,12 @@ class Game {
         if (explode.attackBit & PLAYER_TYPE) {
             if (myCollide(explode, this.#player)) {
                 this.#player.updateHP(explode.harm * -1);
+                for (let buff of this.#buffSet) {
+                    console.log(buff);
+                    if (buff.effectType == BuffTypes.HEALTH_CHANGE) {
+                        buff.onApply(this.#player, buff);
+                    }
+                }
             }
         }
     }

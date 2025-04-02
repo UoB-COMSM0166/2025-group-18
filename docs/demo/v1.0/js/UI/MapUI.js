@@ -231,10 +231,6 @@ class MapUI {
         const innerRing = currentRing - 1;
         this.createRing(innerRing);
 
-        console.log("currentRing", currentRing, "innerRing", innerRing);
-        console.log("currentRing", this.rings[currentRing][this.playerLocation.index]);
-        console.log("innerRing", this.rings[innerRing]);
-        console.log("playerLocation", this.playerLocation);
         let currentBtn = this.rings[currentRing][this.playerLocation.index];
         if (!currentBtn) return;
 
