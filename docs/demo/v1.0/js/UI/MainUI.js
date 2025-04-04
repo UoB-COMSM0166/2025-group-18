@@ -5,6 +5,8 @@ class MainUI {
     #chooseShipUI;
     #inGameUI;
     #gameRewardUI;
+    #shopUI;
+    #randomEventUI;
     #mapUI;
     #gameOverUI;
     #gameWinBossUI;
@@ -12,11 +14,13 @@ class MainUI {
     constructor(updateStep, 
                 updateShipStatus, 
                 updateBuffStatus, 
-                updateChooseGame) {
+                updateChooseGame,
+                updateGoldStatus) {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
         this.updateChooseGame = updateChooseGame;
+        this.updateGoldStatus = updateGoldStatus;
         
         // Init UI
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
@@ -24,6 +28,8 @@ class MainUI {
         this.#inGameUI = new InGameUI();
         this.#inGameUI.preload();
         this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
+        this.#shopUI = new ShopUI(this.#handleShoppingSelection.bind(this), this.#handleShopExitSeletion.bind(this));
+        this.#randomEventUI = new RandomEventUI(this.#handleRandomEventSelection.bind(this));
         this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
         this.#mapUI.init();
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
@@ -75,6 +81,26 @@ class MainUI {
         }
         this.#gameRewardUI.init(buff);
         this.#gameRewardUI.draw(gold);
+    }
+
+    showShopUI(gold) {
+        if (this.#shopUI == null) {
+            this.#shopUI = new ShopUI(this.#handleShoppingSelection.bind(this), this.#handleShopExitSeletion.bind(this));
+        }
+        if (!this.#shopUI.isInit()) {
+            this.#shopUI.init();
+        }
+        this.#shopUI.draw(gold);
+    }
+
+    showRandomEventUI() {
+        if (this.#randomEventUI == null) {
+            this.#randomEventUI = new RandomEventUI(this.#handleRandomEventSelection.bind(this));
+        }
+        if (!this.#randomEventUI.isInit()) {
+            this.#randomEventUI.init();
+        }
+        this.#randomEventUI.draw();
     }
 
     showGameOverUI() {
@@ -141,6 +167,30 @@ class MainUI {
     chooseGameRewardUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_GAME_REWARD && this.#gameRewardUI) {
             this.#gameRewardUI.handleMouseReleased();
+        }
+    }
+
+    chooseShopUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_SHOP && this.#shopUI) {
+            this.#shopUI.handleMousePressed();
+        }
+    }
+
+    chooseShopUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_SHOP && this.#shopUI) {
+            this.#shopUI.handleMouseReleased();
+        }
+    }
+
+    chooseRandomEventUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_RANDOM_EVENT && this.#randomEventUI) {
+            this.#randomEventUI.handleMousePressed();
+        }
+    }
+
+    chooseRandomEventUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_RANDOM_EVENT && this.#randomEventUI) {
+            this.#randomEventUI.handleMouseReleased();
         }
     }
 
@@ -238,13 +288,13 @@ class MainUI {
         }
     }
 
-    #handleGameMapSelection(gameType) {
+    #handleGameMapSelection(mapType, gameType) {
         if (this.updateChooseGame) {
-            this.updateChooseGame(gameType);
+            this.updateChooseGame(mapType);
         }
 
         if (this.updateStep) {
-            this.updateStep(MAIN_STEP_IN_GAME);
+            this.updateStep(mapType);
         }
     }
 
@@ -255,6 +305,30 @@ class MainUI {
             this.updateBuffStatus(buffType);
         }
 
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_MAP_UI);
+        }
+    }
+
+    #handleShoppingSelection(buffType, goldChange) {
+        if (this.updateBuffStatus) {
+            this.updateBuffStatus(buffType);
+        }
+        if (this.updateGoldStatus) {
+            this.updateGoldStatus(goldChange);
+        }
+    }
+
+    #handleShopExitSeletion() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_MAP_UI);
+        }
+    }
+
+    #handleRandomEventSelection(buffType) {
+        if (buffType != -1) {
+            this.updateBuffStatus(buffType);
+        }
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_MAP_UI);
         }

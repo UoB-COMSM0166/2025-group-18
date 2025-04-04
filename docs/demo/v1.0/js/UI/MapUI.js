@@ -44,7 +44,7 @@ class MapUI {
 
     // =============== 节点类（按钮） ===============
     MapButton = class {
-        constructor(x, y, size, ring, indexInRing, angle) {
+        constructor(x, y, size, ring, indexInRing, angle, mapType) {
             this.x = x;
             this.y = y;
             this.w = size;
@@ -52,6 +52,8 @@ class MapUI {
             this.ring = ring;              // 哪一环
             this.indexInRing = indexInRing; // 该环内第几个
             this.angle = angle;            // 用于朝向（可不用了，如果玩家箭头始终朝中心）
+
+            this.mapType = mapType;
 
             this.isHovered = false;
             this.isPressed = false;
@@ -163,7 +165,7 @@ class MapUI {
         if (this.rings[ringIndex]) return;
 
         // ringIndex=0 → 中心点
-        if (ringIndex === 0) {
+        if (ringIndex == 0) {
             const centerBtn = new this.MapButton(
                 this.xCoor,
                 this.yCoor,
@@ -177,7 +179,7 @@ class MapUI {
         }
 
         // ringIndex=5 → 最外圈只生成 1 个节点
-        if (ringIndex === 5) {
+        if (ringIndex == 5) {
             let angle = random(-PI / 4, PI / 4) - PI / 2; // 随机角度偏上
             const ringDist = this.outerRadius * (ringIndex / this.maxRing);
 
@@ -217,7 +219,8 @@ class MapUI {
                 this.buttonSize,
                 ringIndex,
                 idx,
-                ang
+                ang,
+                MAIN_STEP_SHOP
             );
             btns.push(btn);
         });
@@ -261,7 +264,7 @@ class MapUI {
 
             // 已有此路则不再重复
             let exist = this.roads.find(r =>
-                r.x1 === x1 && r.y1 === y1 && r.x2 === x2 && r.y2 === y2
+                r.x1 == x1 && r.y1 == y1 && r.x2 == x2 && r.y2 == y2
             );
             if (!exist) {
                 this.roads.push({
@@ -313,6 +316,7 @@ class MapUI {
         let currentRing = this.playerLocation.ring;
         let currentIndex = this.playerLocation.index;
         let selectedGame = null;
+        let selectedMapType = null;
     
         // 当前节点
         let prevBtn = this.rings[currentRing][currentIndex];
@@ -321,7 +325,7 @@ class MapUI {
             for (let btn of ringButtons) {
                 if (btn.release() && btn.isHovered) {
                     // 如果点的是内圈（currentRing - 1）
-                    if (btn.ring === currentRing - 1) {
+                    if (btn.ring == currentRing - 1) {
                         // 更新玩家位置
                         this.playerLocation.ring = btn.ring;
                         this.playerLocation.index = btn.indexInRing;
@@ -335,8 +339,8 @@ class MapUI {
                         let chosenRoad = null;
                         this.roads.forEach(road => {
                             if (
-                                road.x1 === prevBtn.x && road.y1 === prevBtn.y &&
-                                road.x2 === btn.x && road.y2 === btn.y
+                                road.x1 == prevBtn.x && road.y1 == prevBtn.y &&
+                                road.x2 == btn.x && road.y2 == btn.y
                             ) {
                                 chosenRoad = road;
                             }
@@ -356,7 +360,7 @@ class MapUI {
     
                             // 只保留被选中的那一条
                             if (fromCurrentNode) {
-                                return (road === chosenRoad);
+                                return (road == chosenRoad);
                             }
                             // 其他不相关的路保持不动
                             return true;
@@ -370,20 +374,21 @@ class MapUI {
                         }
     
                         // 若到达 ring=0，视为 BOSS，否则普通
-                        selectedGame = (btn.ring === 0)
+                        selectedMapType = btn.mapType;
+                        selectedGame = (btn.ring == 0)
                             ? GAME_TYPE_BOSS_ENEMY
                             : GAME_TYPE_NORMAL_ENEMY;
                         break;
                     }
                 }
             }
-            if (selectedGame) break;
+            if (selectedMapType) break;
         }
     
         // 回调
-        if (selectedGame && this.inGameCallBack) {
+        if (selectedMapType && this.inGameCallBack) {
             setTimeout(() => {
-                this.inGameCallBack(selectedGame);
+                this.inGameCallBack(selectedMapType, selectedGame);
             }, 600);
         }
     }

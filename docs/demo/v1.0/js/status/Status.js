@@ -8,7 +8,7 @@ class Status {
         HP: 0,
         speed: 0,
         shipType: 0,
-        gold: 0,
+        gold: 999,
         skillCD: 0,
         maxSkillCD: 0,
         pollution: 0,
@@ -38,6 +38,10 @@ class Status {
     getMaxPollution() {
         return Status.MAX_POLLUTION;
     }
+    
+    getGold() {
+        return this.#playerStatus.gold;
+    }
 
     getPollutionMaxLeverl() {
         return Status.POLLUTION_MAX_LEVEL;
@@ -54,5 +58,9 @@ class Status {
     updatePollution(pollution, pollutionLevel) {
         this.#playerStatus.pollution = pollution;
         this.#playerStatus.pollutionLevel = pollutionLevel;
+    }
+
+    updateGold(goldChange) {
+        this.#playerStatus.gold += goldChange;
     }
 }
