@@ -15,7 +15,8 @@ class Main {
             (stepChangeType) => this.updateStep(stepChangeType),
             (shipType) => this.setShipBasic(shipType),
             (buffType) => this.chooseBuff(buffType),
-            (gameType) => this.chooseGameMap(gameType)
+            (gameType) => this.chooseGameMap(gameType),
+            (goldChange) => this.#status.updateGold(goldChange),
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
@@ -95,6 +96,14 @@ class Main {
                 this.gameReward();
                 break;
             }
+            case MAIN_STEP_SHOP: {
+                this.#UI.showShopUI(this.#status.getShipStatus().gold);
+                break;
+            }
+            case MAIN_STEP_RANDOM_EVENT: {
+                this.#UI.showRandomEventUI();
+                break;
+            }
             case MAIN_STEP_GAME_OVER: {
                 this.#UI.showGameOverUI();
                 this.initMain();
@@ -169,6 +178,14 @@ class Main {
                 this.#UI.chooseGameRewardUIMousePressed();
                 break;
             }
+            case MAIN_STEP_SHOP: {
+                this.#UI.chooseShopUIMousePressed();
+                break;
+            }
+            case MAIN_STEP_RANDOM_EVENT: {
+                this.#UI.chooseRandomEventUIMousePressed();
+                break;
+            }
             case MAIN_STEP_GAME_OVER: {
                 this.#UI.gameOverMousePressed();
                 break;
@@ -200,6 +217,14 @@ class Main {
             }
             case MAIN_STEP_GAME_REWARD: {
                 this.#UI.chooseGameRewardUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_SHOP: {
+                this.#UI.chooseShopUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_RANDOM_EVENT: {
+                this.#UI.chooseRandomEventUIMouseReleased();
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
@@ -255,14 +280,6 @@ class Main {
     }
 
     chooseGameMap(gameType) {
-        if (gameType == GAME_TYPE_RANDOM_EVENT) {
-            this.updateStep(MAIN_STEP_RANDOM_EVENT);
-            return;
-        }
-        if (gameType == GAME_TYPE_SHOP) {
-            this.updateStep(MAIN_STEP_SHOP);
-            return;
-        }
         this.#nextGameType = gameType;
         console.log(gameType);
 
