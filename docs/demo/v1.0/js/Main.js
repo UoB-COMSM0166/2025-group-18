@@ -104,6 +104,10 @@ class Main {
                 this.#UI.showGameWinBossUI();
                 break;
             }
+            case MAIN_STEP_START_UI_TEAM: {
+                this.#UI.showTeamUI();
+                break;
+            }
         }
 
         if (this.#step != MAIN_STEP_IN_GAME) {
@@ -173,6 +177,10 @@ class Main {
                 this.#UI.gameWinBossMousePressed();
                 break;
             }
+            case MAIN_STEP_START_UI_TEAM: {
+                this.#UI.teamUIMousePressed();
+                break;
+            }
         }
     }
 
@@ -200,6 +208,10 @@ class Main {
             }
             case MAIN_STEP_WIN_BOSS: {
                 this.#UI.gameWinBossMouseReleased();
+                break;
+            }
+            case MAIN_STEP_START_UI_TEAM: {
+                this.#UI.teamUIMouseReleased();
                 break;
             }
         }

@@ -1,23 +1,25 @@
 class MainUI {
-  
+
     #currentStep = MAIN_STEP_START_UI;
     #startUI;
+    #teamUI;
     #chooseShipUI;
     #inGameUI;
     #gameRewardUI;
     #mapUI;
     #gameOverUI;
     #gameWinBossUI;
-  
-    constructor(updateStep, 
-                updateShipStatus, 
-                updateBuffStatus, 
-                updateChooseGame) {
+
+
+    constructor(updateStep,
+        updateShipStatus,
+        updateBuffStatus,
+        updateChooseGame) {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
         this.updateChooseGame = updateChooseGame;
-        
+
         // Init UI
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
@@ -28,8 +30,9 @@ class MainUI {
         this.#mapUI.init();
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
         this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
+        this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
     }
-  
+
     showStartUI() {
         if (!this.#startUI) {
             this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
@@ -41,7 +44,33 @@ class MainUI {
     initStartUI() {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
     }
-  
+
+    // 显示团队页面
+    showTeamUI() {
+        if (this.#teamUI == null) {
+            this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
+        }
+        this.#teamUI.draw();
+    }
+
+    // 初始化团队页面
+    initTeamUI() {
+        this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
+    }
+
+    // 团队页面鼠标事件处理
+    teamUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_START_UI_TEAM && this.#teamUI) {
+            this.#teamUI.handleMousePressed();
+        }
+    }
+
+    teamUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_START_UI_TEAM && this.#teamUI) {
+            this.#teamUI.handleMouseReleased();
+        }
+    }
+
     showChooseShipUI() {
         if (!this.#chooseShipUI) {
             this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
@@ -54,7 +83,7 @@ class MainUI {
     initChooseShipUI() {
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
     }
-    
+
     showMapUI() {
         if (!this.#mapUI) {
             this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
@@ -118,27 +147,27 @@ class MainUI {
     }
 
     gameFinishGetSeamanUI() {
-      // ...
+        // ...
     }
-  
+
     startUIPressed() {
         if (this.#currentStep == MAIN_STEP_START_UI && this.#startUI) {
             this.#startUI.handleMousePressed();
         }
     }
-      
+
     startUIReleased() {
         if (this.#currentStep == MAIN_STEP_START_UI && this.#startUI) {
             this.#startUI.handleMouseReleased();
         }
     }
-    
+
     chooseShipUIMousePressed() {
         if (this.#currentStep == MAIN_STEP_CHOOSE_SHIP_UI && this.#chooseShipUI) {
             this.#chooseShipUI.handleMousePressed();
         }
     }
-      
+
     chooseShipUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_CHOOSE_SHIP_UI && this.#chooseShipUI) {
             this.#chooseShipUI.handleMouseReleased();
@@ -191,7 +220,7 @@ class MainUI {
             this.#gameOverUI.handleMouseReleased();
         }
     }
-    
+
     windowResized() {
         switch (this.#currentStep) {
             case MAIN_STEP_START_UI:
@@ -214,9 +243,14 @@ class MainUI {
                     this.#inGameUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_START_UI_TEAM:
+                if (this.#teamUI) {
+                    this.#teamUI.handleWindowResized();
+                }
+                break;
         }
     }
-    
+
     // // Handle current UI state mouse pressed
     // handleMousePressed() {
     //     switch (this.#currentStep) {
@@ -228,7 +262,7 @@ class MainUI {
     //             break;
     //     }
     // }
-  
+
     // // Handle current UI state mouse released
     // handleMouseReleased() {
     //     switch (this.#currentStep) {
@@ -240,7 +274,7 @@ class MainUI {
     //             break;
     //     }
     // }
-  
+
     // private, callback by StartUI
     #handleStartUIButtonClick(buttonType) {
         if (buttonType == MAIN_STEP_START_UI) {
@@ -248,16 +282,22 @@ class MainUI {
             this.updateStep(MAIN_STEP_CHOOSE_SHIP_UI);
             this.showChooseShipUI();
         } else if (buttonType == MAIN_STEP_START_UI_TEAM) {
-            // Team Overview
+            // Team Overview / Listen to Theme
+            this.updateStep(MAIN_STEP_START_UI_TEAM);
+            this.showTeamUI();
         }
     }
-  
+
+    #handleTeamUIBack() {
+        this.updateStep(MAIN_STEP_START_UI);
+    }
+
     // private, callback by ChooseShipUI
     #handleShipSelection(shipType) {
         if (this.updateShipStatus) {
             this.updateShipStatus(shipType);
         }
-        
+
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_MAP_UI);
         }
