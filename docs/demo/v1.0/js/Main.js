@@ -15,7 +15,7 @@ class Main {
             (stepChangeType) => this.updateStep(stepChangeType),
             (shipType) => this.setShipBasic(shipType),
             (buffType) => this.chooseBuff(buffType),
-            (mapType, gameType) => this.chooseGameMap(mapType, gameType),
+            (gameType) => this.chooseGameMap(gameType),
             (goldChange) => this.#status.updateGold(goldChange),
         );
         this.#status = new Status();
@@ -267,8 +267,7 @@ class Main {
         console.log(buffType);
     }
 
-    chooseGameMap(mapType, gameType) {
-        this.updateStep(mapType);
+    chooseGameMap(gameType) {
         this.#nextGameType = gameType;
         console.log(gameType);
 

@@ -220,7 +220,7 @@ class MapUI {
                 ringIndex,
                 idx,
                 ang,
-                MAIN_STEP_RANDOM_EVENT
+                this.getRandomType()
             );
             btns.push(btn);
         });
@@ -234,10 +234,10 @@ class MapUI {
         const innerRing = currentRing - 1;
         this.createRing(innerRing);
 
-        console.log("currentRing", currentRing, "innerRing", innerRing);
-        console.log("currentRing", this.rings[currentRing][this.playerLocation.index]);
-        console.log("innerRing", this.rings[innerRing]);
-        console.log("playerLocation", this.playerLocation);
+        // console.log("currentRing", currentRing, "innerRing", innerRing);
+        // console.log("currentRing", this.rings[currentRing][this.playerLocation.index]);
+        // console.log("innerRing", this.rings[innerRing]);
+        // console.log("playerLocation", this.playerLocation);
         let currentBtn = this.rings[currentRing][this.playerLocation.index];
         if (!currentBtn) return;
 
@@ -374,10 +374,14 @@ class MapUI {
                         }
     
                         // 若到达 ring=0，视为 BOSS，否则普通
-                        selectedMapType = btn.mapType;
-                        selectedGame = (btn.ring == 0)
-                            ? GAME_TYPE_BOSS_ENEMY
-                            : GAME_TYPE_NORMAL_ENEMY;
+                        if (btn.ring == 0) {
+                            selectedMapType = MAIN_STEP_IN_GAME;
+                            selectedGame = GAME_TYPE_BOSS_ENEMY;
+                        } else {
+                            selectedMapType = btn.mapType;
+                            selectedGame = GAME_TYPE_NORMAL_ENEMY;
+                        }
+                        console.log("selectedMapType", selectedMapType, "selectedGame", selectedGame);
                         break;
                     }
                 }
@@ -520,5 +524,15 @@ class MapUI {
         drawingContext.shadowBlur = 15;
         ellipse(0, 0, this.buttonSize / 4, this.buttonSize / 4);
         pop();
+    }
+    getRandomType() {
+        const randomNum = Math.random();
+        if (randomNum < 0.5) {
+            return MAIN_STEP_IN_GAME;
+        } else if (randomNum < 0.8) {
+            return MAIN_STEP_SHOP;
+        } else {
+            return MAIN_STEP_RANDOM_EVENT;
+        }
     }
 }

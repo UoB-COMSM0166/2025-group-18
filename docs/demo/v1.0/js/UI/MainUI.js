@@ -289,12 +289,11 @@ class MainUI {
     }
 
     #handleGameMapSelection(mapType, gameType) {
-        if (this.updateChooseGame) {
-            this.updateChooseGame(mapType);
-        }
-
         if (this.updateStep) {
             this.updateStep(mapType);
+        }
+        if (mapType == MAIN_STEP_IN_GAME) {
+            this.updateChooseGame(gameType);
         }
     }
 
