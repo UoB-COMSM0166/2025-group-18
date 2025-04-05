@@ -79,10 +79,10 @@ class ShopUI {
         // 检测鼠标是否悬浮在按钮上
         checkHover(shopUI) {
             this.isHovered =
-                mouseX > this.x &&
-                mouseX < this.x + this.w &&
-                mouseY > this.y &&
-                mouseY < this.y + this.h;
+                logicX > this.x &&
+                logicX < this.x + this.w &&
+                logicY > this.y &&
+                logicY < this.y + this.h;
 
             // 悬浮时，让 ShopUI 的边框产生动画
             if (this.isHovered) {
@@ -140,8 +140,8 @@ class ShopUI {
         // 计算总宽度与高度，用于居中
         const totalWidth = cols * btnWidth + (cols - 1) * spacingX;
         const totalHeight = rows * btnHeight + (rows - 1) * spacingY;
-        const startX = (width - totalWidth) / 2;
-        const startY = (height - totalHeight) / 2;
+        const startX = (logicWidth - totalWidth) / 2;
+        const startY = (logicHeight - totalHeight) / 2;
     
         let index = 0;
         for (let r = 0; r < rows; r++) {
@@ -172,7 +172,7 @@ class ShopUI {
         const exitBtnHeight = 50;
         const exitMargin = 20;
         this.exitButton = new this.ShopButton(
-            width - exitBtnWidth - exitMargin,
+            logicWidth - exitBtnWidth - exitMargin,
             exitMargin,
             exitBtnWidth,
             exitBtnHeight,
@@ -195,11 +195,11 @@ class ShopUI {
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(32);
-        text('Trading Platform', width / 2, height / 8);
+        text('Trading Platform', logicWidth / 2, logicHeight / 8);
     
         // 显示玩家当前金币
         textSize(20);
-        text(`Your Gold: ${gold}`, width / 2, height / 8 + 40);
+        text(`Your Gold: ${gold}`, logicWidth / 2, logicHeight / 8 + 40);
     
         // 绘制边框特效
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
@@ -208,7 +208,7 @@ class ShopUI {
             noFill();
             strokeWeight(3);
             rectMode(CENTER);
-            rect(width / 2, height / 2, this.borderSize * 10, this.borderSize * 5);
+            rect(logicWidth / 2, logicHeight / 2, this.borderSize * 10, this.borderSize * 5);
         }
     
         // 绘制所有交易按钮

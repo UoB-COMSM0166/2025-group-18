@@ -64,10 +64,10 @@ class RandomEventUI {
     
         checkHover(parentUI) {
             this.isHovered =
-                mouseX > this.x &&
-                mouseX < this.x + this.w &&
-                mouseY > this.y &&
-                mouseY < this.y + this.h;
+                logicX > this.x &&
+                logicX < this.x + this.w &&
+                logicY > this.y &&
+                logicY < this.y + this.h;
             if (this.isHovered) {
                 parentUI.targetBorderSize = 80;
                 parentUI.borderColor = color(100, 255, 218, 102);
@@ -113,10 +113,10 @@ class RandomEventUI {
     
         // 1) 计算 16:9 的图片区域，居中但稍偏左
         const aspect = 16 / 9;
-        const rectW = width * 0.3;      // 你可以根据需要调整宽度占比
+        const rectW = logicWidth * 0.3;      // 你可以根据需要调整宽度占比
         const rectH = rectW / aspect;
-        const rectX = width * 0.5 - rectW * 0.5; // 屏幕中心再向左偏移 50 像素
-        const rectY = height * 0.5 - rectH * 0.5;
+        const rectX = logicWidth * 0.5 - rectW * 0.5; // 屏幕中心再向左偏移 50 像素
+        const rectY = logicHeight * 0.5 - rectH * 0.5;
     
         // 2) 绘制图片占位区域
         fill(255, 255, 255, 40);
@@ -125,8 +125,8 @@ class RandomEventUI {
     
         // 3) 在图片右侧（或其他位置）绘制文本
         //    这里要求“文案上侧与图片上侧对齐”，故 y 坐标与 rectY 一致
-        const textX = width * 0.6;       // 若想让文字与图片左侧对齐，可用 rectX
-        const textY = height * 0.2;       // 与图片上侧对齐
+        const textX = logicWidth * 0.6;       // 若想让文字与图片左侧对齐，可用 rectX
+        const textY = logicHeight * 0.2;       // 与图片上侧对齐
         fill(255);
         textSize(28);
         textAlign(LEFT, TOP);
@@ -139,7 +139,7 @@ class RandomEventUI {
             noFill();
             strokeWeight(3);
             rectMode(CENTER);
-            rect(width / 2, height / 2, this.borderSize * 20, this.borderSize * 10);
+            rect(logicWidth / 2, logicHeight / 2, this.borderSize * 20, this.borderSize * 10);
         }
     
         // 5) 绘制按钮（按钮位置由 createButtons() 计算）
@@ -160,10 +160,10 @@ class RandomEventUI {
     
         // 根据 draw() 中的同样参数，计算图片区域和文本起点
         const aspect = 16 / 9;
-        const rectW = width * 0.4;
+        const rectW = logicWidth * 0.4;
         const rectH = rectW / aspect;
-        const rectX = width * 0.8 - rectW * 0.5 - 50;
-        const rectY = height * 0.5 - rectH * 0.5;
+        const rectX = logicWidth * 0.8 - rectW * 0.5 - 50;
+        const rectY = logicHeight * 0.5 - rectH * 0.5;
     
         // 文案与图片上侧对齐，因此文案起点
         const textX = rectX;
