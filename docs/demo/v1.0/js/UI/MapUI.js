@@ -220,7 +220,7 @@ class MapUI {
                 ringIndex,
                 idx,
                 ang,
-                MAIN_STEP_SHOP
+                MAIN_STEP_RANDOM_EVENT
             );
             btns.push(btn);
         });
