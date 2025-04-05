@@ -158,6 +158,9 @@ let frames = {
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/1.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/2.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/3.png'));
+
+    // 主题曲音频
+    teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
   }
 
 let logicCanvas;

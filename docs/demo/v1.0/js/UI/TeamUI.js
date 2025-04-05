@@ -22,14 +22,16 @@ class TeamUI {
         this.rotation = 0;
         this.buttons = [];
         this.memberButtons = [];
-        this.createButtons();
         this.selectedMember = null;
         this.centerImage = null;
         this.useImage = false;
+        this.isMusicPlaying = false;
+        this.createButtons();
     }
 
     createButtons() {
         this.buttons = [];
+        // Back
         this.buttons.push({
             x: logicWidth - 150,
             y: 50,
@@ -40,7 +42,7 @@ class TeamUI {
             isPressed: false
         });
 
-        // 团队成员按钮
+        // Team member
         this.memberButtons = [];
         const memberCount = this.teamMembers.length;
         const centerX = logicWidth / 2;
@@ -70,24 +72,28 @@ class TeamUI {
         textSize(40);
         textAlign(CENTER, TOP);
         text("Our Team Members", logicWidth / 2, 40);
-
+        
         textSize(20);
         fill(180, 180, 180);
-        text("(They seem to have messages for you, try clicking on their names)", logicWidth / 2, 90);
-
-        const centerX = logicWidth / 2;
+        text("Enjoy our game soundtrack: Tides of Ashes", logicWidth / 2, 90);
+        
         const centerY = logicHeight / 2;
         const circleRadius = Math.min(logicWidth, logicHeight) * 0.3;
+        
+        fill(220, 220, 220);
+        textSize(22);
+        text("Our Team Members have messages for you, try clicking on their names", logicWidth / 2, centerY + circleRadius + 150);
 
-        noFill();
-        stroke(100, 255, 218);
-        strokeWeight(3);
-        ellipse(centerX, centerY, circleRadius * 2);
+        // 检查并播放音乐
+        if (teamThemeMusic && !teamThemeMusic.isPlaying()) {
+            teamThemeMusic.loop();
+            this.isMusicPlaying = true;
+        }
 
         this.rotation += 0.003; // 旋转速度
         this.updateMemberButtons();
         this.drawMemberNames();
-        //预留的图片位置
+
         if (this.selectedMember) {
             this.drawCenterMessage();
         } else {
@@ -248,6 +254,11 @@ class TeamUI {
         for (let btn of this.buttons) {
             if (btn.isHovered && btn.isPressed) {
                 if (btn.label == "Back" && this.backToMainCallBack) {
+                    // 退出前停止音乐
+                    if (typeof teamThemeMusic !== 'undefined' && teamThemeMusic && teamThemeMusic.isPlaying()) {
+                        teamThemeMusic.stop();
+                        this.isMusicPlaying = false;
+                    }
                     this.backToMainCallBack();
                 }
             }

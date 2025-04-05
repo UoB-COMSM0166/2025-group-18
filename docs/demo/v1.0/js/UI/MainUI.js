@@ -45,7 +45,7 @@ class MainUI {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
     }
 
-    // 显示团队页面
+    // 团队页面
     showTeamUI() {
         if (this.#teamUI == null) {
             this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
@@ -289,6 +289,10 @@ class MainUI {
     }
 
     #handleTeamUIBack() {
+        // 确保音乐停止
+        if (typeof teamThemeMusic !== 'undefined' && teamThemeMusic && teamThemeMusic.isPlaying()) {
+            teamThemeMusic.stop();
+        }
         this.updateStep(MAIN_STEP_START_UI);
     }
 
