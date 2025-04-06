@@ -30,7 +30,8 @@ class Bullet extends BasicObject {
         this.currentFrame = 0;
         this.frameRate = 10;
         this.frameCount = 0;
-        this.frames = frames.bullet;
+        this.frames;
+        this.bulletTypes = bulletType;
     }
 
     updateStatus() {
@@ -57,8 +58,20 @@ class Bullet extends BasicObject {
                 this.ySpeed = targetYSpeed;
             }
         }
-        if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        // if (this.frameCount % this.frameRate == 0) {
+        //     this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        // }
+
+        if (this.bulletTypes == PLAYER_BULLET_TYPE) {
+            this.frames = frames.bullet;
+            if (this.frameCount % this.frameRate == 0) {
+                this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            }
+        } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
+            this.frames = frames.enemyBullet;
+            if (this.frameCount % this.frameRate == 0) {
+                this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            }
         }
         this.frameCount++;
         this.xCoordinate += this.xSpeed * this.speed;
@@ -72,9 +85,25 @@ class Bullet extends BasicObject {
 
         imageMode(CENTER);
 
-        image(this.frames[this.currentFrame],
-            this.xCoordinate, this.yCoordinate,
-            this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
+        // image(this.frames[this.currentFrame],
+        //     this.xCoordinate, this.yCoordinate,
+        //     this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
+
+            
+        if (this.bulletTypes == PLAYER_BULLET_TYPE) {
+            this.frames = frames.bullet;
+            image(this.frames[this.currentFrame],
+                this.xCoordinate, this.yCoordinate,
+                this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
+    
+        } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
+            this.frames = frames.enemyBullet;
+            image(this.frames[this.currentFrame],
+                this.xCoordinate, this.yCoordinate,
+                this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
+    
+
+        }
     }
 
     show() {

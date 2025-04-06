@@ -2,6 +2,7 @@ let main;
 // 重定义的 frames 对象
 let frames = {
     bullet: [],
+    enemyBullet: [], 
     shipMove: {
       D: [],
       IdleD: [],  // 为静止状态另加一个 IdleD，方便区分
@@ -15,6 +16,7 @@ let frames = {
     },
     boss: [],
     explode: [],
+    enemy2: [], 
     wave: {
       W: [],
       A: [],
@@ -34,7 +36,9 @@ let frames = {
   
   function preload() {
     // 加载岛屿图片
-    frames.island.push(loadImage('images/docs/img/png/island/C.png'));
+    frames.island.push(loadImage('images/docs/img/png/island/1.png'));
+    frames.island.push(loadImage('images/docs/img/png/island/2.png'));
+    frames.island.push(loadImage('images/docs/img/png/island/3.png'));
 
     // 加载背景图片（只需单张，不用 push）
     frames.sea = loadImage('images/docs/img/png/background/3.png');
@@ -43,6 +47,13 @@ let frames = {
     frames.bullet.push(loadImage('images/docs/img/png/bullet/1.png'));
     frames.bullet.push(loadImage('images/docs/img/png/bullet/2.png'));
     frames.bullet.push(loadImage('images/docs/img/png/bullet/3.png'));
+
+    // ------------------------ 敌人子弹 ------------------------
+    frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/1.png'));
+    frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/2.png'));
+    frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/3.png'));
+    frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/4.png'));
+
 
     // ------------------------ 船移动(船头向右) ------------------------
     frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/1.png'));
@@ -104,6 +115,13 @@ let frames = {
     frames.explode.push(loadImage('images/docs/img/png/explode/3.png'));
     frames.explode.push(loadImage('images/docs/img/png/explode/4.png'));
     frames.explode.push(loadImage('images/docs/img/png/explode/5.png'));
+
+     // ------------------------ 敌人爆炸 ------------------------
+     frames.explode.push(loadImage('images/docs/img/png/explode2/1.png'));
+     frames.explode.push(loadImage('images/docs/img/png/explode2/2.png'));
+     frames.explode.push(loadImage('images/docs/img/png/explode2/3.png'));
+     frames.explode.push(loadImage('images/docs/img/png/explode2/4.png'));
+     frames.explode.push(loadImage('images/docs/img/png/explode2/5.png'));
 
     // ------------------------ 波浪 ------------------------
     frames.wave.W.push(loadImage('images/docs/img/png/wave/to_up/1.png'));
