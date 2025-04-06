@@ -45,24 +45,13 @@ class Boss extends BasicObject {
         this.frames = frames.boss;   
         this.currentFrame = 0;  
         this.frameRate = 20;
-        this.frameCount = 0; 
-    }
-
-    // preload(){
-
-    //     console.log('加载子弹动画帧');
-    //     this.frames[0] = loadImage('../../images/docs/img/png/BOSS/1.png');
-    //     this.frames[1] = loadImage('../../images/docs/img/png/BOSS/2.png');
-    //     this.frames[2] = loadImage('../../images/docs/img/png/BOSS/3.png');
-    //     this.frames[3] = loadImage('../../images/docs/img/png/BOSS/4.png');
-    //     this.frames[4] = loadImage('../../images/docs/img/png/BOSS/5.png');
-    //     this.frames[5] = loadImage('../../images/docs/img/png/BOSS/6.png');
-    //     this.frames[6] = loadImage('../../images/docs/img/png/BOSS/7.png');
-    //     this.frames[7] = loadImage('../../images/docs/img/png/BOSS/8.png');
+        this.frameCount = 0;
         
-
-
-    // }
+        // 受击变红效果的属性
+        this.isFlashing = false;
+        this.flashDuration = 150; // 闪烁持续时间(毫秒)
+        this.flashStartTime = 0;
+    }
 
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
@@ -76,7 +65,17 @@ class Boss extends BasicObject {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
+        
+        // 更新受击闪烁
+        if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
+            this.isFlashing = false;
+        }
+    }
 
+    // 开始受击闪烁
+    startFlash() {
+        this.isFlashing = true;
+        this.flashStartTime = millis();
     }
 
     drawBoss() {
@@ -86,9 +85,20 @@ class Boss extends BasicObject {
         }
 
         imageMode(CENTER);
-        image(this.frames[this.currentFrame], 
-              this.xCoordinate, this.yCoordinate, 
-              this.xSize * 1.5, this.ySize * 1.5);
+        
+        // 如果正在闪烁，应用红色染色效果
+        if (this.isFlashing) {
+            push();
+            tint(255, 0, 0); // 应用红色染色
+            image(this.frames[this.currentFrame], 
+                  this.xCoordinate, this.yCoordinate, 
+                  this.xSize * 1.5, this.ySize * 1.5);
+            pop();
+        } else {
+            image(this.frames[this.currentFrame], 
+                  this.xCoordinate, this.yCoordinate, 
+                  this.xSize * 1.5, this.ySize * 1.5);
+        }
     }
 
     show() {
@@ -115,10 +125,15 @@ class Boss extends BasicObject {
 
     updateHP(change) {
         super.updateHP(change);
+        
+        // 如果受到伤害，触发受伤效果
+        if (change < 0) {
+            this.startFlash();
+        }
     }
 
     updateWavePush() {
-
+        // Boss不受波浪影响
     }
 
     enemyAI(playerX, playerY) {
@@ -164,8 +179,7 @@ class Boss extends BasicObject {
     }
 
     applyWaveForce(forceX, forceY) {
-
+        // Boss不受波浪力量影响
     }
-    
 }
 
