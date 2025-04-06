@@ -15,8 +15,12 @@ let frames = {
       DW: [],
     },
     boss: [],
-    explode: [],
-    enemy2: [], 
+    explode: {
+      explodePlayer: [],
+      explodeEnemy: [],
+    },
+    enemy2: [],
+    
     wave: {
       W: [],
       A: [],
@@ -110,18 +114,18 @@ let frames = {
     frames.boss.push(loadImage('images/docs/img/png/BOSS/8.png'));
 
     // ------------------------ 爆炸 ------------------------
-    frames.explode.push(loadImage('images/docs/img/png/explode/1.png'));
-    frames.explode.push(loadImage('images/docs/img/png/explode/2.png'));
-    frames.explode.push(loadImage('images/docs/img/png/explode/3.png'));
-    frames.explode.push(loadImage('images/docs/img/png/explode/4.png'));
-    frames.explode.push(loadImage('images/docs/img/png/explode/5.png'));
+    frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/1.png'));
+    frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/2.png'));
+    frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/3.png'));
+    frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/4.png'));
+    frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/5.png'));
 
      // ------------------------ 敌人爆炸 ------------------------
-     frames.explode.push(loadImage('images/docs/img/png/explode2/1.png'));
-     frames.explode.push(loadImage('images/docs/img/png/explode2/2.png'));
-     frames.explode.push(loadImage('images/docs/img/png/explode2/3.png'));
-     frames.explode.push(loadImage('images/docs/img/png/explode2/4.png'));
-     frames.explode.push(loadImage('images/docs/img/png/explode2/5.png'));
+     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/1.png'));
+     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/2.png'));
+     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/3.png'));
+     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/4.png'));
+     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/5.png'));
 
     // ------------------------ 波浪 ------------------------
     frames.wave.W.push(loadImage('images/docs/img/png/wave/to_up/1.png'));

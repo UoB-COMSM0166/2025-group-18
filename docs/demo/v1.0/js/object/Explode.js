@@ -8,9 +8,10 @@ class Explode {
         this.ySize = explodeModel.ySize;
         this.harm = harm;
         this.attackBit = attackBit;
+        console.log("=========================" + this.attackBit);
         this.type = explodeType;
 
-        this.frames = frames.explode;
+        this.frames;
         this.currentFrame = 0;
         this.frameRate = 5;  
         this.frameCount = 0;
@@ -18,6 +19,12 @@ class Explode {
 
     updateStatus() {
         this.frameCount++;
+        if (this.attackBit == PLAYER_BULLET_ATTACK_BIT){
+            this.frames = frames.explode.explodePlayer;
+        } else if (this.attackBit == ENEMY_BULLET_ATTACK_BIT){
+            this.frames = frames.explode.explodeEnemy;
+        }
+        // console.log("=========================" + this.attackBit);
         if (this.frameCount % this.frameRate == 0) {
             this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         }
@@ -26,14 +33,22 @@ class Explode {
     drawExplode() {
         
         imageMode(CENTER);
+
+        let explodeSize;
+        
+        if (this.attackBit == PLAYER_BULLET_ATTACK_BIT){
+            explodeSize = 5;
+        } else if (this.attackBit == ENEMY_BULLET_ATTACK_BIT){
+            explodeSize = 1.5;
+        }
         image(this.frames[this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frames[this.currentFrame].width / 5, this.frames[this.currentFrame].height / 5);
+              this.frames[this.currentFrame].width / explodeSize, this.frames[this.currentFrame].height / explodeSize);
         }
 
     show() {
+        this.updateStatus();
         this.drawExplode();
-            this.updateStatus();
             // fill(255);
             // let xCoor = this.xCoordinate;
             // let yCoor = this.yCoordinate;

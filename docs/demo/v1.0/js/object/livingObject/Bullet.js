@@ -64,15 +64,14 @@ class Bullet extends BasicObject {
 
         if (this.bulletTypes == PLAYER_BULLET_TYPE) {
             this.frames = frames.bullet;
-            if (this.frameCount % this.frameRate == 0) {
-                this.currentFrame = (this.currentFrame + 1) % this.frames.length;
-            }
         } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
             this.frames = frames.enemyBullet;
-            if (this.frameCount % this.frameRate == 0) {
-                this.currentFrame = (this.currentFrame + 1) % this.frames.length;
-            }
         }
+
+        if (this.frameCount % this.frameRate == 0) {
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
+
         this.frameCount++;
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
