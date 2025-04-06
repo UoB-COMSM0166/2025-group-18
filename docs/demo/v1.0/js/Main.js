@@ -119,9 +119,10 @@ class Main {
             }
         }
 
-        if (this.#step != MAIN_STEP_IN_GAME) {
-            this.#cursorPos.show();
-        }
+        // if (this.#step != MAIN_STEP_IN_GAME) {
+        //     this.#cursorPos.show();
+        // }
+        this.#cursorPos.show();
     }
 
     windowResized() {
@@ -213,6 +214,10 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.chooseGameUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_IN_GAME: {
+                this.#game.getPlayerController().mouseReleased();
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
