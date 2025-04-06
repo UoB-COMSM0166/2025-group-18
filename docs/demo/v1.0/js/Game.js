@@ -35,8 +35,8 @@ class Game {
     initPlayer(playerBasicStatus) {
         this.#player = new Player(
             "Player",
-            width * 0.1,
-            height * 0.5,
+            logicWidth * 0.1,
+            logicHeight * 0.5,
             playerBasicStatus.xSize,
             playerBasicStatus.ySize,
             playerBasicStatus.HP,
@@ -74,8 +74,8 @@ class Game {
     initEnemies(enemies) {
         for (let enemy of enemies) {
             const newEnemy = new Enemy(
-                enemy.x * width,
-                enemy.y * height,
+                enemy.x * logicWidth,
+                enemy.y * logicHeight,
                 enemy.type,
                 (
                     xSpeed, ySpeed, 
@@ -97,8 +97,8 @@ class Game {
 
     initBoss() {
         const boss = new Boss(
-            width * 0.5,
-            height * 0.3,
+            logicWidth * 0.5,
+            logicHeight * 0.3,
             BOSS_MODEL_OCTOPUS_TYPE,
             (
                 xSpeed, ySpeed,
@@ -120,8 +120,8 @@ class Game {
     initIslands(islands) {
         for (let island of islands) {
             const newIsland = new Island(
-                island.x * width,
-                island.y * height,
+                island.x * logicWidth,
+                island.y * logicHeight,
                 island.type
             );
             this.#islands.push(newIsland);
@@ -131,8 +131,8 @@ class Game {
     initBuilding(buildings) {
         for (let building of buildings) {
             const newBuilding = new Building(
-                building.x * width,
-                building.y * height,
+                building.x * logicWidth,
+                building.y * logicHeight,
                 building.type,
                 (x, y, harm, attackBit, explodeType) =>
                     this.addExplode(x, y, harm, attackBit, explodeType)

@@ -9,8 +9,8 @@ class CursorPos {
 
     show() {
         // Mouse location
-        this.x = lerp(this.x, mouseX, 0.25);
-        this.y = lerp(this.y, mouseY, 0.25);
+        this.x = lerp(this.x, logicX, 0.25);
+        this.y = lerp(this.y, logicY, 0.25);
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
         
         // Mouse shadow
@@ -22,7 +22,7 @@ class CursorPos {
         // Mouse center
         noStroke();
         fill(255);
-        ellipse(mouseX, mouseY, this.cursorSize);
+        ellipse(logicX, logicY, this.cursorSize);
         
         // Reset mouse
         /*if(!this.buttons.some(b => b.isHovered)) {

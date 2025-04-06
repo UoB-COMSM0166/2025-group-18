@@ -36,6 +36,11 @@ class Enemy extends BasicObject {
         this.frameRate = 20;  
         this.frameCount = 0; 
         this.frames = this.getFrames();
+        
+        // 受击闪烁效果属性
+        this.isFlashing = false;
+        this.flashDuration = 150; // 闪烁持续时间(毫秒)
+        this.flashStartTime = 0;
     }
 
     getFrames() {
@@ -54,7 +59,17 @@ class Enemy extends BasicObject {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
+        
+        // 更新受击闪烁
+        if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
+            this.isFlashing = false;
+        }
+    }
 
+    // 开始受击闪烁
+    startFlash() {
+        this.isFlashing = true;
+        this.flashStartTime = millis();
     }
 
     drawEnemy() {
@@ -64,11 +79,21 @@ class Enemy extends BasicObject {
         }
 
         imageMode(CENTER);
-        image(this.frames[this.currentFrame], 
-              this.xCoordinate, this.yCoordinate, 
-              this.xSize * 2, this.ySize * 2);
+        
+        // 如果正在闪烁，应用红色染色效果
+        if (this.isFlashing) {
+            push();
+            tint(255, 0, 0); // 应用红色染色
+            image(this.frames[this.currentFrame], 
+                  this.xCoordinate, this.yCoordinate, 
+                  this.xSize * 2, this.ySize * 2);
+            pop();
+        } else {
+            image(this.frames[this.currentFrame], 
+                  this.xCoordinate, this.yCoordinate, 
+                  this.xSize * 2, this.ySize * 2);
+        }
     }
-
 
     show() {
         if (this.isAlive) {
@@ -97,14 +122,19 @@ class Enemy extends BasicObject {
 
     updateHP(change) {
         super.updateHP(change);
+        
+        // 如果受到伤害，触发受伤效果
+        if (change < 0) {
+            this.startFlash();
+        }
     }
 
     move(xSpeed, ySpeed) {
         let newX = this.xCoordinate + xSpeed * this.speed;
         let newY = this.yCoordinate + ySpeed * this.speed
 
-        newX = constrain(newX, this.xSize / 2, width - this.xSize / 2);
-        newY = constrain(newY, this.ySize / 2, height - this.ySize / 2);
+        newX = constrain(newX, this.xSize / 2, logicWidth - this.xSize / 2);
+        newY = constrain(newY, this.ySize / 2, logicHeight - this.ySize / 2);
         this.xCoordinate = newX;
         this.yCoordinate = newY;
     }
@@ -147,8 +177,8 @@ class Enemy extends BasicObject {
     updateWavePush() {
         this.enemyMove(this.wavePushX, this.wavePushY, this);
 
-        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, width - this.xSize / 2);
-        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, height - this.ySize / 2);
+        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, logicWidth - this.xSize / 2);
+        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, logicHeight - this.ySize / 2);
 
         this.wavePushX *= 0.95;
         this.wavePushY *= 0.95;
@@ -159,6 +189,4 @@ class Enemy extends BasicObject {
         this.wavePushX = forceX / speedFactor;
         this.wavePushY = forceY / speedFactor;
     }
-
 }
-

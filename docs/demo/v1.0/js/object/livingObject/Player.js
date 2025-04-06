@@ -21,6 +21,11 @@ class Player extends BasicObject {
         this.frameIndex = 0;
         this.lastFrameTime = 0;
         this.frameInterval = 100;
+
+        // 受击变红效果的属性
+        this.isFlashing = false;
+        this.flashDuration = 150; // 闪烁持续时间(毫秒)
+        this.flashStartTime = 0;
     }
 
     updateAnimation() {
@@ -28,52 +33,72 @@ class Player extends BasicObject {
             this.frameIndex = (this.frameIndex + 1) % this.currentFrames.length;
             this.lastFrameTime = millis();
         }
+        // 更新受击闪烁
+        if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
+            this.isFlashing = false;
+        }
+    }
+
+    // 开始受击闪烁
+    startFlash() {
+        this.isFlashing = true;
+        this.flashStartTime = millis();
     }
 
     setAnimation(type) {
         if (type == 'D') {
             this.currentFrames = frames.shipMove.D;
-        } 
-        else if(type == 'idleD'){
+        }
+        else if (type == 'idleD') {
             this.currentFrames = frames.shipMove.IdleD;
         }
-        else if(type == 'S'){
+        else if (type == 'S') {
             this.currentFrames = frames.shipMove.S;
         }
-        
-        else if(type == 'A'){
+
+        else if (type == 'A') {
             this.currentFrames = frames.shipMove.A;
         }
-        
-        else if(type == 'W'){
+
+        else if (type == 'W') {
             this.currentFrames = frames.shipMove.W;
         }
-        
-        else if(type == 'DS'){
+
+        else if (type == 'DS') {
             this.currentFrames = frames.shipMove.DS;
         }
 
-        else if(type == 'AS'){
+        else if (type == 'AS') {
             this.currentFrames = frames.shipMove.AS;
         }
 
-        else if(type == 'AW'){
+        else if (type == 'AW') {
             this.currentFrames = frames.shipMove.AW;
         }
 
-        else if(type == 'DW'){
+        else if (type == 'DW') {
             this.currentFrames = frames.shipMove.DW;
         }
-       
+
         this.frameIndex = 0
     }
 
     drawmainboat(){ 
-
         imageMode(CENTER);
-        image(this.currentFrames[this.frameIndex], 
-              this.xCoordinate , this.yCoordinate , 
-              this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5 );
+        
+        // 受击打应用红色染色效果
+        if (this.isFlashing) {
+            push();
+            tint(255, 0, 0); // 应用红色染色
+            image(this.currentFrames[this.frameIndex], 
+                  this.xCoordinate, this.yCoordinate, 
+                  this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
+            pop();
+        } else {
+            image(this.currentFrames[this.frameIndex], 
+                  this.xCoordinate, this.yCoordinate, 
+                  this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
+        }
     }
 
 
@@ -86,14 +111,19 @@ class Player extends BasicObject {
 
     updateHP(change) {
         super.updateHP(change);
+
+        // 如果受到伤害，触发受伤效果
+        if (change < 0) {
+            this.startFlash();
+        }
     }
 
     move(xSpeed, ySpeed) {
         let newX = this.xCoordinate + xSpeed * this.speed;
         let newY = this.yCoordinate + ySpeed * this.speed;
 
-        newX = constrain(newX, this.xSize / 2, width - this.xSize / 2);
-        newY = constrain(newY, this.ySize / 2, height - this.ySize / 2);
+        newX = constrain(newX, this.xSize / 2, logicWidth - this.xSize / 2);
+        newY = constrain(newY, this.ySize / 2, logicHeight - this.ySize / 2);
 
         this.xCoordinate = newX;
         this.yCoordinate = newY;

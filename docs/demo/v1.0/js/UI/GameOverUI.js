@@ -4,8 +4,8 @@ class GameOverUI {
     }
 
     draw() {
-        text("Your legend stops here...", width * 0.5, height * 0.4);
-        text("--Click to return--", width * 0.5, height * 0.6);
+        text("Your legend stops here...", logicWidth * 0.5, logicHeight * 0.4);
+        text("--Click to return--", logicWidth * 0.5, logicHeight * 0.6);
     }
 
     handleMousePressed() {

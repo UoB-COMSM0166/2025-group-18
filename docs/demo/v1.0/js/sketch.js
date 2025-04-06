@@ -158,20 +158,52 @@ let frames = {
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/1.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/2.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/3.png'));
+
+    // 主题曲音频
+    teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
   }
 
+let logicCanvas;
+// const logicWidth = 1920;
+// const logicHeight = 960;
+const logicWidth = window.screen.width;
+const logicHeight = window.screen.height;
+
+let logicX;
+let logicY;
+let scaleRatio;
+
 function setup() {
-    rectMode(CENTER);
     createCanvas(windowWidth, windowHeight);
+    // logicWidth = window.screen.width;
+    // logicHeight = window.screen.height;
+    rectMode(CENTER);
+    logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
 }
 
 function draw() {
+    rectMode(CORNER);
+    // logicCanvas.background(0);
     background(0);
-    image(frames.sea, 0, 0, windowWidth, windowHeight);
-    image(frames.sea, windowWidth/2, 0, windowWidth, windowHeight);
-    image(frames.sea, 0, windowHeight/2, windowWidth, windowHeight);
-    image(frames.sea, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+    // logicCanvas.image(frames.sea, 0, 0, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, logicWidth/2, 0, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, 0, logicHeight/2, logicWidth, logicHeight);
+    // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
+    const scaleX = width / logicWidth;
+    const scaleY = height / logicHeight;
+    logicX = map(mouseX, 0, width, 0, logicWidth);
+    logicY = map(mouseY, 0, height, 0, logicHeight);
+
+    scaleRatio = min(scaleX, scaleY);
+    translate(
+        (width - logicWidth * scaleRatio) / 2,
+        (height - logicHeight * scaleRatio) / 2
+    );
+    scale(scaleRatio);
+    // scale(scaleX, scaleY);
+    // rectMode(CORNER);
+    image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
 }
 
