@@ -12,14 +12,9 @@ class PlayerControl {
             left: false,
             right: false
         };
-        this.shootCD = 1;
+        this.shootCD = 0.1;
         this.lastShootTime = 0;
-        this.shootKeyMap = {
-            up: false,
-            down: false,
-            left: false,
-            right: false
-        };
+        this.shootKey = false;
     }
 
     keyPressed() {
@@ -35,32 +30,6 @@ class PlayerControl {
         }
         if (key == 'd' || key == 'D') {
             this.keyMap.right = true;
-        }
-
-        //shoot
-        if (keyCode == UP_ARROW) {
-            this.shootKeyMap.up = true;
-            this.shootKeyMap.down = false;
-            this.shootKeyMap.left = false;
-            this.shootKeyMap.right = false;
-        }
-        if (keyCode == DOWN_ARROW) {
-            this.shootKeyMap.down = true;
-            this.shootKeyMap.up = false;
-            this.shootKeyMap.left = false;
-            this.shootKeyMap.right = false;
-        }
-        if (keyCode == LEFT_ARROW) {
-            this.shootKeyMap.left = true;
-            this.shootKeyMap.up = false;
-            this.shootKeyMap.down = false;
-            this.shootKeyMap.right = false;
-        }
-        if (keyCode == RIGHT_ARROW) {
-            this.shootKeyMap.right = true;
-            this.shootKeyMap.up = false;
-            this.shootKeyMap.down = false;
-            this.shootKeyMap.left = false;
         }
 
         // switch weapon
@@ -87,22 +56,15 @@ class PlayerControl {
         if (key == 'd' || key == 'D') {
             this.keyMap.right = false;
         }
-        if (keyCode == UP_ARROW) {
-            this.shootKeyMap.up = false;
-        }
-        if (keyCode == LEFT_ARROW) {
-            this.shootKeyMap.left = false;
-        }
-        if (keyCode == DOWN_ARROW) {
-            this.shootKeyMap.down = false;
-        }
-        if (keyCode == RIGHT_ARROW) {
-            this.shootKeyMap.right = false;
-        }
     }
 
     mousePressed() {
+        //shoot
+        this.shootKey = true;
+    }
 
+    mouseReleased() {
+        this.shootKey = false;
     }
 
     shoot(xSpeed, ySpeed) {
@@ -178,20 +140,14 @@ class PlayerControl {
     }
 
     updateShoot() {
-        if (millis() - this.lastShootTime >= this.shootCD * 1000) {
-            if (this.shootKeyMap.up) {
-                console.log("updateShoot()");
-                this.shoot(0, -1);
-            }
-            if (this.shootKeyMap.down) {
-                this.shoot(0, 1);
-            }
-            if (this.shootKeyMap.left) {
-                this.shoot(-1, 0);
-            }
-            if (this.shootKeyMap.right) {
-                this.shoot(1, 0);
-            }
+        if (this.shootKey && millis() - this.lastShootTime >= this.shootCD * 1000) {
+            let logicX = map(mouseX, 0, width, 0, logicWidth);
+            let logicY = map(mouseY, 0, height, 0, logicHeight);
+            let distance = dist(this.#player.xCoordinate, this.#player.yCoordinate, logicX, logicY);
+            let shootX = (logicX - this.#player.xCoordinate) / distance;
+            let shootY = (logicY - this.#player.yCoordinate) / distance;
+            this.shoot(shootX, shootY);
+            console.log("updateShoot()");
         }
     }
 

@@ -164,10 +164,10 @@ let frames = {
   }
 
 let logicCanvas;
-// const logicWidth = 1920;
-// const logicHeight = 960;
-const logicWidth = window.screen.width;
-const logicHeight = window.screen.height;
+const logicWidth = 1920;
+const logicHeight = 1080;
+// const logicWidth = window.screen.width;
+// const logicHeight = window.screen.height;
 
 let logicX;
 let logicY;
