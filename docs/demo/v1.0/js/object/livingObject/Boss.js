@@ -115,11 +115,12 @@ class Boss extends BasicObject {
         
         fill(255, 0, 0);
         rect(hpBarX - xSize / 2, hpBarY - ySize / 2, hpBar, ySize);
-
-        if (this.isAlive) {
-            fill(100);
-            rect(this.xCoordinate - this.xSize / 2, this.yCoordinate - this.ySize / 2, this.xSize, this.ySize);
-        }
+        //
+        //if (this.isAlive) {
+        //    rectMode(CENTER);
+        //   fill(100, 100, 100, 0);
+        //    rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+        //}
         this.drawBoss();
     }
 

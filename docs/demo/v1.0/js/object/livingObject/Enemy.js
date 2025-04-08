@@ -97,26 +97,32 @@ class Enemy extends BasicObject {
 
     show() {
         if (this.isAlive) {
-            fill(100);
+            rectMode(CENTER);
+            fill(100, 100, 100, 150);
             rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
-            let hpBar = this.xSize * (this.HP / this.maxHP);
-
-            fill(220);
-            rect(this.xCoordinate, this.yCoordinate - 10, this.xSize, 5);
-
-            fill(255, 0, 0);
-            rect(this.xCoordinate, this.yCoordinate - 10, hpBar, 5);
-
+            //敌人图像
             this.drawEnemy();
             
-            //测试用
+            //血条出现在贴图上方
+            let imageTopY = this.yCoordinate - this.ySize;
+            let hpBar = this.xSize * (this.HP / this.maxHP);
+    
+            rectMode(CORNER);
+            fill(220);
+            rect(this.xCoordinate - this.xSize/2, imageTopY - 10, this.xSize, 5);
+            
+            fill(255, 0, 0);
+            rect(this.xCoordinate - this.xSize/2, imageTopY - 10, hpBar, 5);
+            
+            // 测试用文本
             fill(255);
             textSize(12);
             textAlign(CENTER, CENTER);
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, this.yCoordinate - 20);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, this.yCoordinate - 35);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, this.yCoordinate - 50);
+            let textBaseY = this.yCoordinate + this.ySize;
+            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
+            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
         }
     }
 

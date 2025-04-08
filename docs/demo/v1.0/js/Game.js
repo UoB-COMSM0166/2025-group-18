@@ -333,6 +333,10 @@ class Game {
         }
         for (let enemy of this.#enemies) {
             if (myCollide(location, enemy)) {
+                 // Theodore-特殊处理Boss的碰撞
+                if (enemy instanceof Boss) {
+                    return true;
+                }
                 if (millis() - enemy.lastCollideTime > 1000) {
                     this.#player.updateHP(enemy.attackPower * -1);
                     enemy.lastCollideTime = millis();
