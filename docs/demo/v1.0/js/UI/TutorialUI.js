@@ -5,16 +5,17 @@ class TutorialUI {
         this.targetBorderSize = 50;
         this.borderColor = null;
         this.currentStep = 0;
-        this.totalSteps = 3;
+        this.totalSteps = 4;
         this.keyPressTime = 0;
         this.currentAnimatedKey = '';
         this.wasdIndex = -1;
         this.nextButton = null;
-        this.createButton();
+        this.backButton = null;
+        this.createButtons();
     }
 
-    // 实际按钮
-    NextButton = class {
+    // 实际按钮类
+    TutorialButton = class {
         constructor(x, y, w, h, label, onClick) {
             this.x = x;
             this.y = y;
@@ -83,16 +84,15 @@ class TutorialUI {
     };
 
     // 创建按钮
-    createButton() {
+    createButtons() {
         const btnWidth = 200;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.85;
 
-        // 第三个步骤(index 2)显示"Start Game"，否则显示"Next"
         const buttonLabel = this.currentStep == this.totalSteps - 1 ? 'Start Game' : 'Next';
 
-        this.nextButton = new this.NextButton(
+        this.nextButton = new this.TutorialButton(
             btnX,
             btnY,
             btnWidth,
@@ -101,8 +101,7 @@ class TutorialUI {
             () => {
                 if (this.currentStep < this.totalSteps - 1) {
                     this.currentStep++;
-                    // 更新按钮文字
-                    this.nextButton.label = this.currentStep == this.totalSteps - 1 ? 'Start Game' : 'Next';
+                    this.createButtons(); // 重新创建按钮以更新标签
                 } else {
                     if (this.tutorialCompleteCallback) {
                         this.tutorialCompleteCallback();
@@ -110,9 +109,28 @@ class TutorialUI {
                 }
             }
         );
+
+        // 创建Back按钮
+        if (this.currentStep > 0) {
+            this.backButton = new this.TutorialButton(
+                btnX,
+                btnY - 70,
+                btnWidth,
+                btnHeight,
+                'Back',
+                () => {
+                    if (this.currentStep > 0) {
+                        this.currentStep--;
+                        this.createButtons();
+                    }
+                }
+            );
+        } else {
+            this.backButton = null;
+        }
     }
 
-    // 绘制键盘按键（带动画支持）
+    // 绘制键盘按键
     drawKey(x, y, size, keyLabel, isActive) {
         push();
 
@@ -183,13 +201,13 @@ class TutorialUI {
         const inactiveColor = color(60, 60, 60);
         const radius = height / 4;
 
-        // 鼠标整体外形
+        // 鼠标整体
         fill(mouseColor);
         stroke(100);
         strokeWeight(2);
         rect(x, y, width, height, radius);
 
-        // 鼠标分隔线
+        // 鼠标分割线
         stroke(color(100, 100, 100));
         strokeWeight(1);
         line(x + width / 2, y, x + width / 2, y + height / 3);
@@ -237,17 +255,141 @@ class TutorialUI {
 
         pop();
     }
+    
+// 绘制莫尔斯电码
+drawMorseCode(x, y) {
+    push();
+    textAlign(CENTER, CENTER);
+    
+    // 绘制莫尔斯电码符号
+    const dotSize = 8;
+    const dashWidth = 24;
+    const dashHeight = 8;
+    const spacing = 15;
+    const lineSpacing = 30; // 行间距调整得更紧凑
+    
+    // 莫尔斯电码动画
+    const timeOffset = frameCount * 0.05;
+    const glowIntensity = (sin(timeOffset) + 1) * 0.5;
 
+    fill(100 + 155 * glowIntensity, 255, 218);
+    drawingContext.shadowColor = color(100, 255, 218);
+    drawingContext.shadowBlur = 10 + 20 * glowIntensity;
+    
+    // 计算每行符号的宽度，居中
+    const calculateLineWidth = (symbols) => {
+        let width = 0;
+        for (let symbol of symbols) {
+            if (symbol == "dot") {
+                width += spacing;
+            } else if (symbol == "dash") {
+                width += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                width += spacing * 2;
+            }
+        }
+        return width;
+    };
+    
+    // 第一行: OH
+    const firstLineSymbols = [
+        "dash", "dash", "dash", "space", "dot", "dot", "dot", "dot"
+    ];
+    
+    // 第二行: CAPTAIN
+    const secondLineSymbols = [
+        "dash", "dot", "dash", "dot", "space", // C
+        "dot", "dash", "space", // A
+        "dot", "dash", "dash", "dot", "space", // P
+        "dash", "space", // T
+        "dot", "dash", "space", // A
+        "dot", "dot", "space", // I
+        "dash", "dot" // N
+    ];
+    
+    // 第三行: MY
+    const thirdLineSymbols = [
+        "dash", "dash", "space", // M
+        "dash", "dot", "dash", "dash" // Y
+    ];
+    
+    // 第四行: CAPTAIN
+    const fourthLineSymbols = secondLineSymbols; // 与第二行相同
+    
+    // 计算每行宽度
+    const firstLineWidth = calculateLineWidth(firstLineSymbols);
+    const secondLineWidth = calculateLineWidth(secondLineSymbols);
+    const thirdLineWidth = calculateLineWidth(thirdLineSymbols);
+    const yOffset = -50;
+    
+    // 绘制第一行: OH
+    let currentX = x - firstLineWidth / 2;
+    for (let symbol of firstLineSymbols) {
+        if (symbol == "dot") {
+            ellipse(currentX, y + yOffset - lineSpacing * 1.5, dotSize, dotSize);
+            currentX += spacing;
+        } else if (symbol == "dash") {
+            rect(currentX, y + yOffset - lineSpacing * 1.5, dashWidth, dashHeight, 3);
+            currentX += dashWidth + spacing - dotSize;
+        } else if (symbol == "space") {
+            currentX += spacing * 2;
+        }
+    }
+    
+    // 绘制第二行: CAPTAIN 
+    currentX = x - secondLineWidth / 2;
+    for (let symbol of secondLineSymbols) {
+        if (symbol == "dot") {
+            ellipse(currentX, y + yOffset - lineSpacing * 0.5, dotSize, dotSize);
+            currentX += spacing;
+        } else if (symbol == "dash") {
+            rect(currentX, y + yOffset - lineSpacing * 0.5, dashWidth, dashHeight, 3);
+            currentX += dashWidth + spacing - dotSize;
+        } else if (symbol == "space") {
+            currentX += spacing * 2;
+        }
+    }
+    
+    // 绘制第三行: MY
+    currentX = x - thirdLineWidth / 2;
+    for (let symbol of thirdLineSymbols) {
+        if (symbol == "dot") {
+            ellipse(currentX, y + yOffset + lineSpacing * 0.5, dotSize, dotSize);
+            currentX += spacing;
+        } else if (symbol == "dash") {
+            rect(currentX, y + yOffset + lineSpacing * 0.5, dashWidth, dashHeight, 3);
+            currentX += dashWidth + spacing - dotSize;
+        } else if (symbol == "space") {
+            currentX += spacing * 2;
+        }
+    }
+    
+    // 绘制第四行: CAPTAIN
+    currentX = x - secondLineWidth / 2;
+    for (let symbol of fourthLineSymbols) {
+        if (symbol == "dot") {
+            ellipse(currentX, y + yOffset + lineSpacing * 1.5, dotSize, dotSize);
+            currentX += spacing;
+        } else if (symbol == "dash") {
+            rect(currentX, y + yOffset + lineSpacing * 1.5, dashWidth, dashHeight, 3);
+            currentX += dashWidth + spacing - dotSize;
+        } else if (symbol == "space") {
+            currentX += spacing * 2;
+        }
+    }
+    
+    pop();
+}
 
     draw() {
         background(0);
 
-        // 更新动画时机
+        // 更新动画时间
         if (frameCount % 120 == 0) {
             this.keyPressTime = frameCount;
             switch (this.currentStep) {
                 case 0:
-                    // WASD按顺序循环点亮，不随机
+                    // WASD 按顺序点亮，而不是随机
                     const wasdSequence = ['W', 'A', 'S', 'D'];
                     this.wasdIndex = (this.wasdIndex + 1) % wasdSequence.length;
                     this.currentAnimatedKey = wasdSequence[this.wasdIndex];
@@ -258,10 +400,13 @@ class TutorialUI {
                 case 2:
                     this.currentAnimatedKey = 'SPACE';
                     break;
+                case 3:
+                    // 新页面没有特定动画
+                    break;
             }
         }
 
-        // 计算按键是否正在被动画
+        // 计算按键当前是否正在动画中
         const keyAnimationDuration = 30;
         const isAnimating = frameCount - this.keyPressTime < keyAnimationDuration;
 
@@ -286,31 +431,31 @@ class TutorialUI {
                     middleY - keySize - keySpacing,
                     keySize,
                     "W",
-                    isAnimating && this.currentAnimatedKey === 'W'
+                    isAnimating && this.currentAnimatedKey == 'W'
                 );
                 this.drawKey(
                     leftColumnX - keySize - keySpacing,
                     middleY,
                     keySize,
                     "A",
-                    isAnimating && this.currentAnimatedKey === 'A'
+                    isAnimating && this.currentAnimatedKey == 'A'
                 );
                 this.drawKey(
                     leftColumnX,
                     middleY,
                     keySize,
                     "S",
-                    isAnimating && this.currentAnimatedKey === 'S'
+                    isAnimating && this.currentAnimatedKey == 'S'
                 );
                 this.drawKey(
                     leftColumnX + keySize + keySpacing,
                     middleY,
                     keySize,
                     "D",
-                    isAnimating && this.currentAnimatedKey === 'D'
+                    isAnimating && this.currentAnimatedKey == 'D'
                 );
 
-                // 文字说明
+                // 文字描述
                 textAlign(LEFT, CENTER);
                 textSize(24);
                 fill(255);
@@ -322,7 +467,7 @@ class TutorialUI {
                 text("A - Move Left", rightColumnX, middleY + 10);
                 text("S - Move Down", rightColumnX, middleY + 40);
                 text("D - Move Right", rightColumnX, middleY + 70);
-                text("(I know it's not aligned!!! But it's because the 'W' is just too wide!)", rightColumnX, middleY + 100);
+                text("(I know it's not aligned! But it's because the 'W' is just too wide!)", rightColumnX, middleY + 100);
                 break;
 
             case 1: // 鼠标控制
@@ -331,10 +476,10 @@ class TutorialUI {
                     middleY - 60,
                     80,
                     120,
-                    isAnimating && this.currentAnimatedKey === 'MOUSE'
+                    isAnimating && this.currentAnimatedKey == 'MOUSE'
                 );
 
-                // 文字说明
+                // 文字描述
                 textAlign(LEFT, CENTER);
                 textSize(24);
                 fill(255);
@@ -353,10 +498,10 @@ class TutorialUI {
                     middleY,
                     240,
                     60,
-                    isAnimating && this.currentAnimatedKey === 'SPACE'
+                    isAnimating && this.currentAnimatedKey == 'SPACE'
                 );
 
-                // 文字说明
+                // 文字描述
                 textAlign(LEFT, CENTER);
                 textSize(24);
                 fill(255);
@@ -367,6 +512,21 @@ class TutorialUI {
                 text("Spacebar - Use Special Ability", rightColumnX, middleY - 20);
                 text("Ship has a unique special skill", rightColumnX, middleY + 20);
                 text("Watch the cooldown timer before using again", rightColumnX, middleY + 60);
+                break;
+                
+            case 3: // 摩斯电码
+                this.drawMorseCode(logicWidth * 0.5, middleY - 80);
+                
+                textAlign(CENTER, CENTER);
+                textSize(24);
+                fill(255);
+                text("A cryptic message seems to be hidden in these waters...", logicWidth * 0.5, middleY);
+                
+                textSize(20);
+                fill(200);
+                text("Do you hear it? A string of Morse code waiting to be deciphered.", logicWidth * 0.5, middleY + 50);
+                text("Seek your answers at the end of your journey.", logicWidth * 0.5, middleY + 90);
+                text("The secrets of the deep await those who listen carefully.", logicWidth * 0.5, middleY + 130);
                 break;
         }
         pop();
@@ -382,21 +542,29 @@ class TutorialUI {
             const dotX = dotsStartX + (i * dotSpacing);
             const dotY = logicHeight * 0.75;
 
-            fill(i === this.currentStep ? color(100, 255, 218) : color(80, 80, 80));
+            fill(i == this.currentStep ? color(100, 255, 218) : color(80, 80, 80));
             noStroke();
             ellipse(dotX, dotY, dotSize, dotSize);
         }
         pop();
 
-        // 绘制下一步按钮
+        // 绘制next按钮
         this.nextButton.checkHover(this);
         this.nextButton.draw();
+        
+        if (this.backButton) {
+            this.backButton.checkHover(this);
+            this.backButton.draw();
+        }
     }
 
     // 处理鼠标按下事件
     handleMousePressed() {
         if (this.nextButton && this.nextButton.isHovered) {
             this.nextButton.press();
+        }
+        if (this.backButton && this.backButton.isHovered) {
+            this.backButton.press();
         }
     }
 
@@ -405,10 +573,13 @@ class TutorialUI {
         if (this.nextButton && this.nextButton.release() && this.nextButton.isHovered) {
             this.nextButton.onClick();
         }
+        if (this.backButton && this.backButton.release() && this.backButton.isHovered) {
+            this.backButton.onClick();
+        }
     }
 
-    // 处理窗口大小调整事件
+    // 处理窗口大小改变事件
     handleWindowResized() {
-        this.createButton();
+        this.createButtons();
     }
 }
