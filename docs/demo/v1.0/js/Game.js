@@ -78,14 +78,14 @@ class Game {
                 enemy.y * logicHeight,
                 enemy.type,
                 (
-                    xSpeed, ySpeed, 
+                    xSpeed, ySpeed,
                     bulletType, bulletMoveType,
-                    attackPower, 
+                    attackPower,
                     enemy
                 ) => this.addBullet(
-                    xSpeed, ySpeed, 
+                    xSpeed, ySpeed,
                     bulletType, bulletMoveType,
-                    attackPower, 
+                    attackPower,
                     enemy
                 ),
                 (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
@@ -333,6 +333,10 @@ class Game {
         }
         for (let enemy of this.#enemies) {
             if (myCollide(location, enemy)) {
+                // Theodore-特殊处理Boss的碰撞
+                if (enemy instanceof Boss) {
+                    return true;
+                }
                 if (millis() - enemy.lastCollideTime > 1000) {
                     this.#player.updateHP(enemy.attackPower * -1);
                     enemy.lastCollideTime = millis();
@@ -371,9 +375,14 @@ class Game {
             }
             // return true;
         }
-
+        // Theodore-敌人之间的碰撞检测
+        for (let otherEnemy of this.#enemies) {
+            if (otherEnemy == enemy) continue;
+            if (myCollide(location, otherEnemy)) {
+                return true;
+            }
+        }
         return false;
-
     }
 
     checkCollideExplode(explode) {
