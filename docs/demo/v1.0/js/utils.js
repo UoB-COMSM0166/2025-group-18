@@ -1,17 +1,18 @@
 const MAIN_STEP_START_UI = 0;
-const MAIN_STEP_CHOOSE_SHIP_UI = 1;
-const MAIN_STEP_CHOOSE_MODE_UI = 2;
-const MAIN_STEP_CHOOSE_SEAMAN_UI = 3;
-const MAIN_STEP_IN_GAME = 4;
-const MAIN_STEP_GAME_REWARD = 5;
-const MAIN_STEP_START_UI_TEAM = 6;
-const MAIN_STEP_GAME_OVER = 7;
-const MAIN_STEP_MAP_UI = 8
-const MAIN_STEP_WIN_BOSS = 9;
-const MAIN_STEP_SHOP = 10;
-const MAIN_STEP_RANDOM_EVENT = 11;
-const MAIN_STEP_LOSE = 12;
-const MAIN_STEP_MAX = 13;
+const MAIN_STEP_TUTORIAL_UI = 1;
+const MAIN_STEP_CHOOSE_SHIP_UI = 2;
+const MAIN_STEP_CHOOSE_MODE_UI = 3;
+const MAIN_STEP_CHOOSE_SEAMAN_UI = 4;
+const MAIN_STEP_IN_GAME = 5;
+const MAIN_STEP_GAME_REWARD = 6;
+const MAIN_STEP_START_UI_TEAM = 7;
+const MAIN_STEP_GAME_OVER = 8;
+const MAIN_STEP_MAP_UI = 9;
+const MAIN_STEP_WIN_BOSS = 10;
+const MAIN_STEP_SHOP = 11;
+const MAIN_STEP_RANDOM_EVENT = 12;
+const MAIN_STEP_LOSE = 13;
+const MAIN_STEP_MAX = 14;
 
 /**
  *  attackBit: each bit controls which object could this object attack

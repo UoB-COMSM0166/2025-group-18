@@ -11,20 +11,22 @@ class MainUI {
     #mapUI;
     #gameOverUI;
     #gameWinBossUI;
-  
-    constructor(updateStep, 
-                updateShipStatus, 
-                updateBuffStatus, 
-                updateChooseGame,
-                updateGoldStatus) {
+    #tutorialUI;
+
+    constructor(updateStep,
+        updateShipStatus,
+        updateBuffStatus,
+        updateChooseGame,
+        updateGoldStatus) {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
         this.updateChooseGame = updateChooseGame;
         this.updateGoldStatus = updateGoldStatus;
-        
+
         // Init UI
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
+        this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
         this.#inGameUI = new InGameUI();
         this.#inGameUI.preload();
@@ -58,12 +60,10 @@ class MainUI {
         this.#teamUI.draw();
     }
 
-    // 初始化团队页面
     initTeamUI() {
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
     }
 
-    // 团队页面鼠标事件处理
     teamUIMousePressed() {
         if (this.#currentStep == MAIN_STEP_START_UI_TEAM && this.#teamUI) {
             this.#teamUI.handleMousePressed();
@@ -73,6 +73,25 @@ class MainUI {
     teamUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_START_UI_TEAM && this.#teamUI) {
             this.#teamUI.handleMouseReleased();
+        }
+    }
+    // 教学页面
+    showTutorialUI() {
+        if (!this.#tutorialUI) {
+            this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
+        }
+        this.#tutorialUI.draw();
+    }
+
+    tutorialUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_TUTORIAL_UI && this.#tutorialUI) {
+            this.#tutorialUI.handleMousePressed();
+        }
+    }
+
+    tutorialUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_TUTORIAL_UI && this.#tutorialUI) {
+            this.#tutorialUI.handleMouseReleased();
         }
     }
 
@@ -273,6 +292,11 @@ class MainUI {
                     this.#startUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_TUTORIAL_UI:
+                if (this.#tutorialUI) {
+                    this.#tutorialUI.handleWindowResized();
+                }
+                break;
             case MAIN_STEP_CHOOSE_SHIP_UI:
                 if (this.#chooseShipUI) {
                     this.#chooseShipUI.handleWindowResized();
@@ -323,11 +347,10 @@ class MainUI {
     // private, callback by StartUI
     #handleStartUIButtonClick(buttonType) {
         if (buttonType == MAIN_STEP_START_UI) {
-            // PLAN ROGUELIKE KNIGHT
-            this.updateStep(MAIN_STEP_CHOOSE_SHIP_UI);
-            this.showChooseShipUI();
+            // 进入教程页面
+            this.updateStep(MAIN_STEP_TUTORIAL_UI);
         } else if (buttonType == MAIN_STEP_START_UI_TEAM) {
-            // Team Overview / Listen to Theme
+            // 进入团队页面
             this.updateStep(MAIN_STEP_START_UI_TEAM);
             this.showTeamUI();
         }
@@ -339,6 +362,12 @@ class MainUI {
             teamThemeMusic.stop();
         }
         this.updateStep(MAIN_STEP_START_UI);
+    }
+
+    #handleTutorialComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_CHOOSE_SHIP_UI);
+        }
     }
 
     // private, callback by ChooseShipUI
