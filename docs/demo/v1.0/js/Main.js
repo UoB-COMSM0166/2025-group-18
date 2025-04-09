@@ -78,6 +78,10 @@ class Main {
                 this.#UI.showStartUI();
                 break;
             }
+            case MAIN_STEP_TUTORIAL_UI: {
+                this.#UI.showTutorialUI();
+                break;
+            }
             case MAIN_STEP_CHOOSE_SHIP_UI: {
                 this.#UI.showChooseShipUI();
                 this.#UI.initMap();
@@ -163,6 +167,10 @@ class Main {
                 this.#UI.startUIPressed();
                 break;
             }
+            case MAIN_STEP_TUTORIAL_UI: {
+                this.#UI.tutorialUIMousePressed();
+                break;
+            }
             case MAIN_STEP_CHOOSE_SHIP_UI: {
                 this.#UI.chooseShipUIMousePressed();
                 break;
@@ -206,6 +214,10 @@ class Main {
         switch (this.#step) {
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIReleased();
+                break;
+            }
+            case MAIN_STEP_TUTORIAL_UI: {
+                this.#UI.tutorialUIMouseReleased();
                 break;
             }
             case MAIN_STEP_CHOOSE_SHIP_UI: {
@@ -271,7 +283,7 @@ class Main {
             ];
         }
     }
-    
+
     setShipBasic(shipType) {
         this.#status.setShipBasicStatus(shipType);
     }
