@@ -12,6 +12,7 @@ class MainUI {
     #gameOverUI;
     #gameWinBossUI;
     #tutorialUI;
+    #shopInMapUI;
 
     constructor(updateStep,
         updateShipStatus,
@@ -120,6 +121,14 @@ class MainUI {
     initMap() {
         this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
         this.#mapUI.init();
+    }
+
+    showShopinMapUI() {
+        if (!this.#shopInMapUI) {
+            this.#shopInMapUI = new ShopInMapUI(this.#handleMap2ShopSelection.bind(this));
+            this.#shopInMapUI.init();
+        }
+        this.#shopInMapUI.draw();
     }
 
     showInGameUI(playerStatus) {
@@ -247,6 +256,18 @@ class MainUI {
     chooseShopUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_SHOP && this.#shopUI) {
             this.#shopUI.handleMouseReleased();
+        }
+    }
+
+    chooseShopInMapUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_MAP_UI && this.#shopInMapUI) {
+            this.#shopInMapUI.handleMousePressed();
+        }
+    }
+
+    chooseShopInMapUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_MAP_UI && this.#shopInMapUI) {
+            this.#shopInMapUI.handleMouseReleased();
         }
     }
 
@@ -387,6 +408,12 @@ class MainUI {
         }
         if (mapType == MAIN_STEP_IN_GAME) {
             this.updateChooseGame(gameType);
+        }
+    }
+
+    #handleMap2ShopSelection() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_SHOP);
         }
     }
 

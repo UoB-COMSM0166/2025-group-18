@@ -89,6 +89,7 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.showMapUI();
+                this.#UI.showShopinMapUI();
                 break;
             }
             case MAIN_STEP_IN_GAME: {
@@ -177,6 +178,7 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.chooseGameUIMousePressed();
+                this.#UI.chooseShopInMapUIMousePressed();
                 break;
             }
             case MAIN_STEP_IN_GAME: {
@@ -226,6 +228,7 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.chooseGameUIMouseReleased();
+                this.#UI.chooseShopInMapUIMouseReleased();
                 break;
             }
             case MAIN_STEP_IN_GAME: {
