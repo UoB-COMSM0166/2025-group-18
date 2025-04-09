@@ -21,6 +21,7 @@ class Player extends BasicObject {
         this.frameIndex = 0;
         this.lastFrameTime = 0;
         this.frameInterval = 100;
+        this.pets = [];
 
         // 受击变红效果的属性
         this.isFlashing = false;

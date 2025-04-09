@@ -22,6 +22,7 @@ let frames = {
       D: [],
     },
     enemy: [],
+    pets: [],
     building: {
       TNT: [],
       rubbish: [],

@@ -12,6 +12,7 @@ class Game {
     #enemyBuffController;
     #pollution
     #bulletExplode;
+    #pets;
 
     constructor(updateStepCallBack) {
         this.#player = null;
@@ -30,6 +31,7 @@ class Game {
         this.#pollution = new Pollution();
         Building.setPollutionInstance(this.#pollution);
         this.#bulletExplode = [];
+        this.#pets = [];
     }
 
     initPlayer(playerBasicStatus) {
@@ -56,7 +58,7 @@ class Game {
                 attackPower
             ),
             (xMove, yMove) => this.playerMove(xMove, yMove),
-            () => this.addBomb(),
+            () => this.addPet(),
             (player) => this.findPlayerClosestTarget(player)
         );
         this.#playerBuffController = new BuffController(this.#player);
@@ -233,6 +235,25 @@ class Game {
             }
         }
 
+        if (this.#pets.length != 0) {
+            for (let i = this.#pets.length - 1; i >= 0; --i) {
+                let pet = this.#pets[i];
+                if (!pet.isAlive) {
+                    this.#pets.splice(i, 1);
+                } else {
+                    if (this.#enemies.length != 0) {
+                        for (let j = this.#enemies.length - 1; j >= 0; --j) {
+                            let enemy = this.#enemies[j];
+                            if (enemy.isAlive) {
+                                pet.petAI(enemy.xCoordinate, enemy.yCoordinate, pet);
+                            }
+                        }
+                    }
+                    // pet.updateWavePush();
+                    pet.show();
+                }
+            }
+        }
 
         if (this.#player.HP <= 0) {
             this.#gameOver = true;
@@ -307,6 +328,14 @@ class Game {
             }
         }
 
+        if ((bullet.attackBit & PET_TYPE) && this.#pets.length > 0) {
+            for (let pet of this.#pets) {
+                if (myCollide(pet, bullet)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -373,12 +402,21 @@ class Game {
                 this.#player.updateHP(enemy.attackPower * -0.5);
                 enemy.lastCollideTime = millis();
             }
-            // return true;
+            return true;
         }
         // Theodore-敌人之间的碰撞检测
         for (let otherEnemy of this.#enemies) {
             if (otherEnemy == enemy) continue;
             if (myCollide(location, otherEnemy)) {
+                return true;
+            }
+        }
+        for (let pet of this.#pets) {
+            if (myCollide(location, pet)) {
+                if (millis() - enemy.lastCollideTime > 500) {
+                    pet.updateHP(enemy.attackPower * -0.5);
+                    enemy.lastCollideTime = millis();
+                }
                 return true;
             }
         }
@@ -403,6 +441,13 @@ class Game {
         if (explode.attackBit & PLAYER_TYPE) {
             if (myCollide(explode, this.#player)) {
                 this.#player.updateHP(explode.harm * -1);
+            }
+        }
+        if (explode.attackBit & PET_TYPE) {
+            for (let pet of this.#pets) {
+                if (myCollide(explode, pet)) {
+                    pet.updateHP(explode.harm * -1);
+                }
             }
         }
     }
@@ -432,6 +477,12 @@ class Game {
             explosionSize = 2;
             bulletSize = 3;
             bulletSpeed = 5;
+        } else if (bulletType == PET_BULLET_TYPE) {
+            xCoordinate = enemy.xCoordinate;
+            yCoordinate = enemy.yCoordinate;
+            explosionSize = 1;
+            bulletSize = 2;
+            bulletSpeed = 3;
         }
         const bullet = new Bullet(
             xCoordinate + xSpeed * 10,
@@ -467,6 +518,19 @@ class Game {
             }
         } else if (bullet.attackBit & PLAYER_TYPE) {
             target = this.#player;
+        } else if (bullet.attackBit & PET_TYPE) {
+            for (let pet of this.#pets) {
+                const distance = dist(
+                    bullet.xCoordinate,
+                    bullet.yCoordinate,
+                    pet.xCoordinate,
+                    pet.yCoordinate
+                );
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    target = pet;
+                }
+            }
         }
         return target;
     }
@@ -505,6 +569,83 @@ class Game {
         );
         this.#buildings.push(bomb);
         this.#pollution.increasePollution("skill");
+    }
+
+    addPet() {
+        if (this.#player.skillCD > 0) {
+            console.log("addPet() Skill is not ready");
+            return;
+        }
+        
+        // Create pet near the player
+        const petX = this.#player.xCoordinate;
+        const petY = this.#player.yCoordinate;
+        
+        const pet = new Pet(
+            petX,
+            petY,
+            PET_MODEL_1_TYPE,
+            (
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ) => this.addBullet(
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ),
+            (xMove, yMove, pet) => this.petMove(xMove, yMove, pet),
+            this.#pollution
+        );
+        
+        this.#pets.push(pet);
+        this.#pollution.increasePollution("skill");
+        
+        this.#player.skillCD = this.#player.maxSkillCD;
+        
+        // console.log("Pet =========================");
+    }
+
+    petMove(xMove, yMove, pet) {
+        if (this.checkCollidePet(xMove, yMove, pet) == false) {
+            pet.move(xMove, yMove);
+        }
+        else {
+            if (this.checkCollidePet(xMove, 0, pet) == false) {
+                pet.move(xMove, 0);
+            }
+            if (this.checkCollidePet(0, yMove, pet) == false) {
+                pet.move(0, yMove);
+            }
+        }
+    }
+
+    checkCollidePet(xMove, yMove, pet) {
+        let location = {
+            xCoordinate: pet.xCoordinate + xMove * pet.speed,
+            yCoordinate: pet.yCoordinate + yMove * pet.speed,
+            xSize: pet.xSize,
+            ySize: pet.ySize
+        };
+
+        for (let island of this.#islands) {
+            if (myCollide(location, island)) {
+                return true;
+            }
+        }
+        
+        for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
+                continue;
+            }
+            if (myCollide(location, building)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     addExplode(xCoor, yCoor, harm, attackBit, explodeType) {
