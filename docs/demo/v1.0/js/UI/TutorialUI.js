@@ -12,6 +12,9 @@ class TutorialUI {
         this.nextButton = null;
         this.backButton = null;
         this.createButtons();
+        this.soundEffects = new SoundEffects();
+        this.soundEffects.preload();
+        this.initialSoundsPlayed = false;
     }
 
     // 实际按钮类
@@ -103,12 +106,41 @@ class TutorialUI {
                     this.currentStep++;
                     this.createButtons(); // 重新创建按钮以更新标签
                 } else {
-                    if (this.tutorialCompleteCallback) {
-                        this.tutorialCompleteCallback();
-                    }
+                    // 当点击 Start Game 按钮时
+                    this.soundEffects.stopAllSounds();  // 停止所有当前音频
+                    this.soundEffects.playHorn();       // 播放喇叭声
+        
+                    // 在喇叭声播放结束后，调用回调函数
+                    // 可以设置一个延时来确保音效有时间播放
+                    setTimeout(() => {
+                        if (this.tutorialCompleteCallback) {
+                            this.tutorialCompleteCallback();
+                        }
+                    }, 100); // 假设喇叭声持续约1秒
                 }
             }
         );
+
+        // Easter Egg 按钮
+        if (this.currentStep == 3) {
+            const eggBtnX = btnX;
+            const eggBtnY = logicHeight * 0.61;
+
+            this.playEggButton = new this.TutorialButton(
+                eggBtnX,
+                eggBtnY,
+                btnWidth,
+                btnHeight,
+                'Listen Again',
+                () => {
+                    if (!this.soundEffects.isEggSoundPlaying()) {
+                        this.soundEffects.playEgg();
+                    }
+                }
+            );
+        } else {
+            this.playEggButton = null;
+        }
 
         // 创建Back按钮
         if (this.currentStep > 0) {
@@ -255,141 +287,146 @@ class TutorialUI {
 
         pop();
     }
-    
-// 绘制莫尔斯电码
-drawMorseCode(x, y) {
-    push();
-    textAlign(CENTER, CENTER);
-    
-    // 绘制莫尔斯电码符号
-    const dotSize = 8;
-    const dashWidth = 24;
-    const dashHeight = 8;
-    const spacing = 15;
-    const lineSpacing = 30; // 行间距调整得更紧凑
-    
-    // 莫尔斯电码动画
-    const timeOffset = frameCount * 0.05;
-    const glowIntensity = (sin(timeOffset) + 1) * 0.5;
 
-    fill(100 + 155 * glowIntensity, 255, 218);
-    drawingContext.shadowColor = color(100, 255, 218);
-    drawingContext.shadowBlur = 10 + 20 * glowIntensity;
-    
-    // 计算每行符号的宽度，居中
-    const calculateLineWidth = (symbols) => {
-        let width = 0;
-        for (let symbol of symbols) {
+    // 电码
+    drawMorseCode(x, y) {
+        push();
+        textAlign(CENTER, CENTER);
+
+        // 电码符号
+        const dotSize = 8;
+        const dashWidth = 24;
+        const dashHeight = 8;
+        const spacing = 15;
+        const lineSpacing = 30;
+
+        // 电码动画
+        const timeOffset = frameCount * 0.05;
+        const glowIntensity = (sin(timeOffset) + 1) * 0.5;
+
+        fill(100 + 155 * glowIntensity, 255, 218);
+        drawingContext.shadowColor = color(100, 255, 218);
+        drawingContext.shadowBlur = 10 + 20 * glowIntensity;
+
+        // 宽度，居中
+        const calculateLineWidth = (symbols) => {
+            let width = 0;
+            for (let symbol of symbols) {
+                if (symbol == "dot") {
+                    width += spacing;
+                } else if (symbol == "dash") {
+                    width += dashWidth + spacing - dotSize;
+                } else if (symbol == "space") {
+                    width += spacing * 2;
+                }
+            }
+            return width;
+        };
+
+        const firstLineSymbols = [
+            "dash", "dash", "dash", "space", "dot", "dot", "dot", "dot"
+        ];
+
+        const secondLineSymbols = [
+            "dash", "dot", "dash", "dot", "space",
+            "dot", "dash", "space",
+            "dot", "dash", "dash", "dot", "space",
+            "dash", "space",
+            "dot", "dash", "space",
+            "dot", "dot", "space",
+            "dash", "dot"
+        ];
+
+        const thirdLineSymbols = [
+            "dash", "dash", "space",
+            "dash", "dot", "dash", "dash"
+        ];
+
+        const fourthLineSymbols = secondLineSymbols;
+
+        const firstLineWidth = calculateLineWidth(firstLineSymbols);
+        const secondLineWidth = calculateLineWidth(secondLineSymbols);
+        const thirdLineWidth = calculateLineWidth(thirdLineSymbols);
+        const yOffset = -50;
+
+        // 绘制第一行: OH
+        let currentX = x - firstLineWidth / 2;
+        for (let symbol of firstLineSymbols) {
             if (symbol == "dot") {
-                width += spacing;
+                ellipse(currentX, y + yOffset - lineSpacing * 1.5, dotSize, dotSize);
+                currentX += spacing;
             } else if (symbol == "dash") {
-                width += dashWidth + spacing - dotSize;
+                rect(currentX, y + yOffset - lineSpacing * 1.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
             } else if (symbol == "space") {
-                width += spacing * 2;
+                currentX += spacing * 2;
             }
         }
-        return width;
-    };
-    
-    // 第一行: OH
-    const firstLineSymbols = [
-        "dash", "dash", "dash", "space", "dot", "dot", "dot", "dot"
-    ];
-    
-    // 第二行: CAPTAIN
-    const secondLineSymbols = [
-        "dash", "dot", "dash", "dot", "space", // C
-        "dot", "dash", "space", // A
-        "dot", "dash", "dash", "dot", "space", // P
-        "dash", "space", // T
-        "dot", "dash", "space", // A
-        "dot", "dot", "space", // I
-        "dash", "dot" // N
-    ];
-    
-    // 第三行: MY
-    const thirdLineSymbols = [
-        "dash", "dash", "space", // M
-        "dash", "dot", "dash", "dash" // Y
-    ];
-    
-    // 第四行: CAPTAIN
-    const fourthLineSymbols = secondLineSymbols; // 与第二行相同
-    
-    // 计算每行宽度
-    const firstLineWidth = calculateLineWidth(firstLineSymbols);
-    const secondLineWidth = calculateLineWidth(secondLineSymbols);
-    const thirdLineWidth = calculateLineWidth(thirdLineSymbols);
-    const yOffset = -50;
-    
-    // 绘制第一行: OH
-    let currentX = x - firstLineWidth / 2;
-    for (let symbol of firstLineSymbols) {
-        if (symbol == "dot") {
-            ellipse(currentX, y + yOffset - lineSpacing * 1.5, dotSize, dotSize);
-            currentX += spacing;
-        } else if (symbol == "dash") {
-            rect(currentX, y + yOffset - lineSpacing * 1.5, dashWidth, dashHeight, 3);
-            currentX += dashWidth + spacing - dotSize;
-        } else if (symbol == "space") {
-            currentX += spacing * 2;
+
+        // 绘制第二行: CAPTAIN 
+        currentX = x - secondLineWidth / 2;
+        for (let symbol of secondLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset - lineSpacing * 0.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset - lineSpacing * 0.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
         }
-    }
-    
-    // 绘制第二行: CAPTAIN 
-    currentX = x - secondLineWidth / 2;
-    for (let symbol of secondLineSymbols) {
-        if (symbol == "dot") {
-            ellipse(currentX, y + yOffset - lineSpacing * 0.5, dotSize, dotSize);
-            currentX += spacing;
-        } else if (symbol == "dash") {
-            rect(currentX, y + yOffset - lineSpacing * 0.5, dashWidth, dashHeight, 3);
-            currentX += dashWidth + spacing - dotSize;
-        } else if (symbol == "space") {
-            currentX += spacing * 2;
+
+        // 绘制第三行: MY
+        currentX = x - thirdLineWidth / 2;
+        for (let symbol of thirdLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset + lineSpacing * 0.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset + lineSpacing * 0.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
         }
-    }
-    
-    // 绘制第三行: MY
-    currentX = x - thirdLineWidth / 2;
-    for (let symbol of thirdLineSymbols) {
-        if (symbol == "dot") {
-            ellipse(currentX, y + yOffset + lineSpacing * 0.5, dotSize, dotSize);
-            currentX += spacing;
-        } else if (symbol == "dash") {
-            rect(currentX, y + yOffset + lineSpacing * 0.5, dashWidth, dashHeight, 3);
-            currentX += dashWidth + spacing - dotSize;
-        } else if (symbol == "space") {
-            currentX += spacing * 2;
+
+        // 绘制第四行: CAPTAIN
+        currentX = x - secondLineWidth / 2;
+        for (let symbol of fourthLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset + lineSpacing * 1.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset + lineSpacing * 1.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
         }
+
+        pop();
     }
-    
-    // 绘制第四行: CAPTAIN
-    currentX = x - secondLineWidth / 2;
-    for (let symbol of fourthLineSymbols) {
-        if (symbol == "dot") {
-            ellipse(currentX, y + yOffset + lineSpacing * 1.5, dotSize, dotSize);
-            currentX += spacing;
-        } else if (symbol == "dash") {
-            rect(currentX, y + yOffset + lineSpacing * 1.5, dashWidth, dashHeight, 3);
-            currentX += dashWidth + spacing - dotSize;
-        } else if (symbol == "space") {
-            currentX += spacing * 2;
-        }
-    }
-    
-    pop();
-}
 
     draw() {
         background(0);
+
+        // 初次进入开始播放彩蛋
+        if (!this.initialSoundsPlayed) {
+            this.soundEffects.playNoise();
+            setTimeout(() => {
+                this.soundEffects.playEgg();
+            }, 3000);
+
+            this.initialSoundsPlayed = true;
+        }
 
         // 更新动画时间
         if (frameCount % 120 == 0) {
             this.keyPressTime = frameCount;
             switch (this.currentStep) {
                 case 0:
-                    // WASD 按顺序点亮，而不是随机
+                    // WASD 按顺序点亮
                     const wasdSequence = ['W', 'A', 'S', 'D'];
                     this.wasdIndex = (this.wasdIndex + 1) % wasdSequence.length;
                     this.currentAnimatedKey = wasdSequence[this.wasdIndex];
@@ -401,7 +438,6 @@ drawMorseCode(x, y) {
                     this.currentAnimatedKey = 'SPACE';
                     break;
                 case 3:
-                    // 新页面没有特定动画
                     break;
             }
         }
@@ -414,7 +450,11 @@ drawMorseCode(x, y) {
         fill(255);
         textSize(36);
         textAlign(CENTER, TOP);
-        text("Game Controls", logicWidth / 2, logicHeight * 0.1);
+        if (this.currentStep == 3) {
+            text("Easter Egg", logicWidth / 2, logicHeight * 0.1);
+        } else {
+            text("Game Controls", logicWidth / 2, logicHeight * 0.1);
+        }
 
         // 布局变量
         const leftColumnX = logicWidth * 0.3;
@@ -513,15 +553,15 @@ drawMorseCode(x, y) {
                 text("Ship has a unique special skill", rightColumnX, middleY + 20);
                 text("Watch the cooldown timer before using again", rightColumnX, middleY + 60);
                 break;
-                
+
             case 3: // 摩斯电码
                 this.drawMorseCode(logicWidth * 0.5, middleY - 80);
-                
+
                 textAlign(CENTER, CENTER);
                 textSize(24);
                 fill(255);
                 text("A cryptic message seems to be hidden in these waters...", logicWidth * 0.5, middleY);
-                
+
                 textSize(20);
                 fill(200);
                 text("Do you hear it? A string of Morse code waiting to be deciphered.", logicWidth * 0.5, middleY + 50);
@@ -551,10 +591,16 @@ drawMorseCode(x, y) {
         // 绘制next按钮
         this.nextButton.checkHover(this);
         this.nextButton.draw();
-        
+
         if (this.backButton) {
             this.backButton.checkHover(this);
             this.backButton.draw();
+        }
+
+        // 绘制播放彩蛋音频的按钮
+        if (this.playEggButton && this.currentStep == 3) {
+            this.playEggButton.checkHover(this);
+            this.playEggButton.draw();
         }
     }
 
@@ -566,6 +612,9 @@ drawMorseCode(x, y) {
         if (this.backButton && this.backButton.isHovered) {
             this.backButton.press();
         }
+        if (this.playEggButton && this.playEggButton.isHovered) {
+            this.playEggButton.press();
+        }
     }
 
     // 处理鼠标释放事件
@@ -575,6 +624,10 @@ drawMorseCode(x, y) {
         }
         if (this.backButton && this.backButton.release() && this.backButton.isHovered) {
             this.backButton.onClick();
+        }
+        // 在handleMouseReleased()中添加
+        if (this.playEggButton && this.playEggButton.release() && this.playEggButton.isHovered) {
+            this.playEggButton.onClick();
         }
     }
 
