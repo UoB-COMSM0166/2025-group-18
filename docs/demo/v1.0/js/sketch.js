@@ -13,7 +13,17 @@ let frames = {
       AW: [],
       DW: [],
     },
-    boss: [],
+    boss: {
+        boss_octopus: [],
+        boss_2: [],
+    },
+    aoeSkill: {
+        boss_1_skill_1: [],
+        boss_1_skill_2_1: [],
+        boss_1_skill_2_2: [],
+        boss_2_skill_1: [],
+        boss_2_skill_2: [],
+    },
     explode: [],
     wave: {
       W: [],
@@ -88,15 +98,29 @@ let frames = {
     frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/2.png'));
     frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/3.png'));
 
-    // ------------------------ BOSS ------------------------
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/1.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/2.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/3.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/4.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/5.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/6.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/7.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/8.png'));
+    // ------------------------ BOSS 1 ------------------------
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/1.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/2.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/3.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/4.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/5.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/6.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/7.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/8.png'));
+
+    // ------------------------ BOSS 1 技能1 ------------------------
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/1.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/2.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/3.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/4.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/5.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/6.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/7.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/8.png'));
+
+    // ------------------------ BOSS 1 技能2 ------------------------
+    frames.aoeSkill.boss_1_skill_2_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
+    frames.aoeSkill.boss_1_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
 
     // ------------------------ 爆炸 ------------------------
     frames.explode.push(loadImage('images/docs/img/png/explode/1.png'));
@@ -180,6 +204,7 @@ function setup() {
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
+    frameRate(60);
 }
 
 function draw() {
