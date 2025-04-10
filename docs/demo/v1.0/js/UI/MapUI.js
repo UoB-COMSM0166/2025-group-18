@@ -539,4 +539,27 @@ class MapUI {
             return MAIN_STEP_RANDOM_EVENT;
         }
     }
+
+    // Theodore-重置地图
+    resetMap() {
+        this.rings = [];
+        this.roads = [];
+        this.playerLocation = { ring: 5, index: 0 };
+        this.compassRotation = 0;
+        this.targetRotation = 0;
+        
+        // 重置玩家标记位置
+        this.playerMarker = {
+            x: this.xCoor,
+            y: this.yCoor,
+            targetX: this.xCoor,
+            targetY: this.yCoor,
+            rotation: 0,
+            targetRotation: 0
+        };
+        
+        this.init();
+    }
+
+
 }

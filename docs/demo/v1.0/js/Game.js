@@ -175,6 +175,9 @@ class Game {
         this.#buildings.push(rubbish);
     }
 
+    getPlayer() {
+        return this.#player;
+    }
 
     getPlayerStatus() {
         const playerStatus = {

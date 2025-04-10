@@ -445,10 +445,18 @@ class MainUI {
         this.updateStep(MAIN_STEP_START_UI);
     }
 
-    // 修改后的 Boss 胜利回调方法
     #handleGameWinBoss(selectedType) {
-        if (this.updateStep) {
-            this.updateStep(selectedType);
+        if (selectedType == MAIN_STEP_MAP_UI) {
+            if (this.updateStep) {
+                this.updateStep(selectedType, true);
+            }
+            this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
+            this.#mapUI.init();
+        } 
+        else if (selectedType == MAIN_STEP_START_UI_TEAM) {
+            if (this.updateStep) {
+                this.updateStep(selectedType);
+            }
         }
     }
 

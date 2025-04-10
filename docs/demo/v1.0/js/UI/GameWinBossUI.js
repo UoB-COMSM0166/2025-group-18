@@ -5,6 +5,9 @@ class GameWinBossUI {
         this.borderSize = 50;
         this.targetBorderSize = 50;
         this.borderColor = null;
+        
+        // 新增奖励信息
+        this.bossReward = 300; // 击败Boss奖励的金币
     }
 
     ChooseBuffButton = class {
@@ -92,15 +95,15 @@ class GameWinBossUI {
         const spacing = 50;
         const totalWidth = 2 * btnWidth + spacing;
         const startX = (logicWidth - totalWidth) / 2;
-        const y = logicHeight / 2 + 50;
+        const y = logicHeight / 2 + 150; // 调整按钮位置，留更多空间给奖励信息
 
         // 创建两个按钮："继续游戏"和"放弃"
         this.buttons.push(
             new this.ChooseBuffButton(
-              startX, y, btnWidth, btnHeight, "Aye Captain!", MAIN_STEP_MAP_UI
+              startX, y, btnWidth, btnHeight, "继续征程", MAIN_STEP_MAP_UI
             ),
             new this.ChooseBuffButton(
-              startX + btnWidth + spacing, y, btnWidth, btnHeight, "Abandon Ship!", MAIN_STEP_START_UI_TEAM
+              startX + btnWidth + spacing, y, btnWidth, btnHeight, "结束旅程", MAIN_STEP_START_UI_TEAM
             )
         );
     }
@@ -114,22 +117,27 @@ class GameWinBossUI {
         textAlign(CENTER, CENTER);
         textSize(40);
         fill(255, 215, 0); // 金色
-        text("Ye've vanquished the boss, cap'n!", logicWidth / 2, logicHeight * 0.3);
+        text("恭喜击败Boss！", logicWidth / 2, logicHeight * 0.2);
         
         textSize(30);
         fill(255);
-        text("Be ye ready to set sail for the next adventure?", logicWidth / 2, logicHeight * 0.4);
-        pop();
+        text("你击败了深海的强大存在，但海洋中的危险远未结束！", logicWidth / 2, logicHeight * 0.3);
         
-        // 绘制边框效果
-        this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
-        if (this.borderColor) {
-            stroke(this.borderColor);
-            noFill();
-            strokeWeight(3);
-            rectMode(CENTER);
-            rect(logicWidth / 2, logicHeight / 2, this.borderSize * 10, this.borderSize * 5);
-        }
+        // 显示奖励信息
+        textSize(24);
+        fill(255, 215, 0); // 金色
+        text("继续征程可获得以下奖励：", logicWidth / 2, logicHeight * 0.42);
+        
+        textSize(20);
+        fill(200, 255, 200);
+        text(`• 金币: +${this.bossReward}`, logicWidth / 2, logicHeight * 0.5);
+        text("• 生命值: 完全恢复", logicWidth / 2, logicHeight * 0.55);
+        text("• 保留所有已获得的属性和Buff", logicWidth / 2, logicHeight * 0.6);
+        
+        textSize(18);
+        fill(200, 200, 255);
+        text("你准备好继续向更深处探索了吗？", logicWidth / 2, logicHeight * 0.7);
+        pop();
         
         // 绘制按钮
         this.buttons.forEach(btn => {
