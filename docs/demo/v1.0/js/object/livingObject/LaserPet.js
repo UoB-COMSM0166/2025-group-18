@@ -14,7 +14,7 @@ class LaserPet extends Pet {
         this.targetX = 0;
         this.targetY = 0;
         
-        this.laserWidth = 2;
+        this.laserWidth = 4;
         this.laserColor = color(255, 50, 50, 200);
         this.targetLockColor = color(255, 20, 20, 150);
     }
