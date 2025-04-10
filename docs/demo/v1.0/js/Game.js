@@ -276,6 +276,9 @@ class Game {
                     }
                     // pet.updateWavePush();
                     pet.show();
+                }
+            }
+        }
         if (this.#aoeSkills.length != 0) {
             for (let i = this.#aoeSkills.length - 1; i >= 0; --i) {
                 let aoeSkill = this.#aoeSkills[i];
