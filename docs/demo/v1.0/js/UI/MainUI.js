@@ -446,10 +446,20 @@ class MainUI {
     }
 
     #handleGameWinBoss(selectedType) {
+        // 获取Boss奖励金额
+        const bossReward = this.#gameWinBossUI ? this.#gameWinBossUI.bossReward : 300;
+        
         if (selectedType == MAIN_STEP_MAP_UI) {
-            if (this.updateStep) {
-                this.updateStep(selectedType, true);
+            // 在这里直接应用金币奖励
+            if (this.updateGoldStatus) {
+                console.log("Boss奖励金币已应用:", bossReward);
+                this.updateGoldStatus(bossReward);
             }
+            
+            if (this.updateStep) {
+                this.updateStep(selectedType, true);  // keepStatus参数设为true，保留玩家状态
+            }
+            
             this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
             this.#mapUI.init();
         } 
