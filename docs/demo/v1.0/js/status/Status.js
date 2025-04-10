@@ -50,6 +50,10 @@ class Status {
     updateHP(HP) {
         this.#playerStatus.HP = HP;
     }
+    
+    recoverToMaxHP() {
+        this.#playerStatus.HP = this.#playerStatus.HPmax;
+    }
 
     updateSkillCD(skillCD) {
         this.#playerStatus.skillCD = skillCD;

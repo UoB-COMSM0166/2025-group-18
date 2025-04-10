@@ -44,8 +44,8 @@ class Main {
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
             
-            this.#game.initBoss();// 测试boss, 暂时修改
-            // this.#game.initRandomMap();
+            //this.#game.initBoss();// 测试boss, 暂时修改
+            this.#game.initRandomMap();
         }
     }
 
@@ -124,9 +124,6 @@ class Main {
             }
         }
 
-        // if (this.#step != MAIN_STEP_IN_GAME) {
-        //     this.#cursorPos.show();
-        // }
         this.#cursorPos.show();
     }
 
@@ -276,19 +273,39 @@ class Main {
             stepChangeType = MAIN_STEP_MAX;
         }
         
-        // 如果是从Boss胜利后继续游戏，并且保留状态
-        if (stepChangeType == MAIN_STEP_MAP_UI && keepStatus) {
+        // 如果是从Boss胜利后返回到地图界面（无论keepStatus如何）
+        if (stepChangeType == MAIN_STEP_MAP_UI && this.#step == MAIN_STEP_WIN_BOSS) {
             // 保留当前玩家状态，但创建新地图周期
+            console.log("从Boss胜利界面返回，恢复玩家状态");
+            
+            // 添加额外的奖励，作为通过Boss关卡的奖励（已经在之前添加了）
+            //const bossReward = 300;
+            //this.#status.updateGold(bossReward);
+            
+            // 恢复满血
+            this.#status.recoverToMaxHP();
+            
+            // 获取更新后的状态记录日志
+            const currentStatus = this.#status.getShipStatus();
+            console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
+            
+            // 重新初始化地图
+            this.#UI.initMap();
+        }
+        else if (stepChangeType == MAIN_STEP_MAP_UI && keepStatus) {
+            // 原有的代码保持不变
             console.log("保留玩家状态，开始新的游戏周期");
             
             // 添加额外的奖励，作为通过Boss关卡的奖励
             const bossReward = 300;
             this.#status.updateGold(bossReward);
             
-            // 恢复满血作为奖励 - 获取当前最大生命值
+            // 恢复满血作为奖励
+            this.#status.recoverToMaxHP();
+            
+            // 获取更新后的状态
             const currentStatus = this.#status.getShipStatus();
-            console.log("Boss胜利恢复生命值：", currentStatus.HPmax);
-            this.#status.updateHP(currentStatus.HPmax);
+            console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
             
             // 如果当前有游戏实例，也更新其玩家生命值
             if (this.#game && this.#game.getPlayer()) {
@@ -302,7 +319,7 @@ class Main {
         
         this.#step = stepChangeType;
         this.#UI.changeCurrentStep(stepChangeType);
-    
+        
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
             this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！
             this.#gameReward.buff = [
@@ -312,7 +329,7 @@ class Main {
             ];
         }
     }
-
+    
     setShipBasic(shipType) {
         this.#status.setShipBasicStatus(shipType);
     }
