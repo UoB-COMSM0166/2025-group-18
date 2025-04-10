@@ -308,12 +308,14 @@ class Game {
 
         if (this.#player.HP <= 0) {
             this.#gameOver = true;
-            console.log("Game Over!");
+            this.deathReason = "hp";
+            console.log("Game Over! HP depleted");
         }
-
+        
         const pollutionEffect = this.#pollution.getEffect();
         if (pollutionEffect.playerDeath) {
             this.#gameOver = true;
+            this.deathReason = "pollution";
             console.log("污染环境的渣渣！去死吧！");
             return;
         }
