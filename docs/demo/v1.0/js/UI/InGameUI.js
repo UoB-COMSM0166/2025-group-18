@@ -14,6 +14,7 @@ class InGameUI {
         this.maxPollution = 1;
         this.pollutionLevel = 1;
         this.maxPollutionLevel = 1;
+        this.gold = 0;
 
         this.updatePositions();
     }
@@ -44,9 +45,9 @@ class InGameUI {
     }
 
     update(playerStatus) {
-
         this.targetHP = playerStatus.HP;
         this.targetHPmax = playerStatus.HPmax;
+        this.gold = playerStatus.gold; // 更新金币值
 
         this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
         this.currentHPmax = this.targetHPmax > 0 ? 
@@ -75,9 +76,26 @@ class InGameUI {
         this.drawHolographicFrame();
         this.drawHealthBar();
         this.drawSkillStatus(playerStatus);
+        this.drawGoldStatus();
         pop();
 
         this.drawPollutionStatus();
+    }
+
+    // Theodore-金币显示
+    drawGoldStatus() {
+        push();
+        translate(-120, -50);
+        textFont(this.font || 'Arial Black');
+        textSize(15);
+        
+        drawingContext.shadowColor = color(255, 215, 0, 150);
+        drawingContext.shadowBlur = 5;
+        
+        fill(255, 215, 0);
+        textAlign(LEFT);
+        text(`GOLD: ${this.gold}`, 125, 15);
+        pop();
     }
 
     drawPollutionStatus() {
@@ -128,7 +146,6 @@ class InGameUI {
     }
 
     drawHolographicFrame() {
-
         push();
         rectMode(CENTER);
 
@@ -147,7 +164,6 @@ class InGameUI {
     }
 
     drawHealthBar() {
-
         push();
         rectMode(CORNER);
         translate(-120, -50);
@@ -165,30 +181,25 @@ class InGameUI {
         noStroke();
         rect(20, 30, 200, 20, 5);
 
-        // fix the gradient position
-        const lightPos = (frameCount % 200) / 200;
-        let gradient = drawingContext.createLinearGradient(20, 30, 220, 30);
+        // llk，你的血条UI太丑了，我改了。:)
+        // By Theodore
+        // 根据血量百分比决定颜色
+        let hpColor;
+        if (hpPercent < 0.3) {
+            // 血量低于30%显示红色
+            hpColor = color(255, 50, 50);
+            drawingContext.shadowColor = color(255, 50, 50, 100);
+        } else {
+            // 血量高于等于30%显示绿色
+            hpColor = color(50, 255, 50);
+            drawingContext.shadowColor = color(50, 255, 50, 100);
+        }
         
-        // color settings
-        const stops = [
-            { pos: Math.max(0, lightPos - 0.2), color: color(255, 150, 100) },
-            { pos: lightPos, color: color(255, 200, 150) },
-            { pos: Math.min(1, lightPos + 0.2), color: color(255, 50, 50) }
-        ];
-
-        stops.forEach(stop => {
-            if (stop.pos >= 0 && stop.pos <= 1) {
-                gradient.addColorStop(stop.pos, stop.color);
-            }
-        });
-
-        // add the final color stop
-        gradient.addColorStop(0, color(255, 50, 50));
-        gradient.addColorStop(1, color(255, 50, 50));
-
-        drawingContext.fillStyle = gradient;
-        drawingContext.shadowColor = color(255, 50, 50, 100);
+        // 设置阴影效果
         drawingContext.shadowBlur = 10;
+        
+        // 使用确定的颜色绘制血条
+        fill(hpColor);
         rect(20, 35, finalWidth, 15, 5);
 
         push();
@@ -196,7 +207,14 @@ class InGameUI {
         scale(1 + this.hpFlash);
         textFont(this.font || 'Arial Black');
         textSize(15);
-        fill(255, 255, 255, 220 + 35 * this.hpFlash);
+        
+        // Theodore-血量百分比改变文字颜色
+        if (hpPercent < 0.3) {
+            fill(255, 150, 150, 220 + 35 * this.hpFlash);
+        } else {
+            fill(150, 255, 150, 220 + 35 * this.hpFlash);
+        }
+        
         noStroke();
         textAlign(LEFT, CENTER);
         text(`HP : ${Math.round(this.currentHP)}/${Math.round(this.currentHPmax)}`, 0, 0);
@@ -205,7 +223,6 @@ class InGameUI {
     }
 
     drawSkillStatus(playerStatus) {
-
         push();
         rectMode(CORNER);
         translate(-120, -50);

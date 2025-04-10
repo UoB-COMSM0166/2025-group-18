@@ -148,7 +148,7 @@ class MainUI {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         }
-        this.#gameRewardUI.init(buff);
+        this.#gameRewardUI.init(buff, gold);
         this.#gameRewardUI.draw(gold);
     }
 
