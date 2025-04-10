@@ -181,7 +181,7 @@ class InGameUI {
         noStroke();
         rect(20, 30, 200, 20, 5);
 
-        // llk，你的血条UI太丑了，我改了。:)
+        // LLK，你的血条UI太丑了，我改了。:)
         // By Theodore
         // 根据血量百分比决定颜色
         let hpColor;
@@ -189,8 +189,12 @@ class InGameUI {
             // 血量低于30%显示红色
             hpColor = color(255, 50, 50);
             drawingContext.shadowColor = color(255, 50, 50, 100);
+        } else if (hpPercent < 0.6) {
+            // 血量在30%-60%显示黄色
+            hpColor = color(255, 215, 0);
+            drawingContext.shadowColor = color(255, 215, 0, 100);
         } else {
-            // 血量高于等于30%显示绿色
+            // 血量在60%-100%显示绿色
             hpColor = color(50, 255, 50);
             drawingContext.shadowColor = color(50, 255, 50, 100);
         }
@@ -211,6 +215,8 @@ class InGameUI {
         // Theodore-血量百分比改变文字颜色
         if (hpPercent < 0.3) {
             fill(255, 150, 150, 220 + 35 * this.hpFlash);
+        } else if (hpPercent < 0.6) {
+            fill(255, 230, 150, 220 + 35 * this.hpFlash);
         } else {
             fill(150, 255, 150, 220 + 35 * this.hpFlash);
         }

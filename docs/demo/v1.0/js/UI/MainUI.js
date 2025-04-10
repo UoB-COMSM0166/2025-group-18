@@ -13,6 +13,7 @@ class MainUI {
     #gameWinBossUI;
     #tutorialUI;
     #shopInMapUI;
+    #gameReward = { gold: 0, buff: [] };
 
     constructor(updateStep,
         updateShipStatus,
@@ -148,6 +149,7 @@ class MainUI {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         }
+        this.#gameReward = { gold, buff }; // 保存奖励信息
         this.#gameRewardUI.init(buff, gold);
         this.#gameRewardUI.draw(gold);
     }
@@ -422,6 +424,10 @@ class MainUI {
         console.log(buffType);
         if (this.updateBuffStatus) {
             this.updateBuffStatus(buffType);
+        }
+
+        if (this.updateGoldStatus && this.#gameReward) {
+            this.updateGoldStatus(this.#gameReward.gold);
         }
 
         if (this.updateStep) {

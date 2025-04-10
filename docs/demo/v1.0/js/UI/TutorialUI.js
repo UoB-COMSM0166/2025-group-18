@@ -451,7 +451,7 @@ class TutorialUI {
         textSize(36);
         textAlign(CENTER, TOP);
         if (this.currentStep == 3) {
-            text("Easter Egg", logicWidth / 2, logicHeight * 0.1);
+            text("Signal from Below", logicWidth / 2, logicHeight * 0.1);
         } else {
             text("Game Controls", logicWidth / 2, logicHeight * 0.1);
         }
@@ -625,13 +625,11 @@ class TutorialUI {
         if (this.backButton && this.backButton.release() && this.backButton.isHovered) {
             this.backButton.onClick();
         }
-        // 在handleMouseReleased()中添加
         if (this.playEggButton && this.playEggButton.release() && this.playEggButton.isHovered) {
             this.playEggButton.onClick();
         }
     }
 
-    // 处理窗口大小改变事件
     handleWindowResized() {
         this.createButtons();
     }

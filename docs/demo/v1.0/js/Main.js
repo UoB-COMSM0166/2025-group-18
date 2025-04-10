@@ -294,8 +294,8 @@ class Main {
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
         
-        // 更新金币
-        this.#status.updateGold(this.#gameReward.gold);
+        // 避免重复添加金币(Theodore)
+        // this.#status.updateGold(this.#gameReward.gold);
     }
 
     chooseBuff(buffType) {
@@ -305,5 +305,10 @@ class Main {
     chooseGameMap(gameType) {
         this.#nextGameType = gameType;
         console.log(gameType);
+    }
+    
+    // 新增方法，用于获取游戏奖励
+    getGameReward() {
+        return this.#gameReward;
     }
 }
