@@ -12,7 +12,9 @@ const MAIN_STEP_WIN_BOSS = 10;
 const MAIN_STEP_SHOP = 11;
 const MAIN_STEP_RANDOM_EVENT = 12;
 const MAIN_STEP_LOSE = 13;
-const MAIN_STEP_MAX = 14;
+const MAIN_STEP_MORSE_CODE = 14;
+const MAIN_STEP_GAME_SUMMARY = 15;
+const MAIN_STEP_MAX = 16;
 
 /**
  *  attackBit: each bit controls which object could this object attack

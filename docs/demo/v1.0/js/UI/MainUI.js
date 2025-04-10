@@ -14,6 +14,9 @@ class MainUI {
     #tutorialUI;
     #shopInMapUI;
     #gameReward = { gold: 0, buff: [] };
+    #morseCodeUI;
+    #gameSummaryUI;
+
 
     constructor(updateStep,
         updateShipStatus,
@@ -40,6 +43,8 @@ class MainUI {
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
         this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this)); // 确保Boss胜利UI正确初始化
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
+        this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
+        this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
     }
 
     showStartUI() {
@@ -309,43 +314,96 @@ class MainUI {
         }
     }
 
-    windowResized() {
-        switch (this.#currentStep) {
-            case MAIN_STEP_START_UI:
-                if (this.#startUI) {
-                    this.#startUI.handleWindowResized();
-                }
-                break;
-            case MAIN_STEP_TUTORIAL_UI:
-                if (this.#tutorialUI) {
-                    this.#tutorialUI.handleWindowResized();
-                }
-                break;
-            case MAIN_STEP_CHOOSE_SHIP_UI:
-                if (this.#chooseShipUI) {
-                    this.#chooseShipUI.handleWindowResized();
-                }
-                break;
-            case MAIN_STEP_MAP_UI:
-                if (this.#mapUI) {
-                    this.#mapUI.handleWindowResized();
-                }
-                break;
-            case MAIN_STEP_IN_GAME:
-                if (this.#inGameUI) {
-                    this.#inGameUI.handleWindowResized();
-                }
-                break;
-            case MAIN_STEP_START_UI_TEAM:
-                if (this.#teamUI) {
-                    this.#teamUI.handleWindowResized();
-                }
-                break;
-            case MAIN_STEP_WIN_BOSS:
-                if (this.#gameWinBossUI) {
-                    this.#gameWinBossUI.handleWindowResized();
-                }
-                break;
+    // 添加显示摩斯电码界面的方法
+showMorseCodeUI() {
+    if (!this.#morseCodeUI) {
+        this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
+    }
+    this.#morseCodeUI.draw();
+}
+
+// 添加显示游戏结算界面的方法
+showGameSummaryUI(playerStats) {
+    if (!this.#gameSummaryUI) {
+        this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+    }
+    this.#gameSummaryUI.setPlayerStats(playerStats);
+    this.#gameSummaryUI.draw();
+}
+
+// 添加摩斯电码界面的鼠标事件处理方法
+morseCodeUIMousePressed() {
+    if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
+        this.#morseCodeUI.handleMousePressed();
+    }
+}
+
+morseCodeUIMouseReleased() {
+    if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
+        this.#morseCodeUI.handleMouseReleased();
+    }
+}
+
+// 添加游戏结算界面的鼠标事件处理方法
+gameSummaryUIMousePressed() {
+    if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
+        this.#gameSummaryUI.handleMousePressed();
+    }
+}
+
+gameSummaryUIMouseReleased() {
+    if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
+        this.#gameSummaryUI.handleMouseReleased();
+    }
+}
+
+windowResized() {
+    switch (this.#currentStep) {
+        case MAIN_STEP_START_UI:
+            if (this.#startUI) {
+                this.#startUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_TUTORIAL_UI:
+            if (this.#tutorialUI) {
+                this.#tutorialUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_CHOOSE_SHIP_UI:
+            if (this.#chooseShipUI) {
+                this.#chooseShipUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_MAP_UI:
+            if (this.#mapUI) {
+                this.#mapUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_IN_GAME:
+            if (this.#inGameUI) {
+                this.#inGameUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_START_UI_TEAM:
+            if (this.#teamUI) {
+                this.#teamUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_WIN_BOSS:
+            if (this.#gameWinBossUI) {
+                this.#gameWinBossUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_MORSE_CODE:
+            if (this.#morseCodeUI) {
+                this.#morseCodeUI.handleWindowResized();
+            }
+            break;
+        case MAIN_STEP_GAME_SUMMARY:
+            if (this.#gameSummaryUI) {
+                this.#gameSummaryUI.handleWindowResized();
+            }
+            break;
         }
     }
 
@@ -454,16 +512,28 @@ class MainUI {
             }
             
             if (this.updateStep) {
-                this.updateStep(selectedType, true);  // keepStatus参数设为true，保留玩家状态
+                this.updateStep(selectedType);
             }
             
             this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
             this.#mapUI.init();
         } 
-        else if (selectedType == MAIN_STEP_START_UI_TEAM) {
+        else if (selectedType == MAIN_STEP_MORSE_CODE) {
             if (this.updateStep) {
                 this.updateStep(selectedType);
             }
+        }
+    }
+
+    #handleMorseCodeComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_GAME_SUMMARY);
+        }
+    }
+    
+    #handleGameSummaryComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_START_UI_TEAM);
         }
     }
 

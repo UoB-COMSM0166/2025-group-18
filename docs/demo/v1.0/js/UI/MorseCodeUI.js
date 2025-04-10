@@ -1,0 +1,294 @@
+class MorseCodeUI {
+    constructor(onFinishCallback) {
+        this.onFinishCallback = onFinishCallback;
+        this.borderSize = 50;
+        this.targetBorderSize = 50;
+        this.borderColor = null;
+        this.soundEffects = new SoundEffects();
+        this.soundEffects.preload();
+        this.createButton();
+    }
+
+    // 创建按钮
+    createButton() {
+        // "听摩斯电码"按钮
+        const btnWidth = 200;
+        const btnHeight = 60;
+        const btnX = (logicWidth - btnWidth) / 2;
+        const btnY = logicHeight * 0.7;
+
+        this.listenButton = {
+            x: btnX,
+            y: btnY,
+            w: btnWidth,
+            h: btnHeight,
+            label: "Listen Again",
+            isHovered: false,
+            scale: 1,
+            onClick: () => {
+                // 播放声音效果
+                if (!this.soundEffects.isEggSoundPlaying()) {
+                    this.soundEffects.playNoise();
+                    setTimeout(() => {
+                        this.soundEffects.playEgg();
+                    }, 3000);
+                }
+            }
+        };
+
+        // "继续"按钮
+        this.continueButton = {
+            x: btnX,
+            y: btnY + 80,  // 放在Listen Again按钮下方
+            w: btnWidth,
+            h: btnHeight,
+            label: "Continue",
+            isHovered: false,
+            scale: 1,
+            onClick: () => {
+                if (this.onFinishCallback) {
+                    this.onFinishCallback();
+                }
+            }
+        };
+    }
+
+    // 绘制电码
+    drawMorseCode(x, y) {
+        push();
+        textAlign(CENTER, CENTER);
+
+        // 电码符号
+        const dotSize = 8;
+        const dashWidth = 24;
+        const dashHeight = 8;
+        const spacing = 15;
+        const lineSpacing = 30;
+
+        // 电码动画
+        const timeOffset = frameCount * 0.05;
+        const glowIntensity = (sin(timeOffset) + 1) * 0.5;
+
+        fill(100 + 155 * glowIntensity, 255, 218);
+        drawingContext.shadowColor = color(100, 255, 218);
+        drawingContext.shadowBlur = 10 + 20 * glowIntensity;
+
+        // 宽度，居中
+        const calculateLineWidth = (symbols) => {
+            let width = 0;
+            for (let symbol of symbols) {
+                if (symbol == "dot") {
+                    width += spacing;
+                } else if (symbol == "dash") {
+                    width += dashWidth + spacing - dotSize;
+                } else if (symbol == "space") {
+                    width += spacing * 2;
+                }
+            }
+            return width;
+        };
+
+        const firstLineSymbols = [
+            "dash", "dash", "dash", "space", "dot", "dot", "dot", "dot"
+        ];
+
+        const secondLineSymbols = [
+            "dash", "dot", "dash", "dot", "space",
+            "dot", "dash", "space",
+            "dot", "dash", "dash", "dot", "space",
+            "dash", "space",
+            "dot", "dash", "space",
+            "dot", "dot", "space",
+            "dash", "dot"
+        ];
+
+        const thirdLineSymbols = [
+            "dash", "dash", "space",
+            "dash", "dot", "dash", "dash"
+        ];
+
+        const fourthLineSymbols = secondLineSymbols;
+
+        const firstLineWidth = calculateLineWidth(firstLineSymbols);
+        const secondLineWidth = calculateLineWidth(secondLineSymbols);
+        const thirdLineWidth = calculateLineWidth(thirdLineSymbols);
+        const yOffset = -50;
+
+        // 绘制第一行: OH
+        let currentX = x - firstLineWidth / 2;
+        for (let symbol of firstLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset - lineSpacing * 1.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset - lineSpacing * 1.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
+        }
+
+        // 绘制第二行: CAPTAIN 
+        currentX = x - secondLineWidth / 2;
+        for (let symbol of secondLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset - lineSpacing * 0.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset - lineSpacing * 0.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
+        }
+
+        // 绘制第三行: MY
+        currentX = x - thirdLineWidth / 2;
+        for (let symbol of thirdLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset + lineSpacing * 0.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset + lineSpacing * 0.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
+        }
+
+        // 绘制第四行: CAPTAIN
+        currentX = x - secondLineWidth / 2;
+        for (let symbol of fourthLineSymbols) {
+            if (symbol == "dot") {
+                ellipse(currentX, y + yOffset + lineSpacing * 1.5, dotSize, dotSize);
+                currentX += spacing;
+            } else if (symbol == "dash") {
+                rect(currentX, y + yOffset + lineSpacing * 1.5, dashWidth, dashHeight, 3);
+                currentX += dashWidth + spacing - dotSize;
+            } else if (symbol == "space") {
+                currentX += spacing * 2;
+            }
+        }
+
+        pop();
+    }
+
+    // 绘制按钮
+    drawButton(btn) {
+        push();
+        const mainColor = color(100, 255, 218);
+        const hoverColor = color(100, 255, 218, 153);
+        const textColor = btn.isHovered ? color(0) : mainColor;
+        const bgColor = btn.isHovered ? hoverColor : color(0, 0);
+
+        // 按钮缩放动画
+        const currentScale = lerp(btn.scale, 1, 0.2);
+        translate(btn.x + btn.w / 2, btn.y + btn.h / 2);
+        scale(currentScale);
+
+        // 阴影效果
+        drawingContext.shadowColor = mainColor;
+        drawingContext.shadowBlur = btn.isHovered ? 40 : 20;
+
+        // 绘制按钮
+        fill(bgColor);
+        stroke(mainColor);
+        strokeWeight(1);
+        rectMode(CENTER);
+        rect(0, 0, btn.w, btn.h, 5);
+
+        // 绘制文本
+        fill(textColor);
+        noStroke();
+        textSize(24);
+        textAlign(CENTER, CENTER);
+        text(btn.label, 0, 0);
+        pop();
+    }
+
+    // 检查鼠标悬停
+    checkButtonHover(btn) {
+        btn.isHovered = (
+            logicX > btn.x &&
+            logicX < btn.x + btn.w &&
+            logicY > btn.y &&
+            logicY < btn.y + btn.h
+        );
+        
+        if (btn.isHovered) {
+            this.targetBorderSize = 80;
+            this.borderColor = color(100, 255, 218, 102);
+        }
+    }
+
+    // 绘制界面
+    draw() {
+        background(0);
+
+        // 标题
+        fill(255);
+        textSize(36);
+        textAlign(CENTER, TOP);
+        text("Signal from Below", logicWidth / 2, logicHeight * 0.1);
+
+        // 绘制摩斯电码
+        this.drawMorseCode(logicWidth * 0.5, logicHeight * 0.4);
+
+        // 描述文本
+        textAlign(CENTER, CENTER);
+        textSize(24);
+        fill(255);
+        text("A cryptic message seems to be hidden in these waters...", logicWidth * 0.5, logicHeight * 0.2);
+
+        textSize(20);
+        fill(200);
+        text("Do you hear it? A string of Morse code waiting to be deciphered.", logicWidth * 0.5, logicHeight * 0.55);
+        text("Seek your answers at the end of your journey.", logicWidth * 0.5, logicHeight * 0.6);
+        text("The secrets of the deep await those who listen carefully.", logicWidth * 0.5, logicHeight * 0.65);
+
+        // 边框动画效果
+        this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
+        if (this.borderColor) {
+            stroke(this.borderColor);
+            noFill();
+            strokeWeight(3);
+            rectMode(CENTER);
+            rect(logicWidth / 2, logicHeight / 2, this.borderSize * 20, this.borderSize * 10);
+        }
+
+        // 检查按钮悬停
+        this.checkButtonHover(this.listenButton);
+        this.checkButtonHover(this.continueButton);
+
+        // 绘制按钮
+        this.drawButton(this.listenButton);
+        this.drawButton(this.continueButton);
+    }
+
+    // 处理鼠标按下
+    handleMousePressed() {
+        if (this.listenButton.isHovered) {
+            this.listenButton.scale = 0.95;
+        }
+        if (this.continueButton.isHovered) {
+            this.continueButton.scale = 0.95;
+        }
+    }
+
+    // 处理鼠标释放
+    handleMouseReleased() {
+        if (this.listenButton.isHovered) {
+            this.listenButton.scale = 1;
+            this.listenButton.onClick();
+        }
+        if (this.continueButton.isHovered) {
+            this.continueButton.scale = 1;
+            this.continueButton.onClick();
+        }
+    }
+
+    // 处理窗口大小变化
+    handleWindowResized() {
+        this.createButton();
+    }
+}

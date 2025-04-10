@@ -122,8 +122,16 @@ class Main {
                 this.#UI.showTeamUI();
                 break;
             }
+            case MAIN_STEP_MORSE_CODE: {
+                this.#UI.showMorseCodeUI();
+                break;
+            }
+            case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.showGameSummaryUI(this.#status.getShipStatus());
+                break;
+            }
         }
-
+    
         this.#cursorPos.show();
     }
 
@@ -206,8 +214,17 @@ class Main {
                 this.#UI.teamUIMousePressed();
                 break;
             }
+            case MAIN_STEP_MORSE_CODE: {
+                this.#UI.morseCodeUIMousePressed();
+                break;
+            }
+            case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.gameSummaryUIMousePressed();
+                break;
+            }
         }
     }
+    
 
     mouseReleased() {
         switch (this.#step) {
@@ -254,6 +271,14 @@ class Main {
             }
             case MAIN_STEP_START_UI_TEAM: {
                 this.#UI.teamUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_MORSE_CODE: {
+                this.#UI.morseCodeUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.gameSummaryUIMouseReleased();
                 break;
             }
         }
