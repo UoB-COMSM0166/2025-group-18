@@ -1,5 +1,5 @@
 class Boss extends BasicObject {
-    constructor(xCoordinate, yCoordinate, bossModelType, enemyAttackCallBack, enemyMoveCallBack, pollutionInstance) {
+    constructor(xCoordinate, yCoordinate, bossModelType, enemyAttackCallBack, enemyMoveCallBack, aoeSkillCallBack, pollutionInstance) {
         const bossModel = getBossModel(bossModelType);
         console.log(bossModel);
         super(
@@ -18,15 +18,16 @@ class Boss extends BasicObject {
         this.attackPower = bossModel.attackPower;
         this.attackCD = bossModel.attackCD;
     
-        this.lastAttack1Time = 0;
+        this.lastAttack1Time = millis();
         this.attack1number = 0;
-        this.lastAttack2Time = 0;
+        this.lastAttack2Time = millis();
         this.attack2number = 0;
 
         this.attackRange = bossModel.attackRange;
         this.seeRange = bossModel.seeRange;
         this.enemyAttackCallBack = enemyAttackCallBack;
         this.enemyMoveCallBack = enemyMoveCallBack;
+        this.aoeSkillCallBack = aoeSkillCallBack;
         this.lastCollideTime = 0;
         this.wavePushX = 0;
         this.wavePushY = 0;
@@ -42,7 +43,7 @@ class Boss extends BasicObject {
         this.HP = this.maxHP;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
-        this.frames = frames.boss;   
+        this.frames = frames.boss[this.name];   
         this.currentFrame = 0;  
         this.frameRate = 20;
         this.frameCount = 0;
@@ -107,8 +108,11 @@ class Boss extends BasicObject {
         let xSize = logicWidth * 0.7;
         let ySize = 20;
         let hpBar = xSize * (this.HP / this.maxHP);
-
-        text("octopus", hpBarX, hpBarY * 0.95);
+        
+        let nameStr = this.name.substring(this.name.indexOf('_') + 1);
+        fill(255);
+        noStroke();
+        text(nameStr, hpBarX, hpBarY * 0.95);
 
         fill(220);
         rect(hpBarX - xSize / 2, hpBarY - ySize / 2, xSize, ySize);
@@ -137,38 +141,38 @@ class Boss extends BasicObject {
         // Boss不受波浪影响
     }
 
-    enemyAI(playerX, playerY) {
-        this.updateStatus();
-        if (this.isAlive) {
-            let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
+    // enemyAI(playerX, playerY) {
+    //     this.updateStatus();
+    //     if (this.isAlive) {
+    //         let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
         
-            if (this.attack1number == 10 && millis() - this.lastAttack1Time > this.attackCD * 1000) {
-                this.attack1number = 0;
-            }
-            if (this.attack1number < 10) {
-                let xSpeed = (playerX - this.xCoordinate) / distance;
-                let ySpeed = (playerY - this.yCoordinate) / distance;
-                this.bossAttack(xSpeed, ySpeed);
-                this.attack1number++;
-                if (this.attack1number == 10) {
-                    this.lastAttack1Time = millis();
-                }
-            }
+    //         if (this.attack1number == 10 && millis() - this.lastAttack1Time > this.attackCD * 1000) {
+    //             this.attack1number = 0;
+    //         }
+    //         if (this.attack1number < 10) {
+    //             let xSpeed = (playerX - this.xCoordinate) / distance;
+    //             let ySpeed = (playerY - this.yCoordinate) / distance;
+    //             this.bossAttack(xSpeed, ySpeed);
+    //             this.attack1number++;
+    //             if (this.attack1number == 10) {
+    //                 this.lastAttack1Time = millis();
+    //             }
+    //         }
 
-            if (this.attack2number == 72 && millis() - this.lastAttack2Time > this.attackCD * 5000) {
-                this.attack2number = 0;
-            }
-            if (this.attack2number < 72) {
-                let xSpeed = cos(radians(this.attack2number * 10));
-                let ySpeed = sin(radians(this.attack2number * 10));
-                this.bossAttack(xSpeed, ySpeed);
-                this.attack2number++;
-                if (this.attack2number == 72) {
-                    this.lastAttack2Time = millis();
-                }
-            }
-        }
-    }
+    //         if (this.attack2number == 72 && millis() - this.lastAttack2Time > this.attackCD * 5000) {
+    //             this.attack2number = 0;
+    //         }
+    //         if (this.attack2number < 72) {
+    //             let xSpeed = cos(radians(this.attack2number * 10));
+    //             let ySpeed = sin(radians(this.attack2number * 10));
+    //             this.bossAttack(xSpeed, ySpeed);
+    //             this.attack2number++;
+    //             if (this.attack2number == 72) {
+    //                 this.lastAttack2Time = millis();
+    //             }
+    //         }
+    //     }
+    // }
 
     bossAttack(xSpeed, ySpeed) {
         this.enemyAttackCallBack(
@@ -179,6 +183,9 @@ class Boss extends BasicObject {
         );
     }
 
+    bossSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate) {
+        this.aoeSkillCallBack(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate);
+    }
     applyWaveForce(forceX, forceY) {
         // Boss不受波浪力量影响
     }

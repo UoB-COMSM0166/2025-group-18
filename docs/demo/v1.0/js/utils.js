@@ -252,7 +252,7 @@ const BOSS_MODEL = [
         attackPower: 1.5,
         attackCD: 1,
         attackRange: 2000,
-        seeRange: 2000
+        seeRange: 2000,
     }
 ];
 
@@ -262,6 +262,56 @@ function getBossModel(bossType) {
         return BOSS_MODEL[BOSS_MODEL_ERROR_TYPE];
     }
     return BOSS_MODEL[bossType];
+}
+
+/** boss skill model */
+const BOSS_SKILL_MODEL_ERROR_TYPE = 0;
+const BOSS_SKILL_MODEL_OCTOPUS_TYPE_1 = 1;
+const BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1 = 2;
+const BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2 = 3;
+
+const BOSS_SKILL_MODEL = [
+    {
+        name: "error",
+        type: BOSS_SKILL_MODEL_ERROR_TYPE,
+        xSize: 0,
+        ySize: 0,
+        delayTime: 0,
+        harm: 0,
+        liveTime: 0
+    }, {
+        name: "boss_1_skill_1",
+        type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_1,
+        xSize: 150,
+        ySize: 150,
+        delayTime: 1,
+        harm: 2,
+        liveTime: 40
+    }, {
+        name: "boss_1_skill_2_1",
+        type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1,
+        xSize: 200,
+        ySize: 1000,
+        delayTime: 1,
+        harm: 3,
+        liveTime: 1
+    }, {
+        name: "boss_1_skill_2_2",
+        type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2,
+        xSize: 200,
+        ySize: 1000,
+        delayTime: 0,
+        harm: 3,
+        liveTime: 1
+    }
+];
+
+function getAoeSkillModel(bossSkillType) {
+    if (bossSkillType > BOSS_SKILL_MODEL.length || bossSkillType < 0) {
+        console.log("getAoeSkillModel : bossSkillType error.");
+        return BOSS_SKILL_MODEL[BOSS_SKILL_MODEL_ERROR_TYPE];
+    }
+    return BOSS_SKILL_MODEL[bossSkillType];
 }
 
 /* basic values of islands */

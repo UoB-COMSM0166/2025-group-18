@@ -20,7 +20,7 @@ class Equipment {
             attackPower: 1,
             pollutionValue: 0,
             bulletSize: 2, 
-            bulletSpeed: 5, 
+            bulletSpeed: 10, 
             explosionSize: 10, 
             partAttributes: null
         };

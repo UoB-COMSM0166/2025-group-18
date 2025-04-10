@@ -23,6 +23,9 @@ class Player extends BasicObject {
         this.frameInterval = 100;
         this.pets = [];
 
+        this.hasAttackedByAoe = false;
+        this.lastAttackByAoeTime = 0;
+
         // 受击变红效果的属性
         this.isFlashing = false;
         this.flashDuration = 150; // 闪烁持续时间(毫秒)
