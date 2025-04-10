@@ -31,6 +31,8 @@ class Pet extends BasicObject {
         const pollutionEffect = this.pollutionInstance.getEffect();
         this.maxHP = this.baseHP * pollutionEffect.healthMul;
         this.HP = this.maxHP;
+        this.hasAttackedByAoe = false;
+        this.lastAttackByAoeTime = 0;
 
         this.currentFrame = 0;  
         this.frameRate = 20;  

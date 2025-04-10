@@ -687,6 +687,19 @@ class Game {
                 this.#player.lastAttackByAoeTime = millis();
             }
         }
+        if (aoeSkill.attackBit & PET_TYPE) {
+            for (let pet of this.#pets) {
+                if (this.checkPointInRect(
+                    pet.xCoordinate, pet.yCoordinate,
+                    aoeSkill.xCoordinate, aoeSkill.yCoordinate,
+                    aoeSkill.xSize, aoeSkill.ySize,
+                    aoeSkill.rotate)) {
+                    pet.updateHP(aoeSkill.harm * -1);
+                    pet.hasAttackedByAoe = true;
+                    pet.lastAttackByAoeTime = millis();
+                }
+            }
+        }
     }
 
     addBullet(xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, enemy) {
