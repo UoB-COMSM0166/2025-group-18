@@ -26,7 +26,7 @@ class MainUI {
         this.updateChooseGame = updateChooseGame;
         this.updateGoldStatus = updateGoldStatus;
 
-        // Init UI
+        // 初始化所有UI组件
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
@@ -38,7 +38,7 @@ class MainUI {
         this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
         this.#mapUI.init();
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
-        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
+        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this)); // 确保Boss胜利UI正确初始化
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
     }
 
@@ -187,14 +187,14 @@ class MainUI {
 
     showGameWinBossUI() {
         if (this.#gameWinBossUI == null) {
-            this.#gameWinBossUI = new GameWinBossUI();
+            this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
         }
         this.#gameWinBossUI.init();
         this.#gameWinBossUI.draw();
     }
 
     initGameWinBossUI() {
-        this.#gameWinBossUI = new GameWinBossUI();
+        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
     }
 
     gameFinishGetSeamanUI() {
@@ -296,15 +296,16 @@ class MainUI {
             this.#gameOverUI.handleMouseReleased();
         }
     }
+
     gameWinBossMousePressed() {
-        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameOverUI) {
-            this.#gameOverUI.handleMousePressed();
+        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameWinBossUI) {
+            this.#gameWinBossUI.handleMousePressed();
         }
     }
 
     gameWinBossMouseReleased() {
-        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameOverUI) {
-            this.#gameOverUI.handleMouseReleased();
+        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameWinBossUI) {
+            this.#gameWinBossUI.handleMouseReleased();
         }
     }
 
@@ -340,32 +341,13 @@ class MainUI {
                     this.#teamUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_WIN_BOSS:
+                if (this.#gameWinBossUI) {
+                    this.#gameWinBossUI.handleWindowResized();
+                }
+                break;
         }
     }
-
-    // // Handle current UI state mouse pressed
-    // handleMousePressed() {
-    //     switch (this.#currentStep) {
-    //         case MAIN_STEP_START_UI:
-    //             this.startUIPressed();
-    //             break;
-    //         case MAIN_STEP_CHOOSE_SHIP_UI:
-    //             this.chooseShipUIMousePressed();
-    //             break;
-    //     }
-    // }
-
-    // // Handle current UI state mouse released
-    // handleMouseReleased() {
-    //     switch (this.#currentStep) {
-    //         case MAIN_STEP_START_UI:
-    //             this.startUIReleased();
-    //             break;
-    //         case MAIN_STEP_CHOOSE_SHIP_UI:
-    //             this.chooseShipUIMouseReleased();
-    //             break;
-    //     }
-    // }
 
     // private, callback by StartUI
     #handleStartUIButtonClick(buttonType) {
@@ -463,8 +445,11 @@ class MainUI {
         this.updateStep(MAIN_STEP_START_UI);
     }
 
-    #handleGameWinBoss(gameStep) {
-        this.updateStep(gameStep);
+    // 修改后的 Boss 胜利回调方法
+    #handleGameWinBoss(selectedType) {
+        if (this.updateStep) {
+            this.updateStep(selectedType);
+        }
     }
 
     changeCurrentStep(step) {

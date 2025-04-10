@@ -1,21 +1,26 @@
 class GameWinBossUI {
     constructor(gameWinBossCallBack) {
         this.gameWinBossCallBack = gameWinBossCallBack;
+        this.buttons = [];
+        this.borderSize = 50;
+        this.targetBorderSize = 50;
+        this.borderColor = null;
     }
 
     ChooseBuffButton = class {
-        constructor(x, y, w, h, label, buffType) {
+        constructor(x, y, w, h, label, buttonType) {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
-            this.label = label;
-            this.buffType = buffType;
+            this.label = label;  
+            this.buttonType = buttonType;
             this.isHovered = false;
             this.isPressed = false;
             this.scale = 1;
         }
 
+        // 绘制按钮
         draw() {
             drawingContext.save();
         
@@ -44,6 +49,7 @@ class GameWinBossUI {
             drawingContext.restore();
         }
 
+        // 检查鼠标是否悬停在按钮上
         checkHover(chooseShipUI) {
             this.isHovered = (
                 logicX > this.x && 
@@ -52,71 +58,108 @@ class GameWinBossUI {
                 logicY < this.y + this.h
             );
         
+            // 如果悬停，更新边框效果
             if(this.isHovered) {
                 chooseShipUI.targetBorderSize = 80;
                 chooseShipUI.borderColor = color(100, 255, 218, 102);
             }
         }
 
+        // 鼠标按下
         press() { this.scale = 0.98; }
         
+        // 鼠标释放
         release() { 
             this.scale = 1;
-            // ...
             return this.isHovered;
         }
     }
 
+    // 初始化
     init() {
         textFont('Helvetica');
         noStroke();
         this.createButtons();
     }
 
+    // 创建按钮
     createButtons() {
         this.buttons = [];
         
+        // 按钮尺寸和位置计算
         const btnWidth = 200;
-        const btnHeight = 300;
+        const btnHeight = 100;
         const spacing = 50;
-        const totalWidth = 3 * btnWidth + 2 * spacing;
+        const totalWidth = 2 * btnWidth + spacing;
         const startX = (logicWidth - totalWidth) / 2;
-        const y = logicHeight / 2 - btnHeight / 2;
+        const y = logicHeight / 2 + 50;
 
+        // 创建两个按钮："继续游戏"和"放弃"
         this.buttons.push(
             new this.ChooseBuffButton(
-              startX, y, btnWidth, btnHeight, "Yeah!", MAIN_STEP_MAP_UI
+              startX, y, btnWidth, btnHeight, "Aye Captain!", MAIN_STEP_MAP_UI
             ),
             new this.ChooseBuffButton(
-              startX + btnWidth + spacing, y, btnWidth, btnHeight, "No..", MAIN_STEP_GAME_OVER
+              startX + btnWidth + spacing, y, btnWidth, btnHeight, "Abandon Ship!", MAIN_STEP_START_UI_TEAM
             )
         );
     }
 
+    // 绘制界面
     draw() {
         background(0);
-        text("Ye've vanquished the boss 'ere!", logicWidth / 2, logicHeight * 0.3);
-        text("Be ye ready to set sail for the next territory?", logicWidth / 2, logicHeight * 0.4);
+        
+        // 绘制标题文本
+        push();
+        textAlign(CENTER, CENTER);
+        textSize(40);
+        fill(255, 215, 0); // 金色
+        text("Ye've vanquished the boss, cap'n!", logicWidth / 2, logicHeight * 0.3);
+        
+        textSize(30);
+        fill(255);
+        text("Be ye ready to set sail for the next adventure?", logicWidth / 2, logicHeight * 0.4);
+        pop();
+        
+        // 绘制边框效果
+        this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
+        if (this.borderColor) {
+            stroke(this.borderColor);
+            noFill();
+            strokeWeight(3);
+            rectMode(CENTER);
+            rect(logicWidth / 2, logicHeight / 2, this.borderSize * 10, this.borderSize * 5);
+        }
+        
+        // 绘制按钮
         this.buttons.forEach(btn => {
             btn.checkHover(this);
             btn.draw();
         });
     }
 
+    // 处理鼠标按下事件
     handleMousePressed() {
-        this.buttons.forEach(btn => btn.isHovered && btn.press());
-    }
-
-    handleMouseReleased() {
-        let selectedType = null;
         this.buttons.forEach(btn => {
-            if(btn.release() && btn.isHovered) {
-                selectedType = btn.type;
+            if (btn.isHovered) {
+                btn.press();
             }
         });
-        console.log(selectedType);
-        if(selectedType != null && this.gameWinBossCallBack) {
-            this.gameWinBossCallBack(selectedType);
+    }
+
+    // 处理鼠标释放事件
+    handleMouseReleased() {
+        for (let btn of this.buttons) {
+            if (btn.release() && btn.isHovered) {
+                if (this.gameWinBossCallBack) {
+                    this.gameWinBossCallBack(btn.buttonType);
+                }
+                return;
+            }
         }
+    }
+    
+    handleWindowResized() {
+        this.createButtons();
     }
 }
