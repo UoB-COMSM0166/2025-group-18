@@ -71,9 +71,10 @@ class GameRewardUI {
         }
     }
 
-    init(buff) {
+    init(buff, gold) {
         textFont('Helvetica');
         noStroke();
+        this.goldAmount = gold;
         this.createButtons(buff);
     }
 

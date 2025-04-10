@@ -183,7 +183,7 @@ class PlayerControl {
         }
 
         console.log("playerControl() Using skill");
-        // this.skillUseCallBack();
+        this.skillUseCallBack();
         let target = this.targetCallBack(this.#player);
         let dx = this.#player.xCoordinate - target.xCoordinate;
         let dy = this.#player.yCoordinate - target.yCoordinate;

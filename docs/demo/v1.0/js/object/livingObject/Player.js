@@ -21,6 +21,7 @@ class Player extends BasicObject {
         this.frameIndex = 0;
         this.lastFrameTime = 0;
         this.frameInterval = 100;
+        this.pets = [];
 
         this.hasAttackedByAoe = false;
         this.lastAttackByAoeTime = 0;

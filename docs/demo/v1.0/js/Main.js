@@ -280,7 +280,7 @@ class Main {
         this.#UI.changeCurrentStep(stepChangeType);
 
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
-            this.#gameReward.gold = 10 + round(random(5, 15));
+            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！
             this.#gameReward.buff = [
                 BUFF_MODEL[round(random(1, 5))],
                 BUFF_MODEL[round(random(1, 5))],
@@ -295,6 +295,9 @@ class Main {
 
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
+        
+        // 避免重复添加金币(Theodore)
+        // this.#status.updateGold(this.#gameReward.gold);
     }
 
     chooseBuff(buffType) {
@@ -304,7 +307,10 @@ class Main {
     chooseGameMap(gameType) {
         this.#nextGameType = gameType;
         console.log(gameType);
-
     }
-
-}   
+    
+    // 新增方法，用于获取游戏奖励
+    getGameReward() {
+        return this.#gameReward;
+    }
+}
