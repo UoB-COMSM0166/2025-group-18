@@ -12,6 +12,8 @@ class MainUI {
     #gameOverUI;
     #gameWinBossUI;
     #tutorialUI;
+    #shopInMapUI;
+    #gameReward = { gold: 0, buff: [] };
 
     constructor(updateStep,
         updateShipStatus,
@@ -122,6 +124,14 @@ class MainUI {
         this.#mapUI.init();
     }
 
+    showShopinMapUI() {
+        if (!this.#shopInMapUI) {
+            this.#shopInMapUI = new ShopInMapUI(this.#handleMap2ShopSelection.bind(this));
+            this.#shopInMapUI.init();
+        }
+        this.#shopInMapUI.draw();
+    }
+
     showInGameUI(playerStatus) {
         if (this.#inGameUI == null) {
             this.#inGameUI = new InGameUI();
@@ -139,7 +149,8 @@ class MainUI {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         }
-        this.#gameRewardUI.init(buff);
+        this.#gameReward = { gold, buff }; // 保存奖励信息
+        this.#gameRewardUI.init(buff, gold);
         this.#gameRewardUI.draw(gold);
     }
 
@@ -247,6 +258,18 @@ class MainUI {
     chooseShopUIMouseReleased() {
         if (this.#currentStep == MAIN_STEP_SHOP && this.#shopUI) {
             this.#shopUI.handleMouseReleased();
+        }
+    }
+
+    chooseShopInMapUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_MAP_UI && this.#shopInMapUI) {
+            this.#shopInMapUI.handleMousePressed();
+        }
+    }
+
+    chooseShopInMapUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_MAP_UI && this.#shopInMapUI) {
+            this.#shopInMapUI.handleMouseReleased();
         }
     }
 
@@ -390,11 +413,21 @@ class MainUI {
         }
     }
 
+    #handleMap2ShopSelection() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_SHOP);
+        }
+    }
+
     #handleGameRewardSelection(buffType) {
         console.log(this.updateBuffStatus);
         console.log(buffType);
         if (this.updateBuffStatus) {
             this.updateBuffStatus(buffType);
+        }
+
+        if (this.updateGoldStatus && this.#gameReward) {
+            this.updateGoldStatus(this.#gameReward.gold);
         }
 
         if (this.updateStep) {

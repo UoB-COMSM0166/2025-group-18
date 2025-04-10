@@ -526,12 +526,11 @@ class MapUI {
         ellipse(0, 0, this.buttonSize / 4, this.buttonSize / 4);
         pop();
     }
+
     getRandomType() {
         const randomNum = Math.random();
-        if (randomNum < 0.5) {
+        if (randomNum < 0.7) {
             return MAIN_STEP_IN_GAME;
-        } else if (randomNum < 0.8) {
-            return MAIN_STEP_SHOP;
         } else {
             return MAIN_STEP_RANDOM_EVENT;
         }
