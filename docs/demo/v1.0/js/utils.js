@@ -291,15 +291,15 @@ const BOSS_SKILL_MODEL = [
         name: "boss_1_skill_2_1",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1,
         xSize: 200,
-        ySize: 1000,
+        ySize: 1800,
         delayTime: 1,
         harm: 3,
-        liveTime: 1
+        liveTime: 2
     }, {
         name: "boss_1_skill_2_2",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2,
         xSize: 200,
-        ySize: 1000,
+        ySize: 1800,
         delayTime: 0,
         harm: 3,
         liveTime: 1

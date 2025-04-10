@@ -222,15 +222,22 @@ function draw() {
     logicY = map(mouseY, 0, height, 0, logicHeight);
 
     scaleRatio = min(scaleX, scaleY);
+    push();
     translate(
         (width - logicWidth * scaleRatio) / 2,
         (height - logicHeight * scaleRatio) / 2
     );
     scale(scaleRatio);
     // scale(scaleX, scaleY);
+    clip(mask);
     // rectMode(CORNER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
+}
+
+function mask() {
+    rectMode(CORNER);
+    rect(0, 0, logicWidth, logicHeight);
 }
 
 function keyPressed() {
