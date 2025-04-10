@@ -19,12 +19,13 @@ const MAIN_STEP_MAX = 14;
  *  bullet player enemy building island
  *  for example: a bullet from player is 0110
  */
-const ENEMY_ATTACK_BIT = 0b1000; // if player touch enemy, player will be attacked.
+const ENEMY_ATTACK_BIT = 0b1000 | 0b100000; // if player touch enemy, player will be attacked.
 const PLAYER_BULLET_ATTACK_BIT = 0b0110;
-const ENEMY_BULLET_ATTACK_BIT = 0b1000;
+const ENEMY_BULLET_ATTACK_BIT = 0b1000 | 0b100000;
 const NO_HARM_ATTACK_BIT = 0b0000;
 const ENVIRONMENT_ATTACK_BIT = 0b1100;
 const EXPLODE_ATTACK_BIT = 0b1110;
+const PET_BULLET_ATTACK_BIT = 0b0110; // keep
 
 /**
  * bullet type
@@ -32,6 +33,7 @@ const EXPLODE_ATTACK_BIT = 0b1110;
 const PLAYER_BULLET_TYPE = 0;
 const ENEMY_BULLET_TYPE  = 1;
 const BOSS_BULLET_TYPE   = 2;
+const PET_BULLET_TYPE    = 3;
 
 const BULLET_MOVE_TYPE_NORMAL = 0;
 const BULLET_MOVE_TYPE_HOMING = 1;
@@ -44,6 +46,7 @@ const ENEMY_TYPE = 0b0100;
 const BUILDING_TYPE = 0b0010;
 const ISLAND_TYPE = 0b0001;
 const BULLET_TYPE = 0b10000;
+const PET_TYPE = 0b100000; // keep
 
 /** game type  */
 const GAME_TYPE_ERROR = 0;
@@ -172,6 +175,57 @@ function getEnemyModel(enemyType) {
     return ENEMY_MODEL[enemyType];
 }
 
+/* basic values of pets */
+const PET_MODEL_ERROR_TYPE = 0;
+const PET_MODEL_1_TYPE = 1;
+const PET_MODEL_2_TYPE = 2;
+
+const PET_MODEL = [
+    {
+        name: 0,
+        type: PET_MODEL_ERROR_TYPE,
+        xSize: 0,
+        ySize: 0,
+        HP: 0,
+        speed: 0,
+        attackPower: 0,
+        attackCD: 0,
+        attackRange: 0,
+        seeRange: 0
+    }, {
+        name: "fort",
+        type: PET_MODEL_1_TYPE,
+        xSize: 50,
+        ySize: 50,
+        HP: 10,
+        speed: 0,
+        attackPower: 1,
+        attackCD: 1,
+        attackRange: 500,
+        seeRange: 500
+    }, {
+        name: "laser",
+        type: PET_MODEL_2_TYPE,
+        xSize: 30,
+        ySize: 30,
+        HP: 50,
+        speed: 0,
+        attackPower: 1,
+        attackCD: 1,
+        attackRange: 1000,
+        seeRange: 1000
+    },
+
+];
+
+function getPetModel(petType) {
+    if (petType > PET_MODEL.length || petType < 0) {
+        console.log("getPetModel : petType error.");
+        return PET_MODEL[PET_MODEL_ERROR_TYPE];
+    }
+    return PET_MODEL[petType];
+}
+
 /** boss model */
 const BOSS_MODEL_ERROR_TYPE = 0;
 const BOSS_MODEL_OCTOPUS_TYPE = 1;
@@ -198,7 +252,7 @@ const BOSS_MODEL = [
         attackPower: 1.5,
         attackCD: 1,
         attackRange: 2000,
-        seeRange: 2000
+        seeRange: 2000,
     }
 ];
 
@@ -208,6 +262,56 @@ function getBossModel(bossType) {
         return BOSS_MODEL[BOSS_MODEL_ERROR_TYPE];
     }
     return BOSS_MODEL[bossType];
+}
+
+/** boss skill model */
+const BOSS_SKILL_MODEL_ERROR_TYPE = 0;
+const BOSS_SKILL_MODEL_OCTOPUS_TYPE_1 = 1;
+const BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1 = 2;
+const BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2 = 3;
+
+const BOSS_SKILL_MODEL = [
+    {
+        name: "error",
+        type: BOSS_SKILL_MODEL_ERROR_TYPE,
+        xSize: 0,
+        ySize: 0,
+        delayTime: 0,
+        harm: 0,
+        liveTime: 0
+    }, {
+        name: "boss_1_skill_1",
+        type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_1,
+        xSize: 150,
+        ySize: 150,
+        delayTime: 1,
+        harm: 2,
+        liveTime: 40
+    }, {
+        name: "boss_1_skill_2_1",
+        type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1,
+        xSize: 200,
+        ySize: 1000,
+        delayTime: 1,
+        harm: 3,
+        liveTime: 1
+    }, {
+        name: "boss_1_skill_2_2",
+        type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2,
+        xSize: 200,
+        ySize: 1000,
+        delayTime: 0,
+        harm: 3,
+        liveTime: 1
+    }
+];
+
+function getAoeSkillModel(bossSkillType) {
+    if (bossSkillType > BOSS_SKILL_MODEL.length || bossSkillType < 0) {
+        console.log("getAoeSkillModel : bossSkillType error.");
+        return BOSS_SKILL_MODEL[BOSS_SKILL_MODEL_ERROR_TYPE];
+    }
+    return BOSS_SKILL_MODEL[bossSkillType];
 }
 
 /* basic values of islands */

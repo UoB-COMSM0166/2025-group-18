@@ -12,6 +12,9 @@ class Game {
     #enemyBuffController;
     #pollution
     #bulletExplode;
+    #pets;
+    #orbiterPet;
+    #aoeSkills;
 
     constructor(updateStepCallBack) {
         this.#player = null;
@@ -30,6 +33,9 @@ class Game {
         this.#pollution = new Pollution();
         Building.setPollutionInstance(this.#pollution);
         this.#bulletExplode = [];
+        this.#pets = [];
+        this.#orbiterPet = null;
+        this.#aoeSkills = [];
     }
 
     initPlayer(playerBasicStatus) {
@@ -56,10 +62,19 @@ class Game {
                 attackPower
             ),
             (xMove, yMove) => this.playerMove(xMove, yMove),
-            () => this.addBomb(),
+            () => this.addPet(),
             (player) => this.findPlayerClosestTarget(player)
         );
         this.#playerBuffController = new BuffController(this.#player);
+
+        this.#orbiterPet = new OrbiterPet(
+            this.#player, 
+            70,  // orbit radius
+            2,   // orbit speed
+            5,   // attack power
+            (x, y, harm, attackBit, explodeType) => 
+                this.addExplode(x, y, harm, attackBit, explodeType)
+        );
     }
 
     initRandomMap() {
@@ -96,10 +111,9 @@ class Game {
     }
 
     initBoss() {
-        const boss = new Boss(
+        const boss = new Boss1(
             logicWidth * 0.5,
             logicHeight * 0.3,
-            BOSS_MODEL_OCTOPUS_TYPE,
             (
                 xSpeed, ySpeed,
                 bulletType, bulletMoveType,
@@ -112,6 +126,11 @@ class Game {
                 enemy
             ),
             (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+            (
+                xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+            ) => this.addBossAoeSkill(
+                xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+            ),
             this.#pollution
         );
         this.#enemies.push(boss);
@@ -203,6 +222,9 @@ class Game {
             } else {
                 bullet.show();
             }
+            if (bullet.frameCount > 600) {
+                this.#bullets[i].toDelete = true;
+            }
         }
         this.#bullets = this.#bullets.filter(bullet => !bullet.toDelete);
 
@@ -231,6 +253,53 @@ class Game {
 
                 }
             }
+        }
+
+        if (this.#pets.length != 0) {
+            for (let i = this.#pets.length - 1; i >= 0; --i) {
+                let pet = this.#pets[i];
+                if (!pet.isAlive) {
+                    this.#pets.splice(i, 1);
+                } else {
+                    if (this.#enemies.length != 0) {
+                        if (pet instanceof LaserPet) {
+                            let firstEnemy = this.#enemies[0];
+                            pet.petAI(firstEnemy.xCoordinate, firstEnemy.yCoordinate, pet, this.#enemies);
+                        } else {
+                            for (let j = this.#enemies.length - 1; j >= 0; --j) {
+                                let enemy = this.#enemies[j];
+                                if (enemy.isAlive) {
+                                    pet.petAI(enemy.xCoordinate, enemy.yCoordinate, pet);
+                                }
+                            }
+                        }
+                    }
+                    // pet.updateWavePush();
+                    pet.show();
+                }
+            }
+        }
+        if (this.#aoeSkills.length != 0) {
+            for (let i = this.#aoeSkills.length - 1; i >= 0; --i) {
+                let aoeSkill = this.#aoeSkills[i];
+                if (!aoeSkill.hasHit && !this.#player.hasAttackedByAoe && millis() - aoeSkill.startTime >= aoeSkill.delayTime) {
+                    this.checkCollideAoe(aoeSkill);
+                    aoeSkill.hasHit = true;
+                }
+                if (aoeSkill.frameCount < aoeSkill.liveTime) {
+                    aoeSkill.show();
+                } else {
+                    this.#aoeSkills.splice(i, 1);
+                }
+            }
+        }
+
+        if (this.#orbiterPet) {
+            this.#orbiterPet.update(this.#enemies);
+            this.#orbiterPet.show();
+        }
+        if (this.#player.hasAttackedByAoe && millis() - this.#player.lastAttackByAoeTime > 500) {
+            this.#player.hasAttackedByAoe = false;
         }
 
 
@@ -284,6 +353,142 @@ class Game {
         this.#waveManager.show();
     }
 
+    addPet() {
+        // 随机
+        const randomNum = Math.floor(Math.random() * 2);
+        if (randomNum === 0) {
+            this.addLaserPet();
+        } else {
+            this.addBulletPet();
+        }
+    }
+
+    addLaserPet() {
+        if (this.#player.skillCD > 0) {
+            console.log("Laser() Skill is not ready");
+            return;
+        }
+        
+        const petX = this.#player.xCoordinate;
+        const petY = this.#player.yCoordinate;
+        
+        const pet = new LaserPet(
+            petX,
+            petY,
+            PET_MODEL_2_TYPE,
+            (
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ) => this.addBullet(
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ),
+            (xMove, yMove, pet) => this.petMove(xMove, yMove, pet),
+            this.#pollution,
+            (startX, startY, endX, endY, damage, targetEnemy) => 
+                this.createLaserBeam(startX, startY, endX, endY, damage, targetEnemy)
+        );
+        
+        this.#pets.push(pet);
+        this.#pollution.increasePollution("skill");
+        
+        this.#player.skillCD = this.#player.maxSkillCD;
+    }
+
+    createLaserBeam(startX, startY, endX, endY, damage, targetEnemy) {
+        const hitEnemies = [];
+        
+        let mainTarget = targetEnemy;
+        let mainTargetHit = false;
+        
+        for (let enemy of this.#enemies) {
+            if (enemy.isAlive && this.lineIntersectsCircle(
+                startX, startY, endX, endY, 
+                enemy.xCoordinate, enemy.yCoordinate, enemy.xSize / 2)) {
+                
+                hitEnemies.push(enemy);
+                
+                if (enemy === mainTarget) {
+                    mainTargetHit = true;
+                    // 主目标受到全额伤害
+                    enemy.updateHP(-damage);
+                    
+                    this.addExplode(
+                        enemy.xCoordinate,
+                        enemy.yCoordinate,
+                        damage * 0.3,
+                        ENEMY_TYPE,
+                        EXPLODE_MODEL_BULLET_TYPE
+                    );
+                } else {
+                    enemy.updateHP(-damage * 0.5);
+                    
+                    this.addExplode(
+                        enemy.xCoordinate,
+                        enemy.yCoordinate,
+                        damage * 0.1,
+                        ENEMY_TYPE,
+                        EXPLODE_MODEL_BULLET_TYPE
+                    );
+                }
+            }
+        }
+        
+        if (hitEnemies.length === 0) {
+            this.addExplode(
+                endX,
+                endY,
+                damage * 0.05,
+                ENEMY_TYPE,
+                EXPLODE_MODEL_BULLET_TYPE
+            );
+        }
+        
+        return hitEnemies;
+    }
+
+    lineIntersectsCircle(x1, y1, x2, y2, cx, cy, r) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        
+        // 1 到圆心距离
+        const pCx = cx - x1;
+        const pCy = cy - y1;
+        
+        const lengthSquared = dx * dx + dy * dy;
+        
+        // 点积
+        const dot = pCx * dx + pCy * dy;
+        
+        // 圆心对线段投影
+        const projX = x1 + (dot * dx) / lengthSquared;
+        const projY = y1 + (dot * dy) / lengthSquared;
+        
+        // 投影点是否在线段上
+        const onSegment = 
+            (projX >= Math.min(x1, x2) && projX <= Math.max(x1, x2)) &&
+            (projY >= Math.min(y1, y2) && projY <= Math.max(y1, y2));
+        
+        // 端点检查
+        if (!onSegment) {
+            const dist1 = Math.sqrt((cx - x1) * (cx - x1) + (cy - y1) * (cy - y1));
+            const dist2 = Math.sqrt((cx - x2) * (cx - x2) + (cy - y2) * (cy - y2));
+            return dist1 <= r || dist2 <= r;
+        }
+        
+        // 圆心到投影点的距离
+        const distToLine = Math.sqrt(
+            Math.pow(cx - projX, 2) + Math.pow(cy - projY, 2)
+        );
+        
+        return distToLine <= r;
+    }
+
+
     checkCollideBullet(bullet) {
         for (let island of this.#islands) {
             if (myCollide(island, bullet)) {
@@ -304,6 +509,14 @@ class Game {
         for (let building of this.#buildings) {
             if (myCollide(building, bullet)) {
                 return true;
+            }
+        }
+
+        if ((bullet.attackBit & PET_TYPE) && this.#pets.length > 0) {
+            for (let pet of this.#pets) {
+                if (myCollide(pet, bullet)) {
+                    return true;
+                }
             }
         }
 
@@ -373,12 +586,21 @@ class Game {
                 this.#player.updateHP(enemy.attackPower * -0.5);
                 enemy.lastCollideTime = millis();
             }
-            // return true;
+            return true;
         }
         // Theodore-敌人之间的碰撞检测
         for (let otherEnemy of this.#enemies) {
             if (otherEnemy == enemy) continue;
             if (myCollide(location, otherEnemy)) {
+                return true;
+            }
+        }
+        for (let pet of this.#pets) {
+            if (myCollide(location, pet)) {
+                if (millis() - enemy.lastCollideTime > 500) {
+                    pet.updateHP(enemy.attackPower * -0.5);
+                    enemy.lastCollideTime = millis();
+                }
                 return true;
             }
         }
@@ -403,6 +625,63 @@ class Game {
         if (explode.attackBit & PLAYER_TYPE) {
             if (myCollide(explode, this.#player)) {
                 this.#player.updateHP(explode.harm * -1);
+            }
+        }
+        if (explode.attackBit & PET_TYPE) {
+            for (let pet of this.#pets) {
+                if (myCollide(explode, pet)) {
+                    pet.updateHP(explode.harm * -1);
+                }
+            }
+        }
+    }
+
+    checkPointInRect(xCoorP, yCoorP, xCoorR, yCoorR, xSize, ySize, rotate) {
+        let translatedX = xCoorP - xCoorR;
+        let translatedY = yCoorP - yCoorR;
+        let theta = rotate;
+        let cosTheta = cos(theta);
+        let sinTheta = sin(theta);
+        let rotatedX = translatedX * cosTheta + translatedY * sinTheta;
+        let rotatedY = -translatedX * sinTheta + translatedY * cosTheta;
+        let halfX = xSize / 2;
+        let halfY = ySize / 2;
+        return rotatedX >= -halfX && rotatedX <= halfX &&
+            rotatedY >= -halfY && rotatedY <= halfY;
+    }
+
+    checkCollideAoe(aoeSkill) {
+        if (aoeSkill.attackBit & BUILDING_TYPE) {
+            for (let building of this.#buildings) {
+                if (this.checkPointInRect(
+                    building.xCoordinate, building.yCoordinate,
+                    aoeSkill.xCoordinate, aoeSkill.yCoordinate,
+                    aoeSkill.xSize, aoeSkill.ySize,
+                    aoeSkill.rotate)) {
+                    building.updateHP(aoeSkill.harm * -1);
+                }
+            }
+        }
+        if (aoeSkill.attackBit & ENEMY_TYPE) {
+            for (let enemy of this.#enemies) {
+                if (this.checkPointInRect(
+                    enemy.xCoordinate, enemy.yCoordinate,
+                    aoeSkill.xCoordinate, aoeSkill.yCoordinate,
+                    aoeSkill.xSize, aoeSkill.ySize,
+                    aoeSkill.rotate)) {
+                    enemy.updateHP(aoeSkill.harm * -1);
+                }
+            }
+        }
+        if (aoeSkill.attackBit & PLAYER_TYPE) {
+            if (this.checkPointInRect(
+                this.#player.xCoordinate, this.#player.yCoordinate,
+                aoeSkill.xCoordinate, aoeSkill.yCoordinate,
+                aoeSkill.xSize, aoeSkill.ySize,
+                aoeSkill.rotate)) {
+                this.#player.updateHP(aoeSkill.harm * -1);
+                this.#player.hasAttackedByAoe = true;
+                this.#player.lastAttackByAoeTime = millis();
             }
         }
     }
@@ -432,6 +711,12 @@ class Game {
             explosionSize = 2;
             bulletSize = 3;
             bulletSpeed = 5;
+        } else if (bulletType == PET_BULLET_TYPE) {
+            xCoordinate = enemy.xCoordinate;
+            yCoordinate = enemy.yCoordinate;
+            explosionSize = 1;
+            bulletSize = 2;
+            bulletSpeed = 3;
         }
         const bullet = new Bullet(
             xCoordinate + xSpeed * 10,
@@ -467,6 +752,19 @@ class Game {
             }
         } else if (bullet.attackBit & PLAYER_TYPE) {
             target = this.#player;
+        } else if (bullet.attackBit & PET_TYPE) {
+            for (let pet of this.#pets) {
+                const distance = dist(
+                    bullet.xCoordinate,
+                    bullet.yCoordinate,
+                    pet.xCoordinate,
+                    pet.yCoordinate
+                );
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    target = pet;
+                }
+            }
         }
         return target;
     }
@@ -505,6 +803,83 @@ class Game {
         );
         this.#buildings.push(bomb);
         this.#pollution.increasePollution("skill");
+    }
+
+    addBulletPet() {
+        if (this.#player.skillCD > 0) {
+            console.log("Laser() Skill is not ready");
+            return;
+        }
+        
+        // 原地召唤
+        const petX = this.#player.xCoordinate;
+        const petY = this.#player.yCoordinate;
+        
+        const pet = new Pet(
+            petX,
+            petY,
+            PET_MODEL_1_TYPE,
+            (
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ) => this.addBullet(
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ),
+            (xMove, yMove, pet) => this.petMove(xMove, yMove, pet),
+            this.#pollution
+        );
+        
+        this.#pets.push(pet);
+        this.#pollution.increasePollution("skill");
+        
+        this.#player.skillCD = this.#player.maxSkillCD;
+        
+        // console.log("Pet =========================");
+    }
+
+    petMove(xMove, yMove, pet) {
+        if (this.checkCollidePet(xMove, yMove, pet) == false) {
+            pet.move(xMove, yMove);
+        }
+        else {
+            if (this.checkCollidePet(xMove, 0, pet) == false) {
+                pet.move(xMove, 0);
+            }
+            if (this.checkCollidePet(0, yMove, pet) == false) {
+                pet.move(0, yMove);
+            }
+        }
+    }
+
+    checkCollidePet(xMove, yMove, pet) {
+        let location = {
+            xCoordinate: pet.xCoordinate + xMove * pet.speed,
+            yCoordinate: pet.yCoordinate + yMove * pet.speed,
+            xSize: pet.xSize,
+            ySize: pet.ySize
+        };
+
+        for (let island of this.#islands) {
+            if (myCollide(location, island)) {
+                return true;
+            }
+        }
+        
+        for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
+                continue;
+            }
+            if (myCollide(location, building)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     addExplode(xCoor, yCoor, harm, attackBit, explodeType) {
@@ -602,5 +977,11 @@ class Game {
                 })
             );
         }
+    }
+
+    addBossAoeSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate) {
+        const aoeSkill = new AoeSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate);
+        console.log(aoeSkill);
+        this.#aoeSkills.push(aoeSkill);
     }
 }

@@ -45,7 +45,9 @@ class Main {
             this.#game.initBoss();
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
-            this.#game.initRandomMap();
+            
+            this.#game.initBoss();// 测试boss, 暂时修改
+            // this.#game.initRandomMap();
         }
     }
 
