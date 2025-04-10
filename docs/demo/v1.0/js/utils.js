@@ -195,8 +195,8 @@ const PET_MODEL = [
     }, {
         name: "fort",
         type: PET_MODEL_1_TYPE,
-        xSize: 35,
-        ySize: 35,
+        xSize: 50,
+        ySize: 50,
         HP: 10,
         speed: 0,
         attackPower: 1,
@@ -204,16 +204,16 @@ const PET_MODEL = [
         attackRange: 500,
         seeRange: 500
     }, {
-        name: "bird",
+        name: "laser",
         type: PET_MODEL_2_TYPE,
-        xSize: 40,
-        ySize: 40,
+        xSize: 30,
+        ySize: 30,
         HP: 50,
-        speed: 6,
-        attackPower: 10,
-        attackCD: 5,
-        attackRange: 5000,
-        seeRange: 5000
+        speed: 0,
+        attackPower: 1,
+        attackCD: 1,
+        attackRange: 1000,
+        seeRange: 1000
     },
 
 ];

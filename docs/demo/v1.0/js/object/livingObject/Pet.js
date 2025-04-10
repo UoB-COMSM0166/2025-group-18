@@ -114,6 +114,7 @@ class Pet extends BasicObject {
             text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
             text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
             text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+            text('name: ' + this.name, this.xCoordinate, textBaseY + 60);
         }
     }
 

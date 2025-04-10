@@ -13,6 +13,7 @@ class Game {
     #pollution
     #bulletExplode;
     #pets;
+    #orbiterPet;
 
     constructor(updateStepCallBack) {
         this.#player = null;
@@ -32,6 +33,7 @@ class Game {
         Building.setPollutionInstance(this.#pollution);
         this.#bulletExplode = [];
         this.#pets = [];
+        this.#orbiterPet = null;
     }
 
     initPlayer(playerBasicStatus) {
@@ -62,6 +64,15 @@ class Game {
             (player) => this.findPlayerClosestTarget(player)
         );
         this.#playerBuffController = new BuffController(this.#player);
+
+        this.#orbiterPet = new OrbiterPet(
+            this.#player, 
+            70,  // orbit radius
+            2,   // orbit speed
+            5,   // attack power
+            (x, y, harm, attackBit, explodeType) => 
+                this.addExplode(x, y, harm, attackBit, explodeType)
+        );
     }
 
     initRandomMap() {
@@ -242,10 +253,15 @@ class Game {
                     this.#pets.splice(i, 1);
                 } else {
                     if (this.#enemies.length != 0) {
-                        for (let j = this.#enemies.length - 1; j >= 0; --j) {
-                            let enemy = this.#enemies[j];
-                            if (enemy.isAlive) {
-                                pet.petAI(enemy.xCoordinate, enemy.yCoordinate, pet);
+                        if (pet instanceof LaserPet) {
+                            let firstEnemy = this.#enemies[0];
+                            pet.petAI(firstEnemy.xCoordinate, firstEnemy.yCoordinate, pet, this.#enemies);
+                        } else {
+                            for (let j = this.#enemies.length - 1; j >= 0; --j) {
+                                let enemy = this.#enemies[j];
+                                if (enemy.isAlive) {
+                                    pet.petAI(enemy.xCoordinate, enemy.yCoordinate, pet);
+                                }
                             }
                         }
                     }
@@ -253,6 +269,11 @@ class Game {
                     pet.show();
                 }
             }
+        }
+
+        if (this.#orbiterPet) {
+            this.#orbiterPet.update(this.#enemies);
+            this.#orbiterPet.show();
         }
 
         if (this.#player.HP <= 0) {
@@ -304,6 +325,142 @@ class Game {
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
     }
+
+    addPet() {
+        // 随机
+        const randomNum = Math.floor(Math.random() * 2);
+        if (randomNum === 0) {
+            this.addLaserPet();
+        } else {
+            this.addBulletPet();
+        }
+    }
+
+    addLaserPet() {
+        if (this.#player.skillCD > 0) {
+            console.log("Laser() Skill is not ready");
+            return;
+        }
+        
+        const petX = this.#player.xCoordinate;
+        const petY = this.#player.yCoordinate;
+        
+        const pet = new LaserPet(
+            petX,
+            petY,
+            PET_MODEL_2_TYPE,
+            (
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ) => this.addBullet(
+                xSpeed, ySpeed,
+                bulletType, bulletMoveType,
+                attackPower,
+                pet
+            ),
+            (xMove, yMove, pet) => this.petMove(xMove, yMove, pet),
+            this.#pollution,
+            (startX, startY, endX, endY, damage, targetEnemy) => 
+                this.createLaserBeam(startX, startY, endX, endY, damage, targetEnemy)
+        );
+        
+        this.#pets.push(pet);
+        this.#pollution.increasePollution("skill");
+        
+        this.#player.skillCD = this.#player.maxSkillCD;
+    }
+
+    createLaserBeam(startX, startY, endX, endY, damage, targetEnemy) {
+        const hitEnemies = [];
+        
+        let mainTarget = targetEnemy;
+        let mainTargetHit = false;
+        
+        for (let enemy of this.#enemies) {
+            if (enemy.isAlive && this.lineIntersectsCircle(
+                startX, startY, endX, endY, 
+                enemy.xCoordinate, enemy.yCoordinate, enemy.xSize / 2)) {
+                
+                hitEnemies.push(enemy);
+                
+                if (enemy === mainTarget) {
+                    mainTargetHit = true;
+                    // 主目标受到全额伤害
+                    enemy.updateHP(-damage);
+                    
+                    this.addExplode(
+                        enemy.xCoordinate,
+                        enemy.yCoordinate,
+                        damage * 0.3,
+                        ENEMY_TYPE,
+                        EXPLODE_MODEL_BULLET_TYPE
+                    );
+                } else {
+                    enemy.updateHP(-damage * 0.5);
+                    
+                    this.addExplode(
+                        enemy.xCoordinate,
+                        enemy.yCoordinate,
+                        damage * 0.1,
+                        ENEMY_TYPE,
+                        EXPLODE_MODEL_BULLET_TYPE
+                    );
+                }
+            }
+        }
+        
+        if (hitEnemies.length === 0) {
+            this.addExplode(
+                endX,
+                endY,
+                damage * 0.05,
+                ENEMY_TYPE,
+                EXPLODE_MODEL_BULLET_TYPE
+            );
+        }
+        
+        return hitEnemies;
+    }
+
+    lineIntersectsCircle(x1, y1, x2, y2, cx, cy, r) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        
+        // 1 到圆心距离
+        const pCx = cx - x1;
+        const pCy = cy - y1;
+        
+        const lengthSquared = dx * dx + dy * dy;
+        
+        // 点积
+        const dot = pCx * dx + pCy * dy;
+        
+        // 圆心对线段投影
+        const projX = x1 + (dot * dx) / lengthSquared;
+        const projY = y1 + (dot * dy) / lengthSquared;
+        
+        // 投影点是否在线段上
+        const onSegment = 
+            (projX >= Math.min(x1, x2) && projX <= Math.max(x1, x2)) &&
+            (projY >= Math.min(y1, y2) && projY <= Math.max(y1, y2));
+        
+        // 端点检查
+        if (!onSegment) {
+            const dist1 = Math.sqrt((cx - x1) * (cx - x1) + (cy - y1) * (cy - y1));
+            const dist2 = Math.sqrt((cx - x2) * (cx - x2) + (cy - y2) * (cy - y2));
+            return dist1 <= r || dist2 <= r;
+        }
+        
+        // 圆心到投影点的距离
+        const distToLine = Math.sqrt(
+            Math.pow(cx - projX, 2) + Math.pow(cy - projY, 2)
+        );
+        
+        return distToLine <= r;
+    }
+
 
     checkCollideBullet(bullet) {
         for (let island of this.#islands) {
@@ -571,9 +728,9 @@ class Game {
         this.#pollution.increasePollution("skill");
     }
 
-    addPet() {
+    addBulletPet() {
         if (this.#player.skillCD > 0) {
-            console.log("addPet() Skill is not ready");
+            console.log("Laser() Skill is not ready");
             return;
         }
         
