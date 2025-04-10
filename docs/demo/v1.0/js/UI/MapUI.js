@@ -70,7 +70,7 @@ class MapUI {
             const visitedColor = this.isVisited ? color(150, 200, 180) : mainColor;
 
             // ring=0 → BOSS；其他环 → 普通
-            const isBoss = (this.ring === 0);
+            const isBoss = (this.ring == 0);
 
             const buttonColor = isBoss ? bossColor : visitedColor;
             const textColor = this.isHovered ? color(0) : buttonColor;
@@ -101,12 +101,16 @@ class MapUI {
                 ellipse(0, 0, this.w, this.h);
             }
 
-            // 显示 (ring, index) 以调试
+            // image loading
             fill(textColor);
             noStroke();
             textSize(this.w * 0.4);
             textAlign(CENTER, CENTER);
-            text(this.ring + "," + this.indexInRing, 0, 0);
+            if (this.mapType == MAIN_STEP_IN_GAME) {
+                text("Fight!", 0, 0);
+            } else {
+                text("???", 0, 0);
+            }
 
             pop();
             drawingContext.restore();
