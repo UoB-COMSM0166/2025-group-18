@@ -6,8 +6,7 @@ class GameWinBossUI {
         this.targetBorderSize = 50;
         this.borderColor = null;
         
-        // 新增奖励信息
-        this.bossReward = 300; // 击败Boss奖励的金币
+        this.bossReward = 300;
     }
 
     ChooseBuffButton = class {
@@ -89,13 +88,12 @@ class GameWinBossUI {
     createButtons() {
         this.buttons = [];
         
-        // 按钮尺寸和位置计算
         const btnWidth = 200;
         const btnHeight = 100;
         const spacing = 50;
         const totalWidth = 2 * btnWidth + spacing;
         const startX = (logicWidth - totalWidth) / 2;
-        const y = logicHeight / 2 + 150; // 调整按钮位置，留更多空间给奖励信息
+        const y = logicHeight / 2 + 150;
 
         // 创建两个按钮："继续游戏"和"放弃"
         this.buttons.push(
@@ -116,7 +114,7 @@ class GameWinBossUI {
         push();
         textAlign(CENTER, CENTER);
         textSize(40);
-        fill(255, 215, 0); // 金色
+        fill(255, 215, 0);
         text("恭喜击败Boss！", logicWidth / 2, logicHeight * 0.2);
         
         textSize(30);
@@ -125,7 +123,7 @@ class GameWinBossUI {
         
         // 显示奖励信息
         textSize(24);
-        fill(255, 215, 0); // 金色
+        fill(255, 215, 0);
         text("继续征程可获得以下奖励：", logicWidth / 2, logicHeight * 0.42);
         
         textSize(20);

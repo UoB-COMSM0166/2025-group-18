@@ -266,54 +266,17 @@ class Main {
         this.#status.updatePollution(playerStatus.pollution, playerStatus.pollutionLevel);
     }
 
-    updateStep(stepChangeType, keepStatus = false) {
-        console.log("Main更新步骤:", stepChangeType, "保留状态:", keepStatus);
+    updateStep(stepChangeType) {
         if (stepChangeType >= MAIN_STEP_MAX || stepChangeType < 0) {
             console.log("step type error");
             stepChangeType = MAIN_STEP_MAX;
-        }
-        
-        // 如果是从Boss胜利后返回到地图界面（无论keepStatus如何）
+        }        
+        // 如果是从Boss胜利后返回到地图界面
         if (stepChangeType == MAIN_STEP_MAP_UI && this.#step == MAIN_STEP_WIN_BOSS) {
-            // 保留当前玩家状态，但创建新地图周期
-            console.log("从Boss胜利界面返回，恢复玩家状态");
-            
-            // 添加额外的奖励，作为通过Boss关卡的奖励（已经在之前添加了）
-            //const bossReward = 300;
-            //this.#status.updateGold(bossReward);
-            
-            // 恢复满血
+            console.log("从Boss胜利界面返回，保留玩家状态");
             this.#status.recoverToMaxHP();
-            
-            // 获取更新后的状态记录日志
             const currentStatus = this.#status.getShipStatus();
             console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
-            
-            // 重新初始化地图
-            this.#UI.initMap();
-        }
-        else if (stepChangeType == MAIN_STEP_MAP_UI && keepStatus) {
-            // 原有的代码保持不变
-            console.log("保留玩家状态，开始新的游戏周期");
-            
-            // 添加额外的奖励，作为通过Boss关卡的奖励
-            const bossReward = 300;
-            this.#status.updateGold(bossReward);
-            
-            // 恢复满血作为奖励
-            this.#status.recoverToMaxHP();
-            
-            // 获取更新后的状态
-            const currentStatus = this.#status.getShipStatus();
-            console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
-            
-            // 如果当前有游戏实例，也更新其玩家生命值
-            if (this.#game && this.#game.getPlayer()) {
-                this.#game.getPlayer().HP = currentStatus.HPmax;
-                console.log("同时更新当前游戏玩家生命值");
-            }
-            
-            // 重新初始化地图
             this.#UI.initMap();
         }
         
@@ -321,7 +284,7 @@ class Main {
         this.#UI.changeCurrentStep(stepChangeType);
         
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
-            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！
+            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！小关通关后获得奖励
             this.#gameReward.buff = [
                 BUFF_MODEL[round(random(1, 5))],
                 BUFF_MODEL[round(random(1, 5))],
@@ -350,7 +313,6 @@ class Main {
         console.log(gameType);
     }
     
-    // 新增方法，用于获取游戏奖励
     getGameReward() {
         return this.#gameReward;
     }

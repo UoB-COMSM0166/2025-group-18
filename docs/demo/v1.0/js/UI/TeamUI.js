@@ -165,7 +165,7 @@ class TeamUI {
         fill(100, 255, 218);
         textSize(35);
         textAlign(CENTER, CENTER);
-        text("Image Placeholder", centerX, centerY);
+        text("Thanks for playing", centerX, centerY);
     }
 
     // 预留的中心图片

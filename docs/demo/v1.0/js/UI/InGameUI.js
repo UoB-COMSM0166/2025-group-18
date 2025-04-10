@@ -47,7 +47,7 @@ class InGameUI {
     update(playerStatus) {
         this.targetHP = playerStatus.HP;
         this.targetHPmax = playerStatus.HPmax;
-        this.gold = playerStatus.gold; // 更新金币值
+        this.gold = playerStatus.gold;
 
         this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
         this.currentHPmax = this.targetHPmax > 0 ? 

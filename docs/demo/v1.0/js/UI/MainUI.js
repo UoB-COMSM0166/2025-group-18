@@ -446,13 +446,10 @@ class MainUI {
     }
 
     #handleGameWinBoss(selectedType) {
-        // 获取Boss奖励金额
         const bossReward = this.#gameWinBossUI ? this.#gameWinBossUI.bossReward : 300;
         
         if (selectedType == MAIN_STEP_MAP_UI) {
-            // 在这里直接应用金币奖励
             if (this.updateGoldStatus) {
-                console.log("Boss奖励金币已应用:", bossReward);
                 this.updateGoldStatus(bossReward);
             }
             
