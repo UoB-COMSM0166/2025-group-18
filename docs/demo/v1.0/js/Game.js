@@ -577,7 +577,7 @@ class Game {
             return;
         }
         
-        // Create pet near the player
+        // 原地召唤
         const petX = this.#player.xCoordinate;
         const petY = this.#player.yCoordinate;
         

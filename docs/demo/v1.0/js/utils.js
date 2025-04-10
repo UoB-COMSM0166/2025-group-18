@@ -204,16 +204,16 @@ const PET_MODEL = [
         attackRange: 500,
         seeRange: 500
     }, {
-        name: "PET_2",
+        name: "bird",
         type: PET_MODEL_2_TYPE,
         xSize: 40,
         ySize: 40,
-        HP: 6,
-        speed: 3,
-        attackPower: 1.5,
-        attackCD: 2,
-        attackRange: 10,
-        seeRange: 500
+        HP: 50,
+        speed: 6,
+        attackPower: 10,
+        attackCD: 5,
+        attackRange: 5000,
+        seeRange: 5000
     },
 
 ];

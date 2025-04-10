@@ -170,20 +170,4 @@ class Pet extends BasicObject {
         );
         this.lastAttackTime = millis();
     }
-
-    updateWavePush() {
-        this.petMove(this.wavePushX, this.wavePushY, this);
-
-        this.xCoordinate = constrain(this.xCoordinate, this.xSize / 2, logicWidth - this.xSize / 2);
-        this.yCoordinate = constrain(this.yCoordinate, this.ySize / 2, logicHeight - this.ySize / 2);
-
-        this.wavePushX *= 0.95;
-        this.wavePushY *= 0.95;
-    }
-
-    applyWaveForce(forceX, forceY) {
-        let speedFactor = this.speed > 0 ? this.speed : 1;
-        this.wavePushX = forceX / speedFactor;
-        this.wavePushY = forceY / speedFactor;
-    }
 }
