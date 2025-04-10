@@ -148,18 +148,18 @@ class GameSummaryUI {
         
         // 船只类型名称
         let shipTypeName = "Unknown";
-        if (this.playerStats.shipType === SHIP_MODEL_1_TYPE) {
+        if (this.playerStats.shipType == SHIP_MODEL_1_TYPE) {
             shipTypeName = "Light Cruiser";
-        } else if (this.playerStats.shipType === SHIP_MODEL_2_TYPE) {
+        } else if (this.playerStats.shipType == SHIP_MODEL_2_TYPE) {
             shipTypeName = "Battle Ship";
-        } else if (this.playerStats.shipType === SHIP_MODEL_3_TYPE) {
+        } else if (this.playerStats.shipType == SHIP_MODEL_3_TYPE) {
             shipTypeName = "Destroyer";
         }
         
         fill(100, 255, 218);
         text(shipTypeName, rightMargin, topMargin);
         
-        // 生命值（带颜色）
+        // 生命值
         const hpPercent = this.playerStats.HP / this.playerStats.HPmax;
         if (hpPercent < 0.3) {
             fill(255, 50, 50);
@@ -173,13 +173,13 @@ class GameSummaryUI {
         // 其他属性
         fill(100, 255, 218);
         text(this.playerStats.speed, rightMargin, topMargin + rowHeight * 2);
-        text(this.playerStats.attackPower, rightMargin, topMargin + rowHeight * 3);
+        text(this.playerStats.attackPower || "1", rightMargin, topMargin + rowHeight * 3);
         
-        // 金币（黄色）
+        // 金币
         fill(255, 215, 0);
         text(this.playerStats.gold, rightMargin, topMargin + rowHeight * 4);
         
-        // 污染和污染等级（颜色随等级变化）
+        // 污染和污染等级
         const pollutionColor = this.getPollutionColor(this.playerStats.pollutionLevel);
         fill(pollutionColor);
         text(`${this.playerStats.pollution} / ${Status.MAX_POLLUTION}`, rightMargin, topMargin + rowHeight * 5);

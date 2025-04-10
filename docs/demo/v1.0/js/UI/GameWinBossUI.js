@@ -7,6 +7,7 @@ class GameWinBossUI {
         this.borderColor = null;
         
         this.bossReward = 300;
+        this.playerStats = null; // Will be set from Main.js
     }
 
     ChooseBuffButton = class {
@@ -84,24 +85,27 @@ class GameWinBossUI {
         this.createButtons();
     }
 
+    // 设置玩家状态
+    setPlayerStats(stats) {
+        this.playerStats = stats;
+    }
+
     // 创建按钮
     createButtons() {
         this.buttons = [];
         
         const btnWidth = 200;
-        const btnHeight = 100;
+        const btnHeight = 80;
         const spacing = 50;
-        const totalWidth = 2 * btnWidth + spacing;
-        const startX = (logicWidth - totalWidth) / 2;
-        const y = logicHeight / 2 + 150;
+        const y = logicHeight * 0.75;
 
-        // 创建两个按钮："继续游戏"和"放弃"
+        // 创建两个按钮："继续旅程"和"返回码头（结束旅程）"
         this.buttons.push(
             new this.ChooseBuffButton(
-              startX, y, btnWidth, btnHeight, "继续征程", MAIN_STEP_MAP_UI
+              logicWidth * 0.3 - btnWidth/2, y, btnWidth, btnHeight, "继续征程", MAIN_STEP_MAP_UI
             ),
             new this.ChooseBuffButton(
-              startX + btnWidth + spacing, y, btnWidth, btnHeight, "结束旅程", MAIN_STEP_START_UI_TEAM
+              logicWidth * 0.7 - btnWidth/2, y, btnWidth, btnHeight, "返回码头", MAIN_STEP_MORSE_CODE
             )
         );
     }
@@ -115,33 +119,96 @@ class GameWinBossUI {
         textAlign(CENTER, CENTER);
         textSize(40);
         fill(255, 215, 0);
-        text("恭喜击败Boss！", logicWidth / 2, logicHeight * 0.2);
+        text("恭喜击败Boss！", logicWidth / 2, logicHeight * 0.1);
         
         textSize(30);
         fill(255);
-        text("你击败了深海的强大存在，但海洋中的危险远未结束！", logicWidth / 2, logicHeight * 0.3);
-        
-        // 显示奖励信息
-        textSize(24);
-        fill(255, 215, 0);
-        text("继续征程可获得以下奖励：", logicWidth / 2, logicHeight * 0.42);
-        
-        textSize(20);
-        fill(200, 255, 200);
-        text(`• 金币: +${this.bossReward}`, logicWidth / 2, logicHeight * 0.5);
-        text("• 生命值: 完全恢复", logicWidth / 2, logicHeight * 0.55);
-        text("• 保留所有已获得的属性和Buff", logicWidth / 2, logicHeight * 0.6);
-        
-        textSize(18);
-        fill(200, 200, 255);
-        text("你准备好继续向更深处探索了吗？", logicWidth / 2, logicHeight * 0.7);
+        text("你击败了深海的强大存在，但海洋中的危险远未结束！", logicWidth / 2, logicHeight * 0.2);
         pop();
+
+        // 绘制左侧的玩家状态面板
+        this.drawPlayerStats();
+        
+        // 绘制右侧的决策选项说明
+        this.drawChoiceInfo();
         
         // 绘制按钮
         this.buttons.forEach(btn => {
             btn.checkHover(this);
             btn.draw();
         });
+    }
+
+    // 绘制玩家状态数据
+    drawPlayerStats() {
+        if (!this.playerStats) return;
+        
+        const leftX = logicWidth * 0.25;
+        const topY = logicHeight * 0.3;
+        const lineHeight = 30;
+        
+        push();
+        textAlign(LEFT, CENTER);
+        textSize(24);
+        fill(255);
+        text("当前状态:", leftX, topY);
+        
+        textSize(20);
+        fill(200);
+        
+        // 显示生命值
+        const hpPercent = this.playerStats.HP / this.playerStats.HPmax;
+        if (hpPercent < 0.3) fill(255, 100, 100);
+        else if (hpPercent < 0.6) fill(255, 215, 0);
+        else fill(100, 255, 100);
+        
+        text(`生命值: ${this.playerStats.HP}/${this.playerStats.HPmax}`, leftX, topY + lineHeight);
+        
+        // 其他状态
+        fill(200);
+        text(`金币: ${this.playerStats.gold}`, leftX, topY + lineHeight * 2);
+        
+        // 污染值颜色
+        if (this.playerStats.pollutionLevel <= 2) fill(100, 255, 100);
+        else if (this.playerStats.pollutionLevel <= 4) fill(255, 215, 0);
+        else fill(255, 100, 100);
+        
+        text(`污染值: ${this.playerStats.pollution}/${Status.MAX_POLLUTION}`, leftX, topY + lineHeight * 3);
+        text(`污染等级: ${this.playerStats.pollutionLevel}/${Status.POLLUTION_MAX_LEVEL}`, leftX, topY + lineHeight * 4);
+        pop();
+    }
+
+    // 绘制选择提示信息
+    drawChoiceInfo() {
+        const rightX = logicWidth * 0.75 - 100;
+        const topY = logicHeight * 0.3;
+        const lineHeight = 30;
+        
+        push();
+        textAlign(LEFT, CENTER);
+        
+        // 继续征程
+        textSize(24);
+        fill(100, 255, 218);
+        text("继续征程:", rightX, topY);
+        
+        textSize(18);
+        fill(200);
+        text(`• 获得${this.bossReward}金币`, rightX, topY + lineHeight);
+        text("• 生命值完全恢复", rightX, topY + lineHeight * 2);
+        text("• 挑战更多的深海危险", rightX, topY + lineHeight * 3);
+        
+        // 返回码头
+        textSize(24);
+        fill(255, 215, 0);
+        text("返回码头:", rightX, topY + lineHeight * 5);
+        
+        textSize(18);
+        fill(200);
+        text("• 解码神秘的信号", rightX, topY + lineHeight * 6);
+        text("• 完成此次冒险", rightX, topY + lineHeight * 7);
+        text("• 查看你的航行成果", rightX, topY + lineHeight * 8);
+        pop();
     }
 
     // 处理鼠标按下事件

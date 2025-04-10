@@ -5,7 +5,7 @@ class TutorialUI {
         this.targetBorderSize = 50;
         this.borderColor = null;
         this.currentStep = 0;
-        this.totalSteps = 3; // 从4改为3步
+        this.totalSteps = 3;
         this.keyPressTime = 0;
         this.currentAnimatedKey = '';
         this.wasdIndex = -1;

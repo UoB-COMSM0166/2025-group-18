@@ -7,6 +7,7 @@ class MorseCodeUI {
         this.soundEffects = new SoundEffects();
         this.soundEffects.preload();
         this.createButton();
+        this.isPlayingSound = false;
     }
 
     // 创建按钮
@@ -22,15 +23,21 @@ class MorseCodeUI {
             y: btnY,
             w: btnWidth,
             h: btnHeight,
-            label: "Listen Again",
+            label: "Listen to Signal",
             isHovered: false,
             scale: 1,
             onClick: () => {
-                // 播放声音效果
-                if (!this.soundEffects.isEggSoundPlaying()) {
+                // 只有未播放时才开始播放
+                if (!this.isPlayingSound) {
+                    this.isPlayingSound = true;
                     this.soundEffects.playNoise();
                     setTimeout(() => {
                         this.soundEffects.playEgg();
+                        
+                        // 重置播放状态
+                        setTimeout(() => {
+                            this.isPlayingSound = false;
+                        }, 5000); // 假设彩蛋音效大约持续5秒
                     }, 3000);
                 }
             }
@@ -42,11 +49,13 @@ class MorseCodeUI {
             y: btnY + 80,  // 放在Listen Again按钮下方
             w: btnWidth,
             h: btnHeight,
-            label: "Continue",
+            label: "View Results",
             isHovered: false,
             scale: 1,
             onClick: () => {
                 if (this.onFinishCallback) {
+                    // 停止所有声音
+                    this.soundEffects.stopAllSounds();
                     this.onFinishCallback();
                 }
             }
@@ -243,7 +252,17 @@ class MorseCodeUI {
         textSize(20);
         fill(200);
         text("Do you hear it? A string of Morse code waiting to be deciphered.", logicWidth * 0.5, logicHeight * 0.55);
-        text("Seek your answers at the end of your journey.", logicWidth * 0.5, logicHeight * 0.6);
+        
+        // 显示正在播放提示
+        if (this.isPlayingSound) {
+            const pulseAlpha = 127 + 128 * sin(frameCount * 0.1);
+            fill(255, 100, 100, pulseAlpha);
+            text("▶ Listening to signal...", logicWidth * 0.5, logicHeight * 0.6);
+        } else {
+            fill(200);
+            text("Press 'Listen to Signal' to hear the mysterious message.", logicWidth * 0.5, logicHeight * 0.6);
+        }
+        
         text("The secrets of the deep await those who listen carefully.", logicWidth * 0.5, logicHeight * 0.65);
 
         // 边框动画效果
