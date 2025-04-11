@@ -3,9 +3,10 @@
 const MAP_MODEL_ERROR_TYPE = 0;
 const MAP_MODEL_1_TYPE = 1;
 const MAP_MODEL_2_TYPE = 2;
-const MAP_MODEL_BOSS_TYPE = 3;
-const MAP_MODEL_POLUTION_TYPE = 4;
-const MAP_MODEL_MAX_TYPE = 5;
+const MAP_MODEL_3_TYPE = 3;
+const MAP_MODEL_4_TYPE = 4;
+const MAP_MODEL_BOSS_TYPE = 5;
+const MAP_MODEL_MAX_TYPE = 6;
 
 const MAP_MODEL = [
     {
@@ -131,26 +132,26 @@ const MAP_MODEL = [
         modelType : MAP_MODEL_2_TYPE,
         island : [
             // =============== “额头”或“顶部” ===============
-            { x: 0.40, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            { x: 0.45, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            { x: 0.50, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            { x: 0.55, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            { x: 0.60, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            // { x: 0.40, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            // { x: 0.45, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            // { x: 0.50, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            // { x: 0.55, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            // { x: 0.60, y: 0.12, type: ISLAND_MODEL_3_TYPE },
 
             // =============== “鼻子”区域 ===============
             // 用小岛模拟鼻子
-            { x: 0.49, y: 0.42, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.51, y: 0.42, type: ISLAND_MODEL_5_TYPE },
+            // { x: 0.49, y: 0.42, type: ISLAND_MODEL_5_TYPE },
+            // { x: 0.51, y: 0.42, type: ISLAND_MODEL_5_TYPE },
 
-            // =============== “颧骨”/“脸颊”区域 ===============
-            // 左脸颊
-            { x: 0.37, y: 0.20, type: ISLAND_MODEL_4_TYPE },
-            { x: 0.37, y: 0.35, type: ISLAND_MODEL_4_TYPE },
-            { x: 0.42, y: 0.40, type: ISLAND_MODEL_3_TYPE },
-            // 右脸颊
-            { x: 0.63, y: 0.20, type: ISLAND_MODEL_4_TYPE },
-            { x: 0.63, y: 0.35, type: ISLAND_MODEL_4_TYPE },
-            { x: 0.58, y: 0.40, type: ISLAND_MODEL_3_TYPE },
+            // // =============== “颧骨”/“脸颊”区域 ===============
+            // // 左脸颊
+            // { x: 0.37, y: 0.20, type: ISLAND_MODEL_4_TYPE },
+            // { x: 0.37, y: 0.35, type: ISLAND_MODEL_4_TYPE },
+            // { x: 0.42, y: 0.40, type: ISLAND_MODEL_3_TYPE },
+            // // 右脸颊
+            // { x: 0.63, y: 0.20, type: ISLAND_MODEL_4_TYPE },
+            // { x: 0.63, y: 0.35, type: ISLAND_MODEL_4_TYPE },
+            // { x: 0.58, y: 0.40, type: ISLAND_MODEL_3_TYPE },
 
             // =============== “牙齿”/“下巴”区域 ===============
             // 用多个小岛模拟一排“牙齿”
@@ -216,12 +217,79 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType : MAP_MODEL_BOSS_TYPE,
-        island : [],
-        building : [],
-        enemy : []
+        modelType : MAP_MODEL_3_TYPE,
+        island : [
+            { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+        ],
+        building : [
+            { x: 0.5, y: 0, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.05, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.5, y: 0.10, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.15, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.20, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.25, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.30, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.35, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.40, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.45, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.50, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.55, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.60, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.65, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.70, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.75, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.80, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.85, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.5, y: 0.90, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.95, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.05, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.10, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.15, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.20, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.25, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.30, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.35, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.40, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.45, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.50, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.55, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.60, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.65, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.70, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.75, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.80, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.85, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.90, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.95, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 1, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+        ],
+        enemy : [
+            [
+                { x: 0.25, y: 0.3, type: EASY_ENEMY_MODEL_3_TYPE },
+            ], [
+                { x: 0.75, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE},
+                { x: 0.75, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE},
+                { x: 0.80, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE},
+                { x: 0.80, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE},
+            ], [
+                { x: 0.75, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE},
+                { x: 0.75, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE},
+                { x: 0.80, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE},
+                { x: 0.80, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE},
+            ], [
+                { x: 0.25, y: 0.75, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.25, y: 0.85, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.35, y: 0.75, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.35, y: 0.85, type: EASY_ENEMY_MODEL_3_TYPE },
+            ]
+        ]
     }, {
-        modelType : MAP_MODEL_POLUTION_TYPE,
+        modelType : MAP_MODEL_BOSS_TYPE,
         island : [],
         building : [],
         enemy : []

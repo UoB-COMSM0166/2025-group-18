@@ -82,7 +82,7 @@ class Game {
     }
 
     initRandomMap() {
-        this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + 1;
+        this.mapType = 3;//(Math.floor(Date.now() * Math.random())) % 3 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.initEnemies();
