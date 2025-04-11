@@ -248,7 +248,7 @@ class ShopUI {
         
                     // 执行回调（外部可根据 itemData 处理金币扣除、道具增加等逻辑）
                     if (this.#handleShoppingSelection) {
-                    this.#handleShoppingSelection(btn.itemData, btn.price * -1);
+                        this.#handleShoppingSelection(btn.itemData.type, btn.price * -1);
                     }
                 }
             }
@@ -271,4 +271,3 @@ class ShopUI {
         this.createButtons(items);
     }
 }
-  

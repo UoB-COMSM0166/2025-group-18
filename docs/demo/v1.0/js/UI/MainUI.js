@@ -12,6 +12,12 @@ class MainUI {
     #gameOverUI;
     #gameWinBossUI;
     #tutorialUI;
+    #shopInMapUI;
+    #captainUI
+    #gameReward = { gold: 0, buff: [] };
+    #morseCodeUI;
+    #gameSummaryUI;
+
 
     constructor(updateStep,
         updateShipStatus,
@@ -24,10 +30,10 @@ class MainUI {
         this.updateChooseGame = updateChooseGame;
         this.updateGoldStatus = updateGoldStatus;
 
-        // Init UI
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
+        this.#captainUI = new CaptainUI(this.#handleCaptainUIBack.bind(this));
         this.#inGameUI = new InGameUI();
         this.#inGameUI.preload();
         this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
@@ -38,6 +44,8 @@ class MainUI {
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
         this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
+        this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
+        this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
     }
 
     showStartUI() {
@@ -52,7 +60,6 @@ class MainUI {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
     }
 
-    // 团队页面
     showTeamUI() {
         if (this.#teamUI == null) {
             this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
@@ -75,7 +82,7 @@ class MainUI {
             this.#teamUI.handleMouseReleased();
         }
     }
-    // 教学页面
+
     showTutorialUI() {
         if (!this.#tutorialUI) {
             this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
@@ -122,6 +129,14 @@ class MainUI {
         this.#mapUI.init();
     }
 
+    showShopinMapUI() {
+        if (!this.#shopInMapUI) {
+            this.#shopInMapUI = new ShopInMapUI(this.#handleMap2ShopSelection.bind(this));
+            this.#shopInMapUI.init();
+        }
+        this.#shopInMapUI.draw();
+    }
+
     showInGameUI(playerStatus) {
         if (this.#inGameUI == null) {
             this.#inGameUI = new InGameUI();
@@ -139,7 +154,8 @@ class MainUI {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         }
-        this.#gameRewardUI.init(buff);
+        this.#gameReward = { gold, buff };
+        this.#gameRewardUI.init(buff, gold);
         this.#gameRewardUI.draw(gold);
     }
 
@@ -170,20 +186,32 @@ class MainUI {
         this.#gameOverUI.draw();
     }
 
-    initGameOverUI() {
+    initGameOverUI(deathReason = "") {
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
+        if (deathReason) {
+            this.#gameOverUI.setDeathReason(deathReason);
+        }
+    }
+
+    setGameWinBossStats(playerStats, loopCount) {
+        if (this.#gameWinBossUI == null) {
+            this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
+            this.#gameWinBossUI.init();
+        }
+        this.#gameWinBossUI.setPlayerStats(playerStats);
+        this.#gameWinBossUI.setLoopCount(loopCount);
     }
 
     showGameWinBossUI() {
         if (this.#gameWinBossUI == null) {
-            this.#gameWinBossUI = new GameWinBossUI();
+            this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
         }
         this.#gameWinBossUI.init();
         this.#gameWinBossUI.draw();
     }
 
     initGameWinBossUI() {
-        this.#gameWinBossUI = new GameWinBossUI();
+        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
     }
 
     gameFinishGetSeamanUI() {
@@ -250,6 +278,18 @@ class MainUI {
         }
     }
 
+    chooseShopInMapUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_MAP_UI && this.#shopInMapUI) {
+            this.#shopInMapUI.handleMousePressed();
+        }
+    }
+
+    chooseShopInMapUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_MAP_UI && this.#shopInMapUI) {
+            this.#shopInMapUI.handleMouseReleased();
+        }
+    }
+
     chooseRandomEventUIMousePressed() {
         if (this.#currentStep == MAIN_STEP_RANDOM_EVENT && this.#randomEventUI) {
             this.#randomEventUI.handleMousePressed();
@@ -273,20 +313,92 @@ class MainUI {
             this.#gameOverUI.handleMouseReleased();
         }
     }
+
     gameWinBossMousePressed() {
-        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameOverUI) {
-            this.#gameOverUI.handleMousePressed();
+        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameWinBossUI) {
+            this.#gameWinBossUI.handleMousePressed();
         }
     }
 
     gameWinBossMouseReleased() {
-        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameOverUI) {
-            this.#gameOverUI.handleMouseReleased();
+        if (this.#currentStep == MAIN_STEP_WIN_BOSS && this.#gameWinBossUI) {
+            this.#gameWinBossUI.handleMouseReleased();
+        }
+    }
+
+    showMorseCodeUI() {
+        if (!this.#morseCodeUI) {
+            this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
+        }
+        this.#morseCodeUI.setOnSwitchToCaptainUI(this.#handleMorseCodeToCaptain.bind(this));
+        this.#morseCodeUI.draw();
+    }
+
+    setGameSummaryStats(playerStats) {
+        if (this.#gameSummaryUI == null) {
+            this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        }
+        this.#gameSummaryUI.setPlayerStats(playerStats);
+    }
+
+    showGameSummaryUI(playerStats) {
+        if (!this.#gameSummaryUI) {
+            this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        }
+        this.#gameSummaryUI.setPlayerStats(playerStats);
+        this.#gameSummaryUI.draw();
+    }
+
+    morseCodeUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
+            this.#morseCodeUI.handleMousePressed();
+        }
+    }
+
+    morseCodeUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
+            this.#morseCodeUI.handleMouseReleased();
+        }
+    }
+
+    showCaptainUI() {
+        if (!this.#captainUI) {
+            this.#captainUI = new CaptainUI(this.#handleCaptainUIBack.bind(this));
+        }
+        this.#captainUI.draw();
+    }
+
+    captainUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
+            this.#captainUI.handleMousePressed();
+        }
+    }
+
+    captainUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
+            this.#captainUI.handleMouseReleased();
+        }
+    }
+
+    gameSummaryUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
+            this.#gameSummaryUI.handleMousePressed();
+        }
+    }
+
+    gameSummaryUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
+            this.#gameSummaryUI.handleMouseReleased();
         }
     }
 
     windowResized() {
         switch (this.#currentStep) {
+            case MAIN_STEP_CAPTAIN_UI:
+                if (this.#captainUI) {
+                    this.#captainUI.handleWindowResized();
+                }
+                break;
             case MAIN_STEP_START_UI:
                 if (this.#startUI) {
                     this.#startUI.handleWindowResized();
@@ -317,47 +429,34 @@ class MainUI {
                     this.#teamUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_WIN_BOSS:
+                if (this.#gameWinBossUI) {
+                    this.#gameWinBossUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_MORSE_CODE:
+                if (this.#morseCodeUI) {
+                    this.#morseCodeUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_GAME_SUMMARY:
+                if (this.#gameSummaryUI) {
+                    this.#gameSummaryUI.handleWindowResized();
+                }
+                break;
         }
     }
 
-    // // Handle current UI state mouse pressed
-    // handleMousePressed() {
-    //     switch (this.#currentStep) {
-    //         case MAIN_STEP_START_UI:
-    //             this.startUIPressed();
-    //             break;
-    //         case MAIN_STEP_CHOOSE_SHIP_UI:
-    //             this.chooseShipUIMousePressed();
-    //             break;
-    //     }
-    // }
-
-    // // Handle current UI state mouse released
-    // handleMouseReleased() {
-    //     switch (this.#currentStep) {
-    //         case MAIN_STEP_START_UI:
-    //             this.startUIReleased();
-    //             break;
-    //         case MAIN_STEP_CHOOSE_SHIP_UI:
-    //             this.chooseShipUIMouseReleased();
-    //             break;
-    //     }
-    // }
-
-    // private, callback by StartUI
     #handleStartUIButtonClick(buttonType) {
         if (buttonType == MAIN_STEP_START_UI) {
-            // 进入教程页面
             this.updateStep(MAIN_STEP_TUTORIAL_UI);
         } else if (buttonType == MAIN_STEP_START_UI_TEAM) {
-            // 进入团队页面
             this.updateStep(MAIN_STEP_START_UI_TEAM);
             this.showTeamUI();
         }
     }
 
     #handleTeamUIBack() {
-        // 确保音乐停止
         if (typeof teamThemeMusic !== 'undefined' && teamThemeMusic && teamThemeMusic.isPlaying()) {
             teamThemeMusic.stop();
         }
@@ -390,11 +489,21 @@ class MainUI {
         }
     }
 
+    #handleMap2ShopSelection() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_SHOP);
+        }
+    }
+
     #handleGameRewardSelection(buffType) {
         console.log(this.updateBuffStatus);
         console.log(buffType);
         if (this.updateBuffStatus) {
             this.updateBuffStatus(buffType);
+        }
+
+        if (this.updateGoldStatus && this.#gameReward) {
+            this.updateGoldStatus(this.#gameReward.gold);
         }
 
         if (this.updateStep) {
@@ -430,8 +539,52 @@ class MainUI {
         this.updateStep(MAIN_STEP_START_UI);
     }
 
-    #handleGameWinBoss(gameStep) {
-        this.updateStep(gameStep);
+    #handleGameWinBoss(selectedType) {
+        const bossReward = this.#gameWinBossUI ? this.#gameWinBossUI.bossReward : 300;
+
+        if (selectedType == MAIN_STEP_MAP_UI) {
+            main.incrementLoopCount();
+
+            if (this.updateGoldStatus) {
+                this.updateGoldStatus(bossReward);
+            }
+
+            if (this.updateStep) {
+                this.updateStep(selectedType);
+            }
+
+            this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
+            this.#mapUI.init();
+        }
+        else if (selectedType == MAIN_STEP_MORSE_CODE) {
+            if (this.updateStep) {
+                this.updateStep(selectedType);
+            }
+        }
+    }
+
+    #handleMorseCodeComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_GAME_SUMMARY);
+        }
+    }
+
+    #handleCaptainUIBack() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_MORSE_CODE);
+        }
+    }
+
+    #handleMorseCodeToCaptain() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_CAPTAIN_UI);
+        }
+    }
+
+    #handleGameSummaryComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_START_UI_TEAM);
+        }
     }
 
     changeCurrentStep(step) {

@@ -15,6 +15,8 @@ class Bullet extends BasicObject {
             this.attackBit = PLAYER_BULLET_ATTACK_BIT;
         } else if (bulletType == ENEMY_BULLET_TYPE || bulletType == BOSS_BULLET_TYPE) {
             this.attackBit = ENEMY_BULLET_ATTACK_BIT;
+        } else if (bulletType == PET_BULLET_TYPE) {
+            this.attackBit = PET_BULLET_ATTACK_BIT;
         }
         this.bulletMoveType = bulletMoveType;
         this.harm = attackPower;

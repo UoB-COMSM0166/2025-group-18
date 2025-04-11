@@ -74,6 +74,10 @@ class PlayerControl {
             PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
             this.#player.equipment.getCurrentWeapon().attackPower,
         );
+
+        if (typeof playerShootSound !== 'undefined') {
+            playerShootSound.play();
+        }
         this.lastShootTime = millis();
     }
 
@@ -183,7 +187,14 @@ class PlayerControl {
         }
 
         console.log("playerControl() Using skill");
-        // this.skillUseCallBack();
+
+        if (typeof playerSkillSound !== 'undefined') {
+            if (!playerSkillSound.isPlaying()) {
+                playerSkillSound.play();
+            }
+        }
+
+        this.skillUseCallBack();
         let target = this.targetCallBack(this.#player);
         let dx = this.#player.xCoordinate - target.xCoordinate;
         let dy = this.#player.yCoordinate - target.yCoordinate;

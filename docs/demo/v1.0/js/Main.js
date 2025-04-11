@@ -20,6 +20,7 @@ class Main {
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
+        this.deathReason = "";
     }
 
     initMain() {
@@ -36,16 +37,26 @@ class Main {
         this.#game.initPlayer(playerBasicStatus);
         this.#game.setPollution(this.#status.getShipStatus().pollution);
         this.initInGameMap();
-        //this.#game.initEnemies();
+    }
 
+    incrementLoopCount() {
+        this.#status.incrementLoopCount();
+        console.log("轮回计数已增加，当前轮回次数:", this.#status.getLoopCount());
+    }
+
+    getLoopCount() {
+        return this.#status.getLoopCount();
     }
 
     initInGameMap() {
+        const loopCount = this.#status.getLoopCount();
+
         if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
-            this.#game.initBoss();
+            this.#game.initBoss(loopCount);
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
-            this.#game.initRandomMap();
+            //Theodore-预期冲突处，保留我的，我要传递循环计数
+            this.#game.initRandomMap(loopCount);
         }
     }
 
@@ -56,7 +67,6 @@ class Main {
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
 
-        // check if game is ended
         if (this.#game.getGameWin()) {
             if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
                 this.updateStep(MAIN_STEP_WIN_BOSS);
@@ -66,6 +76,8 @@ class Main {
             this.#game = null;
         } else if (this.#game.getGameOver()) {
             console.log("Game Over!");
+            this.deathReason = this.#game.getDeathReason();
+            this.#UI.initGameOverUI(this.deathReason);
             this.updateStep(MAIN_STEP_GAME_OVER);
             this.#game = null;
             return;
@@ -74,6 +86,10 @@ class Main {
 
     updateAll() {
         switch (this.#step) {
+            case MAIN_STEP_CAPTAIN_UI: {
+                this.#UI.showCaptainUI();
+                break;
+            }
             case MAIN_STEP_START_UI: {
                 this.#UI.showStartUI();
                 break;
@@ -89,6 +105,7 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.showMapUI();
+                this.#UI.showShopinMapUI();
                 break;
             }
             case MAIN_STEP_IN_GAME: {
@@ -121,11 +138,16 @@ class Main {
                 this.#UI.showTeamUI();
                 break;
             }
+            case MAIN_STEP_MORSE_CODE: {
+                this.#UI.showMorseCodeUI();
+                break;
+            }
+            case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.showGameSummaryUI(this.#status.getShipStatus());
+                break;
+            }
         }
 
-        // if (this.#step != MAIN_STEP_IN_GAME) {
-        //     this.#cursorPos.show();
-        // }
         this.#cursorPos.show();
     }
 
@@ -163,6 +185,10 @@ class Main {
 
     mousePressed() {
         switch (this.#step) {
+            case MAIN_STEP_CAPTAIN_UI: {
+                this.#UI.captainUIMousePressed();
+                break;
+            }
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIPressed();
                 break;
@@ -177,6 +203,7 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.chooseGameUIMousePressed();
+                this.#UI.chooseShopInMapUIMousePressed();
                 break;
             }
             case MAIN_STEP_IN_GAME: {
@@ -207,11 +234,24 @@ class Main {
                 this.#UI.teamUIMousePressed();
                 break;
             }
+            case MAIN_STEP_MORSE_CODE: {
+                this.#UI.morseCodeUIMousePressed();
+                break;
+            }
+            case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.gameSummaryUIMousePressed();
+                break;
+            }
         }
     }
 
+
     mouseReleased() {
         switch (this.#step) {
+            case MAIN_STEP_CAPTAIN_UI: {
+                this.#UI.captainUIMouseReleased();
+                break;
+            }
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIReleased();
                 break;
@@ -226,6 +266,7 @@ class Main {
             }
             case MAIN_STEP_MAP_UI: {
                 this.#UI.chooseGameUIMouseReleased();
+                this.#UI.chooseShopInMapUIMouseReleased();
                 break;
             }
             case MAIN_STEP_IN_GAME: {
@@ -256,6 +297,14 @@ class Main {
                 this.#UI.teamUIMouseReleased();
                 break;
             }
+            case MAIN_STEP_MORSE_CODE: {
+                this.#UI.morseCodeUIMouseReleased();
+                break;
+            }
+            case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.gameSummaryUIMouseReleased();
+                break;
+            }
         }
     }
 
@@ -271,11 +320,30 @@ class Main {
             console.log("step type error");
             stepChangeType = MAIN_STEP_MAX;
         }
+
+        if (stepChangeType == MAIN_STEP_MAP_UI && this.#step == MAIN_STEP_WIN_BOSS) {
+            console.log("从Boss胜利界面返回，保留玩家状态");
+            this.#status.recoverToMaxHP();
+            const currentStatus = this.#status.getShipStatus();
+            console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
+            this.#UI.initMap();
+        }
+
+        if (stepChangeType == MAIN_STEP_WIN_BOSS) {
+            console.log("进入Boss胜利界面，设置轮回次数");
+            this.#UI.setGameWinBossStats(this.#status.getShipStatus(), this.#status.getLoopCount());
+        }
+
+        if (stepChangeType == MAIN_STEP_GAME_SUMMARY) {
+            console.log("进入游戏结算界面，传递玩家状态");
+            this.#UI.setGameSummaryStats(this.#status.getShipStatus());
+        }
+
         this.#step = stepChangeType;
         this.#UI.changeCurrentStep(stepChangeType);
 
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
-            this.#gameReward.gold = 10 + round(random(5, 15));
+            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！小关通关后获得奖励
             this.#gameReward.buff = [
                 BUFF_MODEL[round(random(1, 5))],
                 BUFF_MODEL[round(random(1, 5))],
@@ -290,6 +358,9 @@ class Main {
 
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
+
+        // 避免重复添加金币(Theodore)
+        // this.#status.updateGold(this.#gameReward.gold);
     }
 
     chooseBuff(buffType) {
@@ -299,7 +370,9 @@ class Main {
     chooseGameMap(gameType) {
         this.#nextGameType = gameType;
         console.log(gameType);
-
     }
 
-}   
+    getGameReward() {
+        return this.#gameReward;
+    }
+}

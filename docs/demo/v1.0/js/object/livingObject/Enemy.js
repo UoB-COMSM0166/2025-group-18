@@ -24,22 +24,27 @@ class Enemy extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
+        this.originalBaseSpeed = enemyModel.speed;
+        this.originalBaseAttack = enemyModel.attackPower;
+        this.originalBaseHP = enemyModel.HP;
+
         this.baseSpeed = enemyModel.speed;
         this.baseAttack = enemyModel.attackPower;
         this.baseHP = enemyModel.HP;
+
         this.pollutionInstance = pollutionInstance;
         const pollutionEffect = this.pollutionInstance.getEffect();
         this.maxHP = this.baseHP * pollutionEffect.healthMul;
         this.HP = this.maxHP;
 
-        this.currentFrame = 0;  
-        this.frameRate = 20;  
-        this.frameCount = 0; 
+        this.currentFrame = 0;
+        this.frameRate = 20;
+        this.frameCount = 0;
         this.frames = this.getFrames();
-        
+
         // 受击闪烁效果属性
         this.isFlashing = false;
-        this.flashDuration = 150; // 闪烁持续时间(毫秒)
+        this.flashDuration = 150;
         this.flashStartTime = 0;
     }
 
@@ -52,14 +57,18 @@ class Enemy extends BasicObject {
 
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
+
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
+
+        // maxHP基于当前的baseHP计算
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
+        // 保持HP百分比不变
         if (this.maxHP != newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
-        
+
         // 更新受击闪烁
         if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
             this.isFlashing = false;
@@ -79,19 +88,19 @@ class Enemy extends BasicObject {
         }
 
         imageMode(CENTER);
-        
+
         // 如果正在闪烁，应用红色染色效果
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(this.frames[this.currentFrame], 
-                  this.xCoordinate, this.yCoordinate, 
-                  this.xSize * 2, this.ySize * 2);
+            image(this.frames[this.currentFrame],
+                this.xCoordinate, this.yCoordinate,
+                this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            image(this.frames[this.currentFrame], 
-                  this.xCoordinate, this.yCoordinate, 
-                  this.xSize * 2, this.ySize * 2);
+            image(this.frames[this.currentFrame],
+                this.xCoordinate, this.yCoordinate,
+                this.xSize * 2, this.ySize * 2);
         }
     }
 
@@ -103,18 +112,18 @@ class Enemy extends BasicObject {
 
             //敌人图像
             this.drawEnemy();
-            
+
             //血条出现在贴图上方
             let imageTopY = this.yCoordinate - this.ySize;
             let hpBar = this.xSize * (this.HP / this.maxHP);
-    
+
             rectMode(CORNER);
             fill(220);
-            rect(this.xCoordinate - this.xSize/2, imageTopY - 10, this.xSize, 5);
-            
+            rect(this.xCoordinate - this.xSize / 2, imageTopY - 10, this.xSize, 5);
+
             fill(255, 0, 0);
-            rect(this.xCoordinate - this.xSize/2, imageTopY - 10, hpBar, 5);
-            
+            rect(this.xCoordinate - this.xSize / 2, imageTopY - 10, hpBar, 5);
+
             // 测试用文本
             fill(255);
             textSize(12);
@@ -123,13 +132,18 @@ class Enemy extends BasicObject {
             text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
             text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
             text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+
+            // 轮回加成信息
+            if (this.baseHP > this.originalBaseHP) {
+                const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
+                fill(255, 215, 0);
+                text(`轮回: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+            }
         }
     }
 
     updateHP(change) {
         super.updateHP(change);
-        
-        // 如果受到伤害，触发受伤效果
         if (change < 0) {
             this.startFlash();
         }

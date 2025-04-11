@@ -13,7 +13,17 @@ let frames = {
       AW: [],
       DW: [],
     },
-    boss: [],
+    boss: {
+        boss_octopus: [],
+        boss_2: [],
+    },
+    aoeSkill: {
+        boss_1_skill_1: [],
+        boss_1_skill_2_1: [],
+        boss_1_skill_2_2: [],
+        boss_2_skill_1: [],
+        boss_2_skill_2: [],
+    },
     explode: [],
     wave: {
       W: [],
@@ -22,6 +32,11 @@ let frames = {
       D: [],
     },
     enemy: [],
+    pets: {
+        fort: [],
+        laser: [],
+        orbiter: [],
+    },
     building: {
       TNT: [],
       rubbish: [],
@@ -88,15 +103,29 @@ let frames = {
     frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/2.png'));
     frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/3.png'));
 
-    // ------------------------ BOSS ------------------------
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/1.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/2.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/3.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/4.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/5.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/6.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/7.png'));
-    frames.boss.push(loadImage('images/docs/img/png/BOSS/8.png'));
+    // ------------------------ BOSS 1 ------------------------
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/1.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/2.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/3.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/4.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/5.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/6.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/7.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/8.png'));
+
+    // ------------------------ BOSS 1 技能1 ------------------------
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/1.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/2.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/3.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/4.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/5.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/6.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/7.png'));
+    frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/8.png'));
+
+    // ------------------------ BOSS 1 技能2 ------------------------
+    frames.aoeSkill.boss_1_skill_2_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
+    frames.aoeSkill.boss_1_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
 
     // ------------------------ 爆炸 ------------------------
     frames.explode.push(loadImage('images/docs/img/png/explode/1.png'));
@@ -159,9 +188,30 @@ let frames = {
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/2.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/3.png'));
 
+    // // ------------------------ 宠物 ------------------------
+    // // 不知道是几帧的, 你看着来
+    // // fort
+    // frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/1.png'));
+    // // laser
+    // frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
+    // // orbiter
+    // frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
+
     // 主题曲音频
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
-  }
+    
+    // laser 音频
+    laserShotSound = loadSound('./MusicPack/pet/laser/laser-shoot.ogg');
+    laserShotSound.setVolume(1);
+
+    // player shoot 音频
+    playerShootSound = loadSound('./MusicPack/player/shoot/player-01.ogg');
+    playerShootSound.setVolume(0.5);
+
+    // player skill 音频
+    playerSkillSound = loadSound('./MusicPack/player/skill/skill-01.ogg');
+    playerSkillSound.setVolume(0.5);
+}
 
 let logicCanvas;
 const logicWidth = 1920;
@@ -180,6 +230,7 @@ function setup() {
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
+    frameRate(60);
 }
 
 function draw() {
@@ -196,15 +247,22 @@ function draw() {
     logicY = map(mouseY, 0, height, 0, logicHeight);
 
     scaleRatio = min(scaleX, scaleY);
+    push();
     translate(
         (width - logicWidth * scaleRatio) / 2,
         (height - logicHeight * scaleRatio) / 2
     );
     scale(scaleRatio);
     // scale(scaleX, scaleY);
+    clip(mask);
     // rectMode(CORNER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
+}
+
+function mask() {
+    rectMode(CORNER);
+    rect(0, 0, logicWidth, logicHeight);
 }
 
 function keyPressed() {

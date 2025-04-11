@@ -70,7 +70,7 @@ class MapUI {
             const visitedColor = this.isVisited ? color(150, 200, 180) : mainColor;
 
             // ring=0 → BOSS；其他环 → 普通
-            const isBoss = (this.ring === 0);
+            const isBoss = (this.ring == 0);
 
             const buttonColor = isBoss ? bossColor : visitedColor;
             const textColor = this.isHovered ? color(0) : buttonColor;
@@ -101,12 +101,16 @@ class MapUI {
                 ellipse(0, 0, this.w, this.h);
             }
 
-            // 显示 (ring, index) 以调试
+            // image loading
             fill(textColor);
             noStroke();
             textSize(this.w * 0.4);
             textAlign(CENTER, CENTER);
-            text(this.ring + "," + this.indexInRing, 0, 0);
+            if (this.mapType == MAIN_STEP_IN_GAME) {
+                text("Fight!", 0, 0);
+            } else {
+                text("???", 0, 0);
+            }
 
             pop();
             drawingContext.restore();
@@ -317,10 +321,10 @@ class MapUI {
         let currentIndex = this.playerLocation.index;
         let selectedGame = null;
         let selectedMapType = null;
-    
+
         // 当前节点
         let prevBtn = this.rings[currentRing][currentIndex];
-    
+
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
                 if (btn.release() && btn.isHovered) {
@@ -330,11 +334,11 @@ class MapUI {
                         this.playerLocation.ring = btn.ring;
                         this.playerLocation.index = btn.indexInRing;
                         btn.isVisited = true;
-    
+
                         // 更新移动目标
                         this.playerMarker.targetX = btn.x;
                         this.playerMarker.targetY = btn.y;
-    
+
                         // 找到这条被选中的路
                         let chosenRoad = null;
                         this.roads.forEach(road => {
@@ -345,19 +349,19 @@ class MapUI {
                                 chosenRoad = road;
                             }
                         });
-    
+
                         // 1) 高亮选中道路
                         if (chosenRoad) {
                             chosenRoad.weight = 6;
                             chosenRoad.visited = true;
                             chosenRoad.color = color(150, 255, 218);
                         }
-    
+
                         // 2) 移除“未被选择”的道路：即同样从当前节点发散到内圈的其他道路
                         this.roads = this.roads.filter(road => {
                             let fromCurrentNode =
                                 (road.x1 === prevBtn.x && road.y1 === prevBtn.y);
-    
+
                             // 只保留被选中的那一条
                             if (fromCurrentNode) {
                                 return (road == chosenRoad);
@@ -365,14 +369,14 @@ class MapUI {
                             // 其他不相关的路保持不动
                             return true;
                         });
-    
+
                         // 3) 移除“未被选中”的节点
                         //   比如当内圈有多个节点时，只保留这次点击的 btn
                         if (this.rings[btn.ring]) {
-                            this.rings[btn.ring] = [btn]; 
+                            this.rings[btn.ring] = [btn];
                             this.playerLocation.index = 0;
                         }
-    
+
                         // 若到达 ring=0，视为 BOSS，否则普通
                         if (btn.ring == 0) {
                             selectedMapType = MAIN_STEP_IN_GAME;
@@ -388,7 +392,7 @@ class MapUI {
             }
             if (selectedMapType) break;
         }
-    
+
         // 回调
         if (selectedMapType && this.inGameCallBack) {
             setTimeout(() => {
@@ -396,7 +400,7 @@ class MapUI {
             }, 600);
         }
     }
-    
+
 
     // =============== 窗口尺寸变化 ===============
     handleWindowResized() {
@@ -526,14 +530,34 @@ class MapUI {
         ellipse(0, 0, this.buttonSize / 4, this.buttonSize / 4);
         pop();
     }
+
     getRandomType() {
         const randomNum = Math.random();
-        if (randomNum < 0.5) {
+        if (randomNum < 0.7) {
             return MAIN_STEP_IN_GAME;
-        } else if (randomNum < 0.8) {
-            return MAIN_STEP_SHOP;
         } else {
             return MAIN_STEP_RANDOM_EVENT;
         }
+    }
+
+    // Theodore-重置地图
+    resetMap() {
+        this.rings = [];
+        this.roads = [];
+        this.playerLocation = { ring: 5, index: 0 };
+        this.compassRotation = 0;
+        this.targetRotation = 0;
+
+        // 重置玩家标记位置
+        this.playerMarker = {
+            x: this.xCoor,
+            y: this.yCoor,
+            targetX: this.xCoor,
+            targetY: this.yCoor,
+            rotation: 0,
+            targetRotation: 0
+        };
+
+        this.init();
     }
 }

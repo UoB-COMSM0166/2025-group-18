@@ -14,6 +14,7 @@ class InGameUI {
         this.maxPollution = 1;
         this.pollutionLevel = 1;
         this.maxPollutionLevel = 1;
+        this.gold = 0;
 
         this.updatePositions();
     }
@@ -21,7 +22,7 @@ class InGameUI {
     updatePositions() {
         this.uiX = 30;
         this.uiY = 30;
-        
+
         this.pollutionX = 30;
         this.pollutionY = logicHeight - 250;
     }
@@ -29,7 +30,7 @@ class InGameUI {
     handleWindowResized() {
         this.updatePositions();
     }
-    
+
     applyDynamicScaling() {
         translate(this.uiX + 120, this.uiY + 50);
         scale(this.uiScale);
@@ -44,12 +45,12 @@ class InGameUI {
     }
 
     update(playerStatus) {
-
         this.targetHP = playerStatus.HP;
         this.targetHPmax = playerStatus.HPmax;
+        this.gold = playerStatus.gold;
 
         this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
-        this.currentHPmax = this.targetHPmax > 0 ? 
+        this.currentHPmax = this.targetHPmax > 0 ?
             lerp(this.currentHPmax, this.targetHPmax, 0.1) : 1;
         this.currentHP = Math.max(0, Math.min(this.currentHP, this.targetHP));
 
@@ -75,9 +76,26 @@ class InGameUI {
         this.drawHolographicFrame();
         this.drawHealthBar();
         this.drawSkillStatus(playerStatus);
+        this.drawGoldStatus();
         pop();
 
         this.drawPollutionStatus();
+    }
+
+    // Theodore-金币显示
+    drawGoldStatus() {
+        push();
+        translate(-120, -50);
+        textFont(this.font || 'Arial Black');
+        textSize(15);
+
+        drawingContext.shadowColor = color(255, 215, 0, 150);
+        drawingContext.shadowBlur = 5;
+
+        fill(255, 215, 0);
+        textAlign(LEFT);
+        text(`GOLD: ${this.gold}`, 125, 15);
+        pop();
     }
 
     drawPollutionStatus() {
@@ -128,16 +146,15 @@ class InGameUI {
     }
 
     drawHolographicFrame() {
-
         push();
         rectMode(CENTER);
 
         // rect
         const glowSize = 20 + abs(sin(frameCount * 0.1)) * 5;
-        
+
         drawingContext.shadowColor = color(100, 255, 218);
         drawingContext.shadowBlur = glowSize;
-        
+
         fill(0, 180);
         stroke(100, 255, 218);
         strokeWeight(2);
@@ -147,7 +164,6 @@ class InGameUI {
     }
 
     drawHealthBar() {
-
         push();
         rectMode(CORNER);
         translate(-120, -50);
@@ -159,36 +175,30 @@ class InGameUI {
         const barWidth = 200 * hpPercent;
 
         const finalWidth = Math.min(barWidth, 200);
-        
+
         // HPbar background
         fill(50, 100);
         noStroke();
         rect(20, 30, 200, 20, 5);
 
-        // fix the gradient position
-        const lightPos = (frameCount % 200) / 200;
-        let gradient = drawingContext.createLinearGradient(20, 30, 220, 30);
-        
-        // color settings
-        const stops = [
-            { pos: Math.max(0, lightPos - 0.2), color: color(255, 150, 100) },
-            { pos: lightPos, color: color(255, 200, 150) },
-            { pos: Math.min(1, lightPos + 0.2), color: color(255, 50, 50) }
-        ];
+        // LLK，你的血条UI太丑了，我改了。:)
+        // By Theodore
+        // 根据血量百分比决定颜色
+        let hpColor;
+        if (hpPercent < 0.3) {
+            hpColor = color(255, 50, 50);
+            drawingContext.shadowColor = color(255, 50, 50, 100);
+        } else if (hpPercent < 0.6) {
+            hpColor = color(255, 215, 0);
+            drawingContext.shadowColor = color(255, 215, 0, 100);
+        } else {
+            hpColor = color(50, 255, 50);
+            drawingContext.shadowColor = color(50, 255, 50, 100);
+        }
 
-        stops.forEach(stop => {
-            if (stop.pos >= 0 && stop.pos <= 1) {
-                gradient.addColorStop(stop.pos, stop.color);
-            }
-        });
-
-        // add the final color stop
-        gradient.addColorStop(0, color(255, 50, 50));
-        gradient.addColorStop(1, color(255, 50, 50));
-
-        drawingContext.fillStyle = gradient;
-        drawingContext.shadowColor = color(255, 50, 50, 100);
         drawingContext.shadowBlur = 10;
+
+        fill(hpColor);
         rect(20, 35, finalWidth, 15, 5);
 
         push();
@@ -196,7 +206,16 @@ class InGameUI {
         scale(1 + this.hpFlash);
         textFont(this.font || 'Arial Black');
         textSize(15);
-        fill(255, 255, 255, 220 + 35 * this.hpFlash);
+
+        // Theodore-血量百分比改变文字颜色
+        if (hpPercent < 0.3) {
+            fill(255, 150, 150, 220 + 35 * this.hpFlash);
+        } else if (hpPercent < 0.6) {
+            fill(255, 230, 150, 220 + 35 * this.hpFlash);
+        } else {
+            fill(150, 255, 150, 220 + 35 * this.hpFlash);
+        }
+
         noStroke();
         textAlign(LEFT, CENTER);
         text(`HP : ${Math.round(this.currentHP)}/${Math.round(this.currentHPmax)}`, 0, 0);
@@ -205,21 +224,20 @@ class InGameUI {
     }
 
     drawSkillStatus(playerStatus) {
-
         push();
         rectMode(CORNER);
         translate(-120, -50);
 
         const cd = Math.max(0, playerStatus.skillCD).toFixed(1);
         const flash = this.cdFlash * 255;
-        
+
         push();
         translate(20, 70);
         textFont(this.font || 'Arial Black');
         textSize(15);
-        
+
         drawingContext.shadowColor = color(100, 255, 218, 150);
-        drawingContext.shadowBlur = 5 + flash/10;
+        drawingContext.shadowBlur = 5 + flash / 10;
 
         if (cd == 0) {
             fill(100, 255, 218);
