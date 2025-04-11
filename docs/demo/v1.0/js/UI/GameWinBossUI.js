@@ -108,16 +108,15 @@ class GameWinBossUI {
         
         const btnWidth = 200;
         const btnHeight = 80;
-        const spacing = 50;
         const y = logicHeight * 0.75;
-
-        // 创建两个按钮："继续旅程"和"返回码头（结束旅程）"
+    
+        // 创建按钮，确保它们与上方文本中心对齐
         this.buttons.push(
             new this.ChooseBuffButton(
-              logicWidth * 0.3 - btnWidth/2, y, btnWidth, btnHeight, "继续征程", MAIN_STEP_MAP_UI
+              logicWidth * 0.25 - btnWidth/2, y, btnWidth, btnHeight, "继续征程", MAIN_STEP_MAP_UI
             ),
             new this.ChooseBuffButton(
-              logicWidth * 0.7 - btnWidth/2, y, btnWidth, btnHeight, "返回码头", MAIN_STEP_MORSE_CODE
+              logicWidth * 0.75 - btnWidth/2, y, btnWidth, btnHeight, "返回码头", MAIN_STEP_MORSE_CODE
             )
         );
     }
@@ -155,15 +154,16 @@ class GameWinBossUI {
     drawPlayerStats() {
         if (!this.playerStats) return;
         
-        const leftX = logicWidth * 0.25;
+        // 将状态信息放在中间
+        const centerX = logicWidth * 0.5;
         const topY = logicHeight * 0.3;
         const lineHeight = 30;
         
         push();
-        textAlign(LEFT, CENTER);
+        textAlign(CENTER, CENTER); // 改为居中对齐
         textSize(24);
         fill(255);
-        text("当前状态:", leftX, topY);
+        text("当前状态:", centerX, topY);
         
         textSize(20);
         fill(200);
@@ -174,58 +174,64 @@ class GameWinBossUI {
         else if (hpPercent < 0.6) fill(255, 215, 0);
         else fill(100, 255, 100);
         
-        text(`生命值: ${this.playerStats.HP}/${this.playerStats.HPmax}`, leftX, topY + lineHeight);
+        text(`生命值: ${this.playerStats.HP}/${this.playerStats.HPmax}`, centerX, topY + lineHeight);
         
         // 其他状态
         fill(200);
-        text(`金币: ${this.playerStats.gold}`, leftX, topY + lineHeight * 2);
+        text(`金币: ${this.playerStats.gold}`, centerX, topY + lineHeight * 2);
         
         // 污染值颜色
         if (this.playerStats.pollutionLevel <= 2) fill(100, 255, 100);
         else if (this.playerStats.pollutionLevel <= 4) fill(255, 215, 0);
         else fill(255, 100, 100);
         
-        text(`污染值: ${this.playerStats.pollution}/${Status.MAX_POLLUTION}`, leftX, topY + lineHeight * 3);
-        text(`污染等级: ${this.playerStats.pollutionLevel}/${Status.POLLUTION_MAX_LEVEL}`, leftX, topY + lineHeight * 4);
+        text(`污染值: ${this.playerStats.pollution}/${Status.MAX_POLLUTION}`, centerX, topY + lineHeight * 3);
+        text(`污染等级: ${this.playerStats.pollutionLevel}/${Status.POLLUTION_MAX_LEVEL}`, centerX, topY + lineHeight * 4);
         pop();
     }
 
     // 绘制选择提示信息
     drawChoiceInfo() {
-        const rightX = logicWidth * 0.75 - 100;
+        // 按钮的宽度和位置
+        const btnWidth = 200;
+        const leftX = logicWidth * 0.25 - btnWidth/2; // 左按钮中心
+        const rightX = logicWidth * 0.75 - btnWidth/2; // 右按钮中心
         const topY = logicHeight * 0.3;
         const lineHeight = 30;
         
         push();
-        textAlign(LEFT, CENTER);
         
-        // 继续征程
+        // 继续征程 - 左侧文本，居中对齐
+        textAlign(CENTER, CENTER);
+        
+        // 标题
         textSize(24);
         fill(100, 255, 218);
-        text("继续征程:", rightX, topY);
+        text("继续征程:", logicWidth * 0.25, topY);
         
+        // 内容
         textSize(18);
         fill(200);
-        text(`• 获得${this.bossReward}金币`, rightX, topY + lineHeight);
-        text("• 生命值完全恢复", rightX, topY + lineHeight * 2);
+        text(`• 获得${this.bossReward}金币`, logicWidth * 0.25, topY + lineHeight);
+        text("• 生命值完全恢复", logicWidth * 0.25, topY + lineHeight * 2);
         
         // 添加轮回提示
         fill(255, 215, 0);
-        text(`• 轮回次数+1 (敌人将变强)`, rightX, topY + lineHeight * 3);
+        text(`• 轮回次数+1 (敌人将变强)`, logicWidth * 0.25, topY + lineHeight * 3);
         
         fill(200);
-        text("• 挑战更多的深海危险", rightX, topY + lineHeight * 4);
+        text("• 挑战更多的深海危险", logicWidth * 0.25, topY + lineHeight * 4);
         
-        // 返回码头
+        // 返回码头 - 右侧文本，居中对齐
         textSize(24);
         fill(255, 215, 0);
-        text("返回码头:", rightX, topY + lineHeight * 6);
+        text("返回码头:", logicWidth * 0.75, topY);
         
         textSize(18);
         fill(200);
-        text("• 解码神秘的信号", rightX, topY + lineHeight * 7);
-        text("• 完成此次冒险", rightX, topY + lineHeight * 8);
-        text("• 查看你的航行成果", rightX, topY + lineHeight * 9);
+        text("• 解码神秘的信号", logicWidth * 0.75, topY + lineHeight);
+        text("• 完成此次冒险", logicWidth * 0.75, topY + lineHeight * 2);
+        text("• 查看你的航行成果", logicWidth * 0.75, topY + lineHeight * 3);
         pop();
     }
 

@@ -17,13 +17,13 @@ class MorseCodeUI {
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.7;
-
+    
         this.listenButton = {
             x: btnX,
             y: btnY,
             w: btnWidth,
             h: btnHeight,
-            label: "Listen to Signal",
+            label: "收听信号",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -46,10 +46,10 @@ class MorseCodeUI {
         // "继续"按钮
         this.continueButton = {
             x: btnX,
-            y: btnY + 80,  // 放在Listen Again按钮下方
+            y: btnY + 80,
             w: btnWidth,
             h: btnHeight,
-            label: "View Results",
+            label: "查看结果",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -98,7 +98,7 @@ class MorseCodeUI {
         };
 
         const firstLineSymbols = [
-            "dash", "dash", "dash", "space", "dot", "dot", "dot", "dot"
+            "dash", "dash", "dash"
         ];
 
         const secondLineSymbols = [
@@ -238,7 +238,7 @@ class MorseCodeUI {
         fill(255);
         textSize(36);
         textAlign(CENTER, TOP);
-        text("Signal from Below", logicWidth / 2, logicHeight * 0.1);
+        text("深海信号", logicWidth / 2, logicHeight * 0.1);
 
         // 绘制摩斯电码
         this.drawMorseCode(logicWidth * 0.5, logicHeight * 0.4);
@@ -247,23 +247,23 @@ class MorseCodeUI {
         textAlign(CENTER, CENTER);
         textSize(24);
         fill(255);
-        text("A cryptic message seems to be hidden in these waters...", logicWidth * 0.5, logicHeight * 0.2);
+        text("这片海域似乎隐藏着一段神秘信息...", logicWidth * 0.5, logicHeight * 0.2);
 
         textSize(20);
         fill(200);
-        text("Do you hear it? A string of Morse code waiting to be deciphered.", logicWidth * 0.5, logicHeight * 0.55);
+        text("你听到了吗？一串等待被破译的摩斯电码。", logicWidth * 0.5, logicHeight * 0.55);
         
         // 显示正在播放提示
         if (this.isPlayingSound) {
             const pulseAlpha = 127 + 128 * sin(frameCount * 0.1);
             fill(255, 100, 100, pulseAlpha);
-            text("▶ Listening to signal...", logicWidth * 0.5, logicHeight * 0.6);
+            text("▶ 正在接收信号...", logicWidth * 0.5, logicHeight * 0.6);
         } else {
             fill(200);
-            text("Press 'Listen to Signal' to hear the mysterious message.", logicWidth * 0.5, logicHeight * 0.6);
+            text('点击"收听信号"来听取这段神秘消息。', logicWidth * 0.5, logicHeight * 0.6);
         }
         
-        text("The secrets of the deep await those who listen carefully.", logicWidth * 0.5, logicHeight * 0.65);
+        text("深海的秘密在等待认真倾听的人。", logicWidth * 0.5, logicHeight * 0.65);
 
         // 边框动画效果
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
