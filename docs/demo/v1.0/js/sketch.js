@@ -32,7 +32,11 @@ let frames = {
       D: [],
     },
     enemy: [],
-    pets: [],
+    pets: {
+        fort: [],
+        laser: [],
+        orbiter: [],
+    },
     building: {
       TNT: [],
       rubbish: [],
@@ -183,6 +187,15 @@ let frames = {
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/1.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/2.png'));
     frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/3.png'));
+
+    // // ------------------------ 宠物 ------------------------
+    // // 不知道是几帧的, 你看着来
+    // // fort
+    // frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/1.png'));
+    // // laser
+    // frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
+    // // orbiter
+    // frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
 
     // 主题曲音频
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');

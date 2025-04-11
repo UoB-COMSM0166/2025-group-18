@@ -182,6 +182,7 @@ function getEnemyModel(enemyType) {
 const PET_MODEL_ERROR_TYPE = 0;
 const PET_MODEL_1_TYPE = 1;
 const PET_MODEL_2_TYPE = 2;
+const PET_MODEL_3_TYPE = 3;
 
 const PET_MODEL = [
     {
@@ -218,7 +219,18 @@ const PET_MODEL = [
         attackRange: 1000,
         seeRange: 1000
     },
-
+    {
+        name: "orbiter",
+        type: PET_MODEL_3_TYPE,
+        xSize: 20,
+        ySize: 20,
+        HP: 5000,
+        speed: 7,
+        attackPower: 1,
+        attackCD: 7,
+        attackRange: 1000,
+        seeRange: 1000
+    }
 ];
 
 function getPetModel(petType) {

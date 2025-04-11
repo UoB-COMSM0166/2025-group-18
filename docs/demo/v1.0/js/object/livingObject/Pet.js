@@ -13,6 +13,7 @@ class Pet extends BasicObject {
             petModel.speed,
         );
         this.modelType = petModel.type;
+        this.name = petModel.name;
         this.attackPower = petModel.attackPower;
         this.attackCD = petModel.attackCD;
         this.lastAttackTime = 0;
@@ -49,7 +50,7 @@ class Pet extends BasicObject {
         if (this.modelType >= frames.pets.length || this.modelType <= 0) {
             return frames.pets[1];
         }
-        return frames.pets[this.modelType];
+        return frames.pets[this.name];
     }
 
     updateStatus() {
@@ -94,7 +95,7 @@ class Pet extends BasicObject {
             fill(100, 100, 100, 150);
             rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
-            //pet图像
+            // pet图像
             // this.drawPet();
             
             //血条出现在贴图上方

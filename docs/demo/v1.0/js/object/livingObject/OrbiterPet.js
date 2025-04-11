@@ -1,5 +1,6 @@
 class OrbiterPet extends BasicObject {
     constructor(player, orbitRadius, orbitSpeed, attackPower, attackCallBack) {
+        const petModel = getPetModel(PET_MODEL_3_TYPE);
         super(
             "orbiter",
             PET_TYPE,
@@ -31,6 +32,7 @@ class OrbiterPet extends BasicObject {
         this.frameCount = 0;
         // 图片预留
         this.frames = frames.bullet;
+        // this.frames = this.getFrames();
         
         this.invincible = true;
     }
@@ -127,6 +129,13 @@ class OrbiterPet extends BasicObject {
         const dx = this.xCoordinate - object.xCoordinate;
         const dy = this.yCoordinate - object.yCoordinate;
         return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    getFrames() {
+        if (this.modelType >= frames.pets.length || this.modelType <= 0) {
+            return frames.pets[0];
+        }
+        return frames.pets[petModel.name];
     }
     
     show() {
