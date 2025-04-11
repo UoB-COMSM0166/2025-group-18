@@ -1,0 +1,349 @@
+¾í Document µÄÎÄ¼þ¼Ð PATH ÁÐ±í
+¾íÐòÁÐºÅÎª D0FC-A92C
+E:.
+©¦  1.txt
+©¦  index.html
+©¦  ÎÄ¼þÄ¿Â¼.bat
+©¦  
+©À©¤demo
+©¦  ©¸©¤v1.0
+©¦      ©¸©¤js
+©¦          ©¦  Game.js
+©¦          ©¦  Main.js
+©¦          ©¦  sketch.js
+©¦          ©¦  style.css
+©¦          ©¦  utils.js
+©¦          ©¦  utilsMap.js
+©¦          ©¦  
+©¦          ©À©¤Audio
+©¦          ©¦      AudioManager.js
+©¦          ©¦      SoundEffects.js
+©¦          ©¦      ThemeMusic.js
+©¦          ©¦      
+©¦          ©À©¤buffs
+©¦          ©¦      Buff.js
+©¦          ©¦      BuffController.js
+©¦          ©¦      
+©¦          ©À©¤object
+©¦          ©¦  ©¦  AoeSkill.js
+©¦          ©¦  ©¦  BasicObject.js
+©¦          ©¦  ©¦  Explode.js
+©¦          ©¦  ©¦  
+©¦          ©¦  ©À©¤livingObject
+©¦          ©¦  ©¦  ©¦  Bullet.js
+©¦          ©¦  ©¦  ©¦  Enemy.js
+©¦          ©¦  ©¦  ©¦  LaserPet.js
+©¦          ©¦  ©¦  ©¦  LivingObject.js
+©¦          ©¦  ©¦  ©¦  OrbiterPet.js
+©¦          ©¦  ©¦  ©¦  Pet.js
+©¦          ©¦  ©¦  ©¦  Player.js
+©¦          ©¦  ©¦  ©¦  Wave.js
+©¦          ©¦  ©¦  ©¦  
+©¦          ©¦  ©¦  ©¸©¤Boss
+©¦          ©¦  ©¦          Boss.js
+©¦          ©¦  ©¦          Boss1.js
+©¦          ©¦  ©¦          
+©¦          ©¦  ©¸©¤StillObject
+©¦          ©¦          Building.js
+©¦          ©¦          Island.js
+©¦          ©¦          
+©¦          ©À©¤playerControl
+©¦          ©¦      PlayerControl.js
+©¦          ©¦      
+©¦          ©À©¤status
+©¦          ©¦      Equipment.js
+©¦          ©¦      Pollution.js
+©¦          ©¦      Status.js
+©¦          ©¦      
+©¦          ©¸©¤UI
+©¦                  CaptainUI.js
+©¦                  ChooseShipUI.js
+©¦                  CursorPos.js
+©¦                  GameOverUI.js
+©¦                  GameRewardUI.js
+©¦                  GameSummaryUI.js
+©¦                  GameWinBossUI.js
+©¦                  InGameUI.js
+©¦                  MainUI.js
+©¦                  MapUI.js
+©¦                  Menu.js
+©¦                  MorseCodeUI.js
+©¦                  Orbitron.ttf
+©¦                  PreloadUI.js
+©¦                  RandomEventUI.js
+©¦                  ShopInMapUI.js
+©¦                  ShopUI.js
+©¦                  StartUI.js
+©¦                  TeamUI.js
+©¦                  TutorialUI.js
+©¦                  UI.js
+©¦                  
+©À©¤images
+©¦  ©À©¤docs
+©¦  ©¦  ©¦  .keep
+©¦  ©¦  ©¦  
+©¦  ©¦  ©¸©¤img
+©¦  ©¦      ©¸©¤png
+©¦  ©¦          ©À©¤background
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      2.png
+©¦  ©¦          ©¦      3.png
+©¦  ©¦          ©¦      startUI.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤BOSS
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      2.png
+©¦  ©¦          ©¦      3.png
+©¦  ©¦          ©¦      4.png
+©¦  ©¦          ©¦      5.png
+©¦  ©¦          ©¦      6.png
+©¦  ©¦          ©¦      7.png
+©¦  ©¦          ©¦      8.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤BOSS_bullet
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      2.png
+©¦  ©¦          ©¦      3.png
+©¦  ©¦          ©¦      4.png
+©¦  ©¦          ©¦      5.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤BOSS_explode
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      2.png
+©¦  ©¦          ©¦      3.png
+©¦  ©¦          ©¦      4.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤BOSS_skill
+©¦  ©¦          ©¦  ©À©¤BOSS_1_skill_1
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      4.png
+©¦  ©¦          ©¦  ©¦      5.png
+©¦  ©¦          ©¦  ©¦      6.png
+©¦  ©¦          ©¦  ©¦      7.png
+©¦  ©¦          ©¦  ©¦      8.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©¸©¤BOSS_1_skill_2
+©¦  ©¦          ©¦          1.gif
+©¦  ©¦          ©¦          1.png
+©¦  ©¦          ©¦          
+©¦  ©¦          ©À©¤building
+©¦  ©¦          ©¦  ©¦  1.png
+©¦  ©¦          ©¦  ©¦  2.png
+©¦  ©¦          ©¦  ©¦  3.png
+©¦  ©¦          ©¦  ©¦  4.png
+©¦  ©¦          ©¦  ©¦  7f8eee2ed6bd4b5f62adb486b395d920.jpg
+©¦  ©¦          ©¦  ©¦  
+©¦  ©¦          ©¦  ©À©¤bomb
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      4.png
+©¦  ©¦          ©¦  ©¦      5.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤chbox
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤chest
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤rubbish
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©¸©¤TNT
+©¦  ©¦          ©¦          1.png
+©¦  ©¦          ©¦          2.png
+©¦  ©¦          ©¦          3.png
+©¦  ©¦          ©¦          4.png
+©¦  ©¦          ©¦          5.png
+©¦  ©¦          ©¦          
+©¦  ©¦          ©À©¤bullet
+©¦  ©¦          ©¦  ©¦  1.png
+©¦  ©¦          ©¦  ©¦  2.png
+©¦  ©¦          ©¦  ©¦  3.png
+©¦  ©¦          ©¦  ©¦  
+©¦  ©¦          ©¦  ©¸©¤right
+©¦  ©¦          ©¦          1.png
+©¦  ©¦          ©¦          2.png
+©¦  ©¦          ©¦          Í¼²ã 3 ¿½±´ 2.png
+©¦  ©¦          ©¦          Í¼²ã 3 ¿½±´.png
+©¦  ©¦          ©¦          Í¼²ã 3.png
+©¦  ©¦          ©¦          Í¼²ã 4 ¿½±´ 2.png
+©¦  ©¦          ©¦          Í¼²ã 4 ¿½±´.png
+©¦  ©¦          ©¦          Í¼²ã 4.png
+©¦  ©¦          ©¦          
+©¦  ©¦          ©À©¤enemy
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      2.png
+©¦  ©¦          ©¦      3.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤explode
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      2.png
+©¦  ©¦          ©¦      3.png
+©¦  ©¦          ©¦      4.png
+©¦  ©¦          ©¦      5.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤island
+©¦  ©¦          ©¦      1.png
+©¦  ©¦          ©¦      A.png
+©¦  ©¦          ©¦      B.png
+©¦  ©¦          ©¦      C.png
+©¦  ©¦          ©¦      island_1.png
+©¦  ©¦          ©¦      island_101.png
+©¦  ©¦          ©¦      
+©¦  ©¦          ©À©¤main_boat
+©¦  ©¦          ©¦  ©À©¤left_down
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤left_up
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤move_down
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      4.png
+©¦  ©¦          ©¦  ©¦      5.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤move_left
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      4.png
+©¦  ©¦          ©¦  ©¦      5.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤move_right
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      4.png
+©¦  ©¦          ©¦  ©¦      5.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤move_up
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      4.png
+©¦  ©¦          ©¦  ©¦      5.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©À©¤right_down
+©¦  ©¦          ©¦  ©¦      1.png
+©¦  ©¦          ©¦  ©¦      2.png
+©¦  ©¦          ©¦  ©¦      3.png
+©¦  ©¦          ©¦  ©¦      
+©¦  ©¦          ©¦  ©¸©¤right_up
+©¦  ©¦          ©¦          1.png
+©¦  ©¦          ©¦          2.png
+©¦  ©¦          ©¦          3.png
+©¦  ©¦          ©¦          
+©¦  ©¦          ©À©¤shark
+©¦  ©¦          ©¦  ©¸©¤left
+©¦  ©¦          ©¦          1.png
+©¦  ©¦          ©¦          2.png
+©¦  ©¦          ©¦          
+©¦  ©¦          ©¸©¤wave
+©¦  ©¦              ©À©¤to_down
+©¦  ©¦              ©¦      1.png
+©¦  ©¦              ©¦      2.png
+©¦  ©¦              ©¦      3.png
+©¦  ©¦              ©¦      
+©¦  ©¦              ©À©¤to_left
+©¦  ©¦              ©¦      1.png
+©¦  ©¦              ©¦      2.png
+©¦  ©¦              ©¦      3.png
+©¦  ©¦              ©¦      
+©¦  ©¦              ©À©¤to_right
+©¦  ©¦              ©¦      1.png
+©¦  ©¦              ©¦      2.png
+©¦  ©¦              ©¦      3.png
+©¦  ©¦              ©¦      
+©¦  ©¦              ©¸©¤to_up
+©¦  ©¦                      1.png
+©¦  ©¦                      2.png
+©¦  ©¦                      3.png
+©¦  ©¦                      
+©¦  ©¸©¤others
+©¦          .keep
+©¦          
+©À©¤labprocess
+©¦  ©À©¤week01
+©¦  ©¦      .keep
+©¦  ©¦      Game-mechanics-example.docx
+©¦  ©¦      Inspiration-of-Knight.docx
+©¦  ©¦      ourphoto.jpeg
+©¦  ©¦      research-game.xlsx
+©¦  ©¦      
+©¦  ©À©¤week02
+©¦  ©¦  ©¦  .keep
+©¦  ©¦  ©¦  Two-Game-Ideas.md
+©¦  ©¦  ©¦  
+©¦  ©¦  ©¸©¤paint
+©¦  ©¦          index.html
+©¦  ©¦          sketch.js
+©¦  ©¦          
+©¦  ©À©¤week03
+©¦  ©¦      .keep
+©¦  ©¦      AdditionalRequirements.md
+©¦  ©¦      DigitalWireframe.gif
+©¦  ©¦      idea2.mp4
+©¦  ©¦      
+©¦  ©À©¤week04
+©¦  ©¦      Environment-01.png
+©¦  ©¦      Epic.md
+©¦  ©¦      Feedback.md
+©¦  ©¦      frame01.png
+©¦  ©¦      multi-view.gif
+©¦  ©¦      Onion Model of Stakeholders.png
+©¦  ©¦      process-01.jpg
+©¦  ©¦      process-02.jpg
+©¦  ©¦      vessel-01.png
+©¦  ©¦      
+©¦  ©À©¤week05
+©¦  ©¦      ClassDiagram.png
+©¦  ©¦      ClassDiagram.uxf
+©¦  ©¦      SequenceDiagram.png
+©¦  ©¦      SequenceDiagram.uxf
+©¦  ©¦      
+©¦  ©À©¤week07
+©¦  ©¦      heuristic-evaluation.md
+©¦  ©¦      
+©¦  ©¸©¤week08
+©¦          three-challenges.md
+©¦          user-evaluations.md
+©¦          
+©À©¤MusicPack
+©¦  ©À©¤InGameMusic
+©¦  ©¦      BossFight.ogg
+©¦  ©¦      NormalFight.ogg
+©¦  ©¦      ShopMusic.ogg
+©¦  ©¦      TidesofAshes.ogg
+©¦  ©¦      
+©¦  ©¸©¤SoundEffects
+©¦          Correct.ogg
+©¦          egg.ogg
+©¦          Horn.ogg
+©¦          Hover.ogg
+©¦          RadioNoise.ogg
+©¦          Wrong.ogg
+©¦          
+©À©¤sketches
+©¦      .keep
+©¦      
+©À©¤troubleshooting
+©¦      .keep
+©¦      
+©¸©¤VideoPack
+        Dead_Poets_Society.mp4
+        
