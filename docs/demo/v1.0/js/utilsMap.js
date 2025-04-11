@@ -110,12 +110,22 @@ const MAP_MODEL = [
             { x: 0.650, y: 0.490, type: BUILDING_MODEL_TNT_TYPE },
         ],
         enemy : [
-            {x : 0.75, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
-            {x : 0.7, y : 0.5, type : EASY_ENEMY_MODEL_1_TYPE},
-            {x : 0.7, y : 0.7, type : EASY_ENEMY_MODEL_1_TYPE},
-            {x : 0.9, y : 0.3, type : EASY_ENEMY_MODEL_2_TYPE},
-            {x : 0.9, y : 0.5, type : EASY_ENEMY_MODEL_2_TYPE},
-            {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE}
+            [
+                {x : 0.75, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.7, y : 0.5, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.7, y : 0.7, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.9, y : 0.3, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.5, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE}
+            ],
+            [
+                {x : 0.75, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.7, y : 0.5, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.7, y : 0.7, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.9, y : 0.3, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.5, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE}
+            ]
         ]
     }, {
         modelType : MAP_MODEL_2_TYPE,
@@ -180,16 +190,30 @@ const MAP_MODEL = [
             { x: 0.55, y: 0.28, type: BUILDING_MODEL_TNT_TYPE },
         ],
         enemy : [
-            {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE},
-            {x : 0.9, y : 0.75, type : EASY_ENEMY_MODEL_2_TYPE},
-            {x : 0.9, y : 0.80, type : EASY_ENEMY_MODEL_2_TYPE},
-            {x : 0.9, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
-            
-            // =============== “眼睛”区域 ===============
-            // 左眼（中型岛）
-            { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
-            // 右眼（中型岛）
-            { x: 0.55, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
+            [
+                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.75, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.80, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
+                
+                // =============== “眼睛”区域 ===============
+                // 左眼（中型岛）
+                { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
+                // 右眼（中型岛）
+                { x: 0.55, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
+            ],
+            [
+                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.75, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.80, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.9, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
+                
+                // =============== “眼睛”区域 ===============
+                // 左眼（中型岛）
+                { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
+                // 右眼（中型岛）
+                { x: 0.55, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
+            ]
         ]
     }, {
         modelType : MAP_MODEL_BOSS_TYPE,

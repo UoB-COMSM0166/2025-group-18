@@ -1,6 +1,8 @@
 class Game {
     #player;
     #enemies;
+    #allEnemies;
+    #enemyWave;
     #bullets;
     #waveManager;
     #islands;
@@ -19,6 +21,8 @@ class Game {
     constructor(updateStepCallBack) {
         this.#player = null;
         this.#enemies = [];
+        this.#allEnemies = [];
+        this.#enemyWave = 0;
         this.#bullets = [];
         this.#islands = [];
         this.#buildings = [];
@@ -80,13 +84,19 @@ class Game {
     initRandomMap() {
         this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + 1;
         let info = getMapModel(this.mapType);
-        this.initEnemies(info.enemy);
+        this.#allEnemies = info.enemy;
+        this.initEnemies();
         this.initIslands(info.island);
         this.initBuilding(info.building);
     }
 
 
-    initEnemies(enemies) {
+    initEnemies() {
+        if (this.#enemyWave >= this.#allEnemies.length) {
+            return;
+        }
+
+        let enemies = this.#allEnemies[this.#enemyWave++];
         for (let enemy of enemies) {
             const newEnemy = new Enemy(
                 enemy.x * logicWidth,
@@ -339,6 +349,11 @@ class Game {
                 }
             }
         }
+
+        if (this.#enemies.length == 0) {
+            this.initEnemies();
+        }
+        
         if (this.#enemies.length == 0) {
             this.#gameWin = true;
         }
