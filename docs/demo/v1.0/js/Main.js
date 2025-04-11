@@ -86,6 +86,10 @@ class Main {
 
     updateAll() {
         switch (this.#step) {
+            case MAIN_STEP_CAPTAIN_UI: {
+                this.#UI.showCaptainUI();
+                break;
+            }
             case MAIN_STEP_START_UI: {
                 this.#UI.showStartUI();
                 break;
@@ -181,6 +185,10 @@ class Main {
 
     mousePressed() {
         switch (this.#step) {
+            case MAIN_STEP_CAPTAIN_UI: {
+                this.#UI.captainUIMousePressed();
+                break;
+            }
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIPressed();
                 break;
@@ -240,6 +248,10 @@ class Main {
 
     mouseReleased() {
         switch (this.#step) {
+            case MAIN_STEP_CAPTAIN_UI: {
+                this.#UI.captainUIMouseReleased();
+                break;
+            }
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIReleased();
                 break;

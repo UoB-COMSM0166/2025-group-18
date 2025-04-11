@@ -6,12 +6,13 @@ class MorseCodeUI {
         this.borderColor = null;
         this.soundEffects = new SoundEffects();
         this.soundEffects.preload();
-        this.createButton();
+        this.createButtons();
         this.isPlayingSound = false;
+        this.onSwitchToCaptainUI = null; // 将由MainUI设置
     }
 
     // 创建按钮
-    createButton() {
+    createButtons() {
         // "听摩斯电码"按钮
         const btnWidth = 200;
         const btnHeight = 60;
@@ -33,11 +34,10 @@ class MorseCodeUI {
                     this.soundEffects.playNoise();
                     setTimeout(() => {
                         this.soundEffects.playEgg();
-                        
                         // 重置播放状态
                         setTimeout(() => {
                             this.isPlayingSound = false;
-                        }, 5000); // 假设彩蛋音效大约持续5秒
+                        }, 11000);
                     }, 3000);
                 }
             }
@@ -60,6 +60,29 @@ class MorseCodeUI {
                 }
             }
         };
+        
+        // 新的"解码"按钮，用于切换到CaptainUI
+        this.decodeButton = {
+            x: btnX,
+            y: btnY - 80,
+            w: btnWidth,
+            h: btnHeight,
+            label: "解码诗篇",
+            isHovered: false,
+            scale: 1,
+            onClick: () => {
+                if (this.onSwitchToCaptainUI) {
+                    // 停止所有声音
+                    this.soundEffects.stopAllSounds();
+                    this.onSwitchToCaptainUI();
+                }
+            }
+        };
+    }
+
+    // 设置切换到CaptainUI的回调
+    setOnSwitchToCaptainUI(callback) {
+        this.onSwitchToCaptainUI = callback;
     }
 
     // 绘制电码
@@ -265,23 +288,15 @@ class MorseCodeUI {
         
         text("深海的秘密在等待认真倾听的人。", logicWidth * 0.5, logicHeight * 0.65);
 
-        // 边框动画效果
-        this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
-        if (this.borderColor) {
-            stroke(this.borderColor);
-            noFill();
-            strokeWeight(3);
-            rectMode(CENTER);
-            rect(logicWidth / 2, logicHeight / 2, this.borderSize * 20, this.borderSize * 10);
-        }
-
         // 检查按钮悬停
         this.checkButtonHover(this.listenButton);
         this.checkButtonHover(this.continueButton);
+        this.checkButtonHover(this.decodeButton);
 
         // 绘制按钮
         this.drawButton(this.listenButton);
         this.drawButton(this.continueButton);
+        this.drawButton(this.decodeButton);
     }
 
     // 处理鼠标按下
@@ -291,6 +306,9 @@ class MorseCodeUI {
         }
         if (this.continueButton.isHovered) {
             this.continueButton.scale = 0.95;
+        }
+        if (this.decodeButton.isHovered) {
+            this.decodeButton.scale = 0.95;
         }
     }
 
@@ -304,10 +322,14 @@ class MorseCodeUI {
             this.continueButton.scale = 1;
             this.continueButton.onClick();
         }
+        if (this.decodeButton.isHovered) {
+            this.decodeButton.scale = 1;
+            this.decodeButton.onClick();
+        }
     }
 
     // 处理窗口大小变化
     handleWindowResized() {
-        this.createButton();
+        this.createButtons();
     }
 }

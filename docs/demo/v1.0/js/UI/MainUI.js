@@ -13,6 +13,7 @@ class MainUI {
     #gameWinBossUI;
     #tutorialUI;
     #shopInMapUI;
+    #captainUI
     #gameReward = { gold: 0, buff: [] };
     #morseCodeUI;
     #gameSummaryUI;
@@ -33,6 +34,7 @@ class MainUI {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
+        this.#captainUI = new CaptainUI(this.#handleCaptainUIBack.bind(this));
         this.#inGameUI = new InGameUI();
         this.#inGameUI.preload();
         this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
@@ -327,12 +329,14 @@ class MainUI {
     }
 
     // 添加显示摩斯电码界面的方法
-showMorseCodeUI() {
-    if (!this.#morseCodeUI) {
-        this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
+    showMorseCodeUI() {
+        if (!this.#morseCodeUI) {
+            this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
+        }
+        // 设置切换到CaptainUI的回调
+        this.#morseCodeUI.setOnSwitchToCaptainUI(this.#handleMorseCodeToCaptain.bind(this));
+        this.#morseCodeUI.draw();
     }
-    this.#morseCodeUI.draw();
-}
 
 setGameSummaryStats(playerStats) {
     if (this.#gameSummaryUI == null) {
@@ -363,6 +367,28 @@ morseCodeUIMouseReleased() {
     }
 }
 
+// 显示Captain UI
+showCaptainUI() {
+    if (!this.#captainUI) {
+        this.#captainUI = new CaptainUI(this.#handleCaptainUIBack.bind(this));
+    }
+    this.#captainUI.draw();
+}
+
+// 处理Captain UI鼠标按下事件
+captainUIMousePressed() {
+    if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
+        this.#captainUI.handleMousePressed();
+    }
+}
+
+// 处理Captain UI鼠标释放事件
+captainUIMouseReleased() {
+    if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
+        this.#captainUI.handleMouseReleased();
+    }
+}
+
 // 添加游戏结算界面的鼠标事件处理方法
 gameSummaryUIMousePressed() {
     if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
@@ -378,6 +404,11 @@ gameSummaryUIMouseReleased() {
 
 windowResized() {
     switch (this.#currentStep) {
+        case MAIN_STEP_CAPTAIN_UI:
+            if (this.#captainUI) {
+                this.#captainUI.handleWindowResized();
+            }
+            break;
         case MAIN_STEP_START_UI:
             if (this.#startUI) {
                 this.#startUI.handleWindowResized();
@@ -549,6 +580,18 @@ windowResized() {
     #handleMorseCodeComplete() {
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_GAME_SUMMARY);
+        }
+    }
+
+    #handleCaptainUIBack() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_MORSE_CODE);
+        }
+    }
+
+    #handleMorseCodeToCaptain() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_CAPTAIN_UI);
         }
     }
     
