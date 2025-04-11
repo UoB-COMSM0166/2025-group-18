@@ -20,6 +20,7 @@ class Main {
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
+        this.deathReason = "";
     }
 
     initMain() {
@@ -32,18 +33,18 @@ class Main {
         this.#game = new Game(
             (stepChangeType) => this.updateStep(stepChangeType)
         );
-    
+
         this.#game.initPlayer(playerBasicStatus);
         this.#game.setPollution(this.#status.getShipStatus().pollution);
         this.initInGameMap();
     }
-    
+
     initInGameMap() {
         if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
             this.#game.initBoss();
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
-            
+
             //this.#game.initBoss();// 测试boss, 暂时修改
             this.#game.initRandomMap();
         }
@@ -56,7 +57,6 @@ class Main {
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
 
-        // check if game is ended
         if (this.#game.getGameWin()) {
             if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
                 this.updateStep(MAIN_STEP_WIN_BOSS);
@@ -66,6 +66,8 @@ class Main {
             this.#game = null;
         } else if (this.#game.getGameOver()) {
             console.log("Game Over!");
+            this.deathReason = this.#game.getDeathReason();
+            this.#UI.initGameOverUI(this.deathReason);
             this.updateStep(MAIN_STEP_GAME_OVER);
             this.#game = null;
             return;
@@ -131,7 +133,7 @@ class Main {
                 break;
             }
         }
-    
+
         this.#cursorPos.show();
     }
 
@@ -224,7 +226,7 @@ class Main {
             }
         }
     }
-    
+
 
     mouseReleased() {
         switch (this.#step) {
@@ -295,7 +297,7 @@ class Main {
         if (stepChangeType >= MAIN_STEP_MAX || stepChangeType < 0) {
             console.log("step type error");
             stepChangeType = MAIN_STEP_MAX;
-        }        
+        }
         // 如果是从Boss胜利后返回到地图界面
         if (stepChangeType == MAIN_STEP_MAP_UI && this.#step == MAIN_STEP_WIN_BOSS) {
             console.log("从Boss胜利界面返回，保留玩家状态");
@@ -304,10 +306,10 @@ class Main {
             console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
             this.#UI.initMap();
         }
-        
+
         this.#step = stepChangeType;
         this.#UI.changeCurrentStep(stepChangeType);
-        
+
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
             this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！小关通关后获得奖励
             this.#gameReward.buff = [
@@ -317,14 +319,14 @@ class Main {
             ];
         }
     }
-    
+
     setShipBasic(shipType) {
         this.#status.setShipBasicStatus(shipType);
     }
 
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
-        
+
         // 避免重复添加金币(Theodore)
         // this.#status.updateGold(this.#gameReward.gold);
     }
@@ -337,7 +339,7 @@ class Main {
         this.#nextGameType = gameType;
         console.log(gameType);
     }
-    
+
     getGameReward() {
         return this.#gameReward;
     }

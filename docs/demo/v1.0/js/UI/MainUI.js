@@ -186,8 +186,11 @@ class MainUI {
         this.#gameOverUI.draw();
     }
 
-    initGameOverUI() {
+    initGameOverUI(deathReason = "") {
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
+        if (deathReason) {
+            this.#gameOverUI.setDeathReason(deathReason);
+        }
     }
 
     showGameWinBossUI() {

@@ -208,6 +208,10 @@ class Game {
         return this.#gameWin;
     }
 
+    getDeathReason() {
+        return this.deathReason;
+    }
+
     updateObjectStatus() {
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
