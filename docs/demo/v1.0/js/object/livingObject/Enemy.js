@@ -60,18 +60,19 @@ class Enemy extends BasicObject {
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
         
-        // 这里使用已经应用了轮回加成的baseSpeed等属性
+        // 这些应该保持不变
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         
-        // 处理HP的变化
+        // 修改：确保maxHP基于当前的baseHP计算，而非originalBaseHP
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
+        // 保持HP百分比不变
         if (this.maxHP != newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
         
-        // 更新受击闪烁
+        // 更新受击闪烁（保持原有代码）
         if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
             this.isFlashing = false;
         }
@@ -127,11 +128,6 @@ class Enemy extends BasicObject {
             rect(this.xCoordinate - this.xSize/2, imageTopY - 10, hpBar, 5);
             
             // 测试用文本
-            if (this.baseHP > this.originalBaseHP) {
-                fill(255, 215, 0); // Gold color for loop bonus
-                const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
-                text(`Loop Bonus: +${loopBonus}%`, this.xCoordinate, textBaseY + 60);
-            }
             fill(255);
             textSize(12);
             textAlign(CENTER, CENTER);
@@ -139,8 +135,15 @@ class Enemy extends BasicObject {
             text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
             text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
             text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+
+            // 轮回加成信息
+        if (this.baseHP > this.originalBaseHP) {
+            const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
+            fill(255, 215, 0); // 金色文字显示轮回加成
+            text(`轮回: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
         }
     }
+}
 
     updateHP(change) {
         super.updateHP(change);

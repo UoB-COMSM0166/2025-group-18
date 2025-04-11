@@ -64,19 +64,20 @@ class Boss extends BasicObject {
 
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
-
+    
         // 使用已经应用了轮回加成的基础值
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
-        this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
-
+        
+        // 修改：确保maxHP基于当前的baseHP计算，而非originalBaseHP
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
-        if (this.maxHP !== newMaxHP && this.maxHP > 0) {  
+        // 保持HP百分比不变
+        if (this.maxHP !== newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
         
-        // 更新受击闪烁
+        // 更新受击闪烁（保持原有代码）
         if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
             this.isFlashing = false;
         }
@@ -135,6 +136,33 @@ class Boss extends BasicObject {
         //    rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
         //}
         this.drawBoss();
+        // 添加调试信息显示 - 类似于敌人的调试信息
+        if (this.isAlive) {
+            // 显示Boss基本信息
+            textAlign(CENTER, CENTER);
+            textSize(14); // 比敌人的文字稍大一些
+            
+            let textBaseY = this.yCoordinate + this.ySize;
+            
+            // 血量信息
+            fill(255);
+            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            
+            // 攻击力信息
+            fill(255);
+            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 35);
+            
+            // 速度信息
+            fill(255);
+            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 55);
+            
+            // 轮回加成信息
+            if (this.baseHP > this.originalBaseHP) {
+                const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
+                fill(255, 215, 0); // 金色文字显示轮回加成
+                text(`轮回: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+            }
+        }
     }
 
     updateHP(change) {
