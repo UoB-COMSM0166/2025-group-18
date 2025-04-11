@@ -61,13 +61,13 @@ class MorseCodeUI {
             }
         };
         
-        // 新的"解码"按钮，用于切换到CaptainUI
+        // 修改"解码"按钮的名称和位置
         this.decodeButton = {
             x: btnX,
             y: btnY - 80,
             w: btnWidth,
             h: btnHeight,
-            label: "解码诗篇",
+            label: "解码",  // 修改按钮名称为"解码"
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -144,7 +144,7 @@ class MorseCodeUI {
         const firstLineWidth = calculateLineWidth(firstLineSymbols);
         const secondLineWidth = calculateLineWidth(secondLineSymbols);
         const thirdLineWidth = calculateLineWidth(thirdLineSymbols);
-        const yOffset = -50;
+        const yOffset = -80; // 修改此值，将文本向上移动
 
         // 绘制第一行: OH
         let currentX = x - firstLineWidth / 2;
@@ -274,19 +274,21 @@ class MorseCodeUI {
 
         textSize(20);
         fill(200);
-        text("你听到了吗？一串等待被破译的摩斯电码。", logicWidth * 0.5, logicHeight * 0.55);
+        // 将文本向上移动，远离按钮
+        text("你听到了吗？一串等待被破译的摩斯电码。", logicWidth * 0.5, logicHeight * 0.5);
         
         // 显示正在播放提示
         if (this.isPlayingSound) {
             const pulseAlpha = 127 + 128 * sin(frameCount * 0.1);
             fill(255, 100, 100, pulseAlpha);
-            text("▶ 正在接收信号...", logicWidth * 0.5, logicHeight * 0.6);
+            text("▶ 正在接收信号...", logicWidth * 0.5, logicHeight * 0.55);
         } else {
             fill(200);
-            text('点击"收听信号"来听取这段神秘消息。', logicWidth * 0.5, logicHeight * 0.6);
+            text('点击"收听信号"来听取这段神秘消息。', logicWidth * 0.5, logicHeight * 0.55);
         }
         
-        text("深海的秘密在等待认真倾听的人。", logicWidth * 0.5, logicHeight * 0.65);
+        // 将文本向上移动
+        text("深海的秘密在等待认真倾听的人。", logicWidth * 0.5, logicHeight * 0.6);
 
         // 检查按钮悬停
         this.checkButtonHover(this.listenButton);

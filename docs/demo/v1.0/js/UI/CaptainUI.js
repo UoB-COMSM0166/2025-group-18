@@ -4,7 +4,7 @@ class CaptainUI {
         this.borderSize = 50;
         this.targetBorderSize = 50;
         this.borderColor = null;
-        this.createButton();
+        this.createButtons();
         
         // 诗歌滚动变量
         this.poemText = "O Captain! my Captain! our fearful trip is done,\n" +
@@ -38,6 +38,7 @@ class CaptainUI {
         // 加载视频
         this.videoElement = null;
         this.videoLoaded = false;
+        this.isPlaying = false; // 添加视频播放状态跟踪
         this.loadVideo();
     }
     
@@ -45,21 +46,24 @@ class CaptainUI {
     loadVideo() {
         try {
             this.videoElement = createVideo(['VideoPack/Dead_Poets_Society.mp4']);
-            this.videoElement.loop();
+            this.videoElement.loop(); // 设置循环播放
+            this.videoElement.pause(); // 默认暂停状态
             this.videoElement.hide(); // 隐藏DOM元素
             this.videoLoaded = true;
+            this.isPlaying = false;
         } catch (error) {
             console.error("加载视频时出错:", error);
             this.videoLoaded = false;
         }
     }
 
-    // 创建返回按钮
-    createButton() {
+    // 创建按钮
+    createButtons() {
         const btnWidth = 100;
         const btnHeight = 40;
         const margin = 20;
         
+        // 返回按钮
         this.backButton = {
             x: logicWidth * 2/3 + margin,
             y: margin,
@@ -78,9 +82,33 @@ class CaptainUI {
                 }
             }
         };
+        
+        // 添加播放/暂停按钮
+        this.playPauseButton = {
+            x: logicWidth * 2/3 + margin,
+            y: margin + btnHeight + 10,
+            w: btnWidth,
+            h: btnHeight,
+            label: "播放",
+            isHovered: false,
+            scale: 1,
+            onClick: () => {
+                if (this.videoElement) {
+                    if (this.isPlaying) {
+                        this.videoElement.pause();
+                        this.isPlaying = false;
+                        this.playPauseButton.label = "播放";
+                    } else {
+                        this.videoElement.play();
+                        this.isPlaying = true;
+                        this.playPauseButton.label = "暂停";
+                    }
+                }
+            }
+        };
     }
 
-    // 绘制返回按钮
+    // 绘制按钮
     drawButton(btn) {
         push();
         const mainColor = color(100, 255, 218);
@@ -202,6 +230,11 @@ drawPoemText() {
             const videoX = rightSectionX + margin;
             const videoY = margin * 3;
             
+            // 视频状态指示
+            fill(this.isPlaying ? color(0, 255, 0, 150) : color(255, 0, 0, 150));
+            noStroke();
+            ellipse(videoX + videoWidth - 15, videoY + 15, 10, 10);
+            
             // 绘制视频
             image(this.videoElement, videoX + videoWidth/2, videoY + videoHeight/2, videoWidth, videoHeight);
             
@@ -290,15 +323,22 @@ drawPoemText() {
         // 绘制视频和说明(右侧2/3)
         this.drawVideoAndText();
         
-        // 检查并绘制返回按钮
+        // 检查并绘制按钮
         this.checkButtonHover(this.backButton);
         this.drawButton(this.backButton);
+        
+        // 检查并绘制播放/暂停按钮
+        this.checkButtonHover(this.playPauseButton);
+        this.drawButton(this.playPauseButton);
     }
 
     // 处理鼠标按下
     handleMousePressed() {
         if (this.backButton.isHovered) {
             this.backButton.scale = 0.95;
+        }
+        if (this.playPauseButton.isHovered) {
+            this.playPauseButton.scale = 0.95;
         }
     }
 
@@ -308,10 +348,15 @@ drawPoemText() {
             this.backButton.onClick();
         }
         this.backButton.scale = 1;
+        
+        if (this.playPauseButton.isHovered && this.playPauseButton.scale < 1) {
+            this.playPauseButton.onClick();
+        }
+        this.playPauseButton.scale = 1;
     }
 
     // 处理窗口大小变化
     handleWindowResized() {
-        this.createButton();
+        this.createButtons();
     }
 }
