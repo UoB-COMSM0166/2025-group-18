@@ -12,7 +12,8 @@ class Status {
         skillCD: 0,
         maxSkillCD: 0,
         pollution: 0,
-        pollutionLevel: 1
+        pollutionLevel: 1,
+        loopCount: 0,
     };
     #equipments = [];
     constructor() {
@@ -29,6 +30,7 @@ class Status {
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.pollution = 0;
         this.#playerStatus.pollutionLevel = 1;
+        this.#playerStatus.loopCount = 0;
     }
 
     getShipStatus() {
@@ -66,5 +68,16 @@ class Status {
 
     updateGold(goldChange) {
         this.#playerStatus.gold += goldChange;
+    }
+    
+    // 增加轮回次数
+    incrementLoopCount() {
+        this.#playerStatus.loopCount++;
+        console.log(`轮回次数增加至: ${this.#playerStatus.loopCount}`);
+    }
+    
+    // 获取轮回次数
+    getLoopCount() {
+        return this.#playerStatus.loopCount;
     }
 }

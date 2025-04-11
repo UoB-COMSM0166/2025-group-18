@@ -193,6 +193,15 @@ class MainUI {
         }
     }
 
+    setGameWinBossStats(playerStats, loopCount) {
+        if (this.#gameWinBossUI == null) {
+            this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
+            this.#gameWinBossUI.init();
+        }
+        this.#gameWinBossUI.setPlayerStats(playerStats);
+        this.#gameWinBossUI.setLoopCount(loopCount);
+    }
+
     showGameWinBossUI() {
         if (this.#gameWinBossUI == null) {
             this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
@@ -323,6 +332,13 @@ showMorseCodeUI() {
         this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
     }
     this.#morseCodeUI.draw();
+}
+
+setGameSummaryStats(playerStats) {
+    if (this.#gameSummaryUI == null) {
+        this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+    }
+    this.#gameSummaryUI.setPlayerStats(playerStats);
 }
 
 // 添加显示游戏结算界面的方法
@@ -510,6 +526,8 @@ windowResized() {
         const bossReward = this.#gameWinBossUI ? this.#gameWinBossUI.bossReward : 300;
         
         if (selectedType == MAIN_STEP_MAP_UI) {
+            main.incrementLoopCount();
+            
             if (this.updateGoldStatus) {
                 this.updateGoldStatus(bossReward);
             }

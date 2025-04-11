@@ -12,18 +12,15 @@ class GameSummaryUI {
             attackPower: 0,
             gold: 0,
             pollution: 0,
-            pollutionLevel: 0
+            pollutionLevel: 0,
+            loopCount: 0 // 添加轮回次数
         };
-        this.createButton();
+        // 创建按钮 - 不调用方法，直接在构造函数中定义
+        this.initButtons();
     }
 
-    // 设置玩家统计数据
-    setPlayerStats(stats) {
-        this.playerStats = stats;
-    }
-
-    // 创建按钮
-    createButton() {
+    // 创建按钮的方法
+    initButtons() {
         const btnWidth = 200;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
@@ -43,6 +40,11 @@ class GameSummaryUI {
                 }
             }
         };
+    }
+
+    // 设置玩家统计数据
+    setPlayerStats(stats) {
+        this.playerStats = stats;
     }
 
     // 绘制按钮
@@ -143,6 +145,10 @@ class GameSummaryUI {
         text("Pollution:", leftMargin, topMargin + rowHeight * 5);
         text("Pollution Level:", leftMargin, topMargin + rowHeight * 6);
         
+        // 添加轮回次数标签
+        fill(100, 255, 218);
+        text("Loop Count:", leftMargin, topMargin + rowHeight * 7);
+        
         // 右侧数值
         textAlign(RIGHT, CENTER);
         
@@ -184,6 +190,10 @@ class GameSummaryUI {
         fill(pollutionColor);
         text(`${this.playerStats.pollution} / ${Status.MAX_POLLUTION}`, rightMargin, topMargin + rowHeight * 5);
         text(`${this.playerStats.pollutionLevel} / ${Status.POLLUTION_MAX_LEVEL}`, rightMargin, topMargin + rowHeight * 6);
+        
+        // 轮回次数
+        fill(255, 100, 100);
+        text(this.playerStats.loopCount, rightMargin, topMargin + rowHeight * 7);
 
         // 绘制旅程总结文本
         textAlign(CENTER, CENTER);
@@ -192,7 +202,7 @@ class GameSummaryUI {
         
         // 根据玩家状态生成不同的总结文本
         let summaryText = this.generateSummaryText();
-        text(summaryText, logicWidth / 2, topMargin + rowHeight * 8);
+        text(summaryText, logicWidth / 2, topMargin + rowHeight * 9);
     }
 
     // 根据污染等级获取颜色
@@ -222,11 +232,18 @@ class GameSummaryUI {
         
         // 基于污染等级添加评论
         if (this.playerStats.pollutionLevel <= 2) {
-            message += "You have been an environmentally conscious captain!";
+            message += "You have been an environmentally conscious captain! ";
         } else if (this.playerStats.pollutionLevel <= 4) {
-            message += "Your journey left some environmental impact on the ocean.";
+            message += "Your journey left some environmental impact on the ocean. ";
         } else {
-            message += "The ocean bears the scars of your destructive passage.";
+            message += "The ocean bears the scars of your destructive passage. ";
+        }
+        
+        // 基于轮回次数添加评论
+        if (this.playerStats.loopCount > 0) {
+            message += `After ${this.playerStats.loopCount} loops, you have seen the true face of the sea.`;
+        } else {
+            message += "Maybe there are more mysteries to uncover if you continue your journey.";
         }
         
         return message;
@@ -249,6 +266,6 @@ class GameSummaryUI {
 
     // 处理窗口大小变化
     handleWindowResized() {
-        this.createButton();
+        this.initButtons();
     }
 }

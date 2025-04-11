@@ -8,7 +8,19 @@ class GameWinBossUI {
         
         this.bossReward = 300;
         this.playerStats = null; // Will be set from Main.js
+        this.loopCount = 0; // 当前轮回次数
     }
+
+        // 添加轮回次数设置方法
+        setLoopCount(count) {
+            this.loopCount = count;
+            console.log("设置轮回次数:", count);
+        }
+        
+        // 设置玩家状态
+        setPlayerStats(stats) {
+            this.playerStats = stats;
+        }
 
     ChooseBuffButton = class {
         constructor(x, y, w, h, label, buttonType) {
@@ -196,20 +208,27 @@ class GameWinBossUI {
         fill(200);
         text(`• 获得${this.bossReward}金币`, rightX, topY + lineHeight);
         text("• 生命值完全恢复", rightX, topY + lineHeight * 2);
-        text("• 挑战更多的深海危险", rightX, topY + lineHeight * 3);
+        
+        // 添加轮回提示
+        fill(255, 215, 0);
+        text(`• 轮回次数+1 (敌人将变强)`, rightX, topY + lineHeight * 3);
+        
+        fill(200);
+        text("• 挑战更多的深海危险", rightX, topY + lineHeight * 4);
         
         // 返回码头
         textSize(24);
         fill(255, 215, 0);
-        text("返回码头:", rightX, topY + lineHeight * 5);
+        text("返回码头:", rightX, topY + lineHeight * 6);
         
         textSize(18);
         fill(200);
-        text("• 解码神秘的信号", rightX, topY + lineHeight * 6);
-        text("• 完成此次冒险", rightX, topY + lineHeight * 7);
-        text("• 查看你的航行成果", rightX, topY + lineHeight * 8);
+        text("• 解码神秘的信号", rightX, topY + lineHeight * 7);
+        text("• 完成此次冒险", rightX, topY + lineHeight * 8);
+        text("• 查看你的航行成果", rightX, topY + lineHeight * 9);
         pop();
     }
+
 
     // 处理鼠标按下事件
     handleMousePressed() {

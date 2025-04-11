@@ -77,17 +77,19 @@ class Game {
         );
     }
 
-    initRandomMap() {
+    initRandomMap(loopCount = 0) {
         this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + 1;
         let info = getMapModel(this.mapType);
-        this.initEnemies(info.enemy);
+        
+        this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
         this.initBuilding(info.building);
     }
 
 
-    initEnemies(enemies) {
+    initEnemies(enemies, loopCount = 0) {
         for (let enemy of enemies) {
+            // 创建基础敌人实例
             const newEnemy = new Enemy(
                 enemy.x * logicWidth,
                 enemy.y * logicHeight,
@@ -106,35 +108,65 @@ class Game {
                 (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
                 this.#pollution
             );
+            
+            // 根据轮回次数增强敌人能力
+            if (loopCount > 0) {
+                // 每轮回增加20%血量和攻击力
+                const hpMultiplier = 1 + (loopCount * 2);
+                const attackMultiplier = 1 + (loopCount * 2);
+                
+                newEnemy.maxHP = Math.floor(newEnemy.maxHP * hpMultiplier);
+                newEnemy.HP = newEnemy.maxHP;
+                newEnemy.baseAttack = Math.floor(newEnemy.baseAttack * attackMultiplier);
+                newEnemy.attackPower = newEnemy.baseAttack;
+                
+                console.log(`轮回加成：敌人血量 x${hpMultiplier.toFixed(1)}，攻击力 x${attackMultiplier.toFixed(1)}`);
+            }
+            
             this.#enemies.push(newEnemy);
         }
     }
 
-    initBoss() {
-        const boss = new Boss1(
-            logicWidth * 0.5,
-            logicHeight * 0.3,
-            (
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ) => this.addBullet(
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ),
-            (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
-            (
-                xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
-            ) => this.addBossAoeSkill(
-                xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
-            ),
-            this.#pollution
-        );
-        this.#enemies.push(boss);
+initBoss(loopCount = 0) {
+    const boss = new Boss1(
+        logicWidth * 0.5,
+        logicHeight * 0.3,
+        (
+            xSpeed, ySpeed,
+            bulletType, bulletMoveType,
+            attackPower,
+            enemy
+        ) => this.addBullet(
+            xSpeed, ySpeed,
+            bulletType, bulletMoveType,
+            attackPower,
+            enemy
+        ),
+        (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+        (
+            xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+        ) => this.addBossAoeSkill(
+            xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+        ),
+        this.#pollution
+    );
+    
+    // 根据轮回次数增强Boss能力
+    if (loopCount > 0) {
+        // 每轮回增加30%血量和25%攻击力
+        const hpMultiplier = 1 + (loopCount * 0.3);
+        const attackMultiplier = 1 + (loopCount * 0.25);
+        
+        boss.maxHP = Math.floor(boss.maxHP * hpMultiplier);
+        boss.HP = boss.maxHP;
+        boss.baseAttack = Math.floor(boss.baseAttack * attackMultiplier);
+        boss.attackPower = boss.baseAttack;
+        
+        console.log(`轮回加成：Boss血量 x${hpMultiplier.toFixed(1)}，攻击力 x${attackMultiplier.toFixed(1)}`);
     }
+    
+    this.#enemies.push(boss);
+}
 
     initIslands(islands) {
         for (let island of islands) {
