@@ -24,9 +24,16 @@ class Enemy extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
+        // 存储原始基础值（不受轮回影响的）
+        this.originalBaseSpeed = enemyModel.speed;
+        this.originalBaseAttack = enemyModel.attackPower;
+        this.originalBaseHP = enemyModel.HP;
+        
+        // 存储已经应用轮回加成的基础值
         this.baseSpeed = enemyModel.speed;
         this.baseAttack = enemyModel.attackPower;
         this.baseHP = enemyModel.HP;
+        
         this.pollutionInstance = pollutionInstance;
         const pollutionEffect = this.pollutionInstance.getEffect();
         this.maxHP = this.baseHP * pollutionEffect.healthMul;
@@ -52,8 +59,12 @@ class Enemy extends BasicObject {
 
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
+        
+        // 这里使用已经应用了轮回加成的baseSpeed等属性
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
+        
+        // 处理HP的变化
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
         if (this.maxHP != newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
@@ -116,6 +127,11 @@ class Enemy extends BasicObject {
             rect(this.xCoordinate - this.xSize/2, imageTopY - 10, hpBar, 5);
             
             // 测试用文本
+            if (this.baseHP > this.originalBaseHP) {
+                fill(255, 215, 0); // Gold color for loop bonus
+                const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
+                text(`Loop Bonus: +${loopBonus}%`, this.xCoordinate, textBaseY + 60);
+            }
             fill(255);
             textSize(12);
             textAlign(CENTER, CENTER);

@@ -32,10 +32,18 @@ class Boss extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
+        // 存储原始基础值（不受轮回影响的）
+        this.originalBaseSpeed = bossModel.speed;
+        this.originalBaseAttack = bossModel.attackPower;
+        this.originalBaseHP = bossModel.HP;
+        this.originalBaseAttackCD = bossModel.attackCD;
+        
+        // 存储已经应用轮回加成的基础值
         this.baseSpeed = bossModel.speed;
         this.baseAttack = bossModel.attackPower;
         this.baseHP = bossModel.HP;
         this.baseAttackCD = bossModel.attackCD;
+        
         this.pollutionInstance = pollutionInstance;
 
         const pollutionEffect = this.pollutionInstance.getEffect();
@@ -57,6 +65,7 @@ class Boss extends BasicObject {
     updateStatus() {
         const pollutionEffect = this.pollutionInstance.getEffect();
 
+        // 使用已经应用了轮回加成的基础值
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
         this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
@@ -140,39 +149,6 @@ class Boss extends BasicObject {
     updateWavePush() {
         // Boss不受波浪影响
     }
-
-    // enemyAI(playerX, playerY) {
-    //     this.updateStatus();
-    //     if (this.isAlive) {
-    //         let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
-        
-    //         if (this.attack1number == 10 && millis() - this.lastAttack1Time > this.attackCD * 1000) {
-    //             this.attack1number = 0;
-    //         }
-    //         if (this.attack1number < 10) {
-    //             let xSpeed = (playerX - this.xCoordinate) / distance;
-    //             let ySpeed = (playerY - this.yCoordinate) / distance;
-    //             this.bossAttack(xSpeed, ySpeed);
-    //             this.attack1number++;
-    //             if (this.attack1number == 10) {
-    //                 this.lastAttack1Time = millis();
-    //             }
-    //         }
-
-    //         if (this.attack2number == 72 && millis() - this.lastAttack2Time > this.attackCD * 5000) {
-    //             this.attack2number = 0;
-    //         }
-    //         if (this.attack2number < 72) {
-    //             let xSpeed = cos(radians(this.attack2number * 10));
-    //             let ySpeed = sin(radians(this.attack2number * 10));
-    //             this.bossAttack(xSpeed, ySpeed);
-    //             this.attack2number++;
-    //             if (this.attack2number == 72) {
-    //                 this.lastAttack2Time = millis();
-    //             }
-    //         }
-    //     }
-    // }
 
     bossAttack(xSpeed, ySpeed) {
         this.enemyAttackCallBack(
