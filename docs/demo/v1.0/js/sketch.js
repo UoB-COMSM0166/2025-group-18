@@ -199,7 +199,19 @@ let frames = {
 
     // 主题曲音频
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
-  }
+    
+    // laser 音频
+    laserShotSound = loadSound('./MusicPack/pet/laser/laser-shoot.ogg');
+    laserShotSound.setVolume(1);
+
+    // player shoot 音频
+    playerShootSound = loadSound('./MusicPack/player/shoot/player-01.ogg');
+    playerShootSound.setVolume(0.5);
+
+    // player skill 音频
+    playerSkillSound = loadSound('./MusicPack/player/skill/skill-01.ogg');
+    playerSkillSound.setVolume(0.5);
+}
 
 let logicCanvas;
 const logicWidth = 1920;
