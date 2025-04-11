@@ -17,32 +17,9 @@ const MAP_MODEL = [
         modelType : MAP_MODEL_1_TYPE,
         island : [
             {x : 0.2, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.2, y : 0.3, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.2, y : 0.4, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.2, y : 0.5, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.2, y : 0.6, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.2, y : 0.7, type : ISLAND_MODEL_1_TYPE},
             {x : 0.2, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-
             {x : 0.8, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.3, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.4, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.5, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.6, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.7, type : ISLAND_MODEL_1_TYPE},
             {x : 0.8, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-
-            {x : 0.3, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.4, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.5, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.6, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.7, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-
-            {x : 0.3, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.4, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.5, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.6, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.7, y : 0.8, type : ISLAND_MODEL_1_TYPE}
         ],
         building : [
            // ===== 左侧T：水平线 (x=0.30->0.40, 步=0.005, y=0.30) =====
@@ -133,7 +110,7 @@ const MAP_MODEL = [
             { x: 0.650, y: 0.490, type: BUILDING_MODEL_TNT_TYPE },
         ],
         enemy : [
-            {x : 0.7, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
+            {x : 0.75, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
             {x : 0.7, y : 0.5, type : EASY_ENEMY_MODEL_1_TYPE},
             {x : 0.7, y : 0.7, type : EASY_ENEMY_MODEL_1_TYPE},
             {x : 0.9, y : 0.3, type : EASY_ENEMY_MODEL_2_TYPE},
