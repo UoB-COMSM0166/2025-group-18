@@ -33,7 +33,7 @@ class Main {
         this.#game = new Game(
             (stepChangeType) => this.updateStep(stepChangeType)
         );
-    
+
         this.#game.initPlayer(playerBasicStatus);
         this.#game.setPollution(this.#status.getShipStatus().pollution);
         this.initInGameMap();
@@ -43,14 +43,14 @@ class Main {
         this.#status.incrementLoopCount();
         console.log("轮回计数已增加，当前轮回次数:", this.#status.getLoopCount());
     }
-    
+
     getLoopCount() {
         return this.#status.getLoopCount();
     }
 
     initInGameMap() {
         const loopCount = this.#status.getLoopCount();
-        
+
         if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
             this.#game.initBoss(loopCount);
         }
@@ -319,9 +319,8 @@ class Main {
         if (stepChangeType >= MAIN_STEP_MAX || stepChangeType < 0) {
             console.log("step type error");
             stepChangeType = MAIN_STEP_MAX;
-        }        
-        
-        // 如果是从Boss胜利后返回到地图界面
+        }
+
         if (stepChangeType == MAIN_STEP_MAP_UI && this.#step == MAIN_STEP_WIN_BOSS) {
             console.log("从Boss胜利界面返回，保留玩家状态");
             this.#status.recoverToMaxHP();
@@ -329,22 +328,20 @@ class Main {
             console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
             this.#UI.initMap();
         }
-        
-        // 如果进入Boss胜利界面，设置轮回次数
+
         if (stepChangeType == MAIN_STEP_WIN_BOSS) {
             console.log("进入Boss胜利界面，设置轮回次数");
             this.#UI.setGameWinBossStats(this.#status.getShipStatus(), this.#status.getLoopCount());
         }
-        
-        // 如果进入游戏结算界面，传递玩家状态（包含轮回次数）
+
         if (stepChangeType == MAIN_STEP_GAME_SUMMARY) {
             console.log("进入游戏结算界面，传递玩家状态");
             this.#UI.setGameSummaryStats(this.#status.getShipStatus());
         }
-        
+
         this.#step = stepChangeType;
         this.#UI.changeCurrentStep(stepChangeType);
-        
+
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
             this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！小关通关后获得奖励
             this.#gameReward.buff = [

@@ -20,7 +20,7 @@ class LaserPet extends Pet {
     }
     
     findClosestEnemy(enemies) {
-        if (!enemies || enemies.length === 0) return null;
+        if (!enemies || enemies.length == 0) return null;
         
         let closestEnemy = null;
         let minDist = Infinity;
@@ -91,7 +91,7 @@ class LaserPet extends Pet {
     
     updateLaser() {
         if (this.laserActive) {
-            if (frameCount % 10 === 0) {
+            if (frameCount % 10 == 0) {
                 if (this.targetEnemy && this.targetEnemy.isAlive) {
                     this.laserAttackCallBack(
                         this.xCoordinate, 

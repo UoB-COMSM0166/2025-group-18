@@ -22,7 +22,7 @@ class InGameUI {
     updatePositions() {
         this.uiX = 30;
         this.uiY = 30;
-        
+
         this.pollutionX = 30;
         this.pollutionY = logicHeight - 250;
     }
@@ -30,7 +30,7 @@ class InGameUI {
     handleWindowResized() {
         this.updatePositions();
     }
-    
+
     applyDynamicScaling() {
         translate(this.uiX + 120, this.uiY + 50);
         scale(this.uiScale);
@@ -50,7 +50,7 @@ class InGameUI {
         this.gold = playerStatus.gold;
 
         this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
-        this.currentHPmax = this.targetHPmax > 0 ? 
+        this.currentHPmax = this.targetHPmax > 0 ?
             lerp(this.currentHPmax, this.targetHPmax, 0.1) : 1;
         this.currentHP = Math.max(0, Math.min(this.currentHP, this.targetHP));
 
@@ -88,10 +88,10 @@ class InGameUI {
         translate(-120, -50);
         textFont(this.font || 'Arial Black');
         textSize(15);
-        
+
         drawingContext.shadowColor = color(255, 215, 0, 150);
         drawingContext.shadowBlur = 5;
-        
+
         fill(255, 215, 0);
         textAlign(LEFT);
         text(`GOLD: ${this.gold}`, 125, 15);
@@ -151,10 +151,10 @@ class InGameUI {
 
         // rect
         const glowSize = 20 + abs(sin(frameCount * 0.1)) * 5;
-        
+
         drawingContext.shadowColor = color(100, 255, 218);
         drawingContext.shadowBlur = glowSize;
-        
+
         fill(0, 180);
         stroke(100, 255, 218);
         strokeWeight(2);
@@ -175,7 +175,7 @@ class InGameUI {
         const barWidth = 200 * hpPercent;
 
         const finalWidth = Math.min(barWidth, 200);
-        
+
         // HPbar background
         fill(50, 100);
         noStroke();
@@ -186,23 +186,18 @@ class InGameUI {
         // 根据血量百分比决定颜色
         let hpColor;
         if (hpPercent < 0.3) {
-            // 血量低于30%显示红色
             hpColor = color(255, 50, 50);
             drawingContext.shadowColor = color(255, 50, 50, 100);
         } else if (hpPercent < 0.6) {
-            // 血量在30%-60%显示黄色
             hpColor = color(255, 215, 0);
             drawingContext.shadowColor = color(255, 215, 0, 100);
         } else {
-            // 血量在60%-100%显示绿色
             hpColor = color(50, 255, 50);
             drawingContext.shadowColor = color(50, 255, 50, 100);
         }
-        
-        // 设置阴影效果
+
         drawingContext.shadowBlur = 10;
-        
-        // 使用确定的颜色绘制血条
+
         fill(hpColor);
         rect(20, 35, finalWidth, 15, 5);
 
@@ -211,7 +206,7 @@ class InGameUI {
         scale(1 + this.hpFlash);
         textFont(this.font || 'Arial Black');
         textSize(15);
-        
+
         // Theodore-血量百分比改变文字颜色
         if (hpPercent < 0.3) {
             fill(255, 150, 150, 220 + 35 * this.hpFlash);
@@ -220,7 +215,7 @@ class InGameUI {
         } else {
             fill(150, 255, 150, 220 + 35 * this.hpFlash);
         }
-        
+
         noStroke();
         textAlign(LEFT, CENTER);
         text(`HP : ${Math.round(this.currentHP)}/${Math.round(this.currentHPmax)}`, 0, 0);
@@ -235,14 +230,14 @@ class InGameUI {
 
         const cd = Math.max(0, playerStatus.skillCD).toFixed(1);
         const flash = this.cdFlash * 255;
-        
+
         push();
         translate(20, 70);
         textFont(this.font || 'Arial Black');
         textSize(15);
-        
+
         drawingContext.shadowColor = color(100, 255, 218, 150);
-        drawingContext.shadowBlur = 5 + flash/10;
+        drawingContext.shadowBlur = 5 + flash / 10;
 
         if (cd == 0) {
             fill(100, 255, 218);

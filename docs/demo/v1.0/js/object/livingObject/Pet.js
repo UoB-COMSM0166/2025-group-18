@@ -40,9 +40,8 @@ class Pet extends BasicObject {
         this.frameCount = 0; 
         this.frames = this.getFrames();
         
-        // 受击闪烁效果属性
         this.isFlashing = false;
-        this.flashDuration = 150; // 闪烁持续时间(毫秒)
+        this.flashDuration = 150;
         this.flashStartTime = 0;
     }
 

@@ -38,23 +38,19 @@ class TutorialUI {
             const textColor = this.isHovered ? color(0) : mainColor;
             const bgColor = this.isHovered ? hoverColor : color(0, 0);
 
-            // 按钮缩放动画
             const currentScale = lerp(this.scale, 1, 0.2);
             translate(this.x + this.w / 2, this.y + this.h / 2);
             scale(currentScale);
 
-            // 阴影效果
             drawingContext.shadowColor = mainColor;
             drawingContext.shadowBlur = this.isHovered ? 40 : 20;
 
-            // 绘制按钮
             fill(bgColor);
             stroke(mainColor);
             strokeWeight(1);
             rectMode(CENTER);
             rect(0, 0, this.w, this.h, 5);
 
-            // 绘制文本
             fill(textColor);
             noStroke();
             textSize(24);
@@ -104,14 +100,10 @@ class TutorialUI {
             () => {
                 if (this.currentStep < this.totalSteps - 1) {
                     this.currentStep++;
-                    this.createButtons(); // 重新创建按钮以更新标签
+                    this.createButtons();
                 } else {
-                    // 当点击 Start Game 按钮时
-                    this.soundEffects.stopAllSounds();  // 停止所有当前音频
-                    this.soundEffects.playHorn();       // 播放喇叭声
-        
-                    // 在喇叭声播放结束后，调用回调函数
-                    // 可以设置一个延时来确保音效有时间播放
+                    this.soundEffects.stopAllSounds();
+                    this.soundEffects.playHorn();
                     setTimeout(() => {
                         if (this.tutorialCompleteCallback) {
                             this.tutorialCompleteCallback();
@@ -150,19 +142,16 @@ class TutorialUI {
         const textColor = color(255);
         const radius = 5;
 
-        // 按键阴影
         if (isActive) {
             drawingContext.shadowColor = keyActiveColor;
             drawingContext.shadowBlur = 15;
         }
 
-        // 按键背景
         fill(isActive ? keyActiveColor : keyColor);
         stroke(isActive ? color(150, 255, 255) : color(100, 100, 100));
         strokeWeight(2);
         rect(x, y, size, size, radius);
 
-        // 按键标签
         fill(isActive ? color(0) : textColor);
         noStroke();
         textSize(size * 0.5);
@@ -181,19 +170,16 @@ class TutorialUI {
         const textColor = color(255);
         const radius = 5;
 
-        // 按键阴影
         if (isActive) {
             drawingContext.shadowColor = keyActiveColor;
             drawingContext.shadowBlur = 15;
         }
 
-        // 空格键背景
         fill(isActive ? keyActiveColor : keyColor);
         stroke(isActive ? color(150, 255, 255) : color(100, 100, 100));
         strokeWeight(2);
         rect(x, y, width, height, radius);
 
-        // 空格键标签
         fill(isActive ? color(0) : textColor);
         noStroke();
         textSize(height * 0.6);
@@ -308,7 +294,7 @@ class TutorialUI {
 
         push();
         switch (this.currentStep) {
-            case 0: // 键盘教程
+            case 0:
                 this.drawKey(
                     leftColumnX,
                     middleY - keySize - keySpacing,
@@ -338,7 +324,6 @@ class TutorialUI {
                     isAnimating && this.currentAnimatedKey == 'D'
                 );
 
-                // 文字描述
                 textAlign(LEFT, CENTER);
                 textSize(24);
                 fill(255);
@@ -361,7 +346,6 @@ class TutorialUI {
                     isAnimating && this.currentAnimatedKey == 'MOUSE'
                 );
 
-                // 文字描述
                 textAlign(LEFT, CENTER);
                 textSize(24);
                 fill(255);
@@ -383,7 +367,6 @@ class TutorialUI {
                     isAnimating && this.currentAnimatedKey == 'SPACE'
                 );
 
-                // 文字描述
                 textAlign(LEFT, CENTER);
                 textSize(24);
                 fill(255);

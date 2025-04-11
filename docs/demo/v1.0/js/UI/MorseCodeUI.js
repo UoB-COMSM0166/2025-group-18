@@ -8,17 +8,17 @@ class MorseCodeUI {
         this.soundEffects.preload();
         this.createButtons();
         this.isPlayingSound = false;
-        this.onSwitchToCaptainUI = null; // 将由MainUI设置
+        this.onSwitchToCaptainUI = null;
     }
 
     // 创建按钮
     createButtons() {
-        // "听摩斯电码"按钮
+        // "摩斯电码"按钮
         const btnWidth = 200;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.7;
-    
+
         this.listenButton = {
             x: btnX,
             y: btnY,
@@ -28,13 +28,11 @@ class MorseCodeUI {
             isHovered: false,
             scale: 1,
             onClick: () => {
-                // 只有未播放时才开始播放
                 if (!this.isPlayingSound) {
                     this.isPlayingSound = true;
                     this.soundEffects.playNoise();
                     setTimeout(() => {
                         this.soundEffects.playEgg();
-                        // 重置播放状态
                         setTimeout(() => {
                             this.isPlayingSound = false;
                         }, 11000);
@@ -54,25 +52,23 @@ class MorseCodeUI {
             scale: 1,
             onClick: () => {
                 if (this.onFinishCallback) {
-                    // 停止所有声音
                     this.soundEffects.stopAllSounds();
                     this.onFinishCallback();
                 }
             }
         };
-        
-        // 修改"解码"按钮的名称和位置
+
+        // "解码"按钮
         this.decodeButton = {
             x: btnX,
             y: btnY - 80,
             w: btnWidth,
             h: btnHeight,
-            label: "解码",  // 修改按钮名称为"解码"
+            label: "解码",
             isHovered: false,
             scale: 1,
             onClick: () => {
                 if (this.onSwitchToCaptainUI) {
-                    // 停止所有声音
                     this.soundEffects.stopAllSounds();
                     this.onSwitchToCaptainUI();
                 }
@@ -90,14 +86,12 @@ class MorseCodeUI {
         push();
         textAlign(CENTER, CENTER);
 
-        // 电码符号
         const dotSize = 8;
         const dashWidth = 24;
         const dashHeight = 8;
         const spacing = 15;
         const lineSpacing = 30;
 
-        // 电码动画
         const timeOffset = frameCount * 0.05;
         const glowIntensity = (sin(timeOffset) + 1) * 0.5;
 
@@ -105,7 +99,6 @@ class MorseCodeUI {
         drawingContext.shadowColor = color(100, 255, 218);
         drawingContext.shadowBlur = 10 + 20 * glowIntensity;
 
-        // 宽度，居中
         const calculateLineWidth = (symbols) => {
             let width = 0;
             for (let symbol of symbols) {
@@ -144,9 +137,8 @@ class MorseCodeUI {
         const firstLineWidth = calculateLineWidth(firstLineSymbols);
         const secondLineWidth = calculateLineWidth(secondLineSymbols);
         const thirdLineWidth = calculateLineWidth(thirdLineSymbols);
-        const yOffset = -80; // 修改此值，将文本向上移动
+        const yOffset = -80;
 
-        // 绘制第一行: OH
         let currentX = x - firstLineWidth / 2;
         for (let symbol of firstLineSymbols) {
             if (symbol == "dot") {
@@ -160,7 +152,6 @@ class MorseCodeUI {
             }
         }
 
-        // 绘制第二行: CAPTAIN 
         currentX = x - secondLineWidth / 2;
         for (let symbol of secondLineSymbols) {
             if (symbol == "dot") {
@@ -174,7 +165,6 @@ class MorseCodeUI {
             }
         }
 
-        // 绘制第三行: MY
         currentX = x - thirdLineWidth / 2;
         for (let symbol of thirdLineSymbols) {
             if (symbol == "dot") {
@@ -188,7 +178,6 @@ class MorseCodeUI {
             }
         }
 
-        // 绘制第四行: CAPTAIN
         currentX = x - secondLineWidth / 2;
         for (let symbol of fourthLineSymbols) {
             if (symbol == "dot") {
@@ -213,23 +202,19 @@ class MorseCodeUI {
         const textColor = btn.isHovered ? color(0) : mainColor;
         const bgColor = btn.isHovered ? hoverColor : color(0, 0);
 
-        // 按钮缩放动画
         const currentScale = lerp(btn.scale, 1, 0.2);
         translate(btn.x + btn.w / 2, btn.y + btn.h / 2);
         scale(currentScale);
 
-        // 阴影效果
         drawingContext.shadowColor = mainColor;
         drawingContext.shadowBlur = btn.isHovered ? 40 : 20;
 
-        // 绘制按钮
         fill(bgColor);
         stroke(mainColor);
         strokeWeight(1);
         rectMode(CENTER);
         rect(0, 0, btn.w, btn.h, 5);
 
-        // 绘制文本
         fill(textColor);
         noStroke();
         textSize(24);
@@ -238,7 +223,6 @@ class MorseCodeUI {
         pop();
     }
 
-    // 检查鼠标悬停
     checkButtonHover(btn) {
         btn.isHovered = (
             logicX > btn.x &&
@@ -246,7 +230,7 @@ class MorseCodeUI {
             logicY > btn.y &&
             logicY < btn.y + btn.h
         );
-        
+
         if (btn.isHovered) {
             this.targetBorderSize = 80;
             this.borderColor = color(100, 255, 218, 102);
@@ -257,16 +241,13 @@ class MorseCodeUI {
     draw() {
         background(0);
 
-        // 标题
         fill(255);
         textSize(36);
         textAlign(CENTER, TOP);
         text("深海信号", logicWidth / 2, logicHeight * 0.1);
 
-        // 绘制摩斯电码
         this.drawMorseCode(logicWidth * 0.5, logicHeight * 0.4);
 
-        // 描述文本
         textAlign(CENTER, CENTER);
         textSize(24);
         fill(255);
@@ -274,10 +255,7 @@ class MorseCodeUI {
 
         textSize(20);
         fill(200);
-        // 将文本向上移动，远离按钮
         text("你听到了吗？一串等待被破译的摩斯电码。", logicWidth * 0.5, logicHeight * 0.5);
-        
-        // 显示正在播放提示
         if (this.isPlayingSound) {
             const pulseAlpha = 127 + 128 * sin(frameCount * 0.1);
             fill(255, 100, 100, pulseAlpha);
@@ -286,16 +264,13 @@ class MorseCodeUI {
             fill(200);
             text('点击"收听信号"来听取这段神秘消息。', logicWidth * 0.5, logicHeight * 0.55);
         }
-        
-        // 将文本向上移动
+
         text("深海的秘密在等待认真倾听的人。", logicWidth * 0.5, logicHeight * 0.6);
 
-        // 检查按钮悬停
         this.checkButtonHover(this.listenButton);
         this.checkButtonHover(this.continueButton);
         this.checkButtonHover(this.decodeButton);
 
-        // 绘制按钮
         this.drawButton(this.listenButton);
         this.drawButton(this.continueButton);
         this.drawButton(this.decodeButton);

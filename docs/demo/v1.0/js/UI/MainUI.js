@@ -30,7 +30,6 @@ class MainUI {
         this.updateChooseGame = updateChooseGame;
         this.updateGoldStatus = updateGoldStatus;
 
-        // 初始化所有UI组件
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
         this.#chooseShipUI = new ChooseShipUI(this.#handleShipSelection.bind(this));
@@ -43,7 +42,7 @@ class MainUI {
         this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
         this.#mapUI.init();
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
-        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this)); // 确保Boss胜利UI正确初始化
+        this.#gameWinBossUI = new GameWinBossUI(this.#handleGameWinBoss.bind(this));
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
         this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
         this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
@@ -61,7 +60,6 @@ class MainUI {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
     }
 
-    // 团队页面
     showTeamUI() {
         if (this.#teamUI == null) {
             this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
@@ -84,7 +82,7 @@ class MainUI {
             this.#teamUI.handleMouseReleased();
         }
     }
-    // 教学页面
+
     showTutorialUI() {
         if (!this.#tutorialUI) {
             this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
@@ -156,7 +154,7 @@ class MainUI {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
         }
-        this.#gameReward = { gold, buff }; // 保存奖励信息
+        this.#gameReward = { gold, buff };
         this.#gameRewardUI.init(buff, gold);
         this.#gameRewardUI.draw(gold);
     }
@@ -328,149 +326,137 @@ class MainUI {
         }
     }
 
-    // 添加显示摩斯电码界面的方法
     showMorseCodeUI() {
         if (!this.#morseCodeUI) {
             this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
         }
-        // 设置切换到CaptainUI的回调
         this.#morseCodeUI.setOnSwitchToCaptainUI(this.#handleMorseCodeToCaptain.bind(this));
         this.#morseCodeUI.draw();
     }
 
-setGameSummaryStats(playerStats) {
-    if (this.#gameSummaryUI == null) {
-        this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+    setGameSummaryStats(playerStats) {
+        if (this.#gameSummaryUI == null) {
+            this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        }
+        this.#gameSummaryUI.setPlayerStats(playerStats);
     }
-    this.#gameSummaryUI.setPlayerStats(playerStats);
-}
 
-// 添加显示游戏结算界面的方法
-showGameSummaryUI(playerStats) {
-    if (!this.#gameSummaryUI) {
-        this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+    showGameSummaryUI(playerStats) {
+        if (!this.#gameSummaryUI) {
+            this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        }
+        this.#gameSummaryUI.setPlayerStats(playerStats);
+        this.#gameSummaryUI.draw();
     }
-    this.#gameSummaryUI.setPlayerStats(playerStats);
-    this.#gameSummaryUI.draw();
-}
 
-// 添加摩斯电码界面的鼠标事件处理方法
-morseCodeUIMousePressed() {
-    if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
-        this.#morseCodeUI.handleMousePressed();
-    }
-}
-
-morseCodeUIMouseReleased() {
-    if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
-        this.#morseCodeUI.handleMouseReleased();
-    }
-}
-
-// 显示Captain UI
-showCaptainUI() {
-    if (!this.#captainUI) {
-        this.#captainUI = new CaptainUI(this.#handleCaptainUIBack.bind(this));
-    }
-    this.#captainUI.draw();
-}
-
-// 处理Captain UI鼠标按下事件
-captainUIMousePressed() {
-    if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
-        this.#captainUI.handleMousePressed();
-    }
-}
-
-// 处理Captain UI鼠标释放事件
-captainUIMouseReleased() {
-    if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
-        this.#captainUI.handleMouseReleased();
-    }
-}
-
-// 添加游戏结算界面的鼠标事件处理方法
-gameSummaryUIMousePressed() {
-    if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
-        this.#gameSummaryUI.handleMousePressed();
-    }
-}
-
-gameSummaryUIMouseReleased() {
-    if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
-        this.#gameSummaryUI.handleMouseReleased();
-    }
-}
-
-windowResized() {
-    switch (this.#currentStep) {
-        case MAIN_STEP_CAPTAIN_UI:
-            if (this.#captainUI) {
-                this.#captainUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_START_UI:
-            if (this.#startUI) {
-                this.#startUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_TUTORIAL_UI:
-            if (this.#tutorialUI) {
-                this.#tutorialUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_CHOOSE_SHIP_UI:
-            if (this.#chooseShipUI) {
-                this.#chooseShipUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_MAP_UI:
-            if (this.#mapUI) {
-                this.#mapUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_IN_GAME:
-            if (this.#inGameUI) {
-                this.#inGameUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_START_UI_TEAM:
-            if (this.#teamUI) {
-                this.#teamUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_WIN_BOSS:
-            if (this.#gameWinBossUI) {
-                this.#gameWinBossUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_MORSE_CODE:
-            if (this.#morseCodeUI) {
-                this.#morseCodeUI.handleWindowResized();
-            }
-            break;
-        case MAIN_STEP_GAME_SUMMARY:
-            if (this.#gameSummaryUI) {
-                this.#gameSummaryUI.handleWindowResized();
-            }
-            break;
+    morseCodeUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
+            this.#morseCodeUI.handleMousePressed();
         }
     }
 
-    // private, callback by StartUI
+    morseCodeUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_MORSE_CODE && this.#morseCodeUI) {
+            this.#morseCodeUI.handleMouseReleased();
+        }
+    }
+
+    showCaptainUI() {
+        if (!this.#captainUI) {
+            this.#captainUI = new CaptainUI(this.#handleCaptainUIBack.bind(this));
+        }
+        this.#captainUI.draw();
+    }
+
+    captainUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
+            this.#captainUI.handleMousePressed();
+        }
+    }
+
+    captainUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_CAPTAIN_UI && this.#captainUI) {
+            this.#captainUI.handleMouseReleased();
+        }
+    }
+
+    gameSummaryUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
+            this.#gameSummaryUI.handleMousePressed();
+        }
+    }
+
+    gameSummaryUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_GAME_SUMMARY && this.#gameSummaryUI) {
+            this.#gameSummaryUI.handleMouseReleased();
+        }
+    }
+
+    windowResized() {
+        switch (this.#currentStep) {
+            case MAIN_STEP_CAPTAIN_UI:
+                if (this.#captainUI) {
+                    this.#captainUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_START_UI:
+                if (this.#startUI) {
+                    this.#startUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_TUTORIAL_UI:
+                if (this.#tutorialUI) {
+                    this.#tutorialUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_CHOOSE_SHIP_UI:
+                if (this.#chooseShipUI) {
+                    this.#chooseShipUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_MAP_UI:
+                if (this.#mapUI) {
+                    this.#mapUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_IN_GAME:
+                if (this.#inGameUI) {
+                    this.#inGameUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_START_UI_TEAM:
+                if (this.#teamUI) {
+                    this.#teamUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_WIN_BOSS:
+                if (this.#gameWinBossUI) {
+                    this.#gameWinBossUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_MORSE_CODE:
+                if (this.#morseCodeUI) {
+                    this.#morseCodeUI.handleWindowResized();
+                }
+                break;
+            case MAIN_STEP_GAME_SUMMARY:
+                if (this.#gameSummaryUI) {
+                    this.#gameSummaryUI.handleWindowResized();
+                }
+                break;
+        }
+    }
+
     #handleStartUIButtonClick(buttonType) {
         if (buttonType == MAIN_STEP_START_UI) {
-            // 进入教程页面
             this.updateStep(MAIN_STEP_TUTORIAL_UI);
         } else if (buttonType == MAIN_STEP_START_UI_TEAM) {
-            // 进入团队页面
             this.updateStep(MAIN_STEP_START_UI_TEAM);
             this.showTeamUI();
         }
     }
 
     #handleTeamUIBack() {
-        // 确保音乐停止
         if (typeof teamThemeMusic !== 'undefined' && teamThemeMusic && teamThemeMusic.isPlaying()) {
             teamThemeMusic.stop();
         }
@@ -555,21 +541,21 @@ windowResized() {
 
     #handleGameWinBoss(selectedType) {
         const bossReward = this.#gameWinBossUI ? this.#gameWinBossUI.bossReward : 300;
-        
+
         if (selectedType == MAIN_STEP_MAP_UI) {
             main.incrementLoopCount();
-            
+
             if (this.updateGoldStatus) {
                 this.updateGoldStatus(bossReward);
             }
-            
+
             if (this.updateStep) {
                 this.updateStep(selectedType);
             }
-            
+
             this.#mapUI = new MapUI(this.#handleGameMapSelection.bind(this));
             this.#mapUI.init();
-        } 
+        }
         else if (selectedType == MAIN_STEP_MORSE_CODE) {
             if (this.updateStep) {
                 this.updateStep(selectedType);
@@ -594,7 +580,7 @@ windowResized() {
             this.updateStep(MAIN_STEP_CAPTAIN_UI);
         }
     }
-    
+
     #handleGameSummaryComplete() {
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_START_UI_TEAM);

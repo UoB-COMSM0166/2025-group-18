@@ -98,7 +98,6 @@ class Game {
     
         let currentEnemies = this.#allEnemies[this.#enemyWave++];
         for (let enemy of currentEnemies) {
-            // 创建基础敌人实例
             const newEnemy = new Enemy(
                 enemy.x * logicWidth,
                 enemy.y * logicHeight,
@@ -120,19 +119,17 @@ class Game {
             
             // 根据轮回次数增强敌人能力
             if (loopCount > 0) {
-                // 更合理的乘数，每轮回增加20%血量和20%攻击力
+                // 每轮回增加20%血量和20%攻击力
                 const hpMultiplier = 1 + (loopCount * 0.2);
                 const attackMultiplier = 1 + (loopCount * 0.2);
-                
-                // 修改：直接更新基础值和最大值
+
                 newEnemy.baseHP = Math.floor(newEnemy.originalBaseHP * hpMultiplier);
                 newEnemy.maxHP = Math.floor(newEnemy.baseHP * this.#pollution.getEffect().healthMul);
-                newEnemy.HP = newEnemy.maxHP; // 确保当前HP等于最大HP
+                newEnemy.HP = newEnemy.maxHP;
                 
                 newEnemy.baseAttack = Math.floor(newEnemy.originalBaseAttack * attackMultiplier);
                 newEnemy.attackPower = Math.floor(newEnemy.baseAttack * this.#pollution.getEffect().damageMul);
-                
-                // 打印调试信息
+                // 测试用
                 console.log(`轮回加成：敌人类型=${enemy.type}, 基础血量=${newEnemy.originalBaseHP}→${newEnemy.baseHP}, 最大血量=${newEnemy.maxHP}, 攻击力=${newEnemy.attackPower}`);
             }
             
@@ -140,7 +137,6 @@ class Game {
         }
     }
     
-    // 2. 更新Game.js的initBoss方法，确保Boss的生命值增益也正确应用
     initBoss(loopCount = 0) {
         const boss = new Boss1(
             logicWidth * 0.5,
@@ -167,19 +163,16 @@ class Game {
         
         // 根据轮回次数增强Boss能力
         if (loopCount > 0) {
-            // 使用较小的乘数，每轮回增加30%血量和25%攻击力
+            // 每轮回增加30%血量和25%攻击力
             const hpMultiplier = 1 + (loopCount * 0.3);
             const attackMultiplier = 1 + (loopCount * 0.25);
-            
-            // 修改：直接更新基础值和最大值
             boss.baseHP = Math.floor(boss.originalBaseHP * hpMultiplier);
             boss.maxHP = Math.floor(boss.baseHP * this.#pollution.getEffect().healthMul);
-            boss.HP = boss.maxHP; // 确保当前HP等于最大HP
-            
+            boss.HP = boss.maxHP;
             boss.baseAttack = Math.floor(boss.originalBaseAttack * attackMultiplier);
             boss.attackPower = Math.floor(boss.baseAttack * this.#pollution.getEffect().damageMul);
             
-            // 添加详细的调试信息
+            // 测试用
             console.log(`轮回加成：Boss类型=${boss.modelType}, 基础血量=${boss.originalBaseHP}→${boss.baseHP}, 最大血量=${boss.maxHP}, 攻击力=${boss.attackPower}`);
         }
         
@@ -421,7 +414,7 @@ class Game {
     addPet() {
         // 随机
         const randomNum = Math.floor(Math.random() * 2);
-        if (randomNum === 0) {
+        if (randomNum == 0) {
             this.addLaserPet();
         } else {
             this.addBulletPet();
@@ -477,7 +470,7 @@ class Game {
                 
                 hitEnemies.push(enemy);
                 
-                if (enemy === mainTarget) {
+                if (enemy == mainTarget) {
                     mainTargetHit = true;
                     // 主目标受到全额伤害
                     enemy.updateHP(-damage);
@@ -503,7 +496,7 @@ class Game {
             }
         }
         
-        if (hitEnemies.length === 0) {
+        if (hitEnemies.length == 0) {
             this.addExplode(
                 endX,
                 endY,
