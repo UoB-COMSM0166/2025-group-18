@@ -44,11 +44,13 @@ class Game {
         this.#loopCount = 0;
     }
 
-    initPlayer(playerBasicStatus) {
+    initPlayer(playerBasicStatus, mapType = 1) {
+        const mapModel = getMapModel(mapType);
+        
         this.#player = new Player(
             "Player",
-            logicWidth * 0.1,
-            logicHeight * 0.5,
+            mapModel.playerStart.x * logicWidth,
+            mapModel.playerStart.y * logicHeight,
             playerBasicStatus.xSize,
             playerBasicStatus.ySize,
             playerBasicStatus.HP,
@@ -72,23 +74,39 @@ class Game {
             (player) => this.findPlayerClosestTarget(player)
         );
         this.#playerBuffController = new BuffController(this.#player);
-
+    
         this.#orbiterPet = new OrbiterPet(
             this.#player, 
-            70,  // orbit radius
-            2,   // orbit speed
-            5,   // attack power
+            70,  // 轨道半径
+            2,   // 轨道速度
+            5,   // 攻击力
             (x, y, harm, attackBit, explodeType) => 
                 this.addExplode(x, y, harm, attackBit, explodeType)
         );
     }
 
     initRandomMap(loopCount = 0) {
+        // 设置地图
         this.mapType = 4;
         //this.mapType = (Math.floor(Date.now() * Math.random())) % 4 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
+        
+
+        const playerBasicStatus = this.#player ? {
+            xSize: this.#player.xSize,
+            ySize: this.#player.ySize,
+            HP: this.#player.HPmax,
+            speed: this.#player.speed,
+            skillCD: this.#player.maxSkillCD,
+            maxSkillCD: this.#player.maxSkillCD
+        } : null;
+        
+        if (playerBasicStatus) {
+            this.initPlayer(playerBasicStatus, this.mapType);
+        }
+        
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
         this.initBuilding(info.building);
