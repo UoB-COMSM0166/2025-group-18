@@ -86,9 +86,9 @@ class Game {
     }
 
     initRandomMap(loopCount = 0) {
-        // 设置地图
-        this.mapType = 8;
-        //this.mapType = (Math.floor(Date.now() * Math.random())) % 8 + 1;
+        // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore
+        //this.mapType = 2;
+        this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
