@@ -17,6 +17,7 @@ class Game {
     #pets;
     #orbiterPet;
     #aoeSkills;
+    #loopCount;
 
     constructor(updateStepCallBack) {
         this.#player = null;
@@ -40,6 +41,7 @@ class Game {
         this.#pets = [];
         this.#orbiterPet = null;
         this.#aoeSkills = [];
+        this.#loopCount = 0;
     }
 
     initPlayer(playerBasicStatus) {
@@ -85,6 +87,7 @@ class Game {
         this.mapType = (Math.floor(Date.now() * Math.random())) % 3 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
+        this.#loopCount = loopCount;
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
         this.initBuilding(info.building);
@@ -138,6 +141,7 @@ class Game {
     }
     
     initBoss(loopCount = 0) {
+        this.#loopCount = loopCount;
         const boss = new Boss1(
             logicWidth * 0.5,
             logicHeight * 0.3,
@@ -394,7 +398,7 @@ class Game {
         }
 
         if (this.#enemies.length == 0) {
-            this.initEnemies();
+            this.initEnemies(null, this.#loopCount);
         }
         
         if (this.#enemies.length == 0) {
