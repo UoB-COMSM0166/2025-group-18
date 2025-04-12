@@ -84,7 +84,8 @@ class Game {
     }
 
     initRandomMap(loopCount = 0) {
-        this.mapType = (Math.floor(Date.now() * Math.random())) % 3 + 1;
+        this.mapType = 4;
+        //this.mapType = (Math.floor(Date.now() * Math.random())) % 4 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
@@ -206,21 +207,22 @@ class Game {
             );
             this.#buildings.push(newBuilding);
         }
-        const chest = new Building(
-            500,
-            500,
-            BUILDING_MODEL_CHEST_TYPE,
-            null,
-        );
-        this.#buildings.push(chest);
+        //Theodore-我们不需要直接在地图上打印了
+        // const chest = new Building(
+        //     500,
+        //     500,
+        //     BUILDING_MODEL_CHEST_TYPE,
+        //     null,
+        // );
+        // this.#buildings.push(chest);
 
-        const rubbish = new Building(
-            600,
-            600,
-            BUILDING_MODEL_RUBBISH_TYPE,
-            null
-        );
-        this.#buildings.push(rubbish);
+        // const rubbish = new Building(
+        //     600,
+        //     600,
+        //     BUILDING_MODEL_RUBBISH_TYPE,
+        //     null
+        // );
+        // this.#buildings.push(rubbish);
     }
 
     getPlayer() {

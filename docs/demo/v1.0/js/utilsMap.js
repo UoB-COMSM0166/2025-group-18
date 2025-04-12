@@ -10,20 +10,20 @@ const MAP_MODEL_MAX_TYPE = 6;
 
 const MAP_MODEL = [
     {
-        modelType : MAP_MODEL_ERROR_TYPE,
-        island : [],
-        building : [],
-        enemy : []
+        modelType: MAP_MODEL_ERROR_TYPE,
+        island: [],
+        building: [],
+        enemy: []
     }, {
-        modelType : MAP_MODEL_1_TYPE,
-        island : [
-            {x : 0.2, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.2, y : 0.8, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.2, type : ISLAND_MODEL_1_TYPE},
-            {x : 0.8, y : 0.8, type : ISLAND_MODEL_1_TYPE},
+        modelType: MAP_MODEL_1_TYPE,
+        island: [
+            { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
         ],
-        building : [
-           // ===== 左侧T：水平线 (x=0.30->0.40, 步=0.005, y=0.30) =====
+        building: [
+            // ===== 左侧T：水平线 (x=0.30->0.40, 步=0.005, y=0.30) =====
             { x: 0.300, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.310, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.320, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
@@ -110,27 +110,27 @@ const MAP_MODEL = [
             { x: 0.650, y: 0.470, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.650, y: 0.490, type: BUILDING_MODEL_TNT_TYPE },
         ],
-        enemy : [
+        enemy: [
             [
-                {x : 0.75, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
-                {x : 0.7, y : 0.5, type : EASY_ENEMY_MODEL_1_TYPE},
-                {x : 0.7, y : 0.7, type : EASY_ENEMY_MODEL_1_TYPE},
-                {x : 0.9, y : 0.3, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.5, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE}
+                { x: 0.75, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.5, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.9, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.5, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.7, type: EASY_ENEMY_MODEL_2_TYPE }
             ],
             [
-                {x : 0.75, y : 0.3, type : EASY_ENEMY_MODEL_1_TYPE},
-                {x : 0.7, y : 0.5, type : EASY_ENEMY_MODEL_1_TYPE},
-                {x : 0.7, y : 0.7, type : EASY_ENEMY_MODEL_1_TYPE},
-                {x : 0.9, y : 0.3, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.5, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE}
+                { x: 0.75, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.5, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.9, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.5, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.7, type: EASY_ENEMY_MODEL_2_TYPE }
             ]
         ]
     }, {
-        modelType : MAP_MODEL_2_TYPE,
-        island : [
+        modelType: MAP_MODEL_2_TYPE,
+        island: [
             // =============== “额头”或“顶部” ===============
             // { x: 0.40, y: 0.12, type: ISLAND_MODEL_3_TYPE },
             // { x: 0.45, y: 0.12, type: ISLAND_MODEL_3_TYPE },
@@ -165,38 +165,38 @@ const MAP_MODEL = [
             // 右下巴(竖向岛)
             { x: 0.56, y: 0.50, type: ISLAND_MODEL_4_TYPE },
 
-             // 骨头A：从(0.40, 0.80)往右上方排到(0.575, 0.975)，共8块
-            { x: 0.40,  y: 0.60,  type: ISLAND_MODEL_5_TYPE },
+            // 骨头A：从(0.40, 0.80)往右上方排到(0.575, 0.975)，共8块
+            { x: 0.40, y: 0.60, type: ISLAND_MODEL_5_TYPE },
             { x: 0.425, y: 0.625, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.45,  y: 0.65,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.45, y: 0.65, type: ISLAND_MODEL_5_TYPE },
             { x: 0.475, y: 0.675, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.50,  y: 0.70,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.50, y: 0.70, type: ISLAND_MODEL_5_TYPE },
             { x: 0.525, y: 0.725, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.55,  y: 0.75,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.55, y: 0.75, type: ISLAND_MODEL_5_TYPE },
             { x: 0.575, y: 0.775, type: ISLAND_MODEL_5_TYPE },
 
             // 骨头B：从(0.60, 0.80)往左上方排到(0.425, 0.975)，共8块
-            { x: 0.60,  y: 0.60,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.60, y: 0.60, type: ISLAND_MODEL_5_TYPE },
             { x: 0.575, y: 0.625, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.55,  y: 0.65,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.55, y: 0.65, type: ISLAND_MODEL_5_TYPE },
             { x: 0.525, y: 0.675, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.50,  y: 0.70,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.50, y: 0.70, type: ISLAND_MODEL_5_TYPE },
             { x: 0.475, y: 0.725, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.45,  y: 0.75,  type: ISLAND_MODEL_5_TYPE },
+            { x: 0.45, y: 0.75, type: ISLAND_MODEL_5_TYPE },
             { x: 0.425, y: 0.775, type: ISLAND_MODEL_5_TYPE },
         ],
-        building : [
+        building: [
             //eye
             { x: 0.45, y: 0.28, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.55, y: 0.28, type: BUILDING_MODEL_TNT_TYPE },
         ],
-        enemy : [
+        enemy: [
             [
-                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.75, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.80, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
-                
+                { x: 0.9, y: 0.7, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
+
                 // =============== “眼睛”区域 ===============
                 // 左眼（中型岛）
                 { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -204,11 +204,11 @@ const MAP_MODEL = [
                 { x: 0.55, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
             ],
             [
-                {x : 0.9, y : 0.7, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.75, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.80, type : EASY_ENEMY_MODEL_2_TYPE},
-                {x : 0.9, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
-                
+                { x: 0.9, y: 0.7, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.9, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
+
                 // =============== “眼睛”区域 ===============
                 // 左眼（中型岛）
                 { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -217,14 +217,14 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType : MAP_MODEL_3_TYPE,
-        island : [
+        modelType: MAP_MODEL_3_TYPE,
+        island: [
             { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
             { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
             { x: 0.8, y: 0.2, type: ISLAND_MODEL_1_TYPE },
             { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
         ],
-        building : [
+        building: [
             { x: 0.5, y: 0, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.05, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             //{ x: 0.5, y: 0.10, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -268,19 +268,19 @@ const MAP_MODEL = [
             { x: 0.95, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 1, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
         ],
-        enemy : [
+        enemy: [
             [
                 { x: 0.25, y: 0.3, type: EASY_ENEMY_MODEL_3_TYPE },
             ], [
-                { x: 0.75, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE},
-                { x: 0.75, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE},
-                { x: 0.80, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE},
-                { x: 0.80, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE},
+                { x: 0.75, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.75, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
             ], [
-                { x: 0.75, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE},
-                { x: 0.75, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE},
-                { x: 0.80, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE},
-                { x: 0.80, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE},
+                { x: 0.75, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.75, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.80, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.80, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
             ], [
                 { x: 0.25, y: 0.75, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.25, y: 0.85, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -289,10 +289,150 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType : MAP_MODEL_BOSS_TYPE,
+        modelType: MAP_MODEL_4_TYPE,//Bristol 地图
         island : [],
-        building : [],
-        enemy : []
+        building : [
+            // 字母 B
+            { x: 0.10, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.30, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.35, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.40, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.40, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.40, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.35, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.40, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.40, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.40, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.35, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            
+            // 字母 R
+            { x: 0.45, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.45, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.50, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.55, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.55, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.55, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.50, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.50, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.52, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.54, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.56, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            
+            // 字母 I
+            { x: 0.62, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.62, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            
+            // 字母 S
+            { x: 0.69, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.74, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.79, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.69, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.69, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.74, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.79, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.79, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.79, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.74, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.69, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            
+            // 字母 T
+            { x: 0.81, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.91, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.86, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            
+            // 字母 O
+            { x: 0.93, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.93, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.93, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.93, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.93, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.93, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.96, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.99, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.02, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.02, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.02, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.02, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.02, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.02, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.96, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.99, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            
+            // 字母 L
+            { x: 1.09, y: 0.32, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.37, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.42, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.47, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.52, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.57, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.62, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.09, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.14, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 1.19, y: 0.67, type: BUILDING_MODEL_CHEST_TYPE },
+        ],
+        enemy : [
+            // 第一波敌人
+            [
+                {x : 0.10, y : 0.10, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.90, y : 0.10, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.10, y : 0.90, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.90, y : 0.90, type : EASY_ENEMY_MODEL_1_TYPE},
+                {x : 0.50, y : 0.10, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.50, y : 0.90, type : EASY_ENEMY_MODEL_2_TYPE}
+            ],
+            // 第二波敌人
+            [
+                {x : 0.15, y : 0.15, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.85, y : 0.15, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.15, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.85, y : 0.85, type : EASY_ENEMY_MODEL_2_TYPE},
+                {x : 0.30, y : 0.10, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.70, y : 0.10, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.30, y : 0.90, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.70, y : 0.90, type : EASY_ENEMY_MODEL_3_TYPE}
+            ],
+            // 第三波敌人
+            [
+                {x : 0.05, y : 0.05, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.95, y : 0.05, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.05, y : 0.95, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.95, y : 0.95, type : EASY_ENEMY_MODEL_3_TYPE},
+                {x : 0.40, y : 0.05, type : EASY_ENEMY_MODEL_4_TYPE},
+                {x : 0.60, y : 0.05, type : EASY_ENEMY_MODEL_4_TYPE},
+                {x : 0.40, y : 0.95, type : EASY_ENEMY_MODEL_4_TYPE},
+                {x : 0.60, y : 0.95, type : EASY_ENEMY_MODEL_4_TYPE}
+            ]
+        ]
+    }, {
+        modelType: MAP_MODEL_BOSS_TYPE,
+        island: [],
+        building: [],
+        enemy: []
     }
 ];
 
