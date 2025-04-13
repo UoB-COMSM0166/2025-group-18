@@ -526,11 +526,38 @@ class MainUI {
         }
     }
 
-    #handleRandomEventSelection(buffType) {
-        if (buffType != -1) {
-            this.updateBuffStatus(buffType);
-        }
-        if (this.updateStep) {
+    #handleRandomEventSelection(eventResult) {
+        console.log("随机事件处理结果:", eventResult);
+        
+        if (eventResult.action == 'gameover') {
+            // 处理游戏结束
+            this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
+            this.#gameOverUI.setDeathReason(eventResult.deathReason || 'generic');
+            this.updateStep(MAIN_STEP_GAME_OVER);
+        } else if (eventResult.action == 'continue') {
+            // 处理继续游戏
+            if (eventResult.goldChange) {
+                console.log("处理金币变化:", eventResult.goldChange);
+                this.updateGoldStatus(eventResult.goldChange);
+            }
+            
+            // 移除buff处理，随机事件不应与buff相关
+            
+            // 处理污染值变化
+            if (eventResult.pollutionChange) {
+                console.log("处理污染值变化:", eventResult.pollutionChange);
+                // 注意：污染值的处理需要通过main对象中的游戏实例更新
+                // 由于当前函数无法直接访问污染值处理方法，先记录到控制台
+            }
+    
+            // 处理生命值变化
+            if (eventResult.healthChange) {
+                console.log("处理生命值变化:", eventResult.healthChange);
+                // 注意：生命值的处理需要通过main对象中的游戏实例更新
+                // 由于当前函数无法直接访问生命值处理方法，先记录到控制台
+            }
+            
+            // 最后回到地图界面
             this.updateStep(MAIN_STEP_MAP_UI);
         }
     }

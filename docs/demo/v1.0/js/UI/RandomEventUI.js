@@ -18,6 +18,7 @@ class RandomEventUI {
         
         // 图片占位
         this.eventImage = null;
+        this.imageLoadError = false; // 新增：标记图片是否加载失败
         
         // 最大事件类型（应与urilsRandomEvents.js保持同步）
         this.MAX_EVENT_TYPES = 5; // 对应RANDOM_EVENT_MAX_TYPE
@@ -37,7 +38,6 @@ class RandomEventUI {
                     description: "发生了错误，但你决定继续前进。",
                     outcomeType: "continue", // continue, gameover, reward
                     goldChange: 0,
-                    buffType: null,
                     pollutionChange: 0
                 },
                 // 拒绝的结果
@@ -45,7 +45,6 @@ class RandomEventUI {
                     description: "你拒绝了这个错误事件。",
                     outcomeType: "continue",
                     goldChange: 0,
-                    buffType: null,
                     pollutionChange: 0
                 },
                 // 事件图片
@@ -64,17 +63,15 @@ class RandomEventUI {
                     outcomeType: "gameover",
                     deathReason: "mermaid", // 特殊死亡原因，用于GameOverUI
                     goldChange: 0,
-                    buffType: null,
                     pollutionChange: 0
                 },
                 declineResult: {
                     description: "你保持警惕，选择远离那些诱人的歌声。明智的选择，海上的传说往往暗藏危机。",
                     outcomeType: "continue",
                     goldChange: 0,
-                    buffType: null,
                     pollutionChange: 0
                 },
-                imagePath: "images/docs/img/png/events/mermaid.png" // 假设路径
+                imagePath: null // 修改：暂时设为null，避免图片加载错误
             },
             {
                 // 宝藏事件
@@ -88,17 +85,15 @@ class RandomEventUI {
                     description: "你小心地打开了宝箱，里面装满了闪闪发光的金币和一些古老的航海用品！这是一笔意外之财！",
                     outcomeType: "reward",
                     goldChange: 100,
-                    buffType: 9, // 使用BuffTypes.GOLD_BONUS的值
                     pollutionChange: 0
                 },
                 declineResult: {
                     description: "你决定不冒险，继续你的航程。谁知道那箱子里有什么呢？",
                     outcomeType: "continue", 
                     goldChange: 0,
-                    buffType: null,
                     pollutionChange: 0
                 },
-                imagePath: "images/docs/img/png/events/treasure.png" // 假设路径
+                imagePath: null // 修改：暂时设为null，避免图片加载错误
             },
             {
                 // 风暴事件
@@ -112,17 +107,16 @@ class RandomEventUI {
                     description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤，但你的勇气换来了宝贵的航行经验！",
                     outcomeType: "damage",
                     healthChange: -10,
-                    buffType: 3, // 使用BuffTypes.SPEED_CHANGE的值
+                    goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
                     description: "你选择安全第一，绕道航行。虽然浪费了一些时间，但至少保全了船只。",
                     outcomeType: "continue",
                     goldChange: -20,
-                    buffType: null,
                     pollutionChange: 0
                 },
-                imagePath: "images/docs/img/png/events/storm.png" // 假设路径
+                imagePath: null // 修改：暂时设为null，避免图片加载错误
             },
             {
                 // 海豚事件
@@ -136,17 +130,15 @@ class RandomEventUI {
                     description: "海豚带领你找到了一处隐藏的航道，帮你避开了危险区域，节省了燃料并减少了污染！",
                     outcomeType: "reward",
                     goldChange: 50,
-                    buffType: null,
                     pollutionChange: -100
                 },
                 declineResult: {
                     description: "你坚持自己的航线，海豚们失望地游走了。也许你错过了什么？",
                     outcomeType: "continue",
                     goldChange: 0,
-                    buffType: null,
                     pollutionChange: 0
                 },
-                imagePath: "images/docs/img/png/events/dolphin.png" // 假设路径
+                imagePath: null // 修改：暂时设为null，避免图片加载错误
             }
         ];
     }
@@ -238,6 +230,8 @@ class RandomEventUI {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
         
+        console.log("初始化随机事件，类型:", eventType);
+        
         // 获取事件模型 - 使用内部定义的DEFAULT_EVENT_MODEL
         try {
             this.#eventModel = this.DEFAULT_EVENT_MODEL[eventType];
@@ -255,11 +249,32 @@ class RandomEventUI {
         this.#showingResult = false;
         this.#selectedChoice = null;
         
-        // 加载图片（如果有）
+        // 重置图片加载状态
+        this.eventImage = null;
+        this.imageLoadError = false;
+        
+        // 尝试加载图片（如果有）
         if (this.#eventModel.imagePath) {
-            this.eventImage = loadImage(this.#eventModel.imagePath);
-        } else {
-            this.eventImage = null;
+            try {
+                // 加载图片并处理错误
+                this.eventImage = loadImage(this.#eventModel.imagePath, 
+                    // 成功回调
+                    () => {
+                        console.log("事件图片加载成功:", this.#eventModel.imagePath);
+                        this.imageLoadError = false;
+                    }, 
+                    // 错误回调
+                    () => {
+                        console.error("事件图片加载失败:", this.#eventModel.imagePath);
+                        this.imageLoadError = true;
+                        this.eventImage = null;
+                    }
+                );
+            } catch (e) {
+                console.error("图片加载错误:", e);
+                this.imageLoadError = true;
+                this.eventImage = null;
+            }
         }
     
         // 创建初始选择按钮
@@ -371,7 +386,6 @@ class RandomEventUI {
                 this.#eventCallbackFunction({
                     action: 'continue',
                     goldChange: result.goldChange || 0,
-                    buffType: result.buffType || null,
                     pollutionChange: result.pollutionChange || 0
                 });
             }
@@ -382,7 +396,7 @@ class RandomEventUI {
                 this.#eventCallbackFunction({
                     action: 'continue',
                     healthChange: result.healthChange || 0,
-                    buffType: result.buffType || null,
+                    goldChange: result.goldChange || 0,
                     pollutionChange: result.pollutionChange || 0
                 });
             }
@@ -422,12 +436,21 @@ class RandomEventUI {
         const imgY = logicHeight * 0.2;
         
         // 绘制图片（如果有）
-        if (this.eventImage) {
+        if (this.eventImage && !this.imageLoadError) {
+            // 图片加载成功，绘制图片
+            imageMode(CENTER);
             image(this.eventImage, imgX + imgWidth/2, imgY + imgHeight/2, imgWidth, imgHeight);
         } else {
-            // 图片占位区域
+            // 图片加载失败或没有图片，绘制占位区域
+            rectMode(CORNER);
             fill(50, 50, 50);
             rect(imgX, imgY, imgWidth, imgHeight);
+            
+            // 在占位区添加一个图标或文字
+            fill(100);
+            textAlign(CENTER, CENTER);
+            textSize(16);
+            text("事件示意图", imgX + imgWidth/2, imgY + imgHeight/2);
         }
         
         // 绘制描述文本
