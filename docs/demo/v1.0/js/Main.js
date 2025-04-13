@@ -365,7 +365,24 @@ class Main {
     }
 
     chooseBuff(buffType) {
-        console.log(buffType);
+        console.log("选择了buff类型:", buffType);
+    
+        // 创建游戏实例(如果不存在)并调用handleBuffSelection
+        if (!this.#game) {
+            this.#game = new Game(
+                (stepChangeType) => this.updateStep(stepChangeType)
+            );
+            this.#game.initPlayer(this.#status.getShipStatus());
+        }
+        
+        // 调用game的handleBuffSelection方法
+        this.#game.handleBuffSelection(buffType);
+
+        // 更新金币奖励
+        this.#status.updateGold(this.#gameReward.gold);
+        
+        // 手动切换回地图界面
+        this.updateStep(MAIN_STEP_MAP_UI);
     }
 
     chooseGameMap(gameType) {

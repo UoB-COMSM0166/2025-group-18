@@ -46,6 +46,7 @@ class MainUI {
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
         this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
         this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        this.gameRewardInitialized = false;
     }
 
     showStartUI() {
@@ -153,9 +154,14 @@ class MainUI {
     showGameRewardUI(gold, buff) {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
+            this.gameRewardInitialized = false;  // 重置初始化标志
         }
         this.#gameReward = { gold, buff };
-        this.#gameRewardUI.init(buff, gold);
+        // 只在第一次或重新进入奖励界面时初始化
+        if (!this.gameRewardInitialized) {
+            this.#gameRewardUI.init(buff, gold);
+            this.gameRewardInitialized = true;
+        }
         this.#gameRewardUI.draw(gold);
     }
 
@@ -509,6 +515,8 @@ class MainUI {
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_MAP_UI);
         }
+        // 添加这一行，当玩家选择了buff后重置标志
+        this.gameRewardInitialized = false;
     }
 
     #handleShoppingSelection(buffType, goldChange) {

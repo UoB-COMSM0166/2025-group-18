@@ -523,15 +523,18 @@ const BUFF_MODEL_MAX_TYPE = 10;
 
 const BuffTypes = {
     ERROR_TYPE: 0,           // Error
-    DAMAGE_CHANGE: 1,        // Damage change
+    DAMAGE_BOOST: 1,        // Damage change
     EXPLODE_CHANGE: 2,       // Explode change
-    SPEED_CHANGE: 3,         // Speed change
+    SPEED_BOOST: 3,         // Speed change
     HEALTH_FULL_RECOVER: 4,  // HP recover
     FIGHT_STRONG_CHANGE: 5,  // Stronger
     HEALTH_CHANGE: 6,        // HP change
     SHIELD_ADD: 7,           // Shield add
     POLLUTION_EFFECT: 8,     // Pollution effect
-    GOLD_BONUS: 9            // Gold add
+    GOLD_BONUS: 9,            // Gold add
+    HEALTH_REGEN: 10,         // 新增：持续生命恢复
+    MAX_HEALTH_BOOST: 11,     // 新增：增加最大生命值
+    SKILL_COOLDOWN: 12        // 新增：技能冷却缩减
 };
 
 const TriggerConditions = {

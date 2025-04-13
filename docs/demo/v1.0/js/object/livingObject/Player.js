@@ -22,6 +22,7 @@ class Player extends BasicObject {
         this.lastFrameTime = 0;
         this.frameInterval = 100;
         this.pets = [];
+        this.buffController = null; // 初始为null，在Game类中设置
 
         this.hasAttackedByAoe = false;
         this.lastAttackByAoeTime = 0;
@@ -30,6 +31,35 @@ class Player extends BasicObject {
         this.isFlashing = false;
         this.flashDuration = 150; // 闪烁持续时间(毫秒)
         this.flashStartTime = 0;
+
+        // buff效果相关属性
+        this.baseSpeed = speed; // 保存基础速度
+        this.damageMultiplier = 1.0; // 伤害倍率
+        this.currentShield = 0; // 当前护盾值
+        this.skillCDReductionRate = 1.0; // 技能冷却缩减率
+    }
+
+    // 添加updateStatus方法来应用buff效果
+    updateStatus() {
+        if (this.buffController) {
+            const effects = this.buffController.getAllActiveEffects();
+            
+            // 应用速度修改
+            this.speed = this.baseSpeed * effects.speedRate;
+            
+            // 应用伤害修正
+            this.damageMultiplier = effects.damageRate;
+            
+            // 应用护盾
+            this.currentShield = effects.shieldValue;
+            
+            // 应用最大生命值提升
+            const oldMaxHP = this.HPmax;
+            this.HPmax = this.HPmax + effects.maxHealthBonus;
+            
+            // 应用技能冷却缩减
+            this.skillCDReductionRate = effects.skillCDRate;
+        }
     }
 
     updateAnimation() {
@@ -111,6 +141,66 @@ class Player extends BasicObject {
         //super.show();
         this.updateAnimation();
         this.drawmainboat();
+
+        // buff视觉效果
+        if (this.buffController) {
+            // 如果有伤害增益，添加红色光环
+            if (this.damageMultiplier > 1.0) {
+                push();
+                noFill();
+                stroke(255, 0, 0, 150);
+                strokeWeight(2);
+                ellipse(this.xCoordinate, this.yCoordinate, this.xSize * 1.5, this.ySize * 1.5);
+                pop();
+            }
+            
+            // 如果有速度增益，添加蓝色拖尾效果
+            if (this.speed > this.baseSpeed) {
+                push();
+                fill(0, 100, 255, 100);
+                noStroke();
+                ellipse(
+                    this.xCoordinate - this.wavePushX * 10,
+                    this.yCoordinate - this.wavePushY * 10,
+                    this.xSize * 0.8, 
+                    this.ySize * 0.8
+                );
+                pop();
+            }
+            
+            // 如果有护盾，添加护盾视觉效果
+            if (this.currentShield > 0) {
+                push();
+                noFill();
+                stroke(100, 200, 255, 150 + 50 * sin(frameCount * 0.1));
+                strokeWeight(3);
+                ellipse(this.xCoordinate, this.yCoordinate, this.xSize * 1.2, this.ySize * 1.2);
+                
+                // 显示护盾数值
+                fill(255);
+                textSize(12);
+                textAlign(CENTER, CENTER);
+                text(Math.round(this.currentShield), this.xCoordinate, this.yCoordinate - this.ySize * 0.7);
+                pop();
+            }
+            
+            // 如果有生命恢复，添加绿色粒子效果
+            if (this.buffController.hasEffectOfType && this.buffController.hasEffectOfType(BuffTypes.HEALTH_REGEN)) {
+                push();
+                fill(0, 255, 100, 150);
+                noStroke();
+                for (let i = 0; i < 3; i++) {
+                    const angle = random(0, TWO_PI);
+                    const dist = random(this.xSize * 0.6, this.xSize * 1.2);
+                    ellipse(
+                        this.xCoordinate + cos(angle) * dist,
+                        this.yCoordinate + sin(angle) * dist,
+                        5, 5
+                    );
+                }
+                pop();
+            }
+        }
     }
 
     updateHP(change) {
