@@ -17,18 +17,24 @@ class MainUI {
     #gameReward = { gold: 0, buff: [] };
     #morseCodeUI;
     #gameSummaryUI;
-
+    #updatePlayerHealth = null;
+    #updatePlayerPollution = null;
 
     constructor(updateStep,
         updateShipStatus,
         updateBuffStatus,
         updateChooseGame,
-        updateGoldStatus) {
+        updateGoldStatus,
+        updatePlayerHealth,
+        updatePlayerPollution)
+    {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
         this.updateChooseGame = updateChooseGame;
         this.updateGoldStatus = updateGoldStatus;
+        this.#updatePlayerHealth = updatePlayerHealth;
+        this.#updatePlayerPollution = updatePlayerPollution;
 
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
@@ -541,20 +547,16 @@ class MainUI {
                 this.updateGoldStatus(eventResult.goldChange);
             }
             
-            // 移除buff处理，随机事件不应与buff相关
-            
-            // 处理污染值变化
-            if (eventResult.pollutionChange) {
-                console.log("处理污染值变化:", eventResult.pollutionChange);
-                // 注意：污染值的处理需要通过main对象中的游戏实例更新
-                // 由于当前函数无法直接访问污染值处理方法，先记录到控制台
+            // 处理生命值变化
+            if (eventResult.healthChange && this.#updatePlayerHealth) {
+                console.log("处理生命值变化:", eventResult.healthChange);
+                this.#updatePlayerHealth(eventResult.healthChange);
             }
     
-            // 处理生命值变化
-            if (eventResult.healthChange) {
-                console.log("处理生命值变化:", eventResult.healthChange);
-                // 注意：生命值的处理需要通过main对象中的游戏实例更新
-                // 由于当前函数无法直接访问生命值处理方法，先记录到控制台
+            // 处理污染值变化
+            if (eventResult.pollutionChange && this.#updatePlayerPollution) {
+                console.log("处理污染值变化:", eventResult.pollutionChange);
+                this.#updatePlayerPollution(eventResult.pollutionChange);
             }
             
             // 最后回到地图界面

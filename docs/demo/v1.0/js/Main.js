@@ -17,10 +17,41 @@ class Main {
             (buffType) => this.chooseBuff(buffType),
             (gameType) => this.chooseGameMap(gameType),
             (goldChange) => this.#status.updateGold(goldChange),
+            // Add new callbacks for health and pollution
+            (healthChange) => this.updatePlayerHealth(healthChange),
+            (pollutionChange) => this.updatePlayerPollution(pollutionChange)
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
         this.deathReason = "";
+    }
+
+    // Add new method to handle health changes from events
+    updatePlayerHealth(healthChange) {
+        if (healthChange && healthChange !== 0) {
+            const currentHP = this.#status.getShipStatus().HP;
+            const newHP = Math.max(0, currentHP + healthChange);
+            console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
+            this.#status.updateHP(newHP);
+        }
+    }
+
+    // Add new method to handle pollution changes from events
+    updatePlayerPollution(pollutionChange) {
+        if (pollutionChange && pollutionChange !== 0) {
+            // Check if we're in a game
+            if (this.#game) {
+                // If in a game, update game's pollution
+                const currentPollution = this.#game.getPlayerStatus().pollution;
+                console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                this.#game.setPollution(currentPollution + pollutionChange);
+            } else {
+                // Otherwise update pollution in status
+                const currentPollution = this.#status.getShipStatus().pollution;
+                console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                this.#status.updatePollution(currentPollution + pollutionChange, null);
+            }
+        }
     }
 
     initMain() {
