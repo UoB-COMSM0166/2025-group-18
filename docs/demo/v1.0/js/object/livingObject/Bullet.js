@@ -88,18 +88,4 @@ class Bullet extends BasicObject {
         // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
         this.drawBullet();
     }
-
-    /*explode() {
-        if (!this.exploded) {
-            fill(0);
-            rect(
-                this.xCoordinate - this.explosionSize / 2, 
-                this.yCoordinate - this.explosionSize / 2, 
-                this.xSize + this.explosionSize, 
-                this.ySize + this.explosionSize
-            );
-            this.exploded = true;
-            console.log("---------Bullet exploded---------");
-        }
-    }*/
 }

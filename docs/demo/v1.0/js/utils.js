@@ -244,6 +244,7 @@ function getPetModel(petType) {
 /** boss model */
 const BOSS_MODEL_ERROR_TYPE = 0;
 const BOSS_MODEL_OCTOPUS_TYPE = 1;
+const BOSS_MODEL_BIRD_TYPE = 2;
 
 const BOSS_MODEL = [
     {
@@ -268,6 +269,17 @@ const BOSS_MODEL = [
         attackCD: 1,
         attackRange: 2000,
         seeRange: 2000,
+    }, {
+        name: "boss_bird",
+        type: BOSS_MODEL_BIRD_TYPE,
+        xSize: 200,
+        ySize: 200,
+        HP: 50,
+        speed: 10,
+        attackPower: 1.5,
+        attackCD: 1,
+        attackRange: 2500,
+        seeRange: 2500,
     }
 ];
 

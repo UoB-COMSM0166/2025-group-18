@@ -15,7 +15,7 @@ let frames = {
     },
     boss: {
         boss_octopus: [],
-        boss_2: [],
+        boss_bird: [],
     },
     aoeSkill: {
         boss_1_skill_1: [],
@@ -104,14 +104,14 @@ let frames = {
     frames.shipMove.DW.push(loadImage('images/docs/img/png/main_boat/right_up/3.png'));
 
     // ------------------------ BOSS 1 ------------------------
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/1.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/2.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/3.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/4.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/5.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/6.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/7.png'));
-    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/8.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/1.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/2.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/3.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/4.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/5.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/6.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/7.png'));
+    frames.boss.boss_octopus.push(loadImage('images/docs/img/png/BOSS/Boss_1/8.png'));
 
     // ------------------------ BOSS 1 技能1 ------------------------
     frames.aoeSkill.boss_1_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_1/1.png'));
@@ -127,6 +127,17 @@ let frames = {
     frames.aoeSkill.boss_1_skill_2_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
     frames.aoeSkill.boss_1_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
 
+    // ------------------------ BOSS 2 ------------------------
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/01.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/02.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/03.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/04.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/05.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/06.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/07.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
+    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
+    
     // ------------------------ 爆炸 ------------------------
     frames.explode.push(loadImage('images/docs/img/png/explode/1.png'));
     frames.explode.push(loadImage('images/docs/img/png/explode/2.png'));
