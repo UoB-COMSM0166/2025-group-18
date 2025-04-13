@@ -32,7 +32,8 @@ class Bullet extends BasicObject {
         this.currentFrame = 0;
         this.frameRate = 10;
         this.frameCount = 0;
-        this.frames = frames.bullet;
+        // this.frames;
+        this.bulletTypes = bulletType;
     }
 
     updateStatus() {
@@ -59,24 +60,56 @@ class Bullet extends BasicObject {
                 this.ySpeed = targetYSpeed;
             }
         }
-        if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        // if (this.frameCount % this.frameRate == 0) {
+        //     this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        // }
+        let framesLength;
+        if (this.bulletTypes == PLAYER_BULLET_TYPE) {
+            framesLength = frames.bullet.length;
+        } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
+            framesLength = frames.enemyBullet.length;
+        } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
+            framesLength = frames.bossBullet.length;
         }
+
+        if (this.frameCount % this.frameRate == 0) {
+            this.currentFrame = (this.currentFrame + 1) % framesLength;
+        }
+
         this.frameCount++;
         this.xCoordinate += this.xSpeed * this.speed;
         this.yCoordinate += this.ySpeed * this.speed;
-        if (this.xCoordinate < 0 || this.xCoordinate > logicWidth || this.yCoordinate < 0 || this.yCoordinate > logicHeight) {
-            this.toDelete = true;
-        }
+        // if (this.xCoordinate < 0 || this.xCoordinate > logicWidth || this.yCoordinate < 0 || this.yCoordinate > logicHeight) {
+        //     this.toDelete = true;
+        // }
     }
 
     drawBullet() {
 
         imageMode(CENTER);
 
-        image(this.frames[this.currentFrame],
-            this.xCoordinate, this.yCoordinate,
-            this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
+        // image(this.frames[this.currentFrame],
+        //     this.xCoordinate, this.yCoordinate,
+        //     this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
+        const angle = Math.atan2(this.ySpeed, this.xSpeed);
+        push();
+        translate(this.xCoordinate, this.yCoordinate);
+        rotate(angle);
+        
+        if (this.bulletTypes == PLAYER_BULLET_TYPE) {
+            image(frames.bullet[this.currentFrame], 0, 0,
+                frames.bullet[this.currentFrame].width / 4, 
+                frames.bullet[this.currentFrame].height / 4);
+        } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
+            image(frames.enemyBullet[this.currentFrame], 0, 0,
+                frames.enemyBullet[this.currentFrame].width / 4, 
+                frames.enemyBullet[this.currentFrame].height / 4);    
+        } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
+            image(frames.bossBullet[this.currentFrame], 0, 0,
+                frames.bossBullet[this.currentFrame].width / 20, 
+                frames.bossBullet[this.currentFrame].height / 20);    
+        }
+        pop();
     }
 
     show() {
@@ -88,18 +121,4 @@ class Bullet extends BasicObject {
         // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
         this.drawBullet();
     }
-
-    /*explode() {
-        if (!this.exploded) {
-            fill(0);
-            rect(
-                this.xCoordinate - this.explosionSize / 2, 
-                this.yCoordinate - this.explosionSize / 2, 
-                this.xSize + this.explosionSize, 
-                this.ySize + this.explosionSize
-            );
-            this.exploded = true;
-            console.log("---------Bullet exploded---------");
-        }
-    }*/
 }
