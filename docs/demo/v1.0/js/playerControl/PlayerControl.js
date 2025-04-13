@@ -174,7 +174,10 @@ class PlayerControl {
 
     updateSkillCD() {
         if (this.#player.skillCD > 0) {
-            this.#player.skillCD -= (deltaTime / 1000);
+            // 应用冷却缩减效果
+            const reduction = this.#player.skillCDReductionRate || 1.0;
+            // 冷却速度更快（乘以reduction，减少剩余时间）
+            this.#player.skillCD -= (deltaTime / 1000)* (1 / reduction);
             // this.#player.skillCD = this.#player.skillCD;
             this.#player.skillCD = Math.max(0, this.#player.skillCD);
         }

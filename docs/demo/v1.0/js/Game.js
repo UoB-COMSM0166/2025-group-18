@@ -44,6 +44,37 @@ class Game {
         this.#loopCount = 0;
     }
 
+
+    // 处理buff选择回调
+    handleBuffSelection(buffType) {
+        let newBuff = null;
+        
+        switch(buffType) {
+            case BuffTypes.DAMAGE_BOOST:
+                newBuff = Buff.createDamageBoostBuff(0.2, 60000); // 增加20%伤害，持续60秒
+                break;
+            case BuffTypes.SPEED_BOOST:
+                newBuff = Buff.createSpeedBoostBuff(0.15, 45000); // 增加15%速度，持续45秒
+                break;
+            case BuffTypes.HEALTH_REGEN:
+                newBuff = Buff.createHealthRegenBuff(1, 30000); // 每秒恢复1点生命，持续30秒
+                break;
+            case BuffTypes.SHIELD_ADD:
+                newBuff = Buff.createShield(10, 30000); // 10点护盾，持续30秒
+                break;
+            case BuffTypes.MAX_HEALTH_BOOST:
+                newBuff = Buff.createMaxHealthBoost(5); // 永久增加5点最大生命值
+                break;
+            case BuffTypes.SKILL_COOLDOWN:
+                newBuff = Buff.createSkillCooldownReduction(0.2, 45000); // 减少20%冷却，持续45秒
+                break;
+        }
+        
+        if (newBuff && this.#playerBuffController) {
+            this.#playerBuffController.addNewBuff(newBuff);
+        }
+    }
+
     initPlayer(playerBasicStatus, mapType = 1) {
         const mapModel = getMapModel(mapType);
         
@@ -74,6 +105,7 @@ class Game {
             (player) => this.findPlayerClosestTarget(player)
         );
         this.#playerBuffController = new BuffController(this.#player);
+        this.#player.buffController = this.#playerBuffController; // 设置player的buffController
     
         this.#orbiterPet = new OrbiterPet(
             this.#player, 
@@ -248,13 +280,22 @@ class Game {
     }
 
     getPlayerStatus() {
+        const activeBuffs = [];
+        if (this.#playerBuffController) {
+            this.#playerBuffController.activeBuffList.forEach((buff) => {
+                activeBuffs.push(buff);
+            });
+        }
+
         const playerStatus = {
             HP: this.#player.HP,
             HPmax: this.#player.HPmax,
             skillCD: this.#player.skillCD,
             maxSkillCD: this.#player.maxSkillCD,
             pollution: this.#pollution.pollution,
-            pollutionLevel: this.#pollution.pollutionLevel
+            pollutionLevel: this.#pollution.pollutionLevel,
+            activeBuffs: activeBuffs,
+            gold: this.#player.gold || 0 // 确保有gold属性
         };
         return playerStatus;
     }
@@ -393,6 +434,7 @@ class Game {
         }
 
         this.#playerController.updateStatus();
+        this.#player.updateStatus(); // 添加这一行，应用buff效果
         this.#player.show();
 
         for (let island of this.#islands) {
@@ -403,6 +445,10 @@ class Game {
             for (let i = this.#enemies.length - 1; i >= 0; --i) {
                 let enemy = this.#enemies[i];
                 if (!enemy.isAlive) {
+                    // 检查是否是easy_enemy_3类型，并随机给予buff
+                    if (enemy.modelType === EASY_ENEMY_MODEL_3_TYPE) {
+                        this.giveRandomBuffAfterKill();
+                    }
                     if (enemy instanceof Boss) {
                         this.#pollution.increasePollution("boss_kill", 0.5 * enemy.maxHP);
                     } else {
@@ -433,6 +479,36 @@ class Game {
 
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
+    }
+
+    // 添加一个新方法来给予随机buff
+    giveRandomBuffAfterKill() {
+        const randomValue = Math.random();
+        let newBuff = null;
+        
+        if (randomValue < 0.2) { // 20%几率获得伤害buff
+            newBuff = Buff.createDamageBoostBuff(0.2, 30000); // 增加20%伤害，持续30秒
+        } else if (randomValue < 0.4) { // 20%几率获得速度buff
+            newBuff = Buff.createSpeedBoostBuff(0.15, 20000); // 增加15%速度，持续20秒
+        } else if (randomValue < 0.6) { // 20%几率获得生命恢复
+            newBuff = Buff.createHealthRegenBuff(1, 15000); // 每秒恢复1点生命，持续15秒
+        } else if (randomValue < 0.8) { // 20%几率获得护盾
+            newBuff = Buff.createShield(10, 20000); // 10点护盾，持续20秒
+        } else { // 20%几率获得技能冷却缩减
+            newBuff = Buff.createSkillCooldownReduction(0.2, 25000); // 减少20%冷却，持续25秒
+        }
+        
+        if (newBuff && this.#playerBuffController) {
+            this.#playerBuffController.addNewBuff(newBuff);
+            // 可以添加一个通知方法
+            this.showBuffNotification(`获得${newBuff.description}！`);
+        }
+    }
+
+    // 添加一个通知方法（如果需要的话）
+    showBuffNotification(message) {
+        console.log(message);
+        // 这里可以添加游戏内通知的逻辑
     }
 
     addPet() {

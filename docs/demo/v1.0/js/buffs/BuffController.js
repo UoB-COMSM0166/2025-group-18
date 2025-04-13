@@ -52,6 +52,11 @@ class BuffController {
         this.activeBuffList.delete(targetType);
     }
 
+    // 添加hasEffectOfType方法
+    hasEffectOfType(effectType) {
+        return this.activeBuffList.has(effectType);
+    }
+
     updateFrame(curTime) {
         // handle buff expiration
         this.activeBuffList.forEach((buff, type) => {
@@ -68,6 +73,13 @@ class BuffController {
                     break;
                 case BuffTypes.POLLUTION_EFFECT:
                     this.target.HP -= buff.currentEffectValue * ((curTime - buff.startTime) / 1000);
+                    break;
+                case BuffTypes.HEALTH_REGEN:
+                    // 每秒恢复buff.currentEffectValue点生命值
+                    const deltaTime = curTime - buff.startTime;
+                    const healAmount = buff.currentEffectValue * (deltaTime / 1000);
+                    this.target.updateHP(healAmount);
+                    buff.startTime = curTime; // 重置计时，避免重复计算
                     break;
             }
         });
@@ -89,7 +101,9 @@ class BuffController {
         return {
             speedRate: this.calcSpeedChange(),
             damageRate: this.calcDamageChange(),
-            shieldValue: this.temporaryShield
+            shieldValue: this.temporaryShield,
+            maxHealthBonus: this.calcMaxHealthBoost(),
+            skillCDRate: this.calcSkillCooldownReduction()
         };
     }
 
@@ -121,5 +135,27 @@ class BuffController {
             }
         });
         return total;
+    }
+
+    // 计算最大生命值提升
+    calcMaxHealthBoost() {
+        let bonus = 0;
+        this.activeBuffList.forEach(buff => {
+            if (buff.effectType == BuffTypes.MAX_HEALTH_BOOST) {
+                bonus += buff.currentEffectValue;
+            }
+        });
+        return bonus;
+    }
+
+    // 计算技能冷却缩减
+    calcSkillCooldownReduction() {
+        let rate = 1.0;
+        this.activeBuffList.forEach(buff => {
+            if (buff.effectType == BuffTypes.SKILL_COOLDOWN) {
+                rate *= (1 - buff.currentEffectValue); // 注意这里是减少，所以用1-value
+            }
+        });
+        return rate;
     }
 }

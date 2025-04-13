@@ -80,6 +80,11 @@ class InGameUI {
         pop();
 
         this.drawPollutionStatus();
+
+        // 显示活跃buff
+        if (playerStatus.activeBuffs) {
+            this.drawActiveBuffs(playerStatus.activeBuffs);
+        }
     }
 
     // Theodore-金币显示
@@ -138,6 +143,89 @@ class InGameUI {
         pop();
 
         pop();
+    }
+
+    // 添加drawActiveBuffs方法
+    drawActiveBuffs(buffs) {
+        const startX = 30;
+        const startY = 200;
+        const iconSize = 40;
+        const spacing = 10;
+        
+        buffs.forEach((buff, index) => {
+            const y = startY + (iconSize + spacing) * index;
+            
+            // 绘制buff图标
+            fill(50);
+            stroke(100, 255, 218);
+            strokeWeight(2);
+            rect(startX, y, iconSize, iconSize, 5);
+            
+            // 根据buff类型显示不同颜色和图标
+            let buffColor;
+            let buffText;
+            
+            switch(buff.effectType) {
+                case BuffTypes.DAMAGE_BOOST:
+                    buffColor = color(255, 50, 50);
+                    buffText = "DMG";
+                    break;
+                case BuffTypes.SPEED_BOOST:
+                    buffColor = color(50, 150, 255);
+                    buffText = "SPD";
+                    break;
+                case BuffTypes.HEALTH_REGEN:
+                    buffColor = color(50, 255, 100);
+                    buffText = "HP+";
+                    break;
+                case BuffTypes.SHIELD_ADD:
+                    buffColor = color(100, 200, 255);
+                    buffText = "DEF";
+                    break;
+                case BuffTypes.MAX_HEALTH_BOOST:
+                    buffColor = color(255, 100, 255);
+                    buffText = "MHP";
+                    break;
+                case BuffTypes.SKILL_COOLDOWN:
+                    buffColor = color(255, 255, 0);
+                    buffText = "CDR";
+                    break;
+                default:
+                    buffColor = color(200);
+                    buffText = "?";
+            }
+            
+            fill(buffColor);
+            textAlign(CENTER, CENTER);
+            textSize(16);
+            text(buffText, startX + iconSize/2, y + iconSize/2);
+            
+            // 如果有持续时间，显示剩余时间
+            if (buff.totalDuration > 0) {
+                const remaining = (buff.totalDuration - (Date.now() - buff.startTime)) / 1000;
+                if (remaining > 0) {
+                    fill(255);
+                    textSize(12);
+                    text(Math.ceil(remaining) + "s", startX + iconSize/2, y + iconSize + 12);
+                    
+                    // 显示时间条
+                    noStroke();
+                    fill(50);
+                    rect(startX, y + iconSize + 3, iconSize, 5);
+                    fill(buffColor);
+                    const barWidth = (remaining / (buff.totalDuration/1000)) * iconSize;
+                    rect(startX, y + iconSize + 3, barWidth, 5);
+                }
+            }
+            
+            // 如果有叠加层数，显示层数
+            if (buff.currentStack > 1) {
+                fill(255);
+                textSize(14);
+                textAlign(RIGHT, TOP);
+                text("x" + buff.currentStack, startX + iconSize - 2, y + 2);
+            }
+        });
     }
 
     applyDynamicScaling() {
