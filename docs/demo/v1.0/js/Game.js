@@ -46,7 +46,7 @@ class Game {
 
     initPlayer(playerBasicStatus, mapType = 1) {
         const mapModel = getMapModel(mapType);
-        
+
         this.#player = new Player(
             "Player",
             mapModel.playerStart.x * logicWidth,
@@ -74,13 +74,13 @@ class Game {
             (player) => this.findPlayerClosestTarget(player)
         );
         this.#playerBuffController = new BuffController(this.#player);
-    
+
         this.#orbiterPet = new OrbiterPet(
-            this.#player, 
+            this.#player,
             70,  // 轨道半径
             2,   // 轨道速度
             5,   // 攻击力
-            (x, y, harm, attackBit, explodeType) => 
+            (x, y, harm, attackBit, explodeType) =>
                 this.addExplode(x, y, harm, attackBit, explodeType)
         );
     }
@@ -92,7 +92,7 @@ class Game {
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
-        
+
 
         const playerBasicStatus = this.#player ? {
             xSize: this.#player.xSize,
@@ -102,11 +102,38 @@ class Game {
             skillCD: this.#player.maxSkillCD,
             maxSkillCD: this.#player.maxSkillCD
         } : null;
-        
+
         if (playerBasicStatus) {
             this.initPlayer(playerBasicStatus, this.mapType);
         }
-        
+
+        this.initEnemies(info.enemy, loopCount);
+        this.initIslands(info.island);
+        this.initBuilding(info.building);
+    }
+
+    initRandomBossMap(loopCount = 0) {
+        // this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + MAP_MODEL_BOSS_1_TYPE;
+        this.mapType = MAP_MODEL_BOSS_2_TYPE;
+        let info = getMapModel(this.mapType);
+        this.#allEnemies = info.enemy;
+        this.#loopCount = loopCount;
+
+
+        const playerBasicStatus = this.#player ? {
+            xSize: this.#player.xSize,
+            ySize: this.#player.ySize,
+            HP: this.#player.HPmax,
+            speed: this.#player.speed,
+            skillCD: this.#player.maxSkillCD,
+            maxSkillCD: this.#player.maxSkillCD
+        } : null;
+
+        if (playerBasicStatus) {
+            this.initPlayer(playerBasicStatus, this.mapType);
+        }
+
+        this.initBoss(info.boss, loopCount);
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
         this.initBuilding(info.building);
@@ -117,7 +144,7 @@ class Game {
         if (this.#enemyWave >= this.#allEnemies.length) {
             return;
         }
-    
+
         let currentEnemies = this.#allEnemies[this.#enemyWave++];
         for (let enemy of currentEnemies) {
             const newEnemy = new Enemy(
@@ -138,7 +165,7 @@ class Game {
                 (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
                 this.#pollution
             );
-            
+
             // 根据轮回次数增强敌人能力
             if (loopCount > 0) {
                 // 每轮回增加20%血量和20%攻击力
@@ -148,42 +175,70 @@ class Game {
                 newEnemy.baseHP = Math.floor(newEnemy.originalBaseHP * hpMultiplier);
                 newEnemy.maxHP = Math.floor(newEnemy.baseHP * this.#pollution.getEffect().healthMul);
                 newEnemy.HP = newEnemy.maxHP;
-                
+
                 newEnemy.baseAttack = Math.floor(newEnemy.originalBaseAttack * attackMultiplier);
                 newEnemy.attackPower = Math.floor(newEnemy.baseAttack * this.#pollution.getEffect().damageMul);
                 // 测试用
                 console.log(`轮回加成：敌人类型=${enemy.type}, 基础血量=${newEnemy.originalBaseHP}→${newEnemy.baseHP}, 最大血量=${newEnemy.maxHP}, 攻击力=${newEnemy.attackPower}`);
             }
-            
+
             this.#enemies.push(newEnemy);
         }
     }
-    
-    initBoss(loopCount = 0) {
+
+    initBoss(bossInfo, loopCount = 0) {
         this.#loopCount = loopCount;
-        const boss = new Boss1(
-            logicWidth * 0.5,
-            logicHeight * 0.3,
-            (
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ) => this.addBullet(
-                xSpeed, ySpeed,
-                bulletType, bulletMoveType,
-                attackPower,
-                enemy
-            ),
-            (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
-            (
-                xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
-            ) => this.addBossAoeSkill(
-                xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
-            ),
-            this.#pollution
-        );
-        
+        console.log(bossInfo);
+        let boss = null;
+        if (bossInfo[0].type == BOSS_MODEL_OCTOPUS_TYPE) {
+            boss = new Boss1(
+                logicWidth * bossInfo[0].x,
+                logicHeight * bossInfo[0].y,
+                (
+                    xSpeed, ySpeed,
+                    bulletType, bulletMoveType,
+                    attackPower,
+                    enemy
+                ) => this.addBullet(
+                    xSpeed, ySpeed,
+                    bulletType, bulletMoveType,
+                    attackPower,
+                    enemy
+                ),
+                (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+                (
+                    xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+                ) => this.addBossAoeSkill(
+                    xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+                ),
+                this.#pollution
+            );
+            console.log("Boss1 created");
+        } else if (bossInfo[0].type == BOSS_MODEL_BIRD_TYPE) {
+            boss = new Boss2(
+                logicWidth * bossInfo[0].x,
+                logicHeight * bossInfo[0].y,
+                (
+                    xSpeed, ySpeed,
+                    bulletType, bulletMoveType,
+                    attackPower,
+                    enemy
+                ) => this.addBullet(
+                    xSpeed, ySpeed,
+                    bulletType, bulletMoveType,
+                    attackPower,
+                    enemy
+                ),
+                (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+                (
+                    xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+                ) => this.addBossAoeSkill(
+                    xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+                ),
+                this.#pollution
+            );
+        }
+
         // 根据轮回次数增强Boss能力
         if (loopCount > 0) {
             // 每轮回增加30%血量和25%攻击力
@@ -194,14 +249,14 @@ class Game {
             boss.HP = boss.maxHP;
             boss.baseAttack = Math.floor(boss.originalBaseAttack * attackMultiplier);
             boss.attackPower = Math.floor(boss.baseAttack * this.#pollution.getEffect().damageMul);
-            
+
             // 测试用
             console.log(`轮回加成：Boss类型=${boss.modelType}, 基础血量=${boss.originalBaseHP}→${boss.baseHP}, 最大血量=${boss.maxHP}, 攻击力=${boss.attackPower}`);
         }
-        
+
         this.#enemies.push(boss);
     }
-    
+
 
     initIslands(islands) {
         for (let island of islands) {
@@ -383,7 +438,7 @@ class Game {
             this.deathReason = "hp";
             console.log("Game Over! HP depleted");
         }
-        
+
         const pollutionEffect = this.#pollution.getEffect();
         if (pollutionEffect.playerDeath) {
             this.#gameOver = true;
@@ -420,7 +475,7 @@ class Game {
         if (this.#enemies.length == 0) {
             this.initEnemies(null, this.#loopCount);
         }
-        
+
         if (this.#enemies.length == 0) {
             this.#gameWin = true;
         }
@@ -450,10 +505,10 @@ class Game {
             console.log("Laser() Skill is not ready");
             return;
         }
-        
+
         const petX = this.#player.xCoordinate;
         const petY = this.#player.yCoordinate;
-        
+
         const pet = new LaserPet(
             petX,
             petY,
@@ -471,34 +526,34 @@ class Game {
             ),
             (xMove, yMove, pet) => this.petMove(xMove, yMove, pet),
             this.#pollution,
-            (startX, startY, endX, endY, damage, targetEnemy) => 
+            (startX, startY, endX, endY, damage, targetEnemy) =>
                 this.createLaserBeam(startX, startY, endX, endY, damage, targetEnemy)
         );
-        
+
         this.#pets.push(pet);
         this.#pollution.increasePollution("skill");
-        
+
         this.#player.skillCD = this.#player.maxSkillCD;
     }
 
     createLaserBeam(startX, startY, endX, endY, damage, targetEnemy) {
         const hitEnemies = [];
-        
+
         let mainTarget = targetEnemy;
         let mainTargetHit = false;
-        
+
         for (let enemy of this.#enemies) {
             if (enemy.isAlive && this.lineIntersectsCircle(
-                startX, startY, endX, endY, 
+                startX, startY, endX, endY,
                 enemy.xCoordinate, enemy.yCoordinate, enemy.xSize / 2)) {
-                
+
                 hitEnemies.push(enemy);
-                
+
                 if (enemy == mainTarget) {
                     mainTargetHit = true;
                     // 主目标受到全额伤害
                     enemy.updateHP(-damage);
-                    
+
                     this.addExplode(
                         enemy.xCoordinate,
                         enemy.yCoordinate,
@@ -508,7 +563,7 @@ class Game {
                     );
                 } else {
                     enemy.updateHP(-damage * 0.5);
-                    
+
                     this.addExplode(
                         enemy.xCoordinate,
                         enemy.yCoordinate,
@@ -519,7 +574,7 @@ class Game {
                 }
             }
         }
-        
+
         if (hitEnemies.length == 0) {
             this.addExplode(
                 endX,
@@ -529,44 +584,44 @@ class Game {
                 EXPLODE_MODEL_BULLET_TYPE
             );
         }
-        
+
         return hitEnemies;
     }
 
     lineIntersectsCircle(x1, y1, x2, y2, cx, cy, r) {
         const dx = x2 - x1;
         const dy = y2 - y1;
-        
+
         // 1 到圆心距离
         const pCx = cx - x1;
         const pCy = cy - y1;
-        
+
         const lengthSquared = dx * dx + dy * dy;
-        
+
         // 点积
         const dot = pCx * dx + pCy * dy;
-        
+
         // 圆心对线段投影
         const projX = x1 + (dot * dx) / lengthSquared;
         const projY = y1 + (dot * dy) / lengthSquared;
-        
+
         // 投影点是否在线段上
-        const onSegment = 
+        const onSegment =
             (projX >= Math.min(x1, x2) && projX <= Math.max(x1, x2)) &&
             (projY >= Math.min(y1, y2) && projY <= Math.max(y1, y2));
-        
+
         // 端点检查
         if (!onSegment) {
             const dist1 = Math.sqrt((cx - x1) * (cx - x1) + (cy - y1) * (cy - y1));
             const dist2 = Math.sqrt((cx - x2) * (cx - x2) + (cy - y2) * (cy - y2));
             return dist1 <= r || dist2 <= r;
         }
-        
+
         // 圆心到投影点的距离
         const distToLine = Math.sqrt(
             Math.pow(cx - projX, 2) + Math.pow(cy - projY, 2)
         );
-        
+
         return distToLine <= r;
     }
 
@@ -629,11 +684,15 @@ class Game {
         for (let enemy of this.#enemies) {
             if (myCollide(location, enemy)) {
                 // Theodore-特殊处理Boss的碰撞
-                if (enemy instanceof Boss) {
+                if (enemy instanceof Boss1) {
                     return true;
                 }
                 if (millis() - enemy.lastCollideTime > 1000) {
-                    this.#player.updateHP(enemy.attackPower * -1);
+                    if (enemy instanceof Boss2) {
+                        this.#player.updateHP(enemy.attackPower * -10);
+                    } else {
+                        this.#player.updateHP(enemy.attackPower * -1);
+                    }
                     enemy.lastCollideTime = millis();
                 }
                 // return true;
@@ -905,11 +964,11 @@ class Game {
             console.log("Laser() Skill is not ready");
             return;
         }
-        
+
         // 原地召唤
         const petX = this.#player.xCoordinate;
         const petY = this.#player.yCoordinate;
-        
+
         const pet = new Pet(
             petX,
             petY,
@@ -928,12 +987,12 @@ class Game {
             (xMove, yMove, pet) => this.petMove(xMove, yMove, pet),
             this.#pollution
         );
-        
+
         this.#pets.push(pet);
         this.#pollution.increasePollution("skill");
-        
+
         this.#player.skillCD = this.#player.maxSkillCD;
-        
+
         // console.log("Pet =========================");
     }
 
@@ -964,7 +1023,7 @@ class Game {
                 return true;
             }
         }
-        
+
         for (let building of this.#buildings) {
             if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
                 continue;
@@ -973,7 +1032,7 @@ class Game {
                 return true;
             }
         }
-        
+
         return false;
     }
 

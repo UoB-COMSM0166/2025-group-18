@@ -10,8 +10,9 @@ const MAP_MODEL_6_TYPE = 6;
 const MAP_MODEL_7_TYPE = 7;
 const MAP_MODEL_8_TYPE = 8;
 const MAP_MODEL_9_TYPE = 9;
-const MAP_MODEL_BOSS_TYPE = 10;
-const MAP_MODEL_MAX_TYPE = 11;
+const MAP_MODEL_BOSS_1_TYPE = 10;
+const MAP_MODEL_BOSS_2_TYPE = 11;
+const MAP_MODEL_MAX_TYPE = 12;
 
 const MAP_MODEL = [
     {
@@ -1203,11 +1204,29 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_BOSS_TYPE,
-        playerStart: { x: 0.1, y: 0.5 },
+        modelType: MAP_MODEL_BOSS_1_TYPE,
+        playerStart: { x: 0.5, y: 0.9 },
         island: [],
         building: [],
-        enemy: []
+        enemy: [],
+        boss: [
+            { x: 0.5, y: 0.3, type: BOSS_MODEL_OCTOPUS_TYPE },
+        ]
+    }, {
+        modelType: MAP_MODEL_BOSS_2_TYPE,
+        playerStart: { x: 0.5, y: 0.9 },
+        island: [
+            { x: 0.2, y: 0.3, type: ISLAND_MODEL_2_TYPE },
+            { x: 0.8, y: 0.2, type: ISLAND_MODEL_2_TYPE },
+            { x: 0.3, y: 0.8, type: ISLAND_MODEL_2_TYPE },
+            { x: 0.7, y: 0.7, type: ISLAND_MODEL_2_TYPE },
+            { x: 0.5, y: 0.4, type: ISLAND_MODEL_2_TYPE }
+        ],
+        building: [],
+        enemy: [],
+        boss: [
+            { x: 0.5, y: 0.3, type: BOSS_MODEL_BIRD_TYPE },
+        ]
     }
 
     //请在修复加载方法后启用，这是一个极限测试-Theodore

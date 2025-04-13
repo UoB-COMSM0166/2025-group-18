@@ -138,6 +138,10 @@ let frames = {
     frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
     frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
     
+    // ------------------------ BOSS 2 技能2 ------------------------
+    frames.aoeSkill.boss_2_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_2_skill_1/1.png'));
+    // frames.aoeSkill.boss_2_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
+
     // ------------------------ 爆炸 ------------------------
     frames.explode.push(loadImage('images/docs/img/png/explode/1.png'));
     frames.explode.push(loadImage('images/docs/img/png/explode/2.png'));
