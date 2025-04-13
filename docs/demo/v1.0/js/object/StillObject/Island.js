@@ -12,7 +12,8 @@
             1,
             0
         );
-        this.modelType = islandModel.type;
+        this.modelType = Math.floor(Math.random() * frames.island.length);
+
         this.frames = this.getFrames();
 
     }
