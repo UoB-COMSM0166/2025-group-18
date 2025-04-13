@@ -50,7 +50,7 @@ class Status {
     }
 
     updateHP(HP) {
-        this.#playerStatus.HP = HP;
+        this.#playerStatus.HP = Math.min(HP, this.#playerStatus.HPmax);
     }
     
     recoverToMaxHP() {
@@ -76,7 +76,8 @@ class Status {
     }
 
     updateGold(goldChange) {
-        this.#playerStatus.gold += goldChange;
+        const newGold = this.#playerStatus.gold + goldChange;
+        this.#playerStatus.gold = Math.max(0, newGold);
     }
     
     // 增加轮回次数

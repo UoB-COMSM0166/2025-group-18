@@ -52,12 +52,14 @@ class RandomEventUI {
                     description: "你被歌声迷惑，驾船靠近。当你距离足够近时，美人鱼们露出了可怕的真面目！她们锋利的爪子撕裂了船体，将你拖入水中...",
                     outcomeType: "gameover",
                     deathReason: "mermaid",
+                    healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
                     description: "你保持警惕，选择远离那些诱人的歌声。明智的选择，海上的传说往往暗藏危机。",
                     outcomeType: "continue",
+                    healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
@@ -74,12 +76,14 @@ class RandomEventUI {
                 acceptResult: {
                     description: "你小心地打开了宝箱，里面装满了闪闪发光的金币和一些古老的航海用品！这是一笔意外之财！",
                     outcomeType: "reward",
+                    healthChange: 0,
                     goldChange: 100,
                     pollutionChange: 0
                 },
                 declineResult: {
                     description: "你决定不冒险，继续你的航程。谁知道那箱子里有什么呢？",
                     outcomeType: "continue", 
+                    healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
@@ -119,12 +123,14 @@ class RandomEventUI {
                 acceptResult: {
                     description: "海豚带领你找到了一处隐藏的航道，帮你避开了危险区域，节省了燃料并减少了污染！",
                     outcomeType: "reward",
+                    healthChange: 0,
                     goldChange: 50,
                     pollutionChange: -100
                 },
                 declineResult: {
                     description: "你坚持自己的航线，海豚们失望地游走了。也许你错过了什么？",
                     outcomeType: "continue",
+                    healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
@@ -165,6 +171,7 @@ class RandomEventUI {
                 acceptResult: {
                     description: "你决定购买一些橘子。船员们享用新鲜水果的同时，也补充了维生素C，避免了坏血病的风险。大家的精神和健康状况都有所提升！",
                     outcomeType: "continue",
+                    healthChange: 0,
                     goldChange: -500,
                     pollutionChange: 0
                 },
@@ -414,12 +421,12 @@ class RandomEventUI {
         }
         
         // 获取对应的结果
-        const result = (this.#selectedChoice === 'accept') 
+        const result = (this.#selectedChoice == 'accept') 
             ? this.#eventModel.acceptResult 
             : this.#eventModel.declineResult;
             
         // 根据结果类型执行不同操作
-        if (result.outcomeType === 'gameover') {
+        if (result.outcomeType == 'gameover') {
             // 特殊死亡，调用游戏结束回调
             if (this.#eventCallbackFunction) {
                 this.#eventCallbackFunction({
@@ -428,17 +435,18 @@ class RandomEventUI {
                 });
             }
         } 
-        else if (result.outcomeType === 'reward') {
+        else if (result.outcomeType == 'reward') {
             // 奖励，调用回调函数
             if (this.#eventCallbackFunction) {
                 this.#eventCallbackFunction({
                     action: 'continue',
+                    healthChange: result.healthChange || 0,
                     goldChange: result.goldChange || 0,
                     pollutionChange: result.pollutionChange || 0
                 });
             }
         }
-        else if (result.outcomeType === 'damage') {
+        else if (result.outcomeType == 'damage') {
             // 惩罚，调用回调函数
             if (this.#eventCallbackFunction) {
                 this.#eventCallbackFunction({
@@ -454,6 +462,7 @@ class RandomEventUI {
             if (this.#eventCallbackFunction) {
                 this.#eventCallbackFunction({
                     action: 'continue',
+                    healthChange: result.healthChange || 0,
                     goldChange: result.goldChange || 0,
                     pollutionChange: result.pollutionChange || 0
                 });
@@ -508,7 +517,7 @@ class RandomEventUI {
         
         // 根据是否显示结果页面选择不同的文本
         const textContent = this.#showingResult 
-            ? (this.#selectedChoice === 'accept' 
+            ? (this.#selectedChoice == 'accept' 
                 ? this.#eventModel.acceptResult.description 
                 : this.#eventModel.declineResult.description)
             : this.#eventModel.description;
