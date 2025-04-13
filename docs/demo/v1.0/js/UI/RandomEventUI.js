@@ -220,19 +220,14 @@ class RandomEventUI {
     };
   
     /**
-     * 初始化随机事件UI
-     * @param {number} eventType - 事件类型ID
+     * @param {number} eventType - 测试时请在此处更改你设计的事件类型，上传时改回随机
      */
     init(eventType = null) {
-        // 如果没有指定事件类型，则随机生成一个
-        if (eventType === null) {
-            // 随机选择一个事件类型（从1到MAX_EVENT_TYPES-1之间）
+        if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
         
-        console.log("初始化随机事件，类型:", eventType);
-        
-        // 获取事件模型 - 使用内部定义的DEFAULT_EVENT_MODEL
+        // 获取事件模型
         try {
             this.#eventModel = this.DEFAULT_EVENT_MODEL[eventType];
             if (!this.#eventModel) {
@@ -241,7 +236,6 @@ class RandomEventUI {
             }
         } catch (e) {
             console.error("加载事件模型失败:", e);
-            // 使用默认错误事件模型
             this.#eventModel = this.DEFAULT_EVENT_MODEL[0];
         }
         

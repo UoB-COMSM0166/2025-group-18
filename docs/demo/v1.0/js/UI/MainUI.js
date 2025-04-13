@@ -533,33 +533,25 @@ class MainUI {
     }
 
     #handleRandomEventSelection(eventResult) {
-        console.log("随机事件处理结果:", eventResult);
-        
+        //console.log("随机事件处理结果:", eventResult);
         if (eventResult.action == 'gameover') {
-            // 处理游戏结束
             this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
             this.#gameOverUI.setDeathReason(eventResult.deathReason || 'generic');
             this.updateStep(MAIN_STEP_GAME_OVER);
         } else if (eventResult.action == 'continue') {
-            // 处理继续游戏
             if (eventResult.goldChange) {
                 console.log("处理金币变化:", eventResult.goldChange);
                 this.updateGoldStatus(eventResult.goldChange);
             }
-            
-            // 处理生命值变化
             if (eventResult.healthChange && this.#updatePlayerHealth) {
                 console.log("处理生命值变化:", eventResult.healthChange);
                 this.#updatePlayerHealth(eventResult.healthChange);
             }
-    
-            // 处理污染值变化
             if (eventResult.pollutionChange && this.#updatePlayerPollution) {
                 console.log("处理污染值变化:", eventResult.pollutionChange);
                 this.#updatePlayerPollution(eventResult.pollutionChange);
             }
-            
-            // 最后回到地图界面
+
             this.updateStep(MAIN_STEP_MAP_UI);
         }
     }

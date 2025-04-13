@@ -26,7 +26,6 @@ class Main {
         this.deathReason = "";
     }
 
-    // Add new method to handle health changes from events
     updatePlayerHealth(healthChange) {
         if (healthChange && healthChange !== 0) {
             const currentHP = this.#status.getShipStatus().HP;
@@ -36,19 +35,15 @@ class Main {
         }
     }
 
-    // Add new method to handle pollution changes from events
     updatePlayerPollution(pollutionChange) {
         if (pollutionChange && pollutionChange !== 0) {
-            // Check if we're in a game
             if (this.#game) {
-                // If in a game, update game's pollution
                 const currentPollution = this.#game.getPlayerStatus().pollution;
-                console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+               //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
                 this.#game.setPollution(currentPollution + pollutionChange);
             } else {
-                // Otherwise update pollution in status
                 const currentPollution = this.#status.getShipStatus().pollution;
-                console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
                 this.#status.updatePollution(currentPollution + pollutionChange, null);
             }
         }
@@ -107,7 +102,7 @@ class Main {
             }
             this.#game = null;
         } else if (this.#game.getGameOver()) {
-            console.log("Game Over!");
+            //console.log("Game Over!");
             this.deathReason = this.#game.getDeathReason();
             this.#UI.initGameOverUI(this.deathReason);
             this.updateStep(MAIN_STEP_GAME_OVER);
@@ -401,7 +396,7 @@ class Main {
 
     chooseGameMap(gameType) {
         this.#nextGameType = gameType;
-        console.log(gameType);
+        // console.log(gameType);
     }
 
     getGameReward() {

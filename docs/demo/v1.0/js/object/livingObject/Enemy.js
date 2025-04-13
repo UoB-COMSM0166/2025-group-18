@@ -184,7 +184,7 @@ class Enemy extends BasicObject {
     }
 
     enemyAttack(xSpeed, ySpeed) {
-        console.log("enemy attack");
+        //console.log("enemy attack");——Theodore，整个控制台全部是打印的子弹
         this.enemyAttackCallBack(
             xSpeed, ySpeed,
             ENEMY_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,

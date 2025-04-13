@@ -116,7 +116,7 @@ class Bullet extends BasicObject {
         /* if (bulletFrames.length === 0) {
             this.preload();
         } */
-        console.log("发射了子弹图片");
+        //console.log("发射了子弹图片");
         // fill(0, 255, 0);
         // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
         this.drawBullet();

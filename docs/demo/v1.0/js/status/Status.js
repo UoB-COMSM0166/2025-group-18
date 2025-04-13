@@ -63,15 +63,13 @@ class Status {
 
     updatePollution(pollution, pollutionLevel) {
         this.#playerStatus.pollution = pollution;
-        
-        // If pollutionLevel is not provided, calculate it based on pollution value
-        if (pollutionLevel === null || pollutionLevel === undefined) {
+
+        if (pollutionLevel == null || pollutionLevel == undefined) {
             if (pollution >= Status.MAX_POLLUTION) {
                 this.#playerStatus.pollutionLevel = Status.POLLUTION_MAX_LEVEL;
             } else {
                 this.#playerStatus.pollutionLevel = Math.floor(pollution / 200) + 1;
             }
-            console.log(`Calculated pollution level: ${this.#playerStatus.pollutionLevel} based on pollution: ${pollution}`);
         } else {
             this.#playerStatus.pollutionLevel = pollutionLevel;
         }

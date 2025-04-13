@@ -49,7 +49,7 @@ class SoundEffects {
         if (this.isHornLoaded && this.hornSound) {
             this.hornSound.play();
         } else {
-            console.log("Horn sound not loaded yet");
+            //console.log("Horn sound not loaded yet");
         }
     }
     // 在这停顿！！

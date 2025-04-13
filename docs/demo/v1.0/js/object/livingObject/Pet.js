@@ -164,7 +164,7 @@ class Pet extends BasicObject {
     }
 
     petAttack(xSpeed, ySpeed) {
-        console.log("pet attack");
+        //console.log("pet attack");
         this.petAttackCallBack(
             xSpeed, ySpeed,
             PET_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,

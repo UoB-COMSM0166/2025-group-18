@@ -1674,7 +1674,7 @@ const MAP_MODEL = [
 ];
 
 function getMapModel(mapType) {
-    console.log(mapType);
+    console.log("地图编号是 " + mapType);
     if (mapType >= MAP_MODEL_MAX_TYPE || mapType < 0) {
         console.log("getMapModel : mapType error.");
         return MAP_MODEL[MAP_MODEL_ERROR_TYPE];

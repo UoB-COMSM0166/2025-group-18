@@ -66,7 +66,7 @@ class Building extends BasicObject {
     updateHP(change) {
         super.updateHP(change);
         if (!this.isAlive) {
-            console.log(this);
+            //console.log(this);
         }
     }
 
@@ -75,7 +75,7 @@ class Building extends BasicObject {
     }
 
     deadRattle() {
-        console.log("----dead rattle----");
+        //console.log("----dead rattle----");
         switch(this.modelType) {
             case BUILDING_MODEL_TNT_TYPE: {
                 this.explodeCallBack(

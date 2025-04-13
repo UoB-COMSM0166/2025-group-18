@@ -35,7 +35,7 @@ class Pollution {
 
         this.pollution = Math.max(0, this.pollution + amount);
         this.updatePollutionLevel();
-        console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
+        //console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
     }
 
 

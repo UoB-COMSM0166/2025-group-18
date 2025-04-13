@@ -8,7 +8,7 @@ class Explode {
         this.ySize = explodeModel.ySize;
         this.harm = harm;
         this.attackBit = attackBit;
-        console.log("=========================" + this.attackBit);
+        //console.log("=========================" + this.attackBit);
         this.type = explodeType;
 
         // this.frames;
