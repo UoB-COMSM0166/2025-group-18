@@ -391,7 +391,7 @@ class Main {
     }
 
     chooseBuff(buffType) {
-        console.log(buffType);
+        //console.log(buffType);
     }
 
     chooseGameMap(gameType) {

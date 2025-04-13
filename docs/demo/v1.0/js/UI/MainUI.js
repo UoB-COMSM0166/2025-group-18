@@ -502,8 +502,6 @@ class MainUI {
     }
 
     #handleGameRewardSelection(buffType) {
-        console.log(this.updateBuffStatus);
-        console.log(buffType);
         if (this.updateBuffStatus) {
             this.updateBuffStatus(buffType);
         }

@@ -1,32 +1,22 @@
 class RandomEventUI {
     constructor(eventCallbackFunction) {
         this.#eventCallbackFunction = eventCallbackFunction;
-        
-        // UI状态
+
         this.#isInit = false;
         this.#showingResult = false;
         this.#eventModel = null;
-        this.#selectedChoice = null; // 'accept' 或 'decline'
-        
-        // 动画相关
+        this.#selectedChoice = null;
         this.borderSize = 50;
         this.targetBorderSize = 50;
         this.borderColor = null;
-    
-        // 按钮数组
         this.buttons = [];
-        
-        // 图片占位
         this.eventImage = null;
-        this.imageLoadError = false; // 新增：标记图片是否加载失败
-        
-        // 最大事件类型（应与urilsRandomEvents.js保持同步）
-        this.MAX_EVENT_TYPES = 5; // 对应RANDOM_EVENT_MAX_TYPE
+        this.imageLoadError = false;
+        this.MAX_EVENT_TYPES = 5; // 增加了事件后请在这里 +1，确保未来能随机到
         
         // 创建默认事件模型
         this.DEFAULT_EVENT_MODEL = [
-            {
-                // Error / Default
+            {// 虽然我不知道为啥要有一个错误事件，但有总比没有好吧-Theodore
                 type: 0,
                 title: "ERROR",
                 description: "随机事件加载错误",
@@ -36,7 +26,7 @@ class RandomEventUI {
                 // 接受的结果
                 acceptResult: {
                     description: "发生了错误，但你决定继续前进。",
-                    outcomeType: "continue", // continue, gameover, reward
+                    outcomeType: "continue",
                     goldChange: 0,
                     pollutionChange: 0
                 },
@@ -61,7 +51,7 @@ class RandomEventUI {
                 acceptResult: {
                     description: "你被歌声迷惑，驾船靠近。当你距离足够近时，美人鱼们露出了可怕的真面目！她们锋利的爪子撕裂了船体，将你拖入水中...",
                     outcomeType: "gameover",
-                    deathReason: "mermaid", // 特殊死亡原因，用于GameOverUI
+                    deathReason: "mermaid",
                     goldChange: 0,
                     pollutionChange: 0
                 },
@@ -71,7 +61,7 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null // 修改：暂时设为null，避免图片加载错误
+                imagePath: null
             },
             {
                 // 宝藏事件
@@ -93,7 +83,7 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null // 修改：暂时设为null，避免图片加载错误
+                imagePath: null
             },
             {
                 // 风暴事件
@@ -104,19 +94,19 @@ class RandomEventUI {
                 acceptText: "穿越风暴",
                 declineText: "绕道而行",
                 acceptResult: {
-                    description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤，但你的勇气换来了宝贵的航行经验！",
+                    description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤，但你的勇气换来了宝贵的航行经验！(经验是无价的，对吧？",
                     outcomeType: "damage",
                     healthChange: -10,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你选择安全第一，绕道航行。虽然浪费了一些时间，但至少保全了船只。",
+                    description: "你选择安全第一，绕道航行。虽然浪费了一些时间，但至少保全了船只。【浪费时间的同时花了不少钱呢！】",
                     outcomeType: "continue",
-                    goldChange: -20,
+                    goldChange: -200,
                     pollutionChange: 0
                 },
-                imagePath: null // 修改：暂时设为null，避免图片加载错误
+                imagePath: null
             },
             {
                 // 海豚事件
@@ -138,12 +128,11 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null // 修改：暂时设为null，避免图片加载错误
+                imagePath: null
             }
         ];
     }
     
-    // 私有字段
     #eventCallbackFunction = null;
     #isInit = false;
     #showingResult = false;
@@ -158,9 +147,9 @@ class RandomEventUI {
             this.w = w;
             this.h = h;
             this.label = label;
-            this.onClick = onClick;   // 点击回调
+            this.onClick = onClick;
             this.isHovered = false;
-            this.scale = 1;          // 用于按钮按下时的缩放动画
+            this.scale = 1;
         }
     
         draw() {
@@ -250,14 +239,11 @@ class RandomEventUI {
         // 尝试加载图片（如果有）
         if (this.#eventModel.imagePath) {
             try {
-                // 加载图片并处理错误
                 this.eventImage = loadImage(this.#eventModel.imagePath, 
-                    // 成功回调
                     () => {
                         console.log("事件图片加载成功:", this.#eventModel.imagePath);
                         this.imageLoadError = false;
                     }, 
-                    // 错误回调
                     () => {
                         console.error("事件图片加载失败:", this.#eventModel.imagePath);
                         this.imageLoadError = true;
@@ -271,7 +257,6 @@ class RandomEventUI {
             }
         }
     
-        // 创建初始选择按钮
         this.createChoiceButtons();
     }
   
