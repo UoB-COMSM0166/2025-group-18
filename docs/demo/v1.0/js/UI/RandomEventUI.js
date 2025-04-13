@@ -12,7 +12,7 @@ class RandomEventUI {
         this.buttons = [];
         this.eventImage = null;
         this.imageLoadError = false;
-        this.MAX_EVENT_TYPES = 5; // 增加了事件后请在这里 +1，确保未来能随机到
+        this.MAX_EVENT_TYPES = 8; // 增加了事件后请在这里 +1，确保未来能随机到
         
         // 创建默认事件模型
         this.DEFAULT_EVENT_MODEL = [
@@ -124,6 +124,76 @@ class RandomEventUI {
                 },
                 declineResult: {
                     description: "你坚持自己的航线，海豚们失望地游走了。也许你错过了什么？",
+                    outcomeType: "continue",
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                imagePath: null
+            },
+            {
+                // 游戏评价事件
+                type: 5,
+                title: "游戏体验调查",
+                description: "一封神秘的信从天而降，上面写着【来自开发者的调查：你觉得这个游戏怎么样？诚实回答，我们会酌情奖励或惩罚。】",
+                choicePrompt: "你会如何评价这个游戏?",
+                acceptText: "很棒！我喜欢！",
+                declineText: "做得不好，有待改进",
+                acceptResult: {
+                    description: "信纸上浮现出字迹：【感谢你的肯定！作为奖励，你的生命值得到了恢复！】\n突然，一道温暖的光芒笼罩了你的船只，你感到精力充沛。",
+                    outcomeType: "reward",
+                    healthChange: 30,
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                declineResult: {
+                    description: "信纸上浮现出字迹：【诚实，但伤人。作为惩罚，你将失去一些生命值！】一股神秘力量击中了你的船只，造成了一些损伤。",
+                    outcomeType: "damage",
+                    healthChange: -20,
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                imagePath: null
+            },
+            {
+                // 橘子贩子事件
+                type: 6,
+                title: "海上水果商人",
+                description: "你遇到了一艘小型商船，船上的商人正在兜售新鲜的橘子。【航海长途，小心坏血病！每箱橘子只要500金币！】商人热情地向你推销。",
+                choicePrompt: "要购买橘子预防坏血病吗?",
+                acceptText: "购买橘子",
+                declineText: "拒绝购买",
+                acceptResult: {
+                    description: "你决定购买一些橘子。船员们享用新鲜水果的同时，也补充了维生素C，避免了坏血病的风险。大家的精神和健康状况都有所提升！",
+                    outcomeType: "continue",
+                    goldChange: -500,
+                    pollutionChange: 0
+                },
+                declineResult: {
+                    description: "你拒绝了商人的橘子。几天后，船员们开始出现坏血病的早期症状：牙龈出血、疲劳无力。你不得不消耗更多资源来治疗这些症状。",
+                    outcomeType: "damage",
+                    healthChange: -15,
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                imagePath: null
+            },
+            {
+                // 作者帮助事件
+                type: 7,
+                title: "来自开发者的消息",
+                description: "【喂喂！我是游戏开发者！看你在这片海域晃悠半天了，进度也太慢了吧！要不要来点开发者特权帮你快速通关啊？只需要300金币的'技术支持费'哦~】",
+                choicePrompt: "要接受开发者的帮助吗?",
+                acceptText: "接受帮助（支付300金币）",
+                declineText: "依靠自己的实力",
+                acceptResult: {
+                    description: "【谢谢支持！这是给你的小福利~】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...",
+                    outcomeType: "reward",
+                    healthChange: 50,
+                    goldChange: -300,
+                    pollutionChange: 0
+                },
+                declineResult: {
+                    description: "【哦？居然不需要帮助？有骨气！我欣赏你这种靠自己实力通关的玩家！】开发者看起来很欣赏你的决定，没有任何惩罚，反而对你的坚持表示了敬意。",
                     outcomeType: "continue",
                     goldChange: 0,
                     pollutionChange: 0
@@ -264,24 +334,23 @@ class RandomEventUI {
         return this.#isInit;
     }
     
-    // 创建初始选择按钮（接受/拒绝）
+    // 创建初始选择按钮
     createChoiceButtons() {
         this.buttons = [];
-        
-        // 获取事件模型中的按钮文本
         const acceptText = this.#eventModel.acceptText || '接受';
         const declineText = this.#eventModel.declineText || '拒绝';
-        
-        // 按钮尺寸和位置
-        const btnWidth = 120;
+        textSize(24);
+        const acceptWidth = textWidth(acceptText) + 60;
+        const declineWidth = textWidth(declineText) + 60;
+        const btnWidth = Math.max(acceptWidth, declineWidth, 120);
         const btnHeight = 50;
         const spacing = 20;
-        const startY = logicHeight * 0.7;
+        const startY = logicHeight * 0.65;
         
-        // "接受"按钮
+        // "接受"
         this.buttons.push(
             new this.EventButton(
-                logicWidth / 2 - btnWidth - spacing/2,
+                logicWidth / 2 - btnWidth / 2,
                 startY,
                 btnWidth,
                 btnHeight,
@@ -293,11 +362,11 @@ class RandomEventUI {
             )
         );
     
-        // "拒绝"按钮
+        // "拒绝"
         this.buttons.push(
             new this.EventButton(
-                logicWidth / 2 + spacing/2,
-                startY,
+                logicWidth / 2 - btnWidth / 2,
+                startY + btnHeight + spacing,
                 btnWidth,
                 btnHeight,
                 declineText,

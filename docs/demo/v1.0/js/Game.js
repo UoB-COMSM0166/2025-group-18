@@ -188,7 +188,7 @@ class Game {
 
     initBoss(bossInfo, loopCount = 0) {
         this.#loopCount = loopCount;
-        console.log(bossInfo);
+        //console.log(bossInfo);
         let boss = null;
         if (bossInfo[0].type == BOSS_MODEL_OCTOPUS_TYPE) {
             boss = new Boss1(
@@ -1142,7 +1142,7 @@ class Game {
 
     addBossAoeSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate) {
         const aoeSkill = new AoeSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate);
-        console.log(aoeSkill);
+        //console.log(aoeSkill);
         this.#aoeSkills.push(aoeSkill);
     }
 }
