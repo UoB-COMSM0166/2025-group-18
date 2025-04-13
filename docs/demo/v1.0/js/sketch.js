@@ -3,6 +3,7 @@ let main;
 let frames = {
     bullet: [],
     enemyBullet: [], 
+    bossBullet: [],
     shipMove: {
       D: [],
       IdleD: [],  // 为静止状态另加一个 IdleD，方便区分
@@ -73,6 +74,8 @@ let frames = {
     frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/3.png'));
     frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/4.png'));
 
+    // ------------------------ BOSS子弹 ------------------------
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/1.png'));
 
     // ------------------------ 船移动(船头向右) ------------------------
     frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/1.png'));

@@ -337,17 +337,17 @@ const BOSS_SKILL_MODEL = [
         type: BOSS_SKILL_MODEL_BIRD_TYPE_1,
         xSize: 200,
         ySize: 2300,
-        delayTime: 2,
+        delayTime: 1,
         harm: 0,
         liveTime: 1
     }, {
-        name: "boss_2_skill_2",
-        type: BOSS_SKILL_MODEL_BIRD_TYPE_2,
-        xSize: 200,
-        ySize: 200,
-        delayTime: 0,
-        harm: 3,
-        liveTime: 1
+        // name: "boss_2_skill_2",
+        // type: BOSS_SKILL_MODEL_BIRD_TYPE_2,
+        // xSize: 200,
+        // ySize: 200,
+        // delayTime: 0,
+        // harm: 3,
+        // liveTime: 1
     }
 ];
 

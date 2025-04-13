@@ -10,13 +10,14 @@ class Boss2 extends Boss {
         this.birdFloat();
         if (this.isAlive) {
             // skill 1
-            if (millis() - this.lastAttack1Time > 5000) {
+            if (millis() - this.lastAttack1Time > 3000) {
                 this.boss2Skill1(playerY, playerX);
             }
 
             // skill 2
-            if (!this.isUsingSkill1 && millis() - this.lastAttack2Time > 5000) {
-                
+            if (millis() - this.lastAttack2Time > 2000) {
+                this.boss2Skill2(playerX, playerY);
+            }
         }
     }
 
@@ -32,9 +33,9 @@ class Boss2 extends Boss {
             const yCoor = this.yCoordinate + skillModel.ySize / 2 * sin(this.skill1Angle);
             this.bossSkill(xCoor, yCoor, ENEMY_ATTACK_BIT, this.attackPower,
                 BOSS_SKILL_MODEL_BIRD_TYPE_1, this.skill1Angle + PI / 2);
-        } else if (this.attack1number >= 120) {
-            this.xCoordinate += this.speed * cos(this.skill1Angle) * ((this.attack1number - 120) * 0.1);
-            this.yCoordinate += this.speed * sin(this.skill1Angle) * ((this.attack1number - 120) * 0.1);
+        } else if (this.attack1number >= 60) {
+            this.xCoordinate += this.speed * cos(this.skill1Angle) * ((this.attack1number - 60) * 0.1);
+            this.yCoordinate += this.speed * sin(this.skill1Angle) * ((this.attack1number - 60) * 0.1);
 
             if (this.xCoordinate < this.xSize / 2 + 10 || this.xCoordinate > logicWidth - this.xSize / 2 - 10 ||
                 this.yCoordinate < this.ySize / 2 + 10 || this.yCoordinate > logicHeight - this.ySize / 2 - 10) {
@@ -45,6 +46,28 @@ class Boss2 extends Boss {
             }
         }
         this.attack1number++;
+    }
+
+    boss2Skill2 (playerX, playerY) {
+        let dx = this.xCoordinate - playerX;
+        let dy = this.yCoordinate - playerY;
+        let baseAngle = Math.atan2(dy, dx);
+        let totalAngle = Math.PI / 3 * 2;
+        let angleStep = totalAngle / 2;
+
+        for (let i = 0; i < 3; i++) {
+            let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
+            let targetXSpeed = Math.cos(offsetAngle);
+            let targetYSpeed = Math.sin(offsetAngle);
+            this.enemyAttackCallBack(
+                targetXSpeed, targetYSpeed,
+                BOSS_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
+                2 * this.attackPower,
+                this
+            );
+        }
+
+        this.lastAttack2Time = millis();
     }
 
     birdFloat() {

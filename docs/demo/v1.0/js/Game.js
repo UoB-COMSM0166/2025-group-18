@@ -113,8 +113,8 @@ class Game {
     }
 
     initRandomBossMap(loopCount = 0) {
-        // this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + MAP_MODEL_BOSS_1_TYPE;
-        this.mapType = MAP_MODEL_BOSS_2_TYPE;
+        this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + MAP_MODEL_BOSS_1_TYPE;
+        // this.mapType = MAP_MODEL_BOSS_2_TYPE;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
@@ -353,6 +353,13 @@ class Game {
                 bullet.show();
             }
             if (bullet.frameCount > 600) {
+                this.addExplode(
+                    bullet.xCoordinate,
+                    bullet.yCoordinate,
+                    bullet.harm,
+                    bullet.attackBit,
+                    EXPLODE_MODEL_BULLET_TYPE
+                );
                 this.#bullets[i].toDelete = true;
             }
         }
@@ -861,7 +868,7 @@ class Game {
             bulletSpeed = 3;
         } else if (bulletType == BOSS_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
-            yCoordinate = enemy.yCoordinate + enemy.ySize / 2;
+            yCoordinate = enemy.yCoordinate;
             explosionSize = 2;
             bulletSize = 3;
             bulletSpeed = 5;

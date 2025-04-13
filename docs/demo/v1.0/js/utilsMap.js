@@ -1225,7 +1225,7 @@ const MAP_MODEL = [
         building: [],
         enemy: [],
         boss: [
-            { x: 0.5, y: 0.3, type: BOSS_MODEL_BIRD_TYPE },
+            { x: 0.5, y: 0.2, type: BOSS_MODEL_BIRD_TYPE },
         ]
     }
 

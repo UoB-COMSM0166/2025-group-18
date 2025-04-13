@@ -56,8 +56,8 @@ class Main {
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
             //Theodore-预期冲突处，保留我的，我要传递循环计数
-            // this.#game.initRandomMap(loopCount);
-            this.#game.initRandomBossMap(loopCount);
+            this.#game.initRandomMap(loopCount);
+            // this.#game.initRandomBossMap(loopCount);// 测试boss用
         }
     }
 

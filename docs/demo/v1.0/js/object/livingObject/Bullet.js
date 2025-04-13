@@ -32,7 +32,7 @@ class Bullet extends BasicObject {
         this.currentFrame = 0;
         this.frameRate = 10;
         this.frameCount = 0;
-        this.frames;
+        // this.frames;
         this.bulletTypes = bulletType;
     }
 
@@ -63,15 +63,17 @@ class Bullet extends BasicObject {
         // if (this.frameCount % this.frameRate == 0) {
         //     this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         // }
-
+        let framesLength;
         if (this.bulletTypes == PLAYER_BULLET_TYPE) {
-            this.frames = frames.bullet;
+            framesLength = frames.bullet.length;
         } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
-            this.frames = frames.enemyBullet;
+            framesLength = frames.enemyBullet.length;
+        } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
+            framesLength = frames.bossBullet.length;
         }
 
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % framesLength;
         }
 
         this.frameCount++;
@@ -89,22 +91,25 @@ class Bullet extends BasicObject {
         // image(this.frames[this.currentFrame],
         //     this.xCoordinate, this.yCoordinate,
         //     this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
-
-            
+        const angle = Math.atan2(this.ySpeed, this.xSpeed);
+        push();
+        translate(this.xCoordinate, this.yCoordinate);
+        rotate(angle);
+        
         if (this.bulletTypes == PLAYER_BULLET_TYPE) {
-            this.frames = frames.bullet;
-            image(this.frames[this.currentFrame],
-                this.xCoordinate, this.yCoordinate,
-                this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
-    
+            image(frames.bullet[this.currentFrame], 0, 0,
+                frames.bullet[this.currentFrame].width / 4, 
+                frames.bullet[this.currentFrame].height / 4);
         } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
-            this.frames = frames.enemyBullet;
-            image(this.frames[this.currentFrame],
-                this.xCoordinate, this.yCoordinate,
-                this.frames[this.currentFrame].width / 4, this.frames[this.currentFrame].height / 4);
-    
-
+            image(frames.enemyBullet[this.currentFrame], 0, 0,
+                frames.enemyBullet[this.currentFrame].width / 4, 
+                frames.enemyBullet[this.currentFrame].height / 4);    
+        } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
+            image(frames.bossBullet[this.currentFrame], 0, 0,
+                frames.bossBullet[this.currentFrame].width / 20, 
+                frames.bossBullet[this.currentFrame].height / 20);    
         }
+        pop();
     }
 
     show() {

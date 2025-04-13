@@ -13,7 +13,7 @@ class AoeSkill {
         this.startTime = millis();
         this.liveTime = aoeSkillModel.liveTime;
 
-        this.frames = frames.aoeSkill[this.name];
+        // this.frames = frames.aoeSkill[this.name];
         this.currentFrame = 0;
         this.frameRate = 5;
         this.frameCount = 0;
@@ -43,7 +43,7 @@ class AoeSkill {
                 this.xSize / 5 * scale, this.xSize / 5 * scale);
         } else {
             imageMode(CENTER);
-            image(this.frames[this.currentFrame],
+            image(frames.aoeSkill[this.name][this.currentFrame],
                 0, 0, this.xSize, this.ySize);
             this.frameCount++;
             if (this.frameCount % this.frameRate == 0) {
