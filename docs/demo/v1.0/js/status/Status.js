@@ -17,6 +17,7 @@ class Status {
     };
     #equipments = [];
     constructor() {
+        this.#playerStatus.selectedBuffs = [];
 
     }
 
@@ -40,7 +41,7 @@ class Status {
     getMaxPollution() {
         return Status.MAX_POLLUTION;
     }
-    
+
     getGold() {
         return this.#playerStatus.gold;
     }
@@ -52,7 +53,7 @@ class Status {
     updateHP(HP) {
         this.#playerStatus.HP = HP;
     }
-    
+
     recoverToMaxHP() {
         this.#playerStatus.HP = this.#playerStatus.HPmax;
     }
@@ -69,13 +70,28 @@ class Status {
     updateGold(goldChange) {
         this.#playerStatus.gold += goldChange;
     }
-    
+
+    addSelectedBuff(buffData) {
+        // 将传入的 buff 数据添加到 selectedBuffs 列表中
+        if (!this.#playerStatus.selectedBuffs) {
+            this.#playerStatus.selectedBuffs = [];
+        }
+        this.#playerStatus.selectedBuffs.push(buffData);
+    }
+
+    getMostRecentBuff() {
+        if (!this.#playerStatus.selectedBuffs || this.#playerStatus.selectedBuffs.length === 0) {
+            return null;
+        }
+        return this.#playerStatus.selectedBuffs[this.#playerStatus.selectedBuffs.length - 1];
+    }
+
     // 增加轮回次数
     incrementLoopCount() {
         this.#playerStatus.loopCount++;
         console.log(`轮回次数增加至: ${this.#playerStatus.loopCount}`);
     }
-    
+
     // 获取轮回次数
     getLoopCount() {
         return this.#playerStatus.loopCount;

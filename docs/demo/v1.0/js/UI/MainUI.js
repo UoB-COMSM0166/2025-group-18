@@ -154,10 +154,9 @@ class MainUI {
     showGameRewardUI(gold, buff) {
         if (this.#gameRewardUI == null) {
             this.#gameRewardUI = new GameRewardUI(this.#handleGameRewardSelection.bind(this));
-            this.gameRewardInitialized = false;  // 重置初始化标志
-        }
+            this.gameRewardInitialized = false;
+        }   
         this.#gameReward = { gold, buff };
-        // 只在第一次或重新进入奖励界面时初始化
         if (!this.gameRewardInitialized) {
             this.#gameRewardUI.init(buff, gold);
             this.gameRewardInitialized = true;
@@ -515,7 +514,7 @@ class MainUI {
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_MAP_UI);
         }
-        // 添加这一行，当玩家选择了buff后重置标志
+        this.#gameRewardUI = null;
         this.gameRewardInitialized = false;
     }
 

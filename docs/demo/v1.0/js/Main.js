@@ -37,6 +37,14 @@ class Main {
         this.#game.initPlayer(playerBasicStatus);
         this.#game.setPollution(this.#status.getShipStatus().pollution);
         this.initInGameMap();
+
+        const recentBuff = this.#status.getMostRecentBuff();
+        if (recentBuff && recentBuff.selected) {
+            console.log(`Applying recently selected buff: ${recentBuff.type}`);
+            this.#game.handleBuffSelection(recentBuff.type);
+
+            recentBuff.selected = false;
+        }
     }
 
     incrementLoopCount() {
@@ -366,21 +374,31 @@ class Main {
 
     chooseBuff(buffType) {
         console.log("选择了buff类型:", buffType);
-    
-        // 创建游戏实例(如果不存在)并调用handleBuffSelection
-        if (!this.#game) {
-            this.#game = new Game(
-                (stepChangeType) => this.updateStep(stepChangeType)
-            );
-            this.#game.initPlayer(this.#status.getShipStatus());
+
+        let buffData = {
+            type: buffType,
+            selected: true
+        };
+
+        // // 创建游戏实例(如果不存在)并调用handleBuffSelection
+        // if (!this.#game) {
+        //     this.#game = new Game(
+        //         (stepChangeType) => this.updateStep(stepChangeType)
+        //     );
+        //     this.#game.initPlayer(this.#status.getShipStatus());
+        // }
+
+        // 将所选 buff 类型保存到状态对象中
+        if (this.#status) {
+            this.#status.addSelectedBuff(buffData);
         }
-        
-        // 调用game的handleBuffSelection方法
-        this.#game.handleBuffSelection(buffType);
 
         // 更新金币奖励
         this.#status.updateGold(this.#gameReward.gold);
-        
+
+        //将游戏对象设为 null，以便下一关卡重新创建新实例
+        this.#game = null;
+
         // 手动切换回地图界面
         this.updateStep(MAIN_STEP_MAP_UI);
     }
