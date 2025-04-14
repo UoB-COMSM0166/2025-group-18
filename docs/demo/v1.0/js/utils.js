@@ -435,14 +435,14 @@ const BUILDING_MODEL = [
     }, {
         name: "TNT",
         type: BUILDING_MODEL_TNT_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 44,
+        ySize: 66,
         HP: 1
     }, {
         name: "chest",
         type: BUILDING_MODEL_CHEST_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 66,
+        ySize: 66,
         HP: 1
     }, {
         name: "bomb",
@@ -453,14 +453,14 @@ const BUILDING_MODEL = [
     }, {
         name: "chemical_box",
         type: BUILDING_MODEL_CHEMICAL_BOX_TYPE,
-        xSize: 30,
-        ySize: 30,
+        xSize: 80,
+        ySize: 60,
         HP: 2
     }, {
         name: "rubbish",
         type: BUILDING_MODEL_RUBBISH_TYPE,
-        xSize: 40,
-        ySize: 40,
+        xSize: 33,
+        ySize: 30,
         HP: 3
     }
 ];

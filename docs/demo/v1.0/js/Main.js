@@ -136,8 +136,8 @@ class Main {
                 break;
             }
             case MAIN_STEP_IN_GAME: {
-                this.#UI.showInGameUI(this.#status.getShipStatus());
                 this.continueGame();
+                this.#UI.showInGameUI(this.#status.getShipStatus());
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {

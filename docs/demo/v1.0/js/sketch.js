@@ -293,6 +293,7 @@ function setup() {
 }
 
 function draw() {
+    resizeCanvas(windowWidth, windowHeight);
     rectMode(CORNER);
     // logicCanvas.background(0);
     background(0);
