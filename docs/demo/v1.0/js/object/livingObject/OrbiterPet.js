@@ -151,7 +151,7 @@ class OrbiterPet extends BasicObject {
         image(frames.pets[this.model.name][this.currentFrame],
             this.xCoordinate, this.yCoordinate,
             this.xSize * 1, this.ySize * 1);
-            console.log("xSize: "+this.xSize+" ySize: "+this.ySize);
+
         if (this.skillCD == 0 && !this.isUsingSkill) {
             fill(0, 255, 255, 150 + 50 * Math.sin(frameCount * 0.1));
             noStroke();
