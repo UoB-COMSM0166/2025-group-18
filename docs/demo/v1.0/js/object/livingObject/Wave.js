@@ -47,42 +47,62 @@ class Wave {
     updateStatus(islands = [], player, enemies) {
         this.xCoordinate += this.vx;
         this.yCoordinate += this.vy;
-        if (
-            this.xCoordinate - this.xSize / 2 > logicWidth ||
+        
+        // 快速检查是否超出边界
+        if (this.xCoordinate - this.xSize / 2 > logicWidth ||
             this.xCoordinate + this.xSize / 2 < 0 ||
             this.yCoordinate - this.ySize / 2 > logicHeight ||
-            this.yCoordinate + this.ySize / 2 < 0
-        ) {
+            this.yCoordinate + this.ySize / 2 < 0) {
             this.finished = true;
             return;
         }
-
+        
+        // 岛屿碰撞检测
+        // 只检查附近的岛屿而不是所有岛屿
         for (let island of islands) {
+            const dx = Math.abs(this.xCoordinate - island.xCoordinate);
+            const dy = Math.abs(this.yCoordinate - island.yCoordinate);
+            
+            // 如果距离太远，跳过详细碰撞检测
+            if (dx > (this.xSize + island.xSize) / 2 || dy > (this.ySize + island.ySize) / 2) {
+                continue;
+            }
+            
             if (myCollide(this, island)) {
                 this.finished = true;
                 return;
             }
         }
-
+        
         let pushX = this.vx * this.pushForce;
         let pushY = this.vy * this.pushForce;
-
-        if (myCollide(this, player)) {
+        
+        const playerDx = Math.abs(this.xCoordinate - player.xCoordinate);
+        const playerDy = Math.abs(this.yCoordinate - player.yCoordinate);
+        
+        if (playerDx < (this.xSize + player.xSize) / 2 && 
+            playerDy < (this.ySize + player.ySize) / 2 && 
+            myCollide(this, player)) {
             player.applyWaveForce(pushX, pushY);
         }
-
+        
         for (let enemy of enemies) {
+            const enemyDx = Math.abs(this.xCoordinate - enemy.xCoordinate);
+            const enemyDy = Math.abs(this.yCoordinate - enemy.yCoordinate);
+            
+            if (enemyDx > (this.xSize + enemy.xSize) / 2 || 
+                enemyDy > (this.ySize + enemy.ySize) / 2) {
+                continue;
+            }
+            
             if (myCollide(this, enemy)) {
-                /*if (enemy instanceof Boss) {
-                    this.finished = true;
-                    return;
-                }*/
                 if (typeof enemy.applyWaveForce == "function") {
                     enemy.applyWaveForce(pushX, pushY);
                 }
             }
         }
-
+        
+        // 降低动画帧率
         if (millis() - this.lastFrameTime > this.frameInterval) {
             this.frameIndex = (this.frameIndex + 1) % this.currentFrames.length;
             this.lastFrameTime = millis();
@@ -119,25 +139,50 @@ class WaveManager {
     constructor() {
         this.waves = [];
         this.lastWaveTime = 0;
-        this.interval = 5000;
+        this.interval = 300;//生成频率
         this.direction;
     }
 
     update(islands, player, enemies) {
-        if (this.waves.length < 30 && millis() - this.lastWaveTime > this.interval) {
+        // 限制生成新波浪的频率
+        const currentTime = millis();
+        const shouldGenerateWave = this.waves.length < 60 && 
+                                  currentTime - this.lastWaveTime > this.interval;
+        
+        if (shouldGenerateWave) {
             this.generateWave();
-            this.lastWaveTime = millis();
+            this.lastWaveTime = currentTime;
         }
-
+    
+        // 只对屏幕内或靠近屏幕的波浪进行更新
+        const screenMargin = 200; // 屏幕外的缓冲区
+        
         for (let i = this.waves.length - 1; i >= 0; i--) {
             let wave = this.waves[i];
+            
+            // 检查波浪是否已经远离屏幕
+            if (wave.xCoordinate - wave.xSize / 2 > logicWidth + screenMargin ||
+                wave.xCoordinate + wave.xSize / 2 < -screenMargin ||
+                wave.yCoordinate - wave.ySize / 2 > logicHeight + screenMargin ||
+                wave.yCoordinate + wave.ySize / 2 < -screenMargin) {
+                
+                // 直接移除远离屏幕的波浪，无需进一步处理
+                this.waves.splice(i, 1);
+                continue;
+            }
+            
+            // 更新波浪状态
             wave.updateStatus(islands, player, enemies);
+            
             if (wave.finished) {
                 this.waves.splice(i, 1);
             }
         }
-
-        this.checkWaveCollisions();
+    
+        // 每隔几帧才进行一次碰撞检测，减少计算量
+        if (frameCount % 3 == 0) {
+            this.checkWaveCollisions();
+        }
     }
 
     show() {
