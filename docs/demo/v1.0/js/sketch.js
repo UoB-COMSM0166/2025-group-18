@@ -235,7 +235,10 @@ let frames = {
     // // laser
     // frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
     // // orbiter
-    // frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
+    frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
+    frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/2.png'));
+    frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/3.png'));
+    
 
     // 主题曲音频
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
