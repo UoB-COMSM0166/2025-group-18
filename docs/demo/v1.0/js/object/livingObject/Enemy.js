@@ -98,7 +98,6 @@ class Enemy extends BasicObject {
                 this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            console.log("enemytype: "+this.modelType);
             image(frames.enemy[this.modelType][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
