@@ -141,26 +141,26 @@ const MAP_MODEL = [
         playerStart: { x: 0.1, y: 0.5 },
         island: [
             // =============== “额头”或“顶部” ===============
-            // { x: 0.40, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            // { x: 0.45, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            // { x: 0.50, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            // { x: 0.55, y: 0.12, type: ISLAND_MODEL_3_TYPE },
-            // { x: 0.60, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            { x: 0.40, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            { x: 0.45, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            { x: 0.50, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            { x: 0.55, y: 0.12, type: ISLAND_MODEL_3_TYPE },
+            { x: 0.60, y: 0.12, type: ISLAND_MODEL_3_TYPE },
 
             // =============== “鼻子”区域 ===============
             // 用小岛模拟鼻子
-            // { x: 0.49, y: 0.42, type: ISLAND_MODEL_5_TYPE },
-            // { x: 0.51, y: 0.42, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.49, y: 0.42, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.51, y: 0.42, type: ISLAND_MODEL_5_TYPE },
 
-            // // =============== “颧骨”/“脸颊”区域 ===============
-            // // 左脸颊
-            // { x: 0.37, y: 0.20, type: ISLAND_MODEL_4_TYPE },
-            // { x: 0.37, y: 0.35, type: ISLAND_MODEL_4_TYPE },
-            // { x: 0.42, y: 0.40, type: ISLAND_MODEL_3_TYPE },
-            // // 右脸颊
-            // { x: 0.63, y: 0.20, type: ISLAND_MODEL_4_TYPE },
-            // { x: 0.63, y: 0.35, type: ISLAND_MODEL_4_TYPE },
-            // { x: 0.58, y: 0.40, type: ISLAND_MODEL_3_TYPE },
+            // =============== “颧骨”/“脸颊”区域 ===============
+            // 左脸颊
+            { x: 0.37, y: 0.20, type: ISLAND_MODEL_4_TYPE },
+            { x: 0.37, y: 0.35, type: ISLAND_MODEL_4_TYPE },
+            { x: 0.42, y: 0.40, type: ISLAND_MODEL_3_TYPE },
+            // 右脸颊
+            { x: 0.63, y: 0.20, type: ISLAND_MODEL_4_TYPE },
+            { x: 0.63, y: 0.35, type: ISLAND_MODEL_4_TYPE },
+            { x: 0.58, y: 0.40, type: ISLAND_MODEL_3_TYPE },
 
             // =============== “牙齿”/“下巴”区域 ===============
             // 用多个小岛模拟一排“牙齿”
@@ -198,6 +198,9 @@ const MAP_MODEL = [
             //eye
             { x: 0.45, y: 0.28, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.55, y: 0.28, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.28, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.2, y: 0.28, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.3, y: 0.28, type: BUILDING_MODEL_RUBBISH_TYPE },
         ],
         enemy: [
             [

@@ -1,10 +1,11 @@
 class Wave {
-    constructor(x, y, vx, vy, type = "normal") {
+    constructor(x, y, vx, vy, type = "normal", direction) {
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.vx = vx;
         this.vy = vy;
         this.type = type;
+        this.direction = direction;
 
         this.speed = Math.sqrt(vx * vx + vy * vy);
         this.pushForce = (this.type == "big") ? 1 : 0.5;
@@ -104,16 +105,18 @@ class Wave {
         
         // 降低动画帧率
         if (millis() - this.lastFrameTime > this.frameInterval) {
-            this.frameIndex = (this.frameIndex + 1) % this.currentFrames.length;
+            // console.log(frames.wave[this.type]);
+            // console.log(frames.wave[this.type].length);
+            this.frameIndex = (this.frameIndex + 1) % frames.wave[this.direction].length;
             this.lastFrameTime = millis();
         }
     }
 
     drawWave(){
         imageMode(CENTER);
-        image(this.currentFrames[this.frameIndex], 
+        image(frames.wave[this.direction][this.frameIndex], 
               this.xCoordinate , this.yCoordinate , 
-              this.currentFrames[this.frameIndex].width/1.6, this.currentFrames[this.frameIndex].height/1. );
+              this.xSize, this.ySize);
     }
 
     drawWaveGreen() {
@@ -224,9 +227,9 @@ class WaveManager {
 
         
         let type = random() < 0.2 ? "big" : "normal";
-        let wave = new Wave(x, y, vx, vy, type);
+        let wave = new Wave(x, y, vx, vy, type, this.direction);
 
-        wave.setAnimation(this.direction); // 在实例上调用 setAnimation
+        // wave.setAnimation(this.direction); // 在实例上调用 setAnimation
         this.waves.push(wave); // 添加到 waves 数组 
     }
 
@@ -251,13 +254,13 @@ class WaveManager {
 
                     if (newSpeed >= 1.8) {
                         let newType = newSpeed > 2.5 ? "big" : "normal";
-                        let newWave = new Wave(newX, newY, newVx, newVy, newType);
                         if (Math.abs(newVx) > Math.abs(newVy)) {
                             this.direction = newVx > 0 ? 'D' : 'A';
                         } else {
                             this.direction = newVy > 0 ? 'S' : 'W';
                         }
-                        newWave.setAnimation(this.direction);
+                        let newWave = new Wave(newX, newY, newVx, newVy, newType, this.direction);
+                        // newWave.setAnimation(this.direction);
                         newWaves.push(newWave);
                         // newWaves.push(new Wave(newX, newY, newVx, newVy, newType));
                     }

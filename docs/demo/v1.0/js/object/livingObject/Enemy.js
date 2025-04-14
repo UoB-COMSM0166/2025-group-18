@@ -84,7 +84,7 @@ class Enemy extends BasicObject {
     drawEnemy() {
         this.frameCount++;
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % frames.enemy[1].length;
+            this.currentFrame = (this.currentFrame + 1) % frames.enemy[this.modelType].length;
         }
 
         imageMode(CENTER);
@@ -93,12 +93,13 @@ class Enemy extends BasicObject {
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(frames.enemy[1][this.currentFrame],
+            image(frames.enemy[this.modelType][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            image(frames.enemy[1][this.currentFrame],
+            console.log("enemytype: "+this.modelType);
+            image(frames.enemy[this.modelType][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
         }

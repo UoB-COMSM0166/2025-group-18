@@ -48,7 +48,7 @@ let frames = {
       TNT: [],
       rubbish: [],
       chest: [],
-      chbox: [],
+      chemical_box: [],
     },
     island: [],
     sea: null,
@@ -194,17 +194,33 @@ let frames = {
     // ------------------------ 敌人 ------------------------
     // 如果需要和原先一样保持二维结构，可继续像这样做：
     frames.enemy.push([]); // enemy[0]：一个空的占位
-    let enemyFramesTmp1 = [];
-    enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/1.png'));
-    enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/2.png'));
-    enemyFramesTmp1.push(loadImage('images/docs/img/png/enemy/3.png'));
-    frames.enemy.push(enemyFramesTmp1);
+    // enemy[1]：敌人1
+    let enemyFramesTmp = [];
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/1.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/2.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/3.png'));
+    frames.enemy.push(enemyFramesTmp);
 
-    let enemyFramesTmp2 = [];
-    enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/1.png'));
-    enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/2.png'));
-    enemyFramesTmp2.push(loadImage('images/docs/img/png/enemy/3.png'));
-    frames.enemy.push(enemyFramesTmp2);
+    // enemy[2]：敌人2
+    enemyFramesTmp = [];
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/1.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/2.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/3.png'));
+    frames.enemy.push(enemyFramesTmp);
+
+    // enemy[3]：敌人3
+    enemyFramesTmp = [];
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/1.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/2.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/3.png'));
+    frames.enemy.push(enemyFramesTmp);
+
+    // enemy[4]：敌人4
+    enemyFramesTmp = [];
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/1.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/2.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/3.png'));
+    frames.enemy.push(enemyFramesTmp);
 
     // ------------------------ 建筑(TNT) ------------------------
     frames.building.TNT.push(loadImage('images/docs/img/png/building/TNT/1.png'));
@@ -224,9 +240,9 @@ let frames = {
     frames.building.chest.push(loadImage('images/docs/img/png/building/chest/3.png'));
 
     // ------------------------ 建筑(chbox) ------------------------
-    frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/1.png'));
-    frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/2.png'));
-    frames.building.chbox.push(loadImage('images/docs/img/png/building/chbox/3.png'));
+    frames.building.chemical_box.push(loadImage('images/docs/img/png/building/chbox/1.png'));
+    frames.building.chemical_box.push(loadImage('images/docs/img/png/building/chbox/2.png'));
+    frames.building.chemical_box.push(loadImage('images/docs/img/png/building/chbox/3.png'));
 
     // // ------------------------ 宠物 ------------------------
     // // 不知道是几帧的, 你看着来
