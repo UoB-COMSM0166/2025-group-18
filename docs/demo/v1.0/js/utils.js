@@ -453,8 +453,8 @@ const BUILDING_MODEL = [
     }, {
         name: "chemical_box",
         type: BUILDING_MODEL_CHEMICAL_BOX_TYPE,
-        xSize: 110,
-        ySize: 86,
+        xSize: 80,
+        ySize: 60,
         HP: 2
     }, {
         name: "rubbish",
