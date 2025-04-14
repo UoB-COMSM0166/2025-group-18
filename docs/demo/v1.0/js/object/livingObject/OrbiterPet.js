@@ -33,7 +33,7 @@ class OrbiterPet extends BasicObject {
         this.frameCount = 0;
         // 图片预留
         // this.frames = frames.bullet;
-        this.frames = this.getFrames();
+        // this.frames = this.getFrames();
         
         this.invincible = true;
     }
@@ -142,7 +142,7 @@ class OrbiterPet extends BasicObject {
     show() {
         
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % frames.pets[this.model.name].length;
         }
         
         push();
@@ -173,7 +173,7 @@ class OrbiterPet extends BasicObject {
         }
 
         imageMode(CENTER);
-        image(this.frames[this.currentFrame],
+        image(frames.pets[this.model.name][this.currentFrame],
             this.xCoordinate + this.xSize * 1.5, this.yCoordinate,
             this.xSize * 1.5, this.ySize * 1);
         
