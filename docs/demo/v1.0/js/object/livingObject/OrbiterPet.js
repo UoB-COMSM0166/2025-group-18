@@ -13,6 +13,7 @@ class OrbiterPet extends BasicObject {
             5,
         );
         
+        this.model = petModel;
         this.player = player;
         this.orbitRadius = orbitRadius;
         this.orbitSpeed = orbitSpeed;
@@ -31,8 +32,8 @@ class OrbiterPet extends BasicObject {
         this.frameRate = 15;
         this.frameCount = 0;
         // 图片预留
-        this.frames = frames.bullet;
-        // this.frames = this.getFrames();
+        // this.frames = frames.bullet;
+        this.frames = this.getFrames();
         
         this.invincible = true;
     }
@@ -135,20 +136,23 @@ class OrbiterPet extends BasicObject {
         if (this.modelType >= frames.pets.length || this.modelType <= 0) {
             return frames.pets[0];
         }
-        return frames.pets[petModel.name];
+        return frames.pets[this.model.name];
     }
     
     show() {
+        
         if (this.frameCount % this.frameRate == 0) {
             this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         }
         
         push();
+
+        
         
         if (this.skillCD === 0 && !this.isUsingSkill) {
             fill(0, 255, 255, 150 + 50 * Math.sin(frameCount * 0.1));
             noStroke();
-            ellipse(this.xCoordinate, this.yCoordinate, this.xSize + 10, this.ySize + 10);
+            ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize + 10, this.ySize + 10);
         }
         
         if (this.isUsingSkill) {
@@ -159,14 +163,19 @@ class OrbiterPet extends BasicObject {
             fill(0, 255, 200);
         }
         
-        ellipse(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+        // ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
         
         if (this.skillCD > 0) {
             const cdRatio = this.skillCD / this.maxSkillCD;
             fill(100, 100, 100, 200);
-            arc(this.xCoordinate, this.yCoordinate, this.xSize * 0.8, this.ySize * 0.8, 
+            arc(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize * 0.8, this.ySize * 0.8, 
                 -HALF_PI, -HALF_PI + TWO_PI * (1 - cdRatio), PIE);
         }
+
+        imageMode(CENTER);
+        image(this.frames[this.currentFrame],
+            this.xCoordinate + this.xSize * 1.5, this.yCoordinate,
+            this.xSize * 1.5, this.ySize * 1);
         
         pop();
     }
