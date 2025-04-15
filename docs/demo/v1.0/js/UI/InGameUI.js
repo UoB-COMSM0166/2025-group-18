@@ -71,7 +71,10 @@ class InGameUI {
 
     show(playerStatus) {
         push();
-        logicCanvas.image(frames.sea, 0, 0, logicWidth, logicHeight);
+        if (frames.currentBackground) {
+            logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
+        }
+        // logicCanvas.image(frames.sea, 0, 0, logicWidth, logicHeight);
         this.applyDynamicScaling();
         this.drawHolographicFrame();
         this.drawHealthBar();

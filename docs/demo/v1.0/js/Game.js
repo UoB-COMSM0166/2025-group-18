@@ -86,6 +86,11 @@ class Game {
     }
 
     initRandomMap(loopCount = 0) {
+        // 随机选择背景图片
+        const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
+        frames.currentBackground = frames.background[randomBackgroundIndex];
+
+
         // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore
         this.mapType = MAP_MODEL_8_TYPE;
         //this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
@@ -113,6 +118,10 @@ class Game {
     }
 
     initRandomBossMap(loopCount = 0) {
+        // 随机选择背景图片
+        const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
+        frames.currentBackground = frames.background[randomBackgroundIndex];
+
         this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + MAP_MODEL_BOSS_1_TYPE;
         // this.mapType = MAP_MODEL_BOSS_2_TYPE;
         let info = getMapModel(this.mapType);
