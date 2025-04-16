@@ -15,6 +15,7 @@ class InGameUI {
         this.pollutionLevel = 1;
         this.maxPollutionLevel = 1;
         this.gold = 0;
+        this.playerLoopCount = 0;
 
         this.pollutionStatus = {
             1: { name: "CLEAN WATERS", description: "Ecosystem Healthy" },
@@ -57,6 +58,7 @@ class InGameUI {
         this.targetHP = playerStatus.HP;
         this.targetHPmax = playerStatus.HPmax;
         this.gold = playerStatus.gold;
+        this.playerLoopCount = playerStatus.loopCount || 0;
 
         this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
         this.currentHPmax = this.targetHPmax > 0 ?
@@ -87,7 +89,7 @@ class InGameUI {
         this.applyDynamicScaling();
         this.drawHolographicFrame();
         this.drawHealthBar();
-        this.drawPollutionStatus();
+        this.drawPollutionStatusAndRoundTimes();
         this.drawSkillStatus(playerStatus);
         this.drawGoldStatus();
         pop();
@@ -153,13 +155,14 @@ class InGameUI {
         pop();
     }
 
-    // 污染状态
-    drawPollutionStatus() {
+    // 污染状态 + 轮回次数
+    drawPollutionStatusAndRoundTimes() {
         push();
-        rectMode(CORNER);
-        translate(-120, -50);
+        rectMode(CENTER);
+        // translate(-120, -50);
 
         const statusInfo = this.pollutionStatus[this.pollutionLevel] || this.pollutionStatus[1];
+        const roundTimeInfo = this.playerLoopCount;
         
         let statusColor;
         let pulseEffect = sin(frameCount * 0.1) * 0.2 + 0.8;
@@ -191,7 +194,7 @@ class InGameUI {
         }
 
         push();
-        translate(20, 65);
+        translate(logicWidth / 3, -15);
         textFont(this.font || 'Arial Black');
         textSize(14);
 
@@ -207,8 +210,9 @@ class InGameUI {
         }
 
         fill(statusColor);
+        // 居中
         textAlign(LEFT);
-        text(`ECO STATUS: ${statusInfo.name}`, 0, 0);
+        text(`ECO STATUS: ${statusInfo.name}    LoopTimes: ${this.playerLoopCount}`, 0, 0);
         pop();
         
         pop();
@@ -307,7 +311,7 @@ class InGameUI {
         const flash = this.cdFlash * 255;
 
         push();
-        translate(20, 85);
+        translate(20, 80);
         textFont(this.font || 'Arial Black');
         textSize(15);
 
