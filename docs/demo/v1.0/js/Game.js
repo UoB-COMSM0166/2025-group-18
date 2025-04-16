@@ -91,7 +91,7 @@ class Game {
         frames.currentBackground = frames.background[randomBackgroundIndex];
 
 
-        // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore
+        // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore  这种中文注释谁写的谁记得删哦（把我这半行一起删了）。--QTY
         this.mapType = MAP_MODEL_8_TYPE;
         //this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
@@ -348,7 +348,7 @@ class Game {
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
             bullet.updateStatus();
-            if (this.checkCollideBullet(bullet)) {
+            if (this.checkCollideBullet(bullet) || bullet.frameCount > 600) {
                 this.#bullets[i].toDelete = true;
                 this.addExplode(
                     bullet.xCoordinate,
@@ -361,16 +361,6 @@ class Game {
             } else {
                 bullet.show();
             }
-            if (bullet.frameCount > 600) {
-                this.addExplode(
-                    bullet.xCoordinate,
-                    bullet.yCoordinate,
-                    bullet.harm,
-                    bullet.attackBit,
-                    EXPLODE_MODEL_BULLET_TYPE
-                );
-                this.#bullets[i].toDelete = true;
-            }
         }
         this.#bullets = this.#bullets.filter(bullet => !bullet.toDelete);
 
@@ -380,7 +370,6 @@ class Game {
                 let building = this.#buildings[i];
                 if (!building.isAlive) {
                     this.#buildings.splice(i, 1);
-                    building.deadRattle();
                 } else {
                     building.show();
                 }
@@ -649,9 +638,10 @@ class Game {
             }
         }
 
-        for (let enemy of this.#enemies) {
-            if ((bullet.attackBit & ENEMY_TYPE) && myCollide(enemy, bullet)) {
-                return true;
+        if (bullet.attackBit & ENEMY_TYPE) {
+            for (let enemy of this.#enemies) {
+                if (myCollide(enemy, bullet))
+                    return true;
             }
         }
 
@@ -690,9 +680,6 @@ class Game {
         }
 
         for (let building of this.#buildings) {
-            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
-                continue;
-            }
             if (myCollide(location, building)) {
                 return true;
             }
@@ -731,9 +718,6 @@ class Game {
             }
         }
         for (let building of this.#buildings) {
-            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
-                continue;
-            }
             if (myCollide(location, building)) {
                 return true;
             }
@@ -957,24 +941,6 @@ class Game {
         return target;
     }
 
-    addBomb() {
-        if (this.#player.skillCD > 0) {
-            console.log("addBomb() Skill is not ready");
-            return;
-        }
-        let xCoor = this.#player.xCoordinate;
-        let yCoor = this.#player.yCoordinate;
-        const bomb = new Building(
-            xCoor,
-            yCoor,
-            BUILDING_MODEL_BOMB_TYPE,
-            (x, y, harm, attackBit, explodeType) =>
-                this.addExplode(x, y, harm, attackBit, explodeType)
-        );
-        this.#buildings.push(bomb);
-        this.#pollution.increasePollution("skill");
-    }
-
     addBulletPet() {
         if (this.#player.skillCD > 0) {
             console.log("Laser() Skill is not ready");
@@ -1041,9 +1007,6 @@ class Game {
         }
 
         for (let building of this.#buildings) {
-            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
-                continue;
-            }
             if (myCollide(location, building)) {
                 return true;
             }
