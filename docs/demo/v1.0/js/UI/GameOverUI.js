@@ -86,7 +86,7 @@ class GameOverUI {
         textSize(150);
         for (let i = 0; i < 10; i++) {
             fill(100, 0, 0, this.textOpacity * 100);
-            text("傻逼", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
+            text("小笨蛋", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
         }
 
         fill(255, 0, 0, this.textOpacity * 255);
@@ -94,7 +94,7 @@ class GameOverUI {
         const offsetX = random(-shakeAmount, shakeAmount);
         const offsetY = random(-shakeAmount, shakeAmount);
 
-        text("傻逼", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
+        text("小笨蛋", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
 
         // 死亡原因文本
         textSize(30);
