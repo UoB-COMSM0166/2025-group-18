@@ -303,7 +303,7 @@ function setup() {
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
-    frameRate(60);
+    frameRate(45);
 }
 
 function draw() {
