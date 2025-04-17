@@ -44,11 +44,11 @@ class GameOverUI {
             logicY < this.button.y + this.button.height
         );
 
-        if (this.buttonHovered) {
-            document.body.style.cursor = 'pointer';
-        } else {
-            document.body.style.cursor = 'default';
-        }
+        // if (this.buttonHovered) {
+        //     document.body.style.cursor = 'pointer';
+        // } else {
+        //     document.body.style.cursor = 'default';
+        // }
     }
 
     setDeathReason(reason) {
