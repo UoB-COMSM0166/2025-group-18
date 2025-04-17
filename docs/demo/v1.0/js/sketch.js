@@ -67,6 +67,7 @@ let frames = {
     frames.bullet.push(loadImage('images/docs/img/png/bullet/1.png'));
     frames.bullet.push(loadImage('images/docs/img/png/bullet/2.png'));
     frames.bullet.push(loadImage('images/docs/img/png/bullet/3.png'));
+    frames.bullet.push(loadImage('images/docs/img/png/bullet/4.png'));
 
     // ------------------------ 敌人子弹 ------------------------
     frames.enemyBullet.push(loadImage('images/docs/img/png/enemyBullet/1.png'));
@@ -210,16 +211,17 @@ let frames = {
 
     // enemy[3]：敌人3
     enemyFramesTmp = [];
-    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/1.png'));
-    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/2.png'));
-    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy2/3.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy3/1.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy3/2.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy3/3.png'));
     frames.enemy.push(enemyFramesTmp);
 
     // enemy[4]：敌人4
     enemyFramesTmp = [];
-    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/1.png'));
-    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/2.png'));
-    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy1/3.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy4/1.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy4/2.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy4/3.png'));
+    enemyFramesTmp.push(loadImage('images/docs/img/png/enemy/enemy4/4.png'));
     frames.enemy.push(enemyFramesTmp);
 
     // ------------------------ 建筑(TNT) ------------------------
@@ -249,7 +251,13 @@ let frames = {
     // // fort
     // frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/1.png'));
     // // laser
-    // frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
+    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
+    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/2.png'));
+    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/3.png'));
+    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/4.png'));
+    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/5.png'));
+    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/6.png'));
+
     // // orbiter
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/2.png'));

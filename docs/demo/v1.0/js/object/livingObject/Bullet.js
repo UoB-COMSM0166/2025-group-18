@@ -98,8 +98,8 @@ class Bullet extends BasicObject {
         
         if (this.bulletTypes == PLAYER_BULLET_TYPE) {
             image(frames.bullet[this.currentFrame], 0, 0,
-                frames.bullet[this.currentFrame].width / 4, 
-                frames.bullet[this.currentFrame].height / 4);
+                frames.bullet[this.currentFrame].width / 20, 
+                frames.bullet[this.currentFrame].height / 20);
         } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
             image(frames.enemyBullet[this.currentFrame], 0, 0,
                 frames.enemyBullet[this.currentFrame].width / 4, 
