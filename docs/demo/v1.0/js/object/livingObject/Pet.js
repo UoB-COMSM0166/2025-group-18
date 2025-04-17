@@ -38,7 +38,7 @@ class Pet extends BasicObject {
         this.currentFrame = 0;  
         this.frameRate = 20;  
         this.frameCount = 0; 
-        this.frames = this.getFrames();
+        // this.frame = this.getFrames();
         
         this.isFlashing = false;
         this.flashDuration = 150;
@@ -68,7 +68,7 @@ class Pet extends BasicObject {
     drawPet() {
         this.frameCount++;
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % frames.pets[this.name].length;
         }
 
         imageMode(CENTER);
@@ -77,12 +77,12 @@ class Pet extends BasicObject {
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(this.frames[this.currentFrame], 
+            image(frames.pets[this.name][this.currentFrame], 
                   this.xCoordinate, this.yCoordinate, 
                   this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            image(this.frames[this.currentFrame], 
+            image(frames.pets[this.name][this.currentFrame], 
                   this.xCoordinate, this.yCoordinate, 
                   this.xSize * 2, this.ySize * 2);
         }

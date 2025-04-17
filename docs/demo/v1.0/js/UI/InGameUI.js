@@ -15,6 +15,16 @@ class InGameUI {
         this.pollutionLevel = 1;
         this.maxPollutionLevel = 1;
         this.gold = 0;
+        this.playerLoopCount = 0;
+
+        this.pollutionStatus = {
+            1: { name: "CLEAN WATERS", description: "Ecosystem Healthy" },
+            2: { name: "WATER ANOMALY", description: "Minor Pollution" },
+            3: { name: "SPREADING POLLUTION", description: "Ecosystem Unstable" },
+            4: { name: "ECOLOGICAL IMBALANCE", description: "Species Declining" },
+            5: { name: "ECOSYSTEM COLLAPSE", description: "Critical Condition" },
+            6: { name: "ECOLOGICAL DEATH", description: "Beyond Recovery" }
+        };
 
         this.updatePositions();
     }
@@ -48,6 +58,7 @@ class InGameUI {
         this.targetHP = playerStatus.HP;
         this.targetHPmax = playerStatus.HPmax;
         this.gold = playerStatus.gold;
+        this.playerLoopCount = playerStatus.loopCount || 0;
 
         this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
         this.currentHPmax = this.targetHPmax > 0 ?
@@ -71,15 +82,19 @@ class InGameUI {
 
     show(playerStatus) {
         push();
-        logicCanvas.image(frames.sea, 0, 0, logicWidth, logicHeight);
+        if (frames.currentBackground) {
+            logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
+        }
+        // logicCanvas.image(frames.sea, 0, 0, logicWidth, logicHeight);
         this.applyDynamicScaling();
         this.drawHolographicFrame();
         this.drawHealthBar();
+        this.drawPollutionStatusAndRoundTimes();
         this.drawSkillStatus(playerStatus);
         this.drawGoldStatus();
         pop();
 
-        this.drawPollutionStatus();
+        this.drawPollutionBar();
     }
 
     // Theodore-金币显示
@@ -97,8 +112,8 @@ class InGameUI {
         text(`GOLD: ${this.gold}`, 125, 15);
         pop();
     }
-
-    drawPollutionStatus() {
+    
+    drawPollutionBar() {
         push();
         rectMode(CORNER);
         // translate(-120, 650);
@@ -140,6 +155,69 @@ class InGameUI {
         pop();
     }
 
+    // 污染状态 + 轮回次数
+    drawPollutionStatusAndRoundTimes() {
+        push();
+        rectMode(CENTER);
+        // translate(-120, -50);
+
+        const statusInfo = this.pollutionStatus[this.pollutionLevel] || this.pollutionStatus[1];
+        const roundTimeInfo = this.playerLoopCount;
+        
+        let statusColor;
+        let pulseEffect = sin(frameCount * 0.1) * 0.2 + 0.8;
+        
+        switch(this.pollutionLevel) {
+            case 1:
+                statusColor = color(100, 255, 100);
+                break;
+            case 2:
+                statusColor = color(200, 255, 100);
+                break;
+            case 3:
+                statusColor = color(255, 255, 100);
+                break;
+            case 4:
+                statusColor = color(255, 200, 50);
+                statusColor.setAlpha(255 * pulseEffect);
+                break;
+            case 5:
+                statusColor = color(255, 100, 50);
+                statusColor.setAlpha(255 * pulseEffect);
+                break;
+            case 6:
+                statusColor = color(255, 50, 50);
+                statusColor.setAlpha(255 * pulseEffect);
+                break;
+            default:
+                statusColor = color(100, 255, 100);
+        }
+
+        push();
+        translate(logicWidth / 3, -15);
+        textFont(this.font || 'Arial Black');
+        textSize(14);
+
+        // 设置阴影效果
+        drawingContext.shadowColor = statusColor;
+        drawingContext.shadowBlur = 8;
+        
+        // 高污染等级时，文字抖动
+        if (this.pollutionLevel >= 4) {
+            let jitterX = random(-1, 1);
+            let jitterY = random(-1, 1);
+            translate(jitterX, jitterY);
+        }
+
+        fill(statusColor);
+        // 居中
+        textAlign(LEFT);
+        text(`ECO STATUS: ${statusInfo.name}    LoopTimes: ${this.playerLoopCount}`, 0, 0);
+        pop();
+        
+        pop();
+    }
+
     applyDynamicScaling() {
         translate(30 + 120, 30 + 50); // 左上
         scale(this.uiScale);
@@ -158,7 +236,8 @@ class InGameUI {
         fill(0, 180);
         stroke(100, 255, 218);
         strokeWeight(2);
-        rect(0, 0, 240, 100, 8);
+        
+        rect(0, 0, 240, 120, 8);
 
         pop();
     }
@@ -232,7 +311,7 @@ class InGameUI {
         const flash = this.cdFlash * 255;
 
         push();
-        translate(20, 70);
+        translate(20, 80);
         textFont(this.font || 'Arial Black');
         textSize(15);
 

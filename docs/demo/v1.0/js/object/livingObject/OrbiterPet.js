@@ -6,11 +6,11 @@ class OrbiterPet extends BasicObject {
             PET_TYPE,
             player.xCoordinate,
             player.yCoordinate,
-            20,
-            20,
+            petModel.xSize,
+            petModel.ySize,
             PET_BULLET_ATTACK_BIT,
-            100,
-            5,
+            petModel.HP,
+            petModel.speed,
         );
         
         this.model = petModel;
@@ -33,7 +33,7 @@ class OrbiterPet extends BasicObject {
         this.frameCount = 0;
         // 图片预留
         // this.frames = frames.bullet;
-        this.frames = this.getFrames();
+        // this.frames = this.getFrames();
         
         this.invincible = true;
     }
@@ -52,7 +52,7 @@ class OrbiterPet extends BasicObject {
             this.skillCD = this.maxSkillCD;
         }
         
-        if (this.skillCD === 0 && !this.isUsingSkill && !this.returnToOrbit && enemies.length > 0) {
+        if (this.skillCD == 0 && !this.isUsingSkill && !this.returnToOrbit && enemies.length > 0) {
             let closestEnemy = null;
             let closestDist = Infinity;
             
@@ -142,19 +142,24 @@ class OrbiterPet extends BasicObject {
     show() {
         
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % frames.pets[this.model.name].length;
         }
         
         push();
 
-        
-        
-        if (this.skillCD === 0 && !this.isUsingSkill) {
+        imageMode(CENTER);
+        image(frames.pets[this.model.name][this.currentFrame],
+            this.xCoordinate, this.yCoordinate,
+            this.xSize * 1, this.ySize * 1);
+
+        if (this.skillCD == 0 && !this.isUsingSkill) {
             fill(0, 255, 255, 150 + 50 * Math.sin(frameCount * 0.1));
             noStroke();
-            ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize + 10, this.ySize + 10);
+            ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
         }
         
+        pop();
+
         if (this.isUsingSkill) {
             fill(255, 0, 0);
         } else if (this.returnToOrbit) {
@@ -163,7 +168,7 @@ class OrbiterPet extends BasicObject {
             fill(0, 255, 200);
         }
         
-        // ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
+        ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
         
         if (this.skillCD > 0) {
             const cdRatio = this.skillCD / this.maxSkillCD;
@@ -171,13 +176,6 @@ class OrbiterPet extends BasicObject {
             arc(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize * 0.8, this.ySize * 0.8, 
                 -HALF_PI, -HALF_PI + TWO_PI * (1 - cdRatio), PIE);
         }
-
-        imageMode(CENTER);
-        image(this.frames[this.currentFrame],
-            this.xCoordinate + this.xSize * 1.5, this.yCoordinate,
-            this.xSize * 1.5, this.ySize * 1);
-        
-        pop();
     }
     
     updateHP(change) {

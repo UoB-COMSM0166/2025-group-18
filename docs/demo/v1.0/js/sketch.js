@@ -2,18 +2,18 @@ let main;
 // 重定义的 frames 对象
 let frames = {
     bullet: [],
-    enemyBullet: [], 
+    enemyBullet: [],
     bossBullet: [],
     shipMove: {
-      D: [],
-      IdleD: [],  // 为静止状态另加一个 IdleD，方便区分
-      S: [],
-      A: [],
-      W: [],
-      DS: [],
-      AS: [],
-      AW: [],
-      DW: [],
+        D: [],
+        IdleD: [],  // 为静止状态另加一个 IdleD，方便区分
+        S: [],
+        A: [],
+        W: [],
+        DS: [],
+        AS: [],
+        AW: [],
+        DW: [],
     },
     boss: {
         boss_octopus: [],
@@ -27,16 +27,16 @@ let frames = {
         boss_2_skill_2: [],
     },
     explode: {
-      explodePlayer: [],
-      explodeEnemy: [],
+        explodePlayer: [],
+        explodeEnemy: [],
     },
     enemy2: [],
-    
+    background: [],
     wave: {
-      W: [],
-      A: [],
-      S: [],
-      D: [],
+        W: [],
+        A: [],
+        S: [],
+        D: [],
     },
     enemy: [],
     pets: {
@@ -45,23 +45,29 @@ let frames = {
         orbiter: [],
     },
     building: {
-      TNT: [],
-      rubbish: [],
-      chest: [],
-      chemical_box: [],
+        TNT: [],
+        rubbish: [],
+        chest: [],
+        chemical_box: [],
     },
     island: [],
     sea: null,
-  };
-  
-  function preload() {
+    currentBackground: null, //背景测试
+};
+
+function preload() {
     // 加载岛屿图片
     frames.island.push(loadImage('images/docs/img/png/island/1.png'));
     frames.island.push(loadImage('images/docs/img/png/island/2.png'));
     frames.island.push(loadImage('images/docs/img/png/island/3.png'));
 
     // 加载背景图片（只需单张，不用 push）
-    frames.sea = loadImage('images/docs/img/png/background/3.png');
+    //frames.sea = loadImage('images/docs/img/png/background/3.png');
+
+    // 背景测试用(个人倾向于保留这种方式，不同的海域不同的底色，可能比单一的海洋背景好一点)——Theodore
+    frames.background.push(loadImage('images/docs/img/png/background/1.png'));
+    frames.background.push(loadImage('images/docs/img/png/background/3.png'));
+    frames.background.push(loadImage('images/docs/img/png/background/5.png'));
 
     // ------------------------ 子弹 ------------------------
     frames.bullet.push(loadImage('images/docs/img/png/bullet/1.png'));
@@ -156,7 +162,7 @@ let frames = {
     frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/07.png'));
     frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
     frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
-    
+
     // ------------------------ BOSS 2 技能2 ------------------------
     frames.aoeSkill.boss_2_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_2_skill_1/1.png'));
     // frames.aoeSkill.boss_2_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
@@ -168,12 +174,12 @@ let frames = {
     frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/4.png'));
     frames.explode.explodePlayer.push(loadImage('images/docs/img/png/explode/5.png'));
 
-     // ------------------------ 敌人爆炸 ------------------------
-     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/1.png'));
-     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/2.png'));
-     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/3.png'));
-     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/4.png'));
-     frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/5.png'));
+    // ------------------------ 敌人爆炸 ------------------------
+    frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/1.png'));
+    frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/2.png'));
+    frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/3.png'));
+    frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/4.png'));
+    frames.explode.explodeEnemy.push(loadImage('images/docs/img/png/explode2/5.png'));
 
     // ------------------------ 波浪 ------------------------
     frames.wave.W.push(loadImage('images/docs/img/png/wave/to_up/1.png'));
@@ -262,11 +268,11 @@ let frames = {
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/2.png'));
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/3.png'));
-    
+
 
     // 主题曲音频
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
-    
+
     // laser 音频
     laserShotSound = loadSound('./MusicPack/pet/laser/laser-shoot.ogg');
     laserShotSound.setVolume(1);
@@ -309,6 +315,15 @@ function draw() {
     // logicCanvas.image(frames.sea, logicWidth/2, 0, logicWidth, logicHeight);
     // logicCanvas.image(frames.sea, 0, logicHeight/2, logicWidth, logicHeight);
     // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
+    
+    // 使用当前选择的背景图
+    if (frames.currentBackground) {
+        logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
+        logicCanvas.image(frames.currentBackground, logicWidth / 2, 0, logicWidth, logicHeight);
+        logicCanvas.image(frames.currentBackground, 0, logicHeight / 2, logicWidth, logicHeight);
+        logicCanvas.image(frames.currentBackground, logicWidth / 2, logicHeight / 2, logicWidth, logicHeight);
+    }
+
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
     logicX = map(mouseX, 0, width, 0, logicWidth);
