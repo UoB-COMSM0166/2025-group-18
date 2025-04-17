@@ -244,6 +244,7 @@ function getPetModel(petType) {
 /** boss model */
 const BOSS_MODEL_ERROR_TYPE = 0;
 const BOSS_MODEL_OCTOPUS_TYPE = 1;
+const BOSS_MODEL_BIRD_TYPE = 2;
 
 const BOSS_MODEL = [
     {
@@ -268,6 +269,17 @@ const BOSS_MODEL = [
         attackCD: 1,
         attackRange: 2000,
         seeRange: 2000,
+    }, {
+        name: "boss_bird",
+        type: BOSS_MODEL_BIRD_TYPE,
+        xSize: 200,
+        ySize: 200,
+        HP: 50,
+        speed: 10,
+        attackPower: 1.5,
+        attackCD: 1,
+        attackRange: 2500,
+        seeRange: 2500,
     }
 ];
 
@@ -284,6 +296,8 @@ const BOSS_SKILL_MODEL_ERROR_TYPE = 0;
 const BOSS_SKILL_MODEL_OCTOPUS_TYPE_1 = 1;
 const BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1 = 2;
 const BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2 = 3;
+const BOSS_SKILL_MODEL_BIRD_TYPE_1 = 4;
+const BOSS_SKILL_MODEL_BIRD_TYPE_2 = 5;
 
 const BOSS_SKILL_MODEL = [
     {
@@ -318,6 +332,22 @@ const BOSS_SKILL_MODEL = [
         delayTime: 0,
         harm: 3,
         liveTime: 1
+    }, {
+        name: "boss_2_skill_1",
+        type: BOSS_SKILL_MODEL_BIRD_TYPE_1,
+        xSize: 200,
+        ySize: 2300,
+        delayTime: 1,
+        harm: 0,
+        liveTime: 1
+    }, {
+        // name: "boss_2_skill_2",
+        // type: BOSS_SKILL_MODEL_BIRD_TYPE_2,
+        // xSize: 200,
+        // ySize: 200,
+        // delayTime: 0,
+        // harm: 3,
+        // liveTime: 1
     }
 ];
 
@@ -405,14 +435,14 @@ const BUILDING_MODEL = [
     }, {
         name: "TNT",
         type: BUILDING_MODEL_TNT_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 44,
+        ySize: 66,
         HP: 1
     }, {
         name: "chest",
         type: BUILDING_MODEL_CHEST_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 66,
+        ySize: 66,
         HP: 1
     }, {
         name: "bomb",
@@ -423,14 +453,14 @@ const BUILDING_MODEL = [
     }, {
         name: "chemical_box",
         type: BUILDING_MODEL_CHEMICAL_BOX_TYPE,
-        xSize: 30,
-        ySize: 30,
+        xSize: 80,
+        ySize: 60,
         HP: 2
     }, {
         name: "rubbish",
         type: BUILDING_MODEL_RUBBISH_TYPE,
-        xSize: 40,
-        ySize: 40,
+        xSize: 33,
+        ySize: 30,
         HP: 3
     }
 ];

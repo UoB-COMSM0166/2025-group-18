@@ -7,10 +7,6 @@ class Boss1 extends Boss {
     enemyAI(playerX, playerY) {
         this.updateStatus();
         if (this.isAlive) {
-            let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
-
-
-
             // skill 1
             if (millis() - this.lastAttack1Time > 3000) {
                 if (this.attack1number > 240) {

@@ -40,7 +40,7 @@ class Enemy extends BasicObject {
         this.currentFrame = 0;
         this.frameRate = 20;
         this.frameCount = 0;
-        this.frames = this.getFrames();
+        // this.frames = this.getFrames();
 
         // 受击闪烁效果属性
         this.isFlashing = false;
@@ -84,7 +84,7 @@ class Enemy extends BasicObject {
     drawEnemy() {
         this.frameCount++;
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % frames.enemy[this.modelType].length;
         }
 
         imageMode(CENTER);
@@ -93,12 +93,12 @@ class Enemy extends BasicObject {
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(this.frames[this.currentFrame],
+            image(frames.enemy[this.modelType][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            image(this.frames[this.currentFrame],
+            image(frames.enemy[this.modelType][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
         }
@@ -184,7 +184,7 @@ class Enemy extends BasicObject {
     }
 
     enemyAttack(xSpeed, ySpeed) {
-        console.log("enemy attack");
+        //console.log("enemy attack");——Theodore，整个控制台全部是打印的子弹
         this.enemyAttackCallBack(
             xSpeed, ySpeed,
             ENEMY_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,

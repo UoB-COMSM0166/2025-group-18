@@ -22,7 +22,7 @@ class Building extends BasicObject {
         this.currentFrame = 0;  
         this.frameRate = 10;
         this.frameCount = 0; 
-        this.frames = this.getFrames();
+        // this.frames = this.getFrames();
     }
 
     static setPollutionInstance(pollutionInstance) {
@@ -32,7 +32,7 @@ class Building extends BasicObject {
     getFrames() {
         switch(this.modelType) {
             case BUILDING_MODEL_CHEMICAL_BOX_TYPE:
-                return frames.building.chbox;
+                return frames.building.chemical_box;
             case BUILDING_MODEL_TNT_TYPE:
                 return frames.building.TNT;
             case BUILDING_MODEL_CHEST_TYPE:
@@ -47,12 +47,15 @@ class Building extends BasicObject {
     draw() {
         this.frameCount++;
         if (this.frameCount % this.frameRate == 0) 
-            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+            this.currentFrame = (this.currentFrame + 1) % frames.building[this.name].length;
         
         imageMode(CENTER);
-        image(this.frames[this.currentFrame], 
+        image(frames.building[this.name][this.currentFrame], 
               this.xCoordinate, this.yCoordinate, 
-              this.frames[this.currentFrame].width/3, this.frames[this.currentFrame].height/3 );
+              this.xSize, this.ySize
+            //   frames.building[this.name][this.currentFrame].width/3, 
+            //   frames.building[this.name][this.currentFrame].height/3 
+            );
     }
     show() {
 
@@ -66,7 +69,7 @@ class Building extends BasicObject {
     updateHP(change) {
         super.updateHP(change);
         if (!this.isAlive) {
-            console.log(this);
+            //console.log(this);
         }
     }
 
@@ -75,7 +78,7 @@ class Building extends BasicObject {
     }
 
     deadRattle() {
-        console.log("----dead rattle----");
+        //console.log("----dead rattle----");
         switch(this.modelType) {
             case BUILDING_MODEL_TNT_TYPE: {
                 this.explodeCallBack(

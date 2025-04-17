@@ -17,10 +17,36 @@ class Main {
             (buffType) => this.chooseBuff(buffType),
             (gameType) => this.chooseGameMap(gameType),
             (goldChange) => this.#status.updateGold(goldChange),
+            // Add new callbacks for health and pollution
+            (healthChange) => this.updatePlayerHealth(healthChange),
+            (pollutionChange) => this.updatePlayerPollution(pollutionChange)
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
         this.deathReason = "";
+    }
+
+    updatePlayerHealth(healthChange) {
+        if (healthChange && healthChange !== 0) {
+            const currentHP = this.#status.getShipStatus().HP;
+            const newHP = Math.max(0, currentHP + healthChange);
+            console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
+            this.#status.updateHP(newHP);
+        }
+    }
+
+    updatePlayerPollution(pollutionChange) {
+        if (pollutionChange && pollutionChange !== 0) {
+            if (this.#game) {
+                const currentPollution = this.#game.getPlayerStatus().pollution;
+               //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                this.#game.setPollution(currentPollution + pollutionChange);
+            } else {
+                const currentPollution = this.#status.getShipStatus().pollution;
+                //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                this.#status.updatePollution(currentPollution + pollutionChange, null);
+            }
+        }
     }
 
     initMain() {
@@ -52,11 +78,12 @@ class Main {
         const loopCount = this.#status.getLoopCount();
 
         if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
-            this.#game.initBoss(loopCount);
+            this.#game.initRandomBossMap(loopCount);
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
             //Theodore-预期冲突处，保留我的，我要传递循环计数
             this.#game.initRandomMap(loopCount);
+            // this.#game.initRandomBossMap(loopCount);// 测试boss用
         }
     }
 
@@ -75,7 +102,7 @@ class Main {
             }
             this.#game = null;
         } else if (this.#game.getGameOver()) {
-            console.log("Game Over!");
+            //console.log("Game Over!");
             this.deathReason = this.#game.getDeathReason();
             this.#UI.initGameOverUI(this.deathReason);
             this.updateStep(MAIN_STEP_GAME_OVER);
@@ -109,8 +136,8 @@ class Main {
                 break;
             }
             case MAIN_STEP_IN_GAME: {
-                this.#UI.showInGameUI(this.#status.getShipStatus());
                 this.continueGame();
+                this.#UI.showInGameUI(this.#status.getShipStatus());
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
@@ -364,12 +391,12 @@ class Main {
     }
 
     chooseBuff(buffType) {
-        console.log(buffType);
+        //console.log(buffType);
     }
 
     chooseGameMap(gameType) {
         this.#nextGameType = gameType;
-        console.log(gameType);
+        // console.log(gameType);
     }
 
     getGameReward() {

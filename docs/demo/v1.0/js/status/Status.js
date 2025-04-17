@@ -50,7 +50,7 @@ class Status {
     }
 
     updateHP(HP) {
-        this.#playerStatus.HP = HP;
+        this.#playerStatus.HP = Math.min(HP, this.#playerStatus.HPmax);
     }
     
     recoverToMaxHP() {
@@ -63,11 +63,21 @@ class Status {
 
     updatePollution(pollution, pollutionLevel) {
         this.#playerStatus.pollution = pollution;
-        this.#playerStatus.pollutionLevel = pollutionLevel;
+
+        if (pollutionLevel == null || pollutionLevel == undefined) {
+            if (pollution >= Status.MAX_POLLUTION) {
+                this.#playerStatus.pollutionLevel = Status.POLLUTION_MAX_LEVEL;
+            } else {
+                this.#playerStatus.pollutionLevel = Math.floor(pollution / 200) + 1;
+            }
+        } else {
+            this.#playerStatus.pollutionLevel = pollutionLevel;
+        }
     }
 
     updateGold(goldChange) {
-        this.#playerStatus.gold += goldChange;
+        const newGold = this.#playerStatus.gold + goldChange;
+        this.#playerStatus.gold = Math.max(0, newGold);
     }
     
     // 增加轮回次数
