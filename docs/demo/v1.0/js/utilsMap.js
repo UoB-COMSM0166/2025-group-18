@@ -950,7 +950,7 @@ const MAP_MODEL = [
             [
                 { x: 0.20, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.80, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.50, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE }, 
+                { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE }, 
             ],
             
             // 第二波
@@ -965,7 +965,7 @@ const MAP_MODEL = [
             [
                 { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE }, 
                 { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.50, y: 0.2, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.50, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.20, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
             ]
