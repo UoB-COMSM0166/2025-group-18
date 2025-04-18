@@ -773,10 +773,208 @@ const MAP_MODEL = [
                 { x: 0.6, y: 0.6, type: EASY_ENEMY_MODEL_3_TYPE },
             ]
         ]
-    }, 
+    }, {
+        modelType: MAP_MODEL_8_TYPE,//拼多多图，什么都有一点
+        playerStart: { x: 0.1, y: 0.5 },
+        island: [
+            // 中心交叉形态
+            { x: 0.5, y: 0.5, type: ISLAND_MODEL_2_TYPE },
+            
+            // 角落岛屿
+            { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+            
+            // 小小岛
+            { x: 0.35, y: 0.35, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.65, y: 0.35, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.35, y: 0.65, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.65, y: 0.65, type: ISLAND_MODEL_5_TYPE },
+        ],
+        building: [
+            // 上方炸弹
+            { x: 0.30, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.35, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.40, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.45, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.55, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.60, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.65, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.70, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 下方炸弹
+            { x: 0.30, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.35, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.40, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.45, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.55, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.60, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.65, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.70, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 左侧炸弹
+            { x: 0.15, y: 0.30, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.35, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.40, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.45, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.55, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.60, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.65, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.70, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 右侧炸弹
+            { x: 0.85, y: 0.30, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.35, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.40, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.45, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.55, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.60, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.65, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.70, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 化学桶
+            { x: 0.4, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.6, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            
+            // 垃圾
+            { x: 0.25, y: 0.25, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.75, y: 0.25, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.25, y: 0.75, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.75, y: 0.75, type: BUILDING_MODEL_RUBBISH_TYPE },
+            
+            // 宝箱
+            { x: 0.5, y: 0.2, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.5, y: 0.8, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.2, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.8, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
+        ],
+        enemy: [
+            // 第一波 - 周边敌人
+            [
+                { x: 0.3, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.3, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.5, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
+            ],
+            
+            // 第二波 - 角落伏击
+            [
+                { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.15, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.85, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.5, y: 0.7, type: EASY_ENEMY_MODEL_3_TYPE },
+            ],
+            
+            // 第三波 - 更强的敌人
+            [
+                { x: 0.4, y: 0.2, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.6, y: 0.2, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.4, y: 0.8, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.6, y: 0.8, type: EASY_ENEMY_MODEL_3_TYPE },
+            ],
+            
+            // 第四波 - 最终挑战
+            [
+                { x: 0.3, y: 0.5, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.7, y: 0.5, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.5, y: 0.3, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.5, y: 0.7, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.4, y: 0.4, type: EASY_ENEMY_MODEL_4_TYPE },
+                { x: 0.6, y: 0.6, type: EASY_ENEMY_MODEL_4_TYPE },
+            ]
+        ]
+    },
+    {
+        modelType: MAP_MODEL_9_TYPE,//困境图——我是真牛逼，全新玩法更新了！
+        playerStart: { x: 0.5, y: 0.5 },
+        island: [
+            // 玩家脚下的小岛，将玩家卡在原地
+            { x: 0.5, y: 0.5, type: ISLAND_MODEL_5_TYPE },
+            
+            // 边缘岛屿作为装饰和边界
+            { x: 0.1, y: 0.1, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.9, y: 0.1, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.1, y: 0.9, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.9, y: 0.9, type: ISLAND_MODEL_1_TYPE },
+        ],
+        building: [
+            // 上边缘的化学箱和垃圾
+            { x: 0.2, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.3, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.4, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.6, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.7, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.8, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            
+            // 右边缘的化学箱和TNT
+            { x: 0.9, y: 0.2, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.9, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.9, y: 0.4, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.9, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.9, y: 0.6, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.9, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.9, y: 0.8, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 下边缘的垃圾和化学箱
+            { x: 0.2, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.3, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.4, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.5, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.6, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.7, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.8, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            
+            // 左边缘的TNT和化学箱
+            { x: 0.1, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.1, y: 0.3, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.1, y: 0.5, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.1, y: 0.7, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            
+            // 宝箱
+            { x: 0.3, y: 0.3, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.7, y: 0.3, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.3, y: 0.7, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.7, y: 0.7, type: BUILDING_MODEL_CHEST_TYPE },
+        ],
+        enemy: [//不要问我为什么不用近战敌人用远程敌人，因为我们该死的碰撞逻辑，我用最省事的方法限制小船移动的代价就是近战敌人咬不到玩家！！！！
+            // 第一波
+            [
+                { x: 0.20, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.50, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE }, 
+            ],
+            
+            // 第二波
+            [
+                { x: 0.20, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.20, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+            ],
+            
+            // 第三波
+            [
+                { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE }, 
+                { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.50, y: 0.2, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.20, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+            ]
+            
+        ]
+    }
     //现在木箱多多图变更为测试地图，移除极限测试和小岛多多图
     // {
-    //     modelType: MAP_MODEL_8_TYPE,//木箱多多图(Theodore-元气骑士里有相似的图，就是木箱堆满房间，但目前我觉得效果不好)
+    //     modelType: MAP_MODEL_???_TYPE,//木箱多多图(Theodore-元气骑士里有相似的图，就是木箱堆满房间，但目前我觉得效果不好)
     //     playerStart: { x: 0.1, y: 0.5 },
     //     island: [],
     //     building: [
@@ -1049,7 +1247,7 @@ const MAP_MODEL = [
     //         ]
     //     ]
     // },
-    {
+    ,{
         modelType: MAP_MODEL_BOSS_1_TYPE,
         playerStart: { x: 0.5, y: 0.9 },
         island: [],

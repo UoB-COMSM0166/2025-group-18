@@ -92,7 +92,7 @@ class Game {
 
 
         // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore  这种中文注释谁写的谁记得删哦（把我这半行一起删了）。--QTY
-        this.mapType = MAP_MODEL_8_TYPE;
+        this.mapType = MAP_MODEL_9_TYPE;
         //this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
@@ -453,12 +453,13 @@ class Game {
             return;
         }
 
-        this.#playerController.updateStatus();
-        this.#player.show();
-
         for (let island of this.#islands) {
             island.show();
         }
+
+        this.#playerController.updateStatus();
+        this.#player.show();
+
 
         if (this.#enemies.length != 0) {
             for (let i = this.#enemies.length - 1; i >= 0; --i) {
@@ -713,6 +714,14 @@ class Game {
             ySize: enemy.ySize
         };
 
+        if (myCollide(location, this.#player)) {
+            if (millis() - enemy.lastCollideTime > 500) {
+                this.#player.updateHP(enemy.attackPower * -0.5);
+                enemy.lastCollideTime = millis();
+            }
+            return true;
+        }
+
         for (let island of this.#islands) {
             if (myCollide(location, island)) {
                 return true;
@@ -722,13 +731,6 @@ class Game {
             if (myCollide(location, building)) {
                 return true;
             }
-        }
-        if (myCollide(location, this.#player)) {
-            if (millis() - enemy.lastCollideTime > 500) {
-                this.#player.updateHP(enemy.attackPower * -0.5);
-                enemy.lastCollideTime = millis();
-            }
-            return true;
         }
         // Theodore-敌人之间的碰撞检测
         for (let otherEnemy of this.#enemies) {
