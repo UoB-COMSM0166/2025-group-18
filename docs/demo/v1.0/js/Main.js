@@ -90,10 +90,16 @@ class Main {
     continueGame() {
         if (this.#game == null) {
             this.initNewGame();
+            
+            if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
+                this.mapAlertMessage = "警告: 引擎故障！船只无法移动！准备抵御敌人进攻！";
+                this.showMapAlert = true;
+                this.mapAlertStartTime = Date.now();
+            }
         }
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
-
+    
         if (this.#game.getGameWin()) {
             if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
                 this.updateStep(MAIN_STEP_WIN_BOSS);
@@ -138,6 +144,9 @@ class Main {
             case MAIN_STEP_IN_GAME: {
                 this.continueGame();
                 this.#UI.showInGameUI(this.#status.getShipStatus());
+                if (this.showMapAlert) {
+                    this.showMapTypeAlert();
+                }
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
@@ -377,6 +386,46 @@ class Main {
                 BUFF_MODEL[round(random(1, 5))]
             ];
         }
+    }
+
+    //show 放Main里确实很不规范，但这个判断确实区别于其他的，放着似乎还是合适的——Theodore
+    showMapTypeAlert() {
+        const alertDuration = 5000;
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - this.mapAlertStartTime;
+        
+        if (elapsedTime > alertDuration) {
+            this.showMapAlert = false;
+            return;
+        }
+        
+        let alpha = 255;
+        if (elapsedTime > alertDuration - 1000) {
+            alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
+        }
+        
+        push();
+        // 绘制提示框
+        const boxWidth = logicWidth * 0.6;
+        const boxHeight = 80;
+        const boxX = (logicWidth - boxWidth) / 2;
+        const boxY = logicHeight * 0.2;
+        
+        // 警告框背景
+        fill(0, 0, 0, alpha * 0.8);
+        stroke(255, 50, 50, alpha);
+        strokeWeight(3);
+        rectMode(CORNER);
+        rect(boxX, boxY, boxWidth, boxHeight, 10);
+        
+        textAlign(CENTER, CENTER);
+        textSize(36);
+        
+        const pulseEffect = (sin(frameCount * 0.1) * 0.2 + 0.8);
+        fill(255, 50, 50, alpha * pulseEffect);
+        text(this.mapAlertMessage, logicWidth/2, boxY + boxHeight/2);
+        
+        pop();
     }
 
     setShipBasic(shipType) {
