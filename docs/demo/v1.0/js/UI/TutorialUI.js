@@ -282,7 +282,7 @@ class TutorialUI {
         // 污染条
         const barHeight = height * 0.7;
         const barWidth = 20;
-        const barX = x + 30;
+        const barX = x + 100; // 与其他图标保持一致的水平位置
         const barY = y + height/2 - barHeight/2;
         
         // 污染条背景
@@ -303,8 +303,8 @@ class TutorialUI {
             line(barX, lineY, barX + barWidth, lineY);
         }
         
-        // 统一的文本起点
-        const textX = x + 120;
+        // 文本起点，与其他机制说明保持一致的距离
+        const textX = x + 200;
         
         // 文本说明
         fill(255);
@@ -313,13 +313,12 @@ class TutorialUI {
         textSize(20);
         text("POLLUTION MONITOR", textX, y + 30);
         
-        // 统一文本间距
+        // 只保留三行文本，最后一行提示隐藏BOSS
         const textLineHeight = 30;
         textSize(16);
         text("Located in bottom left corner", textX, y + 30 + textLineHeight);
-        text("Keep pollution levels low to survive!", textX, y + 30 + textLineHeight * 2);
-        text("Higher pollution makes enemies stronger", textX, y + 30 + textLineHeight * 3);
-        text("Extreme pollution leads to unexpected dangers", textX, y + 30 + textLineHeight * 4);
+        text("Higher pollution makes enemies stronger", textX, y + 30 + textLineHeight * 2);
+        text("A hidden boss appears at high pollution levels", textX, y + 30 + textLineHeight * 3);
         
         pop();
     }
@@ -341,14 +340,15 @@ class TutorialUI {
         drawingContext.shadowBlur = 10 * pulse;
         rect(x, y, width, height, 5);
         
-        // 问号图标
+        // 问号图标，水平居中位置
+        const iconX = x + 100; // 增加与左边框的距离
         textSize(60);
         fill(255, 50, 50);
         textAlign(CENTER, CENTER);
-        text("???", x + 60, y + height/2);
+        text("???", iconX, y + height/2);
         
-        // 统一的文本起点
-        const textX = x + 120;
+        // 文本起点，增加间距
+        const textX = x + 200; // 进一步增加图标与文本的间距
         
         // 文本说明
         fill(255);
@@ -384,8 +384,8 @@ class TutorialUI {
         drawingContext.shadowBlur = 10 * pulse;
         rect(x, y, width, height, 5);
         
-        // 轮回图标
-        const iconX = x + 60;
+        // 轮回图标，水平居中位置
+        const iconX = x + 100; // 与随机事件图标保持一致的水平位置
         const iconY = y + height/2;
         const radius = 30;
         
@@ -407,8 +407,8 @@ class TutorialUI {
         ellipse(radius, 0, dotSize);
         pop();
         
-        // 统一的文本起点
-        const textX = x + 120;
+        // 文本起点，增加间距，与随机事件保持一致
+        const textX = x + 200;
         
         // 文本说明
         fill(255);
@@ -430,23 +430,28 @@ class TutorialUI {
     draw() {
         background(0);
 
-        // 主标题
+        // 主标题 - 减小与内容的间距
         fill(255);
         textSize(36);
         textAlign(CENTER, TOP);
+        const titleY = logicHeight * 0.05;
         
         switch (this.currentStep) {
             case 0: // 第一页：控制教程
-                text("Game Guide: Game Controls", logicWidth / 2, logicHeight * 0.05);
+                text("Game Guide: Game Controls", logicWidth / 2, titleY);
                 
-                // 定义布局变量
-                const contentWidth = logicWidth * 0.7; // 整体内容宽度
-                const controlsX = logicWidth / 2 - contentWidth / 2; // 左侧起点，使整体居中
-                const controlCenterX = controlsX + 100; // 控件中心点X坐标，所有控件中线对齐到这里
-                const rightTextX = controlsX + 250; // 右侧文本统一起点
-                const keySize = 45;
-                const keySpacing = 5;
-                const textLineHeight = 25; // 统一的文本行高
+                // 调整整体布局，让左侧动画和右侧文本间隔更大，并以页面中线为整体中心
+                const contentY = titleY + 100; // 增加标题与内容的间距
+                const controlsWidth = logicWidth * 0.7; // 整体内容宽度
+                
+                // 以页面中心为基准计算左侧动画区域和右侧文本区域
+                const centerX = logicWidth / 2;
+                const controlsGap = 150; // 增加左右两区域之间的间隔
+                
+                // 左侧动画区域的中心位置
+                const leftCenterX = centerX - (controlsGap / 2);
+                // 右侧文本区域的起始位置
+                const rightAreaX = centerX + (controlsGap / 2);
                 
                 // 动画更新
                 if (frameCount % 120 == 0) {
@@ -468,32 +473,34 @@ class TutorialUI {
                 const isAnimating = frameCount - this.keyPressTime < keyAnimationDuration;
                 
                 // WASD控件组起始位置
-                const controlStartY = logicHeight * 0.25;
+                const controlStartY = contentY;
+                const keySize = 45;
+                const keySpacing = 5;
                 
-                // 绘制WASD控件组 - 确保中心线对齐
+                // 绘制WASD控件组 - 使用共同的水平中心线
                 this.drawKey(
-                    controlCenterX - keySize/2,
+                    leftCenterX - keySize/2,
                     controlStartY,
                     keySize,
                     "W",
                     isAnimating && this.currentAnimatedKey == 'W'
                 );
                 this.drawKey(
-                    controlCenterX - keySize/2 - keySize - keySpacing,
+                    leftCenterX - keySize/2 - keySize - keySpacing,
                     controlStartY + keySize + keySpacing,
                     keySize,
                     "A",
                     isAnimating && this.currentAnimatedKey == 'A'
                 );
                 this.drawKey(
-                    controlCenterX - keySize/2,
+                    leftCenterX - keySize/2,
                     controlStartY + keySize + keySpacing,
                     keySize,
                     "S",
                     isAnimating && this.currentAnimatedKey == 'S'
                 );
                 this.drawKey(
-                    controlCenterX - keySize/2 + keySize + keySpacing,
+                    leftCenterX - keySize/2 + keySize + keySpacing,
                     controlStartY + keySize + keySpacing,
                     keySize,
                     "D",
@@ -504,22 +511,23 @@ class TutorialUI {
                 fill(255);
                 textAlign(LEFT, TOP);
                 textSize(20);
-                text("Movement Controls:", rightTextX, controlStartY);
+                text("Movement Controls:", rightAreaX, controlStartY);
                 
+                const textLineHeight = 25;
                 textSize(16);
                 fill(200);
-                text("W - Move Up", rightTextX, controlStartY + textLineHeight);
-                text("A - Move Left", rightTextX, controlStartY + textLineHeight * 2);
-                text("S - Move Down", rightTextX, controlStartY + textLineHeight * 3);
-                text("D - Move Right", rightTextX, controlStartY + textLineHeight * 4);
+                text("W - Move Up", rightAreaX, controlStartY + textLineHeight);
+                text("A - Move Left", rightAreaX, controlStartY + textLineHeight * 2);
+                text("S - Move Down", rightAreaX, controlStartY + textLineHeight * 3);
+                text("D - Move Right", rightAreaX, controlStartY + textLineHeight * 4);
                 
-                // 鼠标控件组起始位置
-                const mouseStartY = controlStartY + keySize * 3 + 20;
+                // 鼠标控件组起始位置 - 增加与WASD的间距
+                const mouseStartY = controlStartY + keySize * 3 + 60;
                 const mouseWidth = 80;
                 
-                // 绘制鼠标 - 中心线对齐
+                // 绘制鼠标 - 使用与WASD相同的水平中心线
                 this.drawMouse(
-                    controlCenterX - mouseWidth/2, // 以控件中心点为中心
+                    leftCenterX - mouseWidth/2, // 左右居中
                     mouseStartY,
                     mouseWidth,
                     120,
@@ -530,20 +538,20 @@ class TutorialUI {
                 fill(255);
                 textAlign(LEFT, TOP);
                 textSize(20);
-                text("Combat Controls:", rightTextX, mouseStartY);
+                text("Combat Controls:", rightAreaX, mouseStartY);
                 
                 textSize(16);
                 fill(200);
-                text("Left Click - Fire Bullets", rightTextX, mouseStartY + textLineHeight);
-                text("Aim with the mouse to target enemies", rightTextX, mouseStartY + textLineHeight * 2);
+                text("Left Click - Fire Bullets", rightAreaX, mouseStartY + textLineHeight);
+                text("Aim with the mouse to target enemies", rightAreaX, mouseStartY + textLineHeight * 2);
                 
-                // 空格键组起始位置
+                // 空格键组起始位置 - 增加与鼠标的间距
                 const spaceStartY = mouseStartY + 150;
                 const spaceWidth = 200;
                 
-                // 绘制空格键 - 中心线对齐
+                // 绘制空格键 - 使用与其他控件相同的水平中心线
                 this.drawSpacebar(
-                    controlCenterX - spaceWidth/2, // 以控件中心点为中心
+                    leftCenterX - spaceWidth/2, // 左右居中
                     spaceStartY,
                     spaceWidth,
                     50,
@@ -554,31 +562,34 @@ class TutorialUI {
                 fill(255);
                 textAlign(LEFT, TOP);
                 textSize(20);
-                text("Special Ability:", rightTextX, spaceStartY);
+                text("Special Ability:", rightAreaX, spaceStartY);
                 
                 textSize(16);
                 fill(200);
-                text("Spacebar - Use Special Ability", rightTextX, spaceStartY + textLineHeight);
-                text("Cooldown timer appears in the HUD", rightTextX, spaceStartY + textLineHeight * 2);
+                text("Spacebar - Use Special Ability", rightAreaX, spaceStartY + textLineHeight);
+                text("Cooldown timer appears in the HUD", rightAreaX, spaceStartY + textLineHeight * 2);
                 break;
                 
-            case 1: // 第二页：游戏机制
-                text("Game Guide: Game Mechanics", logicWidth / 2, logicHeight * 0.05);
+                            case 1: // 第二页：游戏机制
+                text("Game Guide: Game Mechanics", logicWidth / 2, titleY);
                 
+                // 增加内容与标题的间距，增大内容项之间的间距
+                const mechanicStartY = titleY + 100; // 增加与标题的距离
                 const mechanicWidth = logicWidth * 0.8;
-                const mechanicHeight = 150; // 增加高度以容纳额外的文本行
+                const mechanicHeight = 150;
                 const mechanicX = logicWidth * 0.1;
+                const mechanicSpacing = 40; // 进一步增加内容项间的间距
                 
                 // 绘制污染系统介绍（绿色）
-                const pollutionY = logicHeight * 0.2;
+                const pollutionY = mechanicStartY;
                 this.drawPollutionIndicator(mechanicX, pollutionY, mechanicWidth, mechanicHeight);
                 
-                // 绘制轮回系统介绍（黄色）
-                const loopY = pollutionY + mechanicHeight + 20;
+                // 绘制轮回系统介绍（黄色）- 增加与上一个的间距
+                const loopY = pollutionY + mechanicHeight + mechanicSpacing;
                 this.drawLoopMechanicExample(mechanicX, loopY, mechanicWidth, mechanicHeight);
                 
-                // 绘制随机事件介绍（红色）
-                const randomEventY = loopY + mechanicHeight + 20;
+                // 绘制随机事件介绍（红色）- 增加与上一个的间距
+                const randomEventY = loopY + mechanicHeight + mechanicSpacing;
                 this.drawRandomEventExample(mechanicX, randomEventY, mechanicWidth, mechanicHeight);
                 
                 // 额外游戏提示
