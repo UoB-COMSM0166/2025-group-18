@@ -5,7 +5,7 @@ class TutorialUI {
         this.targetBorderSize = 50;
         this.borderColor = null;
         this.currentStep = 0;
-        this.totalSteps = 3;
+        this.totalSteps = 2; // 改为两页教程
         this.keyPressTime = 0;
         this.currentAnimatedKey = '';
         this.wasdIndex = -1;
@@ -15,6 +15,10 @@ class TutorialUI {
         this.soundEffects = new SoundEffects();
         this.soundEffects.preload();
         this.initialSoundsPlayed = false;
+        
+        // 污染指示器动画变量
+        this.pollutionPulse = 0;
+        this.randomEventPulse = 0;
     }
 
     // 实际按钮类
@@ -252,6 +256,96 @@ class TutorialUI {
 
         pop();
     }
+    
+    // 绘制污染条示例
+    drawPollutionIndicator(x, y, width, height) {
+        push();
+        
+        // 污染条动画
+        this.pollutionPulse = (this.pollutionPulse + 0.05) % TWO_PI;
+        const pulse = sin(this.pollutionPulse) * 0.2 + 0.8;
+        
+        // 背景框
+        rectMode(CORNER);
+        fill(0, 150);
+        stroke(100, 255, 100);
+        strokeWeight(2);
+        drawingContext.shadowColor = color(100, 255, 100);
+        drawingContext.shadowBlur = 10 * pulse;
+        rect(x, y, width, height, 5);
+        
+        // 污染条
+        const barHeight = height * 0.7;
+        const barWidth = 20;
+        const barX = x + 30;
+        const barY = y + height/2 - barHeight/2;
+        
+        // 污染条背景
+        fill(50, 100);
+        noStroke();
+        rect(barX, barY, barWidth, barHeight, 5);
+        
+        // 污染条填充
+        fill(100, 255, 100);
+        const fillHeight = barHeight * 0.6; // 示例污染量60%
+        rect(barX, barY + barHeight - fillHeight, barWidth, fillHeight, 5);
+        
+        // 级别线
+        stroke(255);
+        strokeWeight(2);
+        for (let i = 1; i <= 5; i++) {
+            const lineY = barY + barHeight - (i / 5) * barHeight;
+            line(barX, lineY, barX + barWidth, lineY);
+        }
+        
+        // 文本说明
+        fill(255);
+        noStroke();
+        textAlign(LEFT, CENTER);
+        textSize(20);
+        text("POLLUTION MONITOR", x + barX + barWidth + 20, y + 30);
+        textSize(16);
+        text("Located in bottom left corner", x + barX + barWidth + 20, y + 60);
+        text("Keep pollution levels low to survive!", x + barX + barWidth + 20, y + 90);
+        
+        pop();
+    }
+    
+    // 绘制随机事件示例
+    drawRandomEventExample(x, y, width, height) {
+        push();
+        
+        // 随机事件动画
+        this.randomEventPulse = (this.randomEventPulse + 0.03) % TWO_PI;
+        const pulse = sin(this.randomEventPulse) * 0.2 + 0.8;
+        
+        // 背景框
+        rectMode(CORNER);
+        fill(0, 150);
+        stroke(255, 215, 0);
+        strokeWeight(2);
+        drawingContext.shadowColor = color(255, 215, 0);
+        drawingContext.shadowBlur = 10 * pulse;
+        rect(x, y, width, height, 5);
+        
+        // 问号图标
+        textSize(60);
+        fill(255, 215, 0);
+        textAlign(CENTER, CENTER);
+        text("???", x + 60, y + height/2);
+        
+        // 文本说明
+        fill(255);
+        noStroke();
+        textAlign(LEFT, CENTER);
+        textSize(20);
+        text("RANDOM EVENTS", x + 120, y + 30);
+        textSize(16);
+        text("Encounter mysterious events at sea", x + 120, y + 60);
+        text("Your choices will impact your journey", x + 120, y + 90);
+        
+        pop();
+    }
 
     draw() {
         background(0);
@@ -260,123 +354,145 @@ class TutorialUI {
         fill(255);
         textSize(36);
         textAlign(CENTER, TOP);
-        text("Game Controls", logicWidth / 2, logicHeight * 0.1);
-
-        // 布局变量
-        const leftColumnX = logicWidth * 0.3;
-        const rightColumnX = logicWidth * 0.6;
-        const middleY = logicHeight * 0.45;
-        const keySize = 60;
-        const keySpacing = 5;
-
-        // 更新动画时间
-        if (frameCount % 120 == 0) {
-            this.keyPressTime = frameCount;
-            switch (this.currentStep) {
-                case 0:
-                    // WASD 按顺序点亮
-                    const wasdSequence = ['W', 'A', 'S', 'D'];
-                    this.wasdIndex = (this.wasdIndex + 1) % wasdSequence.length;
-                    this.currentAnimatedKey = wasdSequence[this.wasdIndex];
-                    break;
-                case 1:
-                    this.currentAnimatedKey = 'MOUSE';
-                    break;
-                case 2:
-                    this.currentAnimatedKey = 'SPACE';
-                    break;
-            }
-        }
-
-        // 计算按键当前是否正在动画中
-        const keyAnimationDuration = 30;
-        const isAnimating = frameCount - this.keyPressTime < keyAnimationDuration;
+        text("Game Guide", logicWidth / 2, logicHeight * 0.1);
 
         push();
         switch (this.currentStep) {
-            case 0:
+            case 0: // 第一页：控制教程 - 结合原来的三个页面
+                // 副标题
+                fill(100, 255, 218);
+                textSize(28);
+                textAlign(CENTER, TOP);
+                text("Game Controls", logicWidth / 2, logicHeight * 0.17);
+                
+                // 定义布局变量
+                const keySize = 45;
+                const keySpacing = 5;
+                const controlsY = logicHeight * 0.3;
+                const textStartX = logicWidth * 0.55;
+                
+                // 动画更新
+                if (frameCount % 120 == 0) {
+                    this.keyPressTime = frameCount;
+                    // 轮流点亮不同控件
+                    const animationSequence = ['W', 'A', 'S', 'D', 'MOUSE', 'SPACE'];
+                    const seqIndex = floor(frameCount / 120) % animationSequence.length;
+                    this.currentAnimatedKey = animationSequence[seqIndex]; 
+                    if (this.currentAnimatedKey === 'W' || 
+                        this.currentAnimatedKey === 'A' || 
+                        this.currentAnimatedKey === 'S' || 
+                        this.currentAnimatedKey === 'D') {
+                        this.wasdIndex = ['W', 'A', 'S', 'D'].indexOf(this.currentAnimatedKey);
+                    }
+                }
+                
+                // 计算按键当前是否正在动画中
+                const keyAnimationDuration = 30;
+                const isAnimating = frameCount - this.keyPressTime < keyAnimationDuration;
+                
+                // 绘制WASD控件在左上角
+                const wasdX = logicWidth * 0.2;
                 this.drawKey(
-                    leftColumnX,
-                    middleY - keySize - keySpacing,
+                    wasdX,
+                    controlsY - keySize - keySpacing,
                     keySize,
                     "W",
                     isAnimating && this.currentAnimatedKey == 'W'
                 );
                 this.drawKey(
-                    leftColumnX - keySize - keySpacing,
-                    middleY,
+                    wasdX - keySize - keySpacing,
+                    controlsY,
                     keySize,
                     "A",
                     isAnimating && this.currentAnimatedKey == 'A'
                 );
                 this.drawKey(
-                    leftColumnX,
-                    middleY,
+                    wasdX,
+                    controlsY,
                     keySize,
                     "S",
                     isAnimating && this.currentAnimatedKey == 'S'
                 );
                 this.drawKey(
-                    leftColumnX + keySize + keySpacing,
-                    middleY,
+                    wasdX + keySize + keySpacing,
+                    controlsY,
                     keySize,
                     "D",
                     isAnimating && this.currentAnimatedKey == 'D'
                 );
-
-                textAlign(LEFT, CENTER);
-                textSize(24);
+                
+                // WASD说明文字
                 fill(255);
-                text("Movement Controls:", rightColumnX, middleY - 60);
-
+                textAlign(LEFT, TOP);
                 textSize(20);
+                text("Movement Controls:", textStartX, controlsY - keySize);
+                textSize(16);
                 fill(200);
-                text("W - Move Up", rightColumnX, middleY - 20);
-                text("A - Move Left", rightColumnX, middleY + 10);
-                text("S - Move Down", rightColumnX, middleY + 40);
-                text("D - Move Right", rightColumnX, middleY + 70);
-                break;
-
-            case 1: // 鼠标控制
+                text("W - Move Up", textStartX, controlsY - keySize + 30);
+                text("A - Move Left", textStartX, controlsY - keySize + 55);
+                text("S - Move Down", textStartX, controlsY - keySize + 80);
+                text("D - Move Right", textStartX, controlsY - keySize + 105);
+                
+                // 绘制鼠标在左中部
+                const mouseY = controlsY + keySize*2;
                 this.drawMouse(
-                    leftColumnX - 40,
-                    middleY - 60,
+                    wasdX - 40,
+                    mouseY,
                     80,
                     120,
                     isAnimating && this.currentAnimatedKey == 'MOUSE'
                 );
-
-                textAlign(LEFT, CENTER);
-                textSize(24);
+                
+                // 鼠标说明文字
                 fill(255);
-                text("Combat Controls:", rightColumnX, middleY - 60);
-
+                textAlign(LEFT, TOP);
                 textSize(20);
+                text("Combat Controls:", textStartX, mouseY);
+                textSize(16);
                 fill(200);
-                text("Left Click - Fire Bullets", rightColumnX, middleY - 20);
-                text("Aim with the mouse to target enemies", rightColumnX, middleY + 20);
-                text("Destroy obstacles and defeat enemies", rightColumnX, middleY + 60);
-                break;
-
-            case 2: // 空格键
+                text("Left Click - Fire Bullets", textStartX, mouseY + 30);
+                text("Aim with the mouse to target enemies", textStartX, mouseY + 55);
+                
+                // 绘制空格键在左下部
+                const spaceY = mouseY + 150;
                 this.drawSpacebar(
-                    leftColumnX - 120,
-                    middleY,
-                    240,
-                    60,
+                    wasdX - 100,
+                    spaceY,
+                    200,
+                    50,
                     isAnimating && this.currentAnimatedKey == 'SPACE'
                 );
-
-                textAlign(LEFT, CENTER);
-                textSize(24);
+                
+                // 空格键说明文字
                 fill(255);
-                text("Special Skills:", rightColumnX, middleY - 60);
-
+                textAlign(LEFT, TOP);
                 textSize(20);
+                text("Special Ability:", textStartX, spaceY);
+                textSize(16);
                 fill(200);
-                text("Spacebar - Use Special Ability", rightColumnX, middleY - 20);
-                text("Ship has a unique special skill", rightColumnX, middleY + 20);
-                text("Watch the cooldown timer before using again", rightColumnX, middleY + 60);
+                text("Spacebar - Use Special Ability", textStartX, spaceY + 30);
+                text("Cooldown timer appears in the HUD", textStartX, spaceY + 55);
+                break;
+                
+            case 1: // 第二页：随机事件和污染系统
+                // 副标题
+                fill(100, 255, 218);
+                textSize(28);
+                textAlign(CENTER, TOP);
+                text("Game Mechanics", logicWidth / 2, logicHeight * 0.17);
+                
+                // 绘制污染系统介绍
+                this.drawPollutionIndicator(logicWidth * 0.1, logicHeight * 0.28, logicWidth * 0.8, 120);
+                
+                // 绘制随机事件介绍
+                this.drawRandomEventExample(logicWidth * 0.1, logicHeight * 0.5, logicWidth * 0.8, 120);
+                
+                // 额外游戏提示
+                fill(255);
+                textAlign(CENTER, TOP);
+                textSize(22);
+                text("Watch your environment and make wise decisions to survive!", 
+                     logicWidth / 2, logicHeight * 0.68);
                 break;
         }
         pop();
