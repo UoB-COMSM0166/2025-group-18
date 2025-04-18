@@ -8,8 +8,8 @@ class Pollution {
             skill: 10,
             bomb: 300,
             TNT: 20,
-            chemical_box: 50,
-            rubbish: -200,
+            chemical_box: 100,
+            rubbish: -50,
             enemy_kill: "relevance_maxHP",
             boss_kill: "relevance_maxHP"
         };
