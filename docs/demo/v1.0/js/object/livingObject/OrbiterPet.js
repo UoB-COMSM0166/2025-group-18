@@ -10,13 +10,13 @@ class OrbiterPet extends BasicObject {
             petModel.ySize,
             PET_BULLET_ATTACK_BIT,
             petModel.HP,
-            petModel.speed * 60 / logicFrameRate,
+            petModel.speed,
         );
         
         this.model = petModel;
         this.player = player;
         this.orbitRadius = orbitRadius;
-        this.orbitSpeed = orbitSpeed * 60 / logicFrameRate;
+        this.orbitSpeed = orbitSpeed;
         this.orbitAngle = 0;
         this.attackPower = attackPower;
         this.attackCallBack = attackCallBack;
@@ -96,7 +96,7 @@ class OrbiterPet extends BasicObject {
                 this.returnToOrbit = true;
                 this.skillCD = this.maxSkillCD;
             } else {
-                const speed = 15 * 60 / logicFrameRate;
+                const speed = 15;
                 this.xCoordinate += (dx / dist) * speed;
                 this.yCoordinate += (dy / dist) * speed;
             }
@@ -113,7 +113,7 @@ class OrbiterPet extends BasicObject {
                 this.returnToOrbit = false;
             } else {
                 // 回
-                const speed = 8 * 60 / logicFrameRate;
+                const speed = 8;
                 this.xCoordinate += (dx / dist) * speed;
                 this.yCoordinate += (dy / dist) * speed;
             }
