@@ -385,7 +385,7 @@ class TutorialUI {
 
         push();
         translate(iconX, iconY);
-        rotate(frameCount * 0.02);
+        rotate(frameCount * 60 / logicFrameRate * 0.02);
         
         // 画循环轨道
         noFill();
@@ -438,10 +438,10 @@ class TutorialUI {
                 const dividerX = centerX - contentWidth * 0.1;
                 
                 // 动画更新
-                if (frameCount % 120 == 0) {
+                if (frameCount % (logicFrameRate * 2) == 0) {
                     this.keyPressTime = frameCount;
                     const animationSequence = ['W', 'A', 'S', 'D', 'MOUSE', 'SPACE'];
-                    const seqIndex = floor(frameCount / 120) % animationSequence.length;
+                    const seqIndex = floor(frameCount / (logicFrameRate * 2)) % animationSequence.length;
                     this.currentAnimatedKey = animationSequence[seqIndex]; 
                     if (this.currentAnimatedKey == 'W' || 
                         this.currentAnimatedKey == 'A' || 
@@ -451,7 +451,7 @@ class TutorialUI {
                     }
                 }
 
-                const keyAnimationDuration = 30;
+                const keyAnimationDuration = logicFrameRate / 2;
                 const isAnimating = frameCount - this.keyPressTime < keyAnimationDuration;
                 const keySize = 50;
                 const keySpacing = 5;

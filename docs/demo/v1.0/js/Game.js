@@ -123,7 +123,7 @@ class Game {
         frames.currentBackground = frames.background[randomBackgroundIndex];
 
         this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + MAP_MODEL_BOSS_1_TYPE;
-        // this.mapType = MAP_MODEL_BOSS_2_TYPE;
+        // this.mapType = MAP_MODEL_BOSS_1_TYPE;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
@@ -349,10 +349,13 @@ class Game {
     }
 
     updateObjectStatus() {
+        this.#waveManager.update(this.#islands, this.#player, this.#enemies);
+        this.#waveManager.show();
+    
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
             bullet.updateStatus();
-            if (this.checkCollideBullet(bullet) || bullet.frameCount > 600) {
+            if (this.checkCollideBullet(bullet) || bullet.frameCount > logicFrameRate * 10) {
                 this.#bullets[i].toDelete = true;
                 this.addExplode(
                     bullet.xCoordinate,
@@ -384,7 +387,7 @@ class Game {
         if (this.#bulletExplode.length != 0) {
             for (let i = this.#bulletExplode.length - 1; i >= 0; --i) {
                 let explode = this.#bulletExplode[i];
-                if (explode.frameCount < 10) {
+                if (explode.frameCount < logicFrameRate / 6) {
 
                     explode.show();
 
@@ -429,6 +432,7 @@ class Game {
                 if (aoeSkill.frameCount < aoeSkill.liveTime) {
                     aoeSkill.show();
                 } else {
+                    console.log(aoeSkill.name, frameCount, aoeSkill.delayTime, aoeSkill.liveTime, aoeSkill.frameCount, frameRate());
                     this.#aoeSkills.splice(i, 1);
                 }
             }
@@ -497,9 +501,7 @@ class Game {
             this.updateEnemyBuffs(this.curTime);
         }
 
-        this.#waveManager.update(this.#islands, this.#player, this.#enemies);
-        this.#waveManager.show();
-    }
+        }
 
     addPet() {
         // 随机
@@ -851,33 +853,38 @@ class Game {
         let xCoordinate = 0;
         let yCoordinate = 0;
         let explosionSize = 0;
-        let bulletSize = 0;
+        let bulletXSize = 0;
+        let bulletYSize = 0;
         let bulletSpeed = 0;
         if (bulletType == PLAYER_BULLET_TYPE) {
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
             explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize;
-            bulletSize = this.#player.equipment.getCurrentWeapon().bulletSize;
+            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize;
+            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize;
             bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 1;
-            bulletSize = 2;
-            bulletSpeed = 3;
+            explosionSize = 25;
+            bulletXSize = 25;
+            bulletYSize = 20;
+            bulletSpeed = 180 / logicFrameRate;
         } else if (bulletType == BOSS_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 2;
-            bulletSize = 3;
-            bulletSpeed = 5;
+            explosionSize = 100;
+            bulletXSize = 100;
+            bulletYSize = 100;
+            bulletSpeed = 300 / logicFrameRate;
         } else if (bulletType == PET_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 1;
-            bulletSize = 2;
-            bulletSpeed = 3;
+            explosionSize = 20;
+            bulletXSize = 20;
+            bulletYSize = 20;
+            bulletSpeed = 180 / logicFrameRate;
         }
         const bullet = new Bullet(
             xCoordinate + xSpeed * 10,
@@ -888,7 +895,8 @@ class Game {
             bulletMoveType,
             attackPower,
             explosionSize,
-            bulletSize,
+            bulletXSize,
+            bulletYSize,
             bulletSpeed,
             (bullet) => this.findBulletClosestTarget(bullet)
         );

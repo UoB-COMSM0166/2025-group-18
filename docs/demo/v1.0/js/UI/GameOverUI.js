@@ -7,8 +7,8 @@ class GameOverUI {
         this.buttonOpacity = 0;
         this.fadeInSpeed = 0.02;
         this.textFadeInSpeed = 0.01;
-        this.reasonFadeInDelay = 60;
-        this.buttonFadeInDelay = 120;
+        this.reasonFadeInDelay = logicFrameRate;
+        this.buttonFadeInDelay = logicFrameRate * 2;
         this.frameCount = 0;
         this.button = null;
         this.deathReason = "";

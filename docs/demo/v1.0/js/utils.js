@@ -81,7 +81,7 @@ const SHIP_MODEL = [
         xSize: 10,
         ySize: 10,
         HPmax: 50,
-        speed: 5,
+        speed: 10,
         skillCD: 1
     }, {
         name: "ship2",
@@ -89,7 +89,7 @@ const SHIP_MODEL = [
         xSize: 10,
         ySize: 10,
         HPmax: 5,
-        speed: 3,
+        speed: 6,
         skillCD: 10
     }, {
         name: "ship3",
@@ -97,7 +97,7 @@ const SHIP_MODEL = [
         xSize: 8,
         ySize: 8,
         HPmax: 1,
-        speed: 3,
+        speed: 6,
         skillCD: 15
     }
 ];
@@ -315,7 +315,7 @@ const BOSS_SKILL_MODEL = [
         ySize: 150,
         delayTime: 1,
         harm: 2,
-        liveTime: 40
+        liveTime: 16 // logicFrameRate * 2 / 3
     }, {
         name: "boss_1_skill_2_1",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1,
@@ -323,7 +323,7 @@ const BOSS_SKILL_MODEL = [
         ySize: 1800,
         delayTime: 1,
         harm: 3,
-        liveTime: 2
+        liveTime: 1
     }, {
         name: "boss_1_skill_2_2",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2,

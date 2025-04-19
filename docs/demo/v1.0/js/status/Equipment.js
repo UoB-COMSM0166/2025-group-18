@@ -19,8 +19,9 @@ class Equipment {
             name: "Default Weapon",
             attackPower: 1,
             pollutionValue: 0,
-            bulletSize: 2, 
-            bulletSpeed: 10, 
+            bulletXSize: 30, 
+            bulletYSize: 21,
+            bulletSpeed: 600 / logicFrameRate, 
             explosionSize: 10, 
             partAttributes: null
         };

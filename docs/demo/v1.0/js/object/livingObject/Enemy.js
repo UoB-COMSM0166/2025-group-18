@@ -10,7 +10,7 @@ class Enemy extends BasicObject {
             enemyModel.ySize,
             ENEMY_ATTACK_BIT,
             enemyModel.HP,
-            enemyModel.speed,
+            enemyModel.speed * 60 / logicFrameRate,
         );
         this.modelType = enemyModel.type;
         this.attackPower = enemyModel.attackPower;
@@ -24,11 +24,11 @@ class Enemy extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
-        this.originalBaseSpeed = enemyModel.speed;
+        this.originalBaseSpeed = enemyModel.speed * 60 / logicFrameRate;
         this.originalBaseAttack = enemyModel.attackPower;
         this.originalBaseHP = enemyModel.HP;
 
-        this.baseSpeed = enemyModel.speed;
+        this.baseSpeed = enemyModel.speed * 60 / logicFrameRate;
         this.baseAttack = enemyModel.attackPower;
         this.baseHP = enemyModel.HP;
 
@@ -38,7 +38,7 @@ class Enemy extends BasicObject {
         this.HP = this.maxHP;
 
         this.currentFrame = 0;
-        this.frameRate = 20;
+        this.frameRate = round(logicFrameRate / 6);
         this.frameCount = 0;
         // this.frames = this.getFrames();
 

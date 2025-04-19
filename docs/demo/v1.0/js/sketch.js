@@ -296,6 +296,8 @@ let logicX;
 let logicY;
 let scaleRatio;
 
+let logicFrameRate = 30;
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     // logicWidth = window.screen.width;
@@ -303,7 +305,7 @@ function setup() {
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
-    frameRate(45);
+    frameRate(logicFrameRate);
 }
 
 function draw() {

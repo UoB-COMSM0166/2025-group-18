@@ -421,7 +421,7 @@ class Main {
         textAlign(CENTER, CENTER);
         textSize(36);
         
-        const pulseEffect = (sin(frameCount * 0.1) * 0.2 + 0.8);
+        const pulseEffect = (sin(frameCount * 60 / logicFrameRate * 0.1) * 0.2 + 0.8);
         fill(255, 50, 50, alpha * pulseEffect);
         text(this.mapAlertMessage, logicWidth/2, boxY + boxHeight/2);
         

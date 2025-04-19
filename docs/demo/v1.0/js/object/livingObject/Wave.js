@@ -183,7 +183,7 @@ class WaveManager {
         }
     
         // 每隔几帧才进行一次碰撞检测，减少计算量
-        if (frameCount % 3 == 0) {
+        if (frameCount % round(logicFrameRate / 20) == 0) {
             this.checkWaveCollisions();
         }
     }
@@ -197,7 +197,7 @@ class WaveManager {
     generateWave() {
         const edges = ["left", "right", "up", "down"];
         let randomEdge = random(edges);
-        let x, y, vx, vy, speed = random(1.5, 4);
+        let x, y, vx, vy, speed = random(1.5, 4) * 60 / logicFrameRate;
 
         if (randomEdge == "left") {
             x = 10;
@@ -252,8 +252,8 @@ class WaveManager {
                     wavesToRemove.add(i);
                     wavesToRemove.add(j);
 
-                    if (newSpeed >= 1.8) {
-                        let newType = newSpeed > 2.5 ? "big" : "normal";
+                    if (newSpeed >= 1.8 * 60 / logicFrameRate) {
+                        let newType = newSpeed > 2.5 * 60 / logicFrameRate ? "big" : "normal";
                         if (Math.abs(newVx) > Math.abs(newVy)) {
                             this.direction = newVx > 0 ? 'D' : 'A';
                         } else {
