@@ -145,9 +145,11 @@ Video of Demo - TBD
 
   With this new direction in mind, we redesigned the game's initial concept, including multi-view ship models, conceptual environment art, and revamped gameplay mechanics (as shown below). This transformation not only gave our game a more distinctive theme but also provided a richer creative foundation for further development.
 
-| **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
-| **Boss1**                                                    | **Boss2**                                                    | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="docs/labprocess/week04/vessel-01.png" width="250"> | <img src="docs/labprocess/week04/Environment-01.png" width="250"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> | <img src="docs/labprocess/week04/BOSS1.gif" width="250"> | <img src="docs/labprocess/week04/BOSS2.gif" width="250"> |
+| Vessel | Terrain | Multi-view |
+| --- | --- | --- |
+| ![](docs/labprocess/week04/vessel-01.png) | ![](docs/labprocess/week04/Environment-01.png) | ![](docs/labprocess/week04/multi-view.gif) |
+| **Boss1** | **Boss2** | |
+| ![](docs/labprocess/week04/BOSS1.gif) | ![](docs/labprocess/week04/BOSS2.gif) | |
 
 
 ![process-02](docs/labprocess/week04/process-02.jpg)
