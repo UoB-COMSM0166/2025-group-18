@@ -148,11 +148,11 @@ Video of Demo - TBD
 | **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
-
-![process-02](docs/labprocess/week04/process-02.jpg)
 | **Boss1**                                                    | **Boss2**                                                    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="docs/labprocess/week04/BOSS1.gif" width="1200"> | <img src="docs/labprocess/week04/BOSS2.gif" width="1000"> |
+
+![process-02](docs/labprocess/week04/process-02.jpg)
 
 ### Design
 
