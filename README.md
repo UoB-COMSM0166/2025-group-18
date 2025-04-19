@@ -146,11 +146,9 @@ Video of Demo - TBD
   With this new direction in mind, we redesigned the game's initial concept, including multi-view ship models, conceptual environment art, and revamped gameplay mechanics (as shown below). This transformation not only gave our game a more distinctive theme but also provided a richer creative foundation for further development.
 
 | **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
-| **Boss1**                                                    | **Boss2**                                                    |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="docs/labprocess/week04/BOSS1.gif" width="1200"> | <img src="docs/labprocess/week04/BOSS2.gif" width="1000"> |
+| **Boss1**                                                    | **Boss2**                                                    | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> || <img src="docs/labprocess/week04/BOSS1.gif" width="250"> | <img src="docs/labprocess/week04/BOSS2.gif" width="250"> |
+
 
 ![process-02](docs/labprocess/week04/process-02.jpg)
 
