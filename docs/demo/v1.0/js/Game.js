@@ -369,6 +369,7 @@ class Game {
             for (let i = this.#buildings.length - 1; i >= 0; --i) {
                 let building = this.#buildings[i];
                 if (!building.isAlive) {
+                    building.deadRattle();
                     this.#buildings.splice(i, 1);
                 } else {
                     building.show();
