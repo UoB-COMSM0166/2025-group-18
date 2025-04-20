@@ -1,22 +1,23 @@
+
 class ShopUI {
     // 私有字段，用于回调和状态控制
     #handleShoppingSelection;
     #handleShopExitSelection;
     #isInit;
-  
+
     constructor(handleShoppingSelection, handleShopExitSelection) {
         this.#handleShoppingSelection = handleShoppingSelection;  // 购买回调
         this.#handleShopExitSelection = handleShopExitSelection;  // 退出回调
         this.#isInit = false;
-    
+
         this.buttons = [];       // 存放交易按钮
         this.exitButton = null;  // 存放退出按钮
-        this.borderSize = 50;    
+        this.borderSize = 50;
         this.targetBorderSize = 50;
-        this.borderColor = null; 
+        this.borderColor = null;
         this.currentGold = 0;    // 存放当前玩家金币（由 draw(gold) 动态赋值）
     }
-  
+
     // 用于创建内部按钮类（与 GameRewardUI 中的 ChooseBuffButton 类似）
     ShopButton = class {
         constructor(x, y, w, h, label, price, itemData, isExit = false) {
@@ -101,18 +102,19 @@ class ShopUI {
                 return this.isHovered;
         }
     };
-    
+
     // 初始化商店 UI
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
         let items = [
-            { label: 'Item A', price: 100, effect: 'Increase Speed' },
-            { label: 'Item B', price: 25, effect: 'Increase Speed' },
-            { label: 'Item C', price: 75, effect: 'Increase Speed' },
-            { label: 'Item D', price: 99, effect: 'Increase Speed' },
-            { label: 'Item E', price: 20000, effect: 'Increase Speed' },
-            { label: 'Item F', price: 5, effect: 'Increase Speed' },
+            new GoldBuff(),
+            new IncreasesAttackDamage(),
+            new IncreasesBulletSpeed(),
+            new IncreasesHealth(),
+            new IncreasesMaxHealth(),
+            new IncreasesPlayerMovementSpeed()
         ];
+
         this.#isInit = true;
         textFont('Helvetica');
         noStroke();
@@ -123,11 +125,11 @@ class ShopUI {
     isInit() {
         return this.#isInit;
     }
-  
+
     // 创建交易按钮 + 退出按钮
     createButtons(items) {
         this.buttons = [];
-    
+
         // 两排按钮的排布
         // 若有 6 个商品按钮，每排 3 个
         const rows = 2;
@@ -136,23 +138,23 @@ class ShopUI {
         const btnHeight = 70;
         const spacingX = 50;
         const spacingY = 30;
-    
+
         // 计算总宽度与高度，用于居中
         const totalWidth = cols * btnWidth + (cols - 1) * spacingX;
         const totalHeight = rows * btnHeight + (rows - 1) * spacingY;
         const startX = (logicWidth - totalWidth) / 2;
         const startY = (logicHeight - totalHeight) / 2;
-    
+
         let index = 0;
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < cols; c++) {
                 if (index >= items.length) break;
                 const x = startX + c * (btnWidth + spacingX);
                 const y = startY + r * (btnHeight + spacingY);
-        
+
                 // 注意，这里将价格与其他信息分开传入
                 const { label, price, ...otherData } = items[index];
-        
+
                 const button = new this.ShopButton(
                     x,
                     y,
@@ -162,11 +164,12 @@ class ShopUI {
                     price,
                     otherData
                 );
+                button.buff = items[index];
                 this.buttons.push(button);
                 index++;
             }
         }
-    
+
         // 创建退出按钮（右上角）
         const exitBtnWidth = 120;
         const exitBtnHeight = 50;
@@ -182,25 +185,25 @@ class ShopUI {
             true      // 标记为退出按钮
         );
     }
-  
+
     // 在主 UI 的 draw() 函数里调用该方法，并传入当前金币
     draw(gold) {
         if (!this.#isInit) return;
-    
+
         this.currentGold = gold;
-    
+
         background(0);
-    
+
         // 标题文本
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(32);
         text('Trading Platform', logicWidth / 2, logicHeight / 8);
-    
+
         // 显示玩家当前金币
         textSize(20);
         text(`Your Gold: ${gold}`, logicWidth / 2, logicHeight / 8 + 40);
-    
+
         // 绘制边框特效
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
         if (this.borderColor) {
@@ -210,18 +213,18 @@ class ShopUI {
             rectMode(CENTER);
             rect(logicWidth / 2, logicHeight / 2, this.borderSize * 10, this.borderSize * 5);
         }
-    
+
         // 绘制所有交易按钮
         for (const btn of this.buttons) {
             btn.checkHover(this);
             btn.draw(gold);
         }
-    
+
         // 绘制退出按钮
         this.exitButton.checkHover(this);
         this.exitButton.draw(gold);
     }
-  
+
     // 鼠标按下
     handleMousePressed() {
         if (!this.#isInit) return;
@@ -230,11 +233,11 @@ class ShopUI {
         }
         if (this.exitButton.isHovered) this.exitButton.press();
     }
-  
+
     // 鼠标松开
     handleMouseReleased() {
         if (!this.#isInit) return;
-    
+
         // 检查商品按钮
         for (let i = this.buttons.length - 1; i >= 0; i--) {
             const btn = this.buttons[i];
@@ -245,15 +248,14 @@ class ShopUI {
                 } else {
                     // 成功购买：从UI移除按钮
                     this.buttons.splice(i, 1);
-        
                     // 执行回调（外部可根据 itemData 处理金币扣除、道具增加等逻辑）
                     if (this.#handleShoppingSelection) {
-                        this.#handleShoppingSelection(btn.itemData.type, btn.price * -1);
+                        this.#handleShoppingSelection(btn, btn.price * -1);
                     }
                 }
             }
         }
-    
+
         // 检查退出按钮
         if (this.exitButton.release() && this.exitButton.isHovered) {
             this.#isInit = false; // 退出商店时，设置为未初始化状态
@@ -264,7 +266,7 @@ class ShopUI {
             }
         }
     }
-  
+
     // 窗口尺寸改变时可重新布局
     handleWindowResized(items) {
         if (!this.#isInit) return;

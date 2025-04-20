@@ -14,7 +14,7 @@
         );
         this.modelType = Math.floor(Math.random() * frames.island.length);
 
-        // this.frames = this.getFrames();
+        this.frames = this.getFrames();
 
     }
 
@@ -29,7 +29,7 @@
         fill(255, 255, 255, 0);
         super.show();
         imageMode(CENTER);
-        image(frames.island[this.modelType], this.xCoordinate, this.yCoordinate, this.xSize * 1.1, this.ySize * 1.1);
+        image(this.frames, this.xCoordinate, this.yCoordinate, this.xSize * 1.1, this.ySize * 1.1);
     }
 
     updateHP(change) {

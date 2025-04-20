@@ -126,8 +126,8 @@ class GameRewardUI {
                 selectedBuff = btn.buffType;
             }
         });
-        //console.log(selectedBuff);
-        //console.log(this.buffChooseCallBack);
+        console.log(selectedBuff);
+        console.log(this.buffChooseCallBack);
         if(selectedBuff != null && this.buffChooseCallBack) {
             this.buffChooseCallBack(selectedBuff);
         }

@@ -10,7 +10,7 @@ class Pet extends BasicObject {
             petModel.ySize,
             PET_BULLET_ATTACK_BIT,
             petModel.HP,
-            petModel.speed * 60 / logicFrameRate,
+            petModel.speed,
         );
         this.modelType = petModel.type;
         this.name = petModel.name;
@@ -25,7 +25,7 @@ class Pet extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
-        this.baseSpeed = petModel.speed * 60 / logicFrameRate;
+        this.baseSpeed = petModel.speed;
         this.baseAttack = petModel.attackPower;
         this.baseHP = petModel.HP;
         this.pollutionInstance = pollutionInstance;
@@ -36,9 +36,9 @@ class Pet extends BasicObject {
         this.lastAttackByAoeTime = 0;
 
         this.currentFrame = 0;  
-        this.frameRate = round(logicFrameRate / 3);  
+        this.frameRate = 20;  
         this.frameCount = 0; 
-        // this.frame = this.getFrames();
+        this.frames = this.getFrames();
         
         this.isFlashing = false;
         this.flashDuration = 150;
@@ -68,7 +68,7 @@ class Pet extends BasicObject {
     drawPet() {
         this.frameCount++;
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % frames.pets[this.name].length;
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
         }
 
         imageMode(CENTER);
@@ -77,12 +77,12 @@ class Pet extends BasicObject {
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(frames.pets[this.name][this.currentFrame], 
+            image(this.frames[this.currentFrame], 
                   this.xCoordinate, this.yCoordinate, 
                   this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            image(frames.pets[this.name][this.currentFrame], 
+            image(this.frames[this.currentFrame], 
                   this.xCoordinate, this.yCoordinate, 
                   this.xSize * 2, this.ySize * 2);
         }
@@ -95,7 +95,7 @@ class Pet extends BasicObject {
             rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
             // pet图像
-            //this.drawPet();
+            // this.drawPet();
             
             //血条出现在贴图上方
             let imageTopY = this.yCoordinate - this.ySize;
@@ -164,7 +164,7 @@ class Pet extends BasicObject {
     }
 
     petAttack(xSpeed, ySpeed) {
-        //console.log("pet attack");
+        console.log("pet attack");
         this.petAttackCallBack(
             xSpeed, ySpeed,
             PET_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,

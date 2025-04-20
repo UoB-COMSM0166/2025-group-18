@@ -42,7 +42,7 @@ const BULLET_MOVE_TYPE_NORMAL = 0;
 const BULLET_MOVE_TYPE_HOMING = 1;
 
 /**
- *  
+ *
  */
 const PLAYER_TYPE = 0b1000;
 const ENEMY_TYPE = 0b0100;
@@ -81,7 +81,7 @@ const SHIP_MODEL = [
         xSize: 10,
         ySize: 10,
         HPmax: 50,
-        speed: 10,
+        speed: 5,
         skillCD: 1
     }, {
         name: "ship2",
@@ -89,7 +89,7 @@ const SHIP_MODEL = [
         xSize: 10,
         ySize: 10,
         HPmax: 5,
-        speed: 6,
+        speed: 3,
         skillCD: 10
     }, {
         name: "ship3",
@@ -97,7 +97,7 @@ const SHIP_MODEL = [
         xSize: 8,
         ySize: 8,
         HPmax: 1,
-        speed: 6,
+        speed: 3,
         skillCD: 15
     }
 ];
@@ -315,7 +315,7 @@ const BOSS_SKILL_MODEL = [
         ySize: 150,
         delayTime: 1,
         harm: 2,
-        liveTime: 16 // logicFrameRate * 2 / 3
+        liveTime: 40
     }, {
         name: "boss_1_skill_2_1",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1,
@@ -323,7 +323,7 @@ const BOSS_SKILL_MODEL = [
         ySize: 1800,
         delayTime: 1,
         harm: 3,
-        liveTime: 1
+        liveTime: 2
     }, {
         name: "boss_1_skill_2_2",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2,
@@ -435,14 +435,14 @@ const BUILDING_MODEL = [
     }, {
         name: "TNT",
         type: BUILDING_MODEL_TNT_TYPE,
-        xSize: 44,
-        ySize: 66,
+        xSize: 20,
+        ySize: 20,
         HP: 1
     }, {
         name: "chest",
         type: BUILDING_MODEL_CHEST_TYPE,
-        xSize: 66,
-        ySize: 66,
+        xSize: 20,
+        ySize: 20,
         HP: 1
     }, {
         name: "bomb",
@@ -453,14 +453,14 @@ const BUILDING_MODEL = [
     }, {
         name: "chemical_box",
         type: BUILDING_MODEL_CHEMICAL_BOX_TYPE,
-        xSize: 80,
-        ySize: 60,
+        xSize: 30,
+        ySize: 30,
         HP: 2
     }, {
         name: "rubbish",
         type: BUILDING_MODEL_RUBBISH_TYPE,
-        xSize: 33,
-        ySize: 30,
+        xSize: 40,
+        ySize: 40,
         HP: 3
     }
 ];
@@ -522,6 +522,7 @@ function getExplodeModel(explodeType) {
 const BUFF_MODEL_MAX_TYPE = 10;
 
 const BuffTypes = {
+    DEFAULT: -1,
     ERROR_TYPE: 0,           // Error
     DAMAGE_CHANGE: 1,        // Damage change
     EXPLODE_CHANGE: 2,       // Explode change

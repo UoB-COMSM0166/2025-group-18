@@ -74,7 +74,7 @@ class StartUI {
         press() { this.scale = 0.98; }
         release() {
             this.scale = 1;
-            //console.log("点击了按钮:", this.label);
+            console.log("点击了按钮:", this.label);
             // ...
             if (this.isHovered) {
                 return true;

@@ -1,4 +1,5 @@
 class Player extends BasicObject {
+    static instance
     constructor(name, xCoordinate, yCoordinate, xSize, ySize, HP, speed, skillCD, maxSkillCD) {
         super(
             name,
@@ -10,8 +11,10 @@ class Player extends BasicObject {
             NO_HARM_ATTACK_BIT,
             HP,
             speed,
-            // speed * 60 / logicFrameRate,
         );
+        // 单例模式，防止多次实例化，全局可获取玩家对象
+        if (Player.instance) return Player.instance;
+        Player.instance = this;
         this.HPmax = HP;
         this.skillCD = skillCD;
         this.maxSkillCD = maxSkillCD;
@@ -88,20 +91,20 @@ class Player extends BasicObject {
         this.frameIndex = 0
     }
 
-    drawmainboat(){ 
+    drawmainboat(){
         imageMode(CENTER);
-        
+
         // 受击打应用红色染色效果
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(this.currentFrames[this.frameIndex], 
-                  this.xCoordinate, this.yCoordinate, 
+            image(this.currentFrames[this.frameIndex],
+                  this.xCoordinate, this.yCoordinate,
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
             pop();
         } else {
-            image(this.currentFrames[this.frameIndex], 
-                  this.xCoordinate, this.yCoordinate, 
+            image(this.currentFrames[this.frameIndex],
+                  this.xCoordinate, this.yCoordinate,
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
         }
     }
@@ -175,7 +178,7 @@ class Player extends BasicObject {
 
         if(xSpeed == 0  && ySpeed == 0  ){
 
-            this.setAnimation('idleD');//调用向右移动         
+            this.setAnimation('idleD');//调用向右移动
         } */
 
     }

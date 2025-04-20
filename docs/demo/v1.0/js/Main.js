@@ -17,36 +17,10 @@ class Main {
             (buffType) => this.chooseBuff(buffType),
             (gameType) => this.chooseGameMap(gameType),
             (goldChange) => this.#status.updateGold(goldChange),
-            // Add new callbacks for health and pollution
-            (healthChange) => this.updatePlayerHealth(healthChange),
-            (pollutionChange) => this.updatePlayerPollution(pollutionChange)
         );
         this.#status = new Status();
         this.#cursorPos = new CursorPos();
         this.deathReason = "";
-    }
-
-    updatePlayerHealth(healthChange) {
-        if (healthChange && healthChange !== 0) {
-            const currentHP = this.#status.getShipStatus().HP;
-            const newHP = Math.max(0, currentHP + healthChange);
-            console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
-            this.#status.updateHP(newHP);
-        }
-    }
-
-    updatePlayerPollution(pollutionChange) {
-        if (pollutionChange && pollutionChange !== 0) {
-            if (this.#game) {
-                const currentPollution = this.#game.getPlayerStatus().pollution;
-               //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#game.setPollution(currentPollution + pollutionChange);
-            } else {
-                const currentPollution = this.#status.getShipStatus().pollution;
-                //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#status.updatePollution(currentPollution + pollutionChange, null);
-            }
-        }
     }
 
     initMain() {
@@ -90,16 +64,10 @@ class Main {
     continueGame() {
         if (this.#game == null) {
             this.initNewGame();
-            
-            if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
-                this.mapAlertMessage = "警告: 引擎故障！船只无法移动！准备抵御敌人进攻！";
-                this.showMapAlert = true;
-                this.mapAlertStartTime = Date.now();
-            }
         }
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
-    
+
         if (this.#game.getGameWin()) {
             if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
                 this.updateStep(MAIN_STEP_WIN_BOSS);
@@ -108,7 +76,7 @@ class Main {
             }
             this.#game = null;
         } else if (this.#game.getGameOver()) {
-            //console.log("Game Over!");
+            console.log("Game Over!");
             this.deathReason = this.#game.getDeathReason();
             this.#UI.initGameOverUI(this.deathReason);
             this.updateStep(MAIN_STEP_GAME_OVER);
@@ -142,11 +110,8 @@ class Main {
                 break;
             }
             case MAIN_STEP_IN_GAME: {
-                this.continueGame();
                 this.#UI.showInGameUI(this.#status.getShipStatus());
-                if (this.showMapAlert) {
-                    this.showMapTypeAlert();
-                }
+                this.continueGame();
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
@@ -388,46 +353,6 @@ class Main {
         }
     }
 
-    //show 放Main里确实很不规范，但这个判断确实区别于其他的，放着似乎还是合适的——Theodore
-    showMapTypeAlert() {
-        const alertDuration = 5000;
-        const currentTime = Date.now();
-        const elapsedTime = currentTime - this.mapAlertStartTime;
-        
-        if (elapsedTime > alertDuration) {
-            this.showMapAlert = false;
-            return;
-        }
-        
-        let alpha = 255;
-        if (elapsedTime > alertDuration - 1000) {
-            alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
-        }
-        
-        push();
-        // 绘制提示框
-        const boxWidth = logicWidth * 0.6;
-        const boxHeight = 80;
-        const boxX = (logicWidth - boxWidth) / 2;
-        const boxY = logicHeight * 0.2;
-        
-        // 警告框背景
-        fill(0, 0, 0, alpha * 0.8);
-        stroke(255, 50, 50, alpha);
-        strokeWeight(3);
-        rectMode(CORNER);
-        rect(boxX, boxY, boxWidth, boxHeight, 10);
-        
-        textAlign(CENTER, CENTER);
-        textSize(36);
-        
-        const pulseEffect = (sin(frameCount * 60 / logicFrameRate * 0.1) * 0.2 + 0.8);
-        fill(255, 50, 50, alpha * pulseEffect);
-        text(this.mapAlertMessage, logicWidth/2, boxY + boxHeight/2);
-        
-        pop();
-    }
-
     setShipBasic(shipType) {
         this.#status.setShipBasicStatus(shipType);
     }
@@ -439,13 +364,13 @@ class Main {
         // this.#status.updateGold(this.#gameReward.gold);
     }
 
-    chooseBuff(buffType) {
-        //console.log(buffType);
+    chooseBuff(data) {
+        BuffController.shopBuff.push(data.buff)
     }
 
     chooseGameMap(gameType) {
         this.#nextGameType = gameType;
-        // console.log(gameType);
+        console.log(gameType);
     }
 
     getGameReward() {

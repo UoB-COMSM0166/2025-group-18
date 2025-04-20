@@ -8,7 +8,7 @@ class Status {
         HP: 0,
         speed: 0,
         shipType: 0,
-        gold: 999,
+        gold: 9999,
         skillCD: 0,
         maxSkillCD: 0,
         pollution: 0,
@@ -40,7 +40,7 @@ class Status {
     getMaxPollution() {
         return Status.MAX_POLLUTION;
     }
-    
+
     getGold() {
         return this.#playerStatus.gold;
     }
@@ -50,9 +50,9 @@ class Status {
     }
 
     updateHP(HP) {
-        this.#playerStatus.HP = Math.min(HP, this.#playerStatus.HPmax);
+        this.#playerStatus.HP = HP;
     }
-    
+
     recoverToMaxHP() {
         this.#playerStatus.HP = this.#playerStatus.HPmax;
     }
@@ -63,29 +63,19 @@ class Status {
 
     updatePollution(pollution, pollutionLevel) {
         this.#playerStatus.pollution = pollution;
-
-        if (pollutionLevel == null || pollutionLevel == undefined) {
-            if (pollution >= Status.MAX_POLLUTION) {
-                this.#playerStatus.pollutionLevel = Status.POLLUTION_MAX_LEVEL;
-            } else {
-                this.#playerStatus.pollutionLevel = Math.floor(pollution / 200) + 1;
-            }
-        } else {
-            this.#playerStatus.pollutionLevel = pollutionLevel;
-        }
+        this.#playerStatus.pollutionLevel = pollutionLevel;
     }
 
     updateGold(goldChange) {
-        const newGold = this.#playerStatus.gold + goldChange;
-        this.#playerStatus.gold = Math.max(0, newGold);
+        this.#playerStatus.gold += goldChange;
     }
-    
+
     // 增加轮回次数
     incrementLoopCount() {
         this.#playerStatus.loopCount++;
         console.log(`轮回次数增加至: ${this.#playerStatus.loopCount}`);
     }
-    
+
     // 获取轮回次数
     getLoopCount() {
         return this.#playerStatus.loopCount;

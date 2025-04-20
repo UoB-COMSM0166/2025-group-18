@@ -46,7 +46,6 @@ class Game {
 
     initPlayer(playerBasicStatus, mapType = 1) {
         const mapModel = getMapModel(mapType);
-
         this.#player = new Player(
             "Player",
             mapModel.playerStart.x * logicWidth,
@@ -73,6 +72,7 @@ class Game {
             () => this.addPet(),
             (player) => this.findPlayerClosestTarget(player)
         );
+        this.#player.info = playerBasicStatus
         this.#playerBuffController = new BuffController(this.#player);
 
         this.#orbiterPet = new OrbiterPet(
@@ -83,16 +83,12 @@ class Game {
             (x, y, harm, attackBit, explodeType) =>
                 this.addExplode(x, y, harm, attackBit, explodeType)
         );
+
     }
 
     initRandomMap(loopCount = 0) {
-        // 随机选择背景图片
-        const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
-        frames.currentBackground = frames.background[randomBackgroundIndex];
-
-
-        // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore  这种中文注释谁写的谁记得删哦（把我这半行一起删了）。--QTY
-        //this.mapType = MAP_MODEL_9_TYPE;
+        // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore
+        //this.mapType = 2;
         this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
@@ -118,12 +114,8 @@ class Game {
     }
 
     initRandomBossMap(loopCount = 0) {
-        // 随机选择背景图片
-        const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
-        frames.currentBackground = frames.background[randomBackgroundIndex];
-
         this.mapType = (Math.floor(Date.now() * Math.random())) % 2 + MAP_MODEL_BOSS_1_TYPE;
-        // this.mapType = MAP_MODEL_BOSS_1_TYPE;
+        // this.mapType = MAP_MODEL_BOSS_2_TYPE;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
@@ -197,7 +189,7 @@ class Game {
 
     initBoss(bossInfo, loopCount = 0) {
         this.#loopCount = loopCount;
-        //console.log(bossInfo);
+        console.log(bossInfo);
         let boss = null;
         if (bossInfo[0].type == BOSS_MODEL_OCTOPUS_TYPE) {
             boss = new Boss1(
@@ -344,18 +336,11 @@ class Game {
         return this.deathReason;
     }
 
-    getMapType() {
-        return this.mapType;
-    }
-
     updateObjectStatus() {
-        this.#waveManager.update(this.#islands, this.#player, this.#enemies);
-        this.#waveManager.show();
-    
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
             bullet.updateStatus();
-            if (this.checkCollideBullet(bullet) || bullet.frameCount > logicFrameRate * 10) {
+            if (this.checkCollideBullet(bullet)) {
                 this.#bullets[i].toDelete = true;
                 this.addExplode(
                     bullet.xCoordinate,
@@ -368,6 +353,16 @@ class Game {
             } else {
                 bullet.show();
             }
+            if (bullet.frameCount > 600) {
+                this.addExplode(
+                    bullet.xCoordinate,
+                    bullet.yCoordinate,
+                    bullet.harm,
+                    bullet.attackBit,
+                    EXPLODE_MODEL_BULLET_TYPE
+                );
+                this.#bullets[i].toDelete = true;
+            }
         }
         this.#bullets = this.#bullets.filter(bullet => !bullet.toDelete);
 
@@ -376,8 +371,8 @@ class Game {
             for (let i = this.#buildings.length - 1; i >= 0; --i) {
                 let building = this.#buildings[i];
                 if (!building.isAlive) {
-                    building.deadRattle();
                     this.#buildings.splice(i, 1);
+                    building.deadRattle();
                 } else {
                     building.show();
                 }
@@ -387,7 +382,7 @@ class Game {
         if (this.#bulletExplode.length != 0) {
             for (let i = this.#bulletExplode.length - 1; i >= 0; --i) {
                 let explode = this.#bulletExplode[i];
-                if (explode.frameCount < logicFrameRate / 6) {
+                if (explode.frameCount < 10) {
 
                     explode.show();
 
@@ -432,7 +427,6 @@ class Game {
                 if (aoeSkill.frameCount < aoeSkill.liveTime) {
                     aoeSkill.show();
                 } else {
-                    console.log(aoeSkill.name, frameCount, aoeSkill.delayTime, aoeSkill.liveTime, aoeSkill.frameCount, frameRate());
                     this.#aoeSkills.splice(i, 1);
                 }
             }
@@ -461,13 +455,12 @@ class Game {
             return;
         }
 
-        for (let island of this.#islands) {
-            island.show();
-        }
-
         this.#playerController.updateStatus();
         this.#player.show();
 
+        for (let island of this.#islands) {
+            island.show();
+        }
 
         if (this.#enemies.length != 0) {
             for (let i = this.#enemies.length - 1; i >= 0; --i) {
@@ -501,7 +494,9 @@ class Game {
             this.updateEnemyBuffs(this.curTime);
         }
 
-        }
+        this.#waveManager.update(this.#islands, this.#player, this.#enemies);
+        this.#waveManager.show();
+    }
 
     addPet() {
         // 随机
@@ -646,10 +641,9 @@ class Game {
             }
         }
 
-        if (bullet.attackBit & ENEMY_TYPE) {
-            for (let enemy of this.#enemies) {
-                if (myCollide(enemy, bullet))
-                    return true;
+        for (let enemy of this.#enemies) {
+            if ((bullet.attackBit & ENEMY_TYPE) && myCollide(enemy, bullet)) {
+                return true;
             }
         }
 
@@ -688,6 +682,9 @@ class Game {
         }
 
         for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
+                continue;
+            }
             if (myCollide(location, building)) {
                 return true;
             }
@@ -720,23 +717,25 @@ class Game {
             ySize: enemy.ySize
         };
 
-        if (myCollide(location, this.#player)) {
-            if (millis() - enemy.lastCollideTime > 500) {
-                this.#player.updateHP(enemy.attackPower * -0.5);
-                enemy.lastCollideTime = millis();
-            }
-            return true;
-        }
-
         for (let island of this.#islands) {
             if (myCollide(location, island)) {
                 return true;
             }
         }
         for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
+                continue;
+            }
             if (myCollide(location, building)) {
                 return true;
             }
+        }
+        if (myCollide(location, this.#player)) {
+            if (millis() - enemy.lastCollideTime > 500) {
+                this.#player.updateHP(enemy.attackPower * -0.5);
+                enemy.lastCollideTime = millis();
+            }
+            return true;
         }
         // Theodore-敌人之间的碰撞检测
         for (let otherEnemy of this.#enemies) {
@@ -853,38 +852,34 @@ class Game {
         let xCoordinate = 0;
         let yCoordinate = 0;
         let explosionSize = 0;
-        let bulletXSize = 0;
-        let bulletYSize = 0;
+        let bulletSize = 0;
         let bulletSpeed = 0;
         if (bulletType == PLAYER_BULLET_TYPE) {
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
             explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize;
-            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize;
-            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize;
+            bulletSize = this.#player.equipment.getCurrentWeapon().bulletSize;
             bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
+            console.log("main", this.#player)
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 25;
-            bulletXSize = 25;
-            bulletYSize = 20;
-            bulletSpeed = 180 / logicFrameRate;
+            explosionSize = 1;
+            bulletSize = 2;
+            bulletSpeed = 3;
         } else if (bulletType == BOSS_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 100;
-            bulletXSize = 100;
-            bulletYSize = 100;
-            bulletSpeed = 300 / logicFrameRate;
+            explosionSize = 2;
+            bulletSize = 3;
+            bulletSpeed = 5;
         } else if (bulletType == PET_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 20;
-            bulletXSize = 20;
-            bulletYSize = 20;
-            bulletSpeed = 180 / logicFrameRate;
+            explosionSize = 1;
+            bulletSize = 2;
+            bulletSpeed = 3;
         }
         const bullet = new Bullet(
             xCoordinate + xSpeed * 10,
@@ -895,11 +890,11 @@ class Game {
             bulletMoveType,
             attackPower,
             explosionSize,
-            bulletXSize,
-            bulletYSize,
+            bulletSize,
             bulletSpeed,
             (bullet) => this.findBulletClosestTarget(bullet)
         );
+
         this.#bullets.push(bullet);
     }
 
@@ -954,6 +949,24 @@ class Game {
             }
         }
         return target;
+    }
+
+    addBomb() {
+        if (this.#player.skillCD > 0) {
+            console.log("addBomb() Skill is not ready");
+            return;
+        }
+        let xCoor = this.#player.xCoordinate;
+        let yCoor = this.#player.yCoordinate;
+        const bomb = new Building(
+            xCoor,
+            yCoor,
+            BUILDING_MODEL_BOMB_TYPE,
+            (x, y, harm, attackBit, explodeType) =>
+                this.addExplode(x, y, harm, attackBit, explodeType)
+        );
+        this.#buildings.push(bomb);
+        this.#pollution.increasePollution("skill");
     }
 
     addBulletPet() {
@@ -1022,6 +1035,9 @@ class Game {
         }
 
         for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_BOMB_TYPE) {
+                continue;
+            }
             if (myCollide(location, building)) {
                 return true;
             }
@@ -1114,22 +1130,14 @@ class Game {
         // win check
         if (this.#gameWin) {
             this.#playerBuffController.addNewBuff(
-                new Buff({
-                    effectDesc: "Well done! You win! And you get 20 health!",
-                    effectType: BuffTypes.HEALTH_CHANGE,
-                    effectValue: 20,
-                    rarity: RarityLevel.RARE,
-                    effectDuration: 0,
-                    canStack: false,
-                    triggerCondition: TriggerConditions.WIN_AND_CLEAR
-                })
+                new Buff("test", 100, "Increase Speed", BuffTypes.SPEED_CHANGE, 1, 0.5, 0, false, 1, null, null, null, null)
             );
         }
     }
 
     addBossAoeSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate) {
         const aoeSkill = new AoeSkill(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate);
-        //console.log(aoeSkill);
+        console.log(aoeSkill);
         this.#aoeSkills.push(aoeSkill);
     }
 }

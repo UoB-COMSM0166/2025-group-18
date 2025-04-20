@@ -1,22 +1,31 @@
 class BuffController {
+    static instance = null;
+    static shopBuff = [];
     constructor(targetCharacter) {
-        this.target = targetCharacter;
+        if (BuffController.instance) return BuffController.instance;
+        BuffController.instance = this;
         this.activeBuffList = new Map();
+        this.target = targetCharacter;
         this.temporaryShield = 0; // init shield value
+        BuffController.shopBuff.forEach(item => this.addNewBuff(item));
+        this.activeBuffList.forEach(item => item.start())
+        this.messageStack = []
     }
 
     addNewBuff(newBuff) {
-        const existingBuff = this.activeBuffList.get(newBuff.effectType);
+        if (!newBuff) return;
+        const key = newBuff.id ? newBuff.effectType : newBuff.id;
+        const existingBuff = this.activeBuffList.get(key);
 
         if (existingBuff) {
             if (existingBuff.tryAddStack()) return;
-            this.removeBuff(existingBuff.effectType);
+            this.removeBuff(key);
         }
 
-        this.activeBuffList.set(newBuff.effectType, newBuff);
-        
+        this.activeBuffList.set(newBuff.id, newBuff);
+
         // shield add
-        if (newBuff.effectType == BuffTypes.SHIELD_ADD) {
+        if (newBuff.effectType === BuffTypes.SHIELD_ADD) {
             this.temporaryShield += newBuff.currentEffectValue;
         }
 
@@ -36,12 +45,12 @@ class BuffController {
         // ...
     }
 
-    removeBuff(targetType) {
-        const buff = this.activeBuffList.get(targetType);
+    removeBuff(key) {
+        const buff = this.activeBuffList.get(key);
         if (!buff) return;
 
         // when shield is removed, compare the value
-        if (buff.effectType == BuffTypes.SHIELD_ADD) {
+        if (buff.effectType === BuffTypes.SHIELD_ADD) {
             this.temporaryShield = Math.max(0, this.temporaryShield - buff.currentEffectValue);
         }
 
@@ -49,14 +58,14 @@ class BuffController {
             buff.onEnd(this.target, buff);
         }
 
-        this.activeBuffList.delete(targetType);
+        this.activeBuffList.delete(key);
     }
 
     updateFrame(curTime) {
         // handle buff expiration
-        this.activeBuffList.forEach((buff, type) => {
+        this.activeBuffList.forEach((buff, key) => {
             if (buff.isExpired) {
-                this.removeBuff(type);
+                this.removeBuff(key);
             }
         });
 
@@ -70,6 +79,8 @@ class BuffController {
                     this.target.HP -= buff.currentEffectValue * ((curTime - buff.startTime) / 1000);
                     break;
             }
+            buff.player = this.target
+            buff.update(curTime)
         });
 
         // HP limit
@@ -96,7 +107,7 @@ class BuffController {
     calcSpeedChange() {
         let rate = 1.0;
         this.activeBuffList.forEach(buff => {
-            if (buff.effectType == BuffTypes.SPEED_CHANGE) {
+            if (buff.effectType === BuffTypes.SPEED_CHANGE) {
                 rate *= 1 + buff.currentEffectValue;
             }
         });
@@ -106,7 +117,7 @@ class BuffController {
     calcDamageChange() {
         let rate = 1.0;
         this.activeBuffList.forEach(buff => {
-            if (buff.effectType == BuffTypes.DAMAGE_CHANGE) {
+            if (buff.effectType === BuffTypes.DAMAGE_CHANGE) {
                 rate *= 1 + buff.currentEffectValue;
             }
         });
@@ -116,10 +127,43 @@ class BuffController {
     calcShield() {
         let total = 0;
         this.activeBuffList.forEach(buff => {
-            if (buff.effectType == BuffTypes.SHIELD_ADD) {
+            if (buff.effectType === BuffTypes.SHIELD_ADD) {
                 total += buff.currentEffectValue;
             }
         });
         return total;
     }
+
+    getBuffById(id) {
+        const buff = this.activeBuffList.get(id)
+        if (buff) return buff;
+        throw new Error(`Not found buff by arguments: ${id}`)
+    }
+
+    getBuff(obj) {
+        for (const item of this.activeBuffList.values()) {
+            if (item instanceof  obj) {
+                return item;
+            }
+        }
+        throw new Error(`Not found buff by object${obj.toString()}`)
+    }
+
+    getBuffByKey(key) {
+        return this.getBuffById(key);
+    }
+
+    getBuffByName(name) {
+        for (const item of this.activeBuffList.values()) {
+            if (item.label === name) {
+                return item;
+            }
+        }
+        throw new Error(`Not found buff by name: ${name}`)
+    }
+
+    showBuffInfo(buff) {
+        this.messageStack.push(buff.description ?? "test")
+    }
+
 }

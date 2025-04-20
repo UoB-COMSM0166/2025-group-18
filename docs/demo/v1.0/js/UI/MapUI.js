@@ -487,7 +487,7 @@ class MapUI {
                 stroke(255, 255, 255, 150);
                 strokeWeight(2);
 
-                const t = (frameCount % logicFrameRate) / logicFrameRate;
+                const t = (frameCount % 60) / 60;
                 const x = bezierPoint(road.x1, road.xc1, road.xc1, road.x2, t);
                 const y = bezierPoint(road.y1, road.yc1, road.yc1, road.y2, t);
 
@@ -531,9 +531,9 @@ class MapUI {
         pop();
     }
 
-    getRandomType() { //随机事件出现的概率在这里调哦——Theodore
+    getRandomType() {
         const randomNum = Math.random();
-        if (randomNum < 0.6) {
+        if (randomNum < 0.7) {
             return MAIN_STEP_IN_GAME;
         } else {
             return MAIN_STEP_RANDOM_EVENT;

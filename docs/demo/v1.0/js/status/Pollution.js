@@ -8,8 +8,8 @@ class Pollution {
             skill: 10,
             bomb: 300,
             TNT: 20,
-            chemical_box: 100,
-            rubbish: -50,
+            chemical_box: 50,
+            rubbish: -200,
             enemy_kill: "relevance_maxHP",
             boss_kill: "relevance_maxHP"
         };
@@ -35,7 +35,7 @@ class Pollution {
 
         this.pollution = Math.max(0, this.pollution + amount);
         this.updatePollutionLevel();
-        //console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
+        console.log(`Pollution ${amount >= 0 ? '+' : ''}${amount} from ${source}. Total: ${this.pollution}, Level: ${this.pollutionLevel}`);
     }
 
 

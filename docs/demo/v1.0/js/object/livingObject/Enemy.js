@@ -10,7 +10,7 @@ class Enemy extends BasicObject {
             enemyModel.ySize,
             ENEMY_ATTACK_BIT,
             enemyModel.HP,
-            enemyModel.speed * 60 / logicFrameRate,
+            enemyModel.speed,
         );
         this.modelType = enemyModel.type;
         this.attackPower = enemyModel.attackPower;
@@ -24,11 +24,11 @@ class Enemy extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
-        this.originalBaseSpeed = enemyModel.speed * 60 / logicFrameRate;
+        this.originalBaseSpeed = enemyModel.speed;
         this.originalBaseAttack = enemyModel.attackPower;
         this.originalBaseHP = enemyModel.HP;
 
-        this.baseSpeed = enemyModel.speed * 60 / logicFrameRate;
+        this.baseSpeed = enemyModel.speed;
         this.baseAttack = enemyModel.attackPower;
         this.baseHP = enemyModel.HP;
 
@@ -38,7 +38,7 @@ class Enemy extends BasicObject {
         this.HP = this.maxHP;
 
         this.currentFrame = 0;
-        this.frameRate = round(logicFrameRate / 6);
+        this.frameRate = 20;
         this.frameCount = 0;
         // this.frames = this.getFrames();
 
@@ -84,7 +84,7 @@ class Enemy extends BasicObject {
     drawEnemy() {
         this.frameCount++;
         if (this.frameCount % this.frameRate == 0) {
-            this.currentFrame = (this.currentFrame + 1) % frames.enemy[this.modelType].length;
+            this.currentFrame = (this.currentFrame + 1) % frames.enemy[1].length;
         }
 
         imageMode(CENTER);
@@ -93,12 +93,12 @@ class Enemy extends BasicObject {
         if (this.isFlashing) {
             push();
             tint(255, 0, 0); // 应用红色染色
-            image(frames.enemy[this.modelType][this.currentFrame],
+            image(frames.enemy[1][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
             pop();
         } else {
-            image(frames.enemy[this.modelType][this.currentFrame],
+            image(frames.enemy[1][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
         }
@@ -184,7 +184,7 @@ class Enemy extends BasicObject {
     }
 
     enemyAttack(xSpeed, ySpeed) {
-        //console.log("enemy attack");——Theodore，整个控制台全部是打印的子弹
+        console.log("enemy attack");
         this.enemyAttackCallBack(
             xSpeed, ySpeed,
             ENEMY_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,

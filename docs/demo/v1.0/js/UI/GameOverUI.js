@@ -7,21 +7,13 @@ class GameOverUI {
         this.buttonOpacity = 0;
         this.fadeInSpeed = 0.02;
         this.textFadeInSpeed = 0.01;
-        this.reasonFadeInDelay = logicFrameRate;
-        this.buttonFadeInDelay = logicFrameRate * 2;
+        this.reasonFadeInDelay = 60;
+        this.buttonFadeInDelay = 120;
         this.frameCount = 0;
         this.button = null;
         this.deathReason = "";
         this.buttonHovered = false;
         this.createButton();
-        
-        // 用于存储特殊死亡原因的信息
-        this.specialDeathMessages = {
-            "hp": "你血量耗尽，海洋吞噬了你的船...",
-            "pollution": "污染值过高，毒害的环境反噬了你...",
-            "mermaid": "不是，哥们儿，你这真的敢去啊！",//"海边的美人鱼是危险的，她们迷人的歌声是致命陷阱...",
-            "generic": "海上的危险终结了你的冒险..."
-        };
     }
 
     createButton() {
@@ -44,18 +36,20 @@ class GameOverUI {
             logicY < this.button.y + this.button.height
         );
 
-        // if (this.buttonHovered) {
-        //     document.body.style.cursor = 'pointer';
-        // } else {
-        //     document.body.style.cursor = 'default';
-        // }
+        if (this.buttonHovered) {
+            document.body.style.cursor = 'pointer';
+        } else {
+            document.body.style.cursor = 'default';
+        }
     }
 
     setDeathReason(reason) {
-        if (this.specialDeathMessages[reason]) {
-            this.deathReason = this.specialDeathMessages[reason];
+        if (reason == "hp") {
+            this.deathReason = "你血量耗尽，海洋吞噬了你的船...";
+        } else if (reason == "pollution") {
+            this.deathReason = "污染值过高，毒害的环境反噬了你...";
         } else {
-            this.deathReason = this.specialDeathMessages["generic"];
+            this.deathReason = "海上的危险终结了你的冒险...";
         }
     }
 
@@ -86,7 +80,7 @@ class GameOverUI {
         textSize(150);
         for (let i = 0; i < 10; i++) {
             fill(100, 0, 0, this.textOpacity * 100);
-            text("小笨蛋", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
+            text("傻逼", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
         }
 
         fill(255, 0, 0, this.textOpacity * 255);
@@ -94,7 +88,7 @@ class GameOverUI {
         const offsetX = random(-shakeAmount, shakeAmount);
         const offsetY = random(-shakeAmount, shakeAmount);
 
-        text("小笨蛋", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
+        text("傻逼", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
 
         // 死亡原因文本
         textSize(30);

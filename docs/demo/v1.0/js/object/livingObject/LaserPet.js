@@ -62,7 +62,6 @@ class LaserPet extends Pet {
                 }
             }
         }
-        this.frameCount++;
     }
     
     laserAttack(targetX, targetY, targetEnemy) {
@@ -74,7 +73,7 @@ class LaserPet extends Pet {
         this.targetY = targetY;
         this.targetEnemy = targetEnemy;
 
-        if (typeof laserShotSound != 'undefined') {
+        if (typeof laserShotSound !== 'undefined') {
             if (!laserShotSound.isPlaying()) {
                 laserShotSound.play();
             }
@@ -92,7 +91,7 @@ class LaserPet extends Pet {
     
     updateLaser() {
         if (this.laserActive) {
-            if (this.frameCount % round(logicFrameRate / 6) == 0) {
+            if (frameCount % 10 == 0) {
                 if (this.targetEnemy && this.targetEnemy.isAlive) {
                     this.laserAttackCallBack(
                         this.xCoordinate, 
@@ -118,7 +117,7 @@ class LaserPet extends Pet {
         if (this.laserActive) {
             push();
             
-            const pulseIntensity = map(sin(this.frameCount * 0.2), -1, 1, 0.7, 1.3);
+            const pulseIntensity = map(sin(frameCount * 0.2), -1, 1, 0.7, 1.3);
             
             stroke(
                 this.laserColor.levels[0], 

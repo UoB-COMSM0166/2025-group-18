@@ -68,7 +68,7 @@ class PlayerControl {
     }
 
     shoot(xSpeed, ySpeed) {
-        //console.log("Shooting!");
+        console.log("Shooting!", this.#player);
         this.shootCallBack(
             xSpeed, ySpeed,
             PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
@@ -138,7 +138,7 @@ class PlayerControl {
 
         if (xMove == 0 && yMove == 0) {
 
-            this.#player.setAnimation('idleD');//调用向右移动         
+            this.#player.setAnimation('idleD');//调用向右移动
         }
         this.playerMoveCallBack(xMove, yMove);
     }
@@ -151,7 +151,7 @@ class PlayerControl {
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
             this.shoot(shootX, shootY);
-            //console.log("updateShoot()");
+            console.log("updateShoot()");
         }
     }
 
@@ -186,7 +186,7 @@ class PlayerControl {
             return;
         }
 
-        //console.log("playerControl() Using skill");
+        console.log("playerControl() Using skill");
 
         if (typeof playerSkillSound !== 'undefined') {
             if (!playerSkillSound.isPlaying()) {

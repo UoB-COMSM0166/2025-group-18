@@ -1,12 +1,12 @@
 class Bullet extends BasicObject {
-    constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, explosionSize, xSize, ySize, speed, targetCallBack) {
+    constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, explosionSize, size, speed, targetCallBack) {
         super(
             "bullet",
             BULLET_TYPE,
             xCoordinate,
             yCoordinate,
-            xSize, // bullet size
-            ySize,
+            size, // bullet size
+            size,
             0,
             10,
             speed,
@@ -24,13 +24,13 @@ class Bullet extends BasicObject {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
-            this.maxTurnAngle = Math.PI / 36 * 60 / logicFrameRate;
+            this.maxTurnAngle = Math.PI / 36;
         }
         this.toDelete = false;
         this.exploded = false;
         this.targetCallBack = targetCallBack;
         this.currentFrame = 0;
-        this.frameRate = round(logicFrameRate / 6);
+        this.frameRate = 10;
         this.frameCount = 0;
         // this.frames;
         this.bulletTypes = bulletType;
@@ -98,19 +98,16 @@ class Bullet extends BasicObject {
         
         if (this.bulletTypes == PLAYER_BULLET_TYPE) {
             image(frames.bullet[this.currentFrame], 0, 0,
-                this.xSize, this.ySize);
-                // frames.bullet[this.currentFrame].width / 20, 
-                // frames.bullet[this.currentFrame].height / 20);
+                frames.bullet[this.currentFrame].width / 4, 
+                frames.bullet[this.currentFrame].height / 4);
         } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
             image(frames.enemyBullet[this.currentFrame], 0, 0,
-                this.xSize, this.ySize);
-                // frames.enemyBullet[this.currentFrame].width / 4, 
-                // frames.enemyBullet[this.currentFrame].height / 4);    
+                frames.enemyBullet[this.currentFrame].width / 4, 
+                frames.enemyBullet[this.currentFrame].height / 4);    
         } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
             image(frames.bossBullet[this.currentFrame], 0, 0,
-                this.xSize, this.ySize);
-                // frames.bossBullet[this.currentFrame].width / 20, 
-                // frames.bossBullet[this.currentFrame].height / 20);    
+                frames.bossBullet[this.currentFrame].width / 20, 
+                frames.bossBullet[this.currentFrame].height / 20);    
         }
         pop();
     }
@@ -119,7 +116,7 @@ class Bullet extends BasicObject {
         /* if (bulletFrames.length === 0) {
             this.preload();
         } */
-        //console.log("发射了子弹图片");
+        console.log("发射了子弹图片");
         // fill(0, 255, 0);
         // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
         this.drawBullet();

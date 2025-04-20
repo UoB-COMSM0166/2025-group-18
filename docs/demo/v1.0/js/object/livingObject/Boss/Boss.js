@@ -11,7 +11,7 @@ class Boss extends BasicObject {
             bossModel.ySize,
             ENEMY_ATTACK_BIT,
             bossModel.HP,
-            bossModel.speed * 60 / logicFrameRate
+            bossModel.speed
         );
         this.modelType = bossModel.type;
 
@@ -32,12 +32,12 @@ class Boss extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
-        this.originalBaseSpeed = bossModel.speed * 60 / logicFrameRate;
+        this.originalBaseSpeed = bossModel.speed;
         this.originalBaseAttack = bossModel.attackPower;
         this.originalBaseHP = bossModel.HP;
         this.originalBaseAttackCD = bossModel.attackCD;
 
-        this.baseSpeed = bossModel.speed * 60 / logicFrameRate;
+        this.baseSpeed = bossModel.speed;
         this.baseAttack = bossModel.attackPower;
         this.baseHP = bossModel.HP;
         this.baseAttackCD = bossModel.attackCD;
@@ -51,7 +51,7 @@ class Boss extends BasicObject {
         this.attackCD = this.baseAttackCD / pollutionEffect.enemySpeedMul;
         // this.frames = frames.boss[this.name];
         this.currentFrame = 0;
-        this.frameRate = round(logicFrameRate / 3);
+        this.frameRate = 20;
         this.frameCount = 0;
 
         this.isFlashing = false;

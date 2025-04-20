@@ -8,12 +8,12 @@ class Explode {
         this.ySize = explodeModel.ySize;
         this.harm = harm;
         this.attackBit = attackBit;
-        //console.log("=========================" + this.attackBit);
+        console.log("=========================" + this.attackBit);
         this.type = explodeType;
 
         // this.frames;
         this.currentFrame = 0;
-        this.frameRate = round(logicFrameRate / 20);
+        this.frameRate = 5;
         this.frameCount = 0;
     }
 

@@ -17,24 +17,18 @@ class MainUI {
     #gameReward = { gold: 0, buff: [] };
     #morseCodeUI;
     #gameSummaryUI;
-    #updatePlayerHealth = null;
-    #updatePlayerPollution = null;
+
 
     constructor(updateStep,
         updateShipStatus,
         updateBuffStatus,
         updateChooseGame,
-        updateGoldStatus,
-        updatePlayerHealth,
-        updatePlayerPollution)
-    {
+        updateGoldStatus) {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
         this.updateChooseGame = updateChooseGame;
         this.updateGoldStatus = updateGoldStatus;
-        this.#updatePlayerHealth = updatePlayerHealth;
-        this.#updatePlayerPollution = updatePlayerPollution;
 
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
         this.#tutorialUI = new TutorialUI(this.#handleTutorialComplete.bind(this));
@@ -502,6 +496,8 @@ class MainUI {
     }
 
     #handleGameRewardSelection(buffType) {
+        console.log(this.updateBuffStatus);
+        console.log(buffType);
         if (this.updateBuffStatus) {
             this.updateBuffStatus(buffType);
         }
@@ -530,26 +526,11 @@ class MainUI {
         }
     }
 
-    #handleRandomEventSelection(eventResult) {
-        //console.log("随机事件处理结果:", eventResult);
-        if (eventResult.action == 'gameover') {
-            this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
-            this.#gameOverUI.setDeathReason(eventResult.deathReason || 'generic');
-            this.updateStep(MAIN_STEP_GAME_OVER);
-        } else if (eventResult.action == 'continue') {
-            if (eventResult.goldChange) {
-                console.log("处理金币变化:", eventResult.goldChange);
-                this.updateGoldStatus(eventResult.goldChange);
-            }
-            if (eventResult.healthChange && this.#updatePlayerHealth) {
-                console.log("处理生命值变化:", eventResult.healthChange);
-                this.#updatePlayerHealth(eventResult.healthChange);
-            }
-            if (eventResult.pollutionChange && this.#updatePlayerPollution) {
-                console.log("处理污染值变化:", eventResult.pollutionChange);
-                this.#updatePlayerPollution(eventResult.pollutionChange);
-            }
-
+    #handleRandomEventSelection(buffType) {
+        if (buffType != -1) {
+            this.updateBuffStatus(buffType);
+        }
+        if (this.updateStep) {
             this.updateStep(MAIN_STEP_MAP_UI);
         }
     }
