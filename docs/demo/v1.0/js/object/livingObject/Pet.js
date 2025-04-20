@@ -95,7 +95,7 @@ class Pet extends BasicObject {
             rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
             // pet图像
-            //this.drawPet();
+            this.drawPet();
             
             //血条出现在贴图上方
             let imageTopY = this.yCoordinate - this.ySize;
