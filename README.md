@@ -9,8 +9,7 @@
 Video of Demo - TBD
 
 <div style="text-align: center;">
-  <video src="https://uob-comsm0166.github.io/2025-group-18/labprocess/week03/idea2.mp4
-  " controls width="600"></video>
+  <video src="docs/labprocess/week03/idea2.webm" controls width="600"></video>
 </div>
 
 
