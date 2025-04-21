@@ -9,7 +9,7 @@
 Video of Demo - TBD
 
 <div style="text-align: center;">
-  <video src="labprocess/week03/idea2.mp4" controls width="600"></video>
+  <video src="./labprocess/week03/idea2.mp4" controls width="600"></video>
 </div>
 
 >  [!IMPORTANT] 
