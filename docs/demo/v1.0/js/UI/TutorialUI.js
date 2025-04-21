@@ -357,7 +357,7 @@ class TutorialUI {
         textSize(16);
         text("Encounter mysterious events at sea", textX, y + 30 + textLineHeight);
         text("Your choices will impact your journey", textX, y + 30 + textLineHeight * 2);
-        text("(Captain's warning: Stay away from mermaids!)", textX, y + 30 + textLineHeight * 3);
+        text("(Warning: Stay away from mermaids!)", textX, y + 30 + textLineHeight * 3);
         
         pop();
     }
