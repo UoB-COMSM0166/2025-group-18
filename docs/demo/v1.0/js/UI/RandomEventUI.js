@@ -596,6 +596,7 @@ class RandomEventUI {
         if (!this.#isInit) return;
         for (const btn of this.buttons) {
             if (btn.release() && btn.isHovered) {
+                playSound(frames.soundEffect.hover);
                 btn.onClick && btn.onClick();
             }
         }

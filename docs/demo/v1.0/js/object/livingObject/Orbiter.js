@@ -1,4 +1,4 @@
-class OrbiterPet extends BasicObject {
+class Orbiter extends BasicObject {
     constructor(player, orbitRadius, orbitSpeed, attackPower, attackCallBack) {
         const petModel = getPetModel(PET_MODEL_3_TYPE);
         super(
@@ -155,7 +155,7 @@ class OrbiterPet extends BasicObject {
         if (this.skillCD == 0 && !this.isUsingSkill) {
             fill(0, 255, 255, 150 + 50 * Math.sin(this.frameCount * 0.1));
             noStroke();
-            ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
+            ellipse(this.xCoordinate + this.xSize, this.yCoordinate, this.xSize * 0.5, this.ySize * 0.5);
         }
         
         pop();
@@ -168,12 +168,12 @@ class OrbiterPet extends BasicObject {
             fill(0, 255, 200);
         }
         
-        ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
+        ellipse(this.xCoordinate + this.xSize, this.yCoordinate, this.xSize * 0.5, this.ySize * 0.5);
         
         if (this.skillCD > 0) {
             const cdRatio = this.skillCD / this.maxSkillCD;
             fill(100, 100, 100, 200);
-            arc(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize * 0.8, this.ySize * 0.8, 
+            arc(this.xCoordinate + this.xSize, this.yCoordinate, this.xSize * 0.4, this.ySize * 0.4, 
                 -HALF_PI, -HALF_PI + TWO_PI * (1 - cdRatio), PIE);
         }
     }

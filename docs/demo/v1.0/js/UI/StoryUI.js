@@ -231,12 +231,15 @@ class StoryUI {
 
     handleMouseReleased() {
         if (this.prevButton.release() && this.prevButton.isHovered) {
+            playSound(frames.soundEffect.hover);
             this.prevButton.onClick();
         }
         if (this.nextButton.release() && this.nextButton.isHovered) {
+            playSound(frames.soundEffect.hover);
             this.nextButton.onClick();
         }
         if (this.skipButton.release() && this.skipButton.isHovered) {
+            playSound(frames.soundEffect.hover);
             this.skipButton.onClick();
         }
     }

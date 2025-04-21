@@ -75,7 +75,7 @@ class PlayerControl {
             this.#player.equipment.getCurrentWeapon().attackPower,
         );
 
-        if (typeof playerShootSound !== 'undefined') {
+        if (typeof playerShootSound != 'undefined') {
             playerShootSound.play();
         }
         this.lastShootTime = millis();
@@ -188,12 +188,8 @@ class PlayerControl {
 
         //console.log("playerControl() Using skill");
 
-        if (typeof playerSkillSound !== 'undefined') {
-            if (!playerSkillSound.isPlaying()) {
-                playerSkillSound.play();
-            }
-        }
-
+        playSound(playerSkillSound);
+        
         this.skillUseCallBack();
         let target = this.targetCallBack(this.#player);
         let dx = this.#player.xCoordinate - target.xCoordinate;

@@ -15,7 +15,7 @@ class Game {
     #pollution
     #bulletExplode;
     #pets;
-    #orbiterPet;
+    #orbiter;
     #aoeSkills;
     #loopCount;
 
@@ -39,7 +39,7 @@ class Game {
         Building.setPollutionInstance(this.#pollution);
         this.#bulletExplode = [];
         this.#pets = [];
-        this.#orbiterPet = null;
+        this.#orbiter = null;
         this.#aoeSkills = [];
         this.#loopCount = 0;
     }
@@ -75,7 +75,7 @@ class Game {
         );
         this.#playerBuffController = new BuffController(this.#player);
 
-        this.#orbiterPet = new OrbiterPet(
+        this.#orbiter = new Orbiter(
             this.#player,
             70,  // 轨道半径
             2,   // 轨道速度
@@ -438,9 +438,9 @@ class Game {
             }
         }
 
-        if (this.#orbiterPet) {
-            this.#orbiterPet.update(this.#enemies);
-            this.#orbiterPet.show();
+        if (this.#orbiter) {
+            this.#orbiter.update(this.#enemies);
+            this.#orbiter.show();
         }
         if (this.#player.hasAttackedByAoe && millis() - this.#player.lastAttackByAoeTime > 500) {
             this.#player.hasAttackedByAoe = false;

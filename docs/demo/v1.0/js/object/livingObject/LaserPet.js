@@ -74,11 +74,7 @@ class LaserPet extends Pet {
         this.targetY = targetY;
         this.targetEnemy = targetEnemy;
 
-        if (typeof laserShotSound != 'undefined') {
-            if (!laserShotSound.isPlaying()) {
-                laserShotSound.play();
-            }
-        }
+        playSound(laserShotSound);
         
         this.laserAttackCallBack(
             this.xCoordinate, 

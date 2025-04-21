@@ -261,6 +261,7 @@ class TeamUI {
                     }
                     this.backToMainCallBack();
                 }
+                playSound(frames.soundEffect.hover);
             }
             btn.isPressed = false;
         }
@@ -272,6 +273,7 @@ class TeamUI {
                 } else {
                     this.selectedMember = btn.name;
                 }
+                playSound(frames.soundEffect.hover);
             }
             btn.isPressed = false;
         }
