@@ -2,6 +2,7 @@ class MainUI {
 
     #currentStep = MAIN_STEP_START_UI;
     #startUI;
+    #storyUI;
     #teamUI;
     #chooseShipUI;
     #inGameUI;
@@ -26,8 +27,7 @@ class MainUI {
         updateChooseGame,
         updateGoldStatus,
         updatePlayerHealth,
-        updatePlayerPollution)
-    {
+        updatePlayerPollution) {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
@@ -52,6 +52,7 @@ class MainUI {
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
         this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
         this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        this.#storyUI = new StoryUI(this.#handleStoryComplete.bind(this));
     }
 
     showStartUI() {
@@ -64,6 +65,25 @@ class MainUI {
 
     initStartUI() {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
+    }
+
+    showStoryUI() {
+        if (!this.#storyUI) {
+            this.#storyUI = new StoryUI(this.#handleStoryComplete.bind(this));
+        }
+        this.#storyUI.draw();
+    }
+
+    storyUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_STORY_UI && this.#storyUI) {
+            this.#storyUI.handleMousePressed();
+        }
+    }
+
+    storyUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_STORY_UI && this.#storyUI) {
+            this.#storyUI.handleMouseReleased();
+        }
     }
 
     showTeamUI() {
@@ -410,6 +430,11 @@ class MainUI {
                     this.#startUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_STORY_UI:
+                if (this.#storyUI) {
+                    this.#storyUI.handleWindowResized();
+                }
+                break;
             case MAIN_STEP_TUTORIAL_UI:
                 if (this.#tutorialUI) {
                     this.#tutorialUI.handleWindowResized();
@@ -455,10 +480,16 @@ class MainUI {
 
     #handleStartUIButtonClick(buttonType) {
         if (buttonType == MAIN_STEP_START_UI) {
-            this.updateStep(MAIN_STEP_TUTORIAL_UI);
+            this.updateStep(MAIN_STEP_STORY_UI);
         } else if (buttonType == MAIN_STEP_START_UI_TEAM) {
             this.updateStep(MAIN_STEP_START_UI_TEAM);
             this.showTeamUI();
+        }
+    }
+
+    #handleStoryComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_TUTORIAL_UI);
         }
     }
 

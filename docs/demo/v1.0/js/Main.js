@@ -127,6 +127,10 @@ class Main {
                 this.#UI.showStartUI();
                 break;
             }
+            case MAIN_STEP_STORY_UI: {
+                this.#UI.showStoryUI();
+                break;
+            }
             case MAIN_STEP_TUTORIAL_UI: {
                 this.#UI.showTutorialUI();
                 break;
@@ -229,6 +233,10 @@ class Main {
                 this.#UI.startUIPressed();
                 break;
             }
+            case MAIN_STEP_STORY_UI: {
+                this.#UI.storyUIMousePressed();
+                break;
+            }
             case MAIN_STEP_TUTORIAL_UI: {
                 this.#UI.tutorialUIMousePressed();
                 break;
@@ -290,6 +298,10 @@ class Main {
             }
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIReleased();
+                break;
+            }
+            case MAIN_STEP_STORY_UI: {
+                this.#UI.storyUIMouseReleased();
                 break;
             }
             case MAIN_STEP_TUTORIAL_UI: {
