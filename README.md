@@ -8,9 +8,8 @@
 
 Video of Demo - TBD
 
-<p align="center"><b>Paper Prototype</b></p>
 <div style="text-align: center;">
-  <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+  <video src="https://github.com/UoB-COMSM0166/2025-group-18/blob/Fix/md-pet-fix/docs/labprocess/week03/idea2.mp4" controls width="600"></video>
 </div>
 
 
@@ -55,7 +54,6 @@ Video of Demo - TBD
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
     
-    <p align="center"><b>Paper Prototype</b></p>
     <div style="text-align: center;">
       <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
     </div>
