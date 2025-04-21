@@ -102,7 +102,12 @@ Video of Demo - TBD
 ### Requirements
 
 #### Identifying Stakeholders
-[<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="1200"/>](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
+
+<div align="center">
+
+[<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="800"/>](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
+
+</div>
 
 #### Epic
 
@@ -168,6 +173,8 @@ Video of Demo - TBD
 
 <p align="center"><b>Game GIF Design</b></p>
 
+<div align="center">
+
 | Name | Pre | Type | Descri |
 |------|------|------|--------|
 | Boss1 | <img src="docs/images/docs/gif/BOSS1.gif" width="80"/> | boss | boss1 |
@@ -179,6 +186,8 @@ Video of Demo - TBD
 | Pet | <img src="docs/images/docs/gif/pet.gif" width="80"/> | pet | orbiter or fort or laser |
 | Pullute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pullution |
 | Tnt | <img src="docs/images/docs/gif/TNT.gif" width="80"/> | building | tnt |
+
+</div>
 
 ### Design
 
