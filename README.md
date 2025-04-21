@@ -7,9 +7,9 @@
 [🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
 
 Video of Demo - TBD
-<p align="center"><b>Video of Demo</b></p>
+
 <div style="text-align: center;">
-  <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+  <video src="labprocess/week03/idea2.mp4" controls width="600"></video>
 </div>
 
 >  [!IMPORTANT] 
