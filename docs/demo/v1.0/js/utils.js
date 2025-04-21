@@ -15,7 +15,8 @@ const MAIN_STEP_LOSE = 13;
 const MAIN_STEP_MORSE_CODE = 14;
 const MAIN_STEP_GAME_SUMMARY = 15;
 const MAIN_STEP_CAPTAIN_UI = 16;
-const MAIN_STEP_MAX = 17;
+const MAIN_STEP_STORY_UI = 17;
+const MAIN_STEP_MAX = 18;
 
 /**
  *  attackBit: each bit controls which object could this object attack
