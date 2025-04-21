@@ -7,6 +7,10 @@
 [🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
 
 Video of Demo - TBD
+<p align="center"><b>Video of Demo</b></p>
+<div style="text-align: center;">
+  <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+</div>
 
 >  [!IMPORTANT] 
 >
@@ -48,6 +52,9 @@ Video of Demo - TBD
 ### Week 03
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
+    <div style="text-align: center;">
+      <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+    </div>
 2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
 3. [📜 Additional requirements](docs/labprocess/week03/AdditionalRequirements.md)
 
@@ -66,7 +73,6 @@ Video of Demo - TBD
 ### Week 07
 
 1. [📊 Heuristic Evaluation](docs/labprocess/week07/heuristic-evaluation.md)
-
 
 ### Week 08
 1. [📜 Three Challenges](docs/labprocess/week08/three-challenges.md)
@@ -93,6 +99,7 @@ Video of Demo - TBD
 
 #### Identifying Stakeholders
 [<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="1200"/>](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
+
 #### Epic
 
 | Bot | User Story | Acceptance Criteria |
@@ -145,16 +152,38 @@ Video of Demo - TBD
 
   With this new direction in mind, we redesigned the game's initial concept, including multi-view ship models, conceptual environment art, and revamped gameplay mechanics (as shown below). This transformation not only gave our game a more distinctive theme but also provided a richer creative foundation for further development.
 
+<p align="center"><b>Player-Ship Design</b></p>
+
 | **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
 
+<p align="center"><b>Environment Design</b></p>
+
 ![process-02](docs/labprocess/week04/process-02.jpg)
+
+<p align="center"><b>Game GIF Design</b></p>
+
+| Name | Pre | Type | Descri |
+|------|----------|------|----------|
+| Boss1 | ![Boss1](docs/images/docs/gif/BOSS1.gif) | boss | boss1 |
+| Boss2 | ![Boss2](docs/images/docs/gif/BOSS2.gif) | boss | boss2 |
+| Enemy1 | ![Enemy1]docs/images/docs/gif/enemy1.gif) | enemy | enemy1 |
+| Enemy2 | ![Enemy2](docs/images/docs/gif/enemy2.gif) | enemy | enemy2 |
+| Enemy3 | ![Enemy3](docs/images/docs/gif/enemy3.gif) | enemy | enemy3 |
+| Enemy4 | ![Enemy4](docs/images/docs/gif/enemy4.gif) | enemy | enemy4 |
+| Pet | ![Pet](docs/images/docs/gif/pet.gif) | pet | orbiter or fort or laser |
+| Pullute-bucket | ![Pullute-bucket](docs/images/docs/gif/PULLUTE-BUCKET.gif) | building | pullution |
+| Tnt | ![Tnt](docs/images/docs/gif/TNT.gif) | building | tnt |
 
 ### Design
 
 - 15% ~750 words 
 - System architecture. Class diagrams, behavioural diagrams. 
+
+> [!WARNING]
+>
+> system architecture ? 
 
 #### Class Diagram
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
@@ -165,6 +194,10 @@ Video of Demo - TBD
 ### Implementation
 
 - 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
+
+> [!IMPORTANT]
+>
+> **Challenge** 全局缩放? 延迟? 卡顿?
 
 1. **Dynamic Pollution System**  
    **Description:**  
@@ -189,6 +222,11 @@ Video of Demo - TBD
 
 
 ### Evaluation
+
+> [!WARNING]
+>
+> 定量:性能测试, 运行时间, 资源消耗...
+> 代码测试描述: 自动化测试, 人工测试, 边界条件...
 
 - 15% ~750 words[One qualitative evaluation (your choice) /One quantitative evaluation (of your choice)/Description of how code was tested.]
 #### Heuristic Evaluation: *Sink or Pollute*

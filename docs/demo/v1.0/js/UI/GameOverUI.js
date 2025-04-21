@@ -144,6 +144,7 @@ class GameOverUI {
             this.button.y = logicHeight * 0.7;
         }
         if (this.buttonHovered && this.buttonOpacity > 0.5) {
+            playSound(frames.soundEffect.hover);
             this.gameOverCallBack();
         }
     }

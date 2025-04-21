@@ -118,6 +118,7 @@ class ChooseShipUI {
         });
         
         if(selectedShip != null && this.onShipSelect) {
+            playSound(frames.soundEffect.hover);
             this.onShipSelect(selectedShip);
         }
     }

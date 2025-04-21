@@ -328,6 +328,7 @@ class MapUI {
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
                 if (btn.release() && btn.isHovered) {
+                    playSound(frames.soundEffect.hover);
                     // 如果点的是内圈（currentRing - 1）
                     if (btn.ring == currentRing - 1) {
                         // 更新玩家位置

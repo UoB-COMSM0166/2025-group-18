@@ -83,7 +83,7 @@ const SHIP_MODEL = [
         ySize: 10,
         HPmax: 50,
         speed: 10,
-        skillCD: 1
+        skillCD: 2
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
@@ -223,8 +223,8 @@ const PET_MODEL = [
     {
         name: "orbiter",
         type: PET_MODEL_3_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 25,
+        ySize: 25,
         HP: 5000,
         speed: 7,
         attackPower: 1,
