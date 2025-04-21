@@ -55,7 +55,7 @@ Video of Demo - TBD
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
     
     <div style="text-align: center;">
-      <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+      <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
     </div>
 
     
@@ -169,16 +169,16 @@ Video of Demo - TBD
 <p align="center"><b>Game GIF Design</b></p>
 
 | Name | Pre | Type | Descri |
-|------|----------|------|----------|
-| Boss1 | ![Boss1](docs/images/docs/gif/BOSS1.gif) | boss | boss1 |
-| Boss2 | ![Boss2](docs/images/docs/gif/BOSS2.gif) | boss | boss2 |
-| Enemy1 | ![Enemy1]docs/images/docs/gif/enemy1.gif) | enemy | enemy1 |
-| Enemy2 | ![Enemy2](docs/images/docs/gif/enemy2.gif) | enemy | enemy2 |
-| Enemy3 | ![Enemy3](docs/images/docs/gif/enemy3.gif) | enemy | enemy3 |
-| Enemy4 | ![Enemy4](docs/images/docs/gif/enemy4.gif) | enemy | enemy4 |
-| Pet | ![Pet](docs/images/docs/gif/pet.gif) | pet | orbiter or fort or laser |
-| Pullute-bucket | ![Pullute-bucket](docs/images/docs/gif/PULLUTE-BUCKET.gif) | building | pullution |
-| Tnt | ![Tnt](docs/images/docs/gif/TNT.gif) | building | tnt |
+|------|------|------|--------|
+| Boss1 | <img src="docs/images/docs/gif/BOSS1.gif" width="80"/> | boss | boss1 |
+| Boss2 | <img src="docs/images/docs/gif/BOSS2.gif" width="80"/> | boss | boss2 |
+| Enemy1 | <img src="docs/images/docs/gif/enemy1.gif" width="80"/> | enemy | enemy1 |
+| Enemy2 | <img src="docs/images/docs/gif/enemy2.gif" width="80"/> | enemy | enemy2 |
+| Enemy3 | <img src="docs/images/docs/gif/enemy3.gif" width="80"/> | enemy | enemy3 |
+| Enemy4 | <img src="docs/images/docs/gif/enemy4.gif" width="80"/> | enemy | enemy4 |
+| Pet | <img src="docs/images/docs/gif/pet.gif" width="80"/> | pet | orbiter or fort or laser |
+| Pullute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pullution |
+| Tnt | <img src="docs/images/docs/gif/TNT.gif" width="80"/> | building | tnt |
 
 ### Design
 
