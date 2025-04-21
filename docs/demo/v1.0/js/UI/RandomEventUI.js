@@ -10,14 +10,20 @@ class RandomEventUI {
         this.targetBorderSize = 50;
         this.borderColor = null;
         this.buttons = [];
-        
+        this.playerStatus = {
+            HP: 0,
+            HPmax: 0,
+            gold: 0,
+            pollution: 0,
+            pollutionLevel: 0
+        };
         // Image references
         this.eventImage = null;
         this.acceptImage = null;
         this.declineImage = null;
         this.imageLoadError = false;
-        
-        this.MAX_EVENT_TYPES = 12; 
+
+        this.MAX_EVENT_TYPES = 12;
         this.DEFAULT_EVENT_MODEL = [
             {// 虽然我不知道为啥要有一个错误事件，但有总比没有好吧-Theodore
                 type: 0,
@@ -89,7 +95,7 @@ class RandomEventUI {
                 },
                 declineResult: {
                     description: "你决定不冒险，继续你的航程。谁知道那箱子里有什么呢？\n【没有变化】",
-                    outcomeType: "continue", 
+                    outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
@@ -360,13 +366,24 @@ class RandomEventUI {
             }
         ];
     }
-    
+
     #eventCallbackFunction = null;
     #isInit = false;
     #showingResult = false;
     #eventModel = null;
     #selectedChoice = null;
-  
+
+    // 更新玩家状态信息
+    updatePlayerStatus(status) {
+        if (status) {
+            this.playerStatus.HP = status.HP || 0;
+            this.playerStatus.HPmax = status.HPmax || 0;
+            this.playerStatus.gold = status.gold || 0;
+            this.playerStatus.pollution = status.pollution || 0;
+            this.playerStatus.pollutionLevel = status.pollutionLevel || 0;
+        }
+    }
+
     // 内部按钮类
     EventButton = class {
         constructor(x, y, w, h, label, onClick) {
@@ -379,41 +396,41 @@ class RandomEventUI {
             this.isHovered = false;
             this.scale = 1;
         }
-    
+
         draw() {
             drawingContext.save();
-            
+
             const mainColor = color(100, 255, 218);
             const hoverColor = color(100, 255, 218, 153);
             const textColor = this.isHovered ? color(0) : mainColor;
             const bgColor = this.isHovered ? hoverColor : color(0, 0);
-    
+
             // 按钮缩放动画
             const currentScale = lerp(this.scale, 1, 0.2);
             translate(this.x + this.w / 2, this.y + this.h / 2);
             scale(currentScale);
-    
+
             // 阴影
             drawingContext.shadowColor = mainColor;
             drawingContext.shadowBlur = this.isHovered ? 40 : 20;
-    
+
             // 绘制矩形按钮
             fill(bgColor);
             stroke(mainColor);
             strokeWeight(1);
             rectMode(CENTER);
             rect(0, 0, this.w, this.h, 5);
-    
+
             // 绘制文字
             fill(textColor);
             noStroke();
             textSize(24);
             textAlign(CENTER, CENTER);
             text(this.label, 0, 0);
-    
+
             drawingContext.restore();
         }
-    
+
         checkHover(parentUI) {
             this.isHovered =
                 logicX > this.x &&
@@ -425,17 +442,17 @@ class RandomEventUI {
                 parentUI.borderColor = color(100, 255, 218, 102);
             }
         }
-    
+
         press() {
             this.scale = 0.95;
         }
-    
+
         release() {
             this.scale = 1;
             return this.isHovered;
         }
     };
-  
+
     /**
      * @param {number} eventType - 测试时请在此处更改你设计的事件类型，上传时改回随机
      */
@@ -443,7 +460,7 @@ class RandomEventUI {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
-        
+
         // 获取事件模型
         try {
             this.#eventModel = this.DEFAULT_EVENT_MODEL[eventType];
@@ -455,25 +472,25 @@ class RandomEventUI {
             console.error("加载事件模型失败:", e);
             this.#eventModel = this.DEFAULT_EVENT_MODEL[0];
         }
-        
+
         this.#isInit = true;
         this.#showingResult = false;
         this.#selectedChoice = null;
-        
+
         // 重置图片加载状态
         this.eventImage = null;
         this.acceptImage = null;
         this.declineImage = null;
         this.imageLoadError = false;
-        
+
         // 尝试加载主事件图片
         if (this.#eventModel.imagePath) {
             try {
-                this.eventImage = loadImage(this.#eventModel.imagePath, 
+                this.eventImage = loadImage(this.#eventModel.imagePath,
                     () => {
                         console.log("事件图片加载成功:", this.#eventModel.imagePath);
                         this.imageLoadError = false;
-                    }, 
+                    },
                     () => {
                         console.error("事件图片加载失败:", this.#eventModel.imagePath);
                         this.imageLoadError = true;
@@ -486,7 +503,7 @@ class RandomEventUI {
                 this.eventImage = null;
             }
         }
-        
+
         // 尝试加载接受选项图片
         if (this.#eventModel.acceptImagePath) {
             try {
@@ -496,7 +513,7 @@ class RandomEventUI {
                 this.acceptImage = null;
             }
         }
-        
+
         // 尝试加载拒绝选项图片
         if (this.#eventModel.declineImagePath) {
             try {
@@ -506,14 +523,14 @@ class RandomEventUI {
                 this.declineImage = null;
             }
         }
-    
+
         this.createChoiceButtons();
     }
-  
+
     isInit() {
         return this.#isInit;
     }
-    
+
     // 重要修复：将这个方法放在这里，确保在draw方法之前定义
     // 绘制图片或占位符
     drawImageOrPlaceholder(img, x, y, w, h, placeholderText) {
@@ -526,15 +543,15 @@ class RandomEventUI {
             rectMode(CORNER);
             fill(50, 50, 50);
             rect(x, y, w, h);
-            
+
             // 在占位区添加文字
             fill(100);
             textAlign(CENTER, CENTER);
             textSize(16);
-            text(placeholderText, x + w/2, y + h/2);
+            text(placeholderText, x + w / 2, y + h / 2);
         }
     }
-    
+
     // 创建初始选择按钮
     createChoiceButtons() {
         this.buttons = [];
@@ -546,10 +563,10 @@ class RandomEventUI {
         const btnWidth = Math.max(acceptWidth, declineWidth, 200); // 增加最小宽度
         const btnHeight = 60; // 增加按钮高度
         const spacing = 30; // 增加间距
-        
+
         // 将按钮位置移动到更靠下的位置，给文本留出更多空间
         const startY = logicHeight * 0.78; // 之前是0.65，现在改为0.78，更靠下
-        
+
         // "接受"按钮 - 左侧
         this.buttons.push(
             new this.EventButton(
@@ -564,7 +581,7 @@ class RandomEventUI {
                 }
             )
         );
-    
+
         // "拒绝"按钮 - 右侧
         this.buttons.push(
             new this.EventButton(
@@ -580,15 +597,15 @@ class RandomEventUI {
             )
         );
     }
-    
+
     // 创建结果页面的按钮（继续）
     createResultButtons() {
         this.buttons = [];
-        
+
         const btnWidth = 150;
         const btnHeight = 60;
         const startY = logicHeight * 0.8; // 按钮向下移动
-        
+
         this.buttons.push(
             new this.EventButton(
                 logicWidth / 2 - btnWidth / 2,
@@ -602,25 +619,25 @@ class RandomEventUI {
             )
         );
     }
-    
+
     // 显示结果页面
     showResultPage() {
         this.#showingResult = true;
         this.createResultButtons();
     }
-    
+
     // 处理选择结果
     handleOutcome() {
         if (!this.#selectedChoice) {
             console.error("No choice was selected!");
             return;
         }
-        
+
         // 获取对应的结果
-        const result = (this.#selectedChoice == 'accept') 
-            ? this.#eventModel.acceptResult 
+        const result = (this.#selectedChoice == 'accept')
+            ? this.#eventModel.acceptResult
             : this.#eventModel.declineResult;
-            
+
         // 根据结果类型执行不同操作
         if (result.outcomeType == 'gameover') {
             // 特殊死亡，调用游戏结束回调
@@ -630,7 +647,7 @@ class RandomEventUI {
                     deathReason: result.deathReason || 'generic'
                 });
             }
-        } 
+        }
         else if (result.outcomeType == 'reward' || result.outcomeType == 'damage' || result.outcomeType == 'continue') {
             // 所有其他结果类型，使用同一回调格式
             if (this.#eventCallbackFunction) {
@@ -642,73 +659,107 @@ class RandomEventUI {
                 });
             }
         }
-        
+
         // 重置UI状态
         this.#isInit = false;
     }
-  
+
     // 绘制界面
     draw() {
         if (!this.#isInit) return;
-    
+
         background(0);
-        
+
         // 绘制标题
         textAlign(CENTER, TOP);
         textSize(36);
         fill(255, 215, 0);
         text(this.#eventModel.title, logicWidth / 2, logicHeight * 0.1);
-        
+
         // 图片区域配置
         const imgWidth = logicWidth * 0.4;
-        const imgHeight = logicHeight * 0.3;  
+        const imgHeight = logicHeight * 0.3;
         const imgX = logicWidth / 2 - imgWidth / 2;
         const imgY = logicHeight * 0.2;
-        
+
+        const promptY = imgY + imgHeight + 140;
+        textAlign(CENTER, CENTER);
+        textSize(24);
+        fill(100, 255, 218);
+        text(this.#eventModel.choicePrompt, logicWidth / 2, promptY);
+
+        // 添加玩家状态信息显示
+        const statusY = promptY + 40; // 在提示文本下方显示状态
+        const statusGap = 30; // 状态信息之间的间距
+        textAlign(CENTER, CENTER);
+        textSize(18);
+
+        // 显示生命值，根据百分比改变颜色
+        const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
+        if (hpPercent < 0.3) {
+            fill(255, 50, 50); // 低血量红色
+        } else if (hpPercent < 0.6) {
+            fill(255, 215, 0); // 中等血量黄色
+        } else {
+            fill(100, 255, 100); // 高血量绿色
+        }
+        text(`HP: ${this.playerStatus.HP}/${this.playerStatus.HPmax}`, logicWidth * 0.3, statusY);
+
+        // 显示金币
+        fill(255, 215, 0); // 金色
+        text(`Gold: ${this.playerStatus.gold}`, logicWidth * 0.5, statusY);
+
+        // 显示污染
+        const pollutionColor = this.playerStatus.pollutionLevel <= 2 ? color(100, 255, 100) :
+            this.playerStatus.pollutionLevel <= 4 ? color(255, 215, 0) :
+                color(255, 50, 50);
+        fill(pollutionColor);
+        text(`Pollution: ${this.playerStatus.pollution}/${Status.MAX_POLLUTION}`, logicWidth * 0.7, statusY);
+
         // 如果正在显示结果页面
         if (this.#showingResult) {
             // 根据选择显示不同的结果图片
             const resultImage = this.#selectedChoice === 'accept' ? this.acceptImage : this.declineImage;
-            
+
             // 绘制相应的结果图片
             this.drawImageOrPlaceholder(
-                resultImage, 
-                imgX, imgY, 
-                imgWidth, imgHeight, 
+                resultImage,
+                imgX, imgY,
+                imgWidth, imgHeight,
                 this.#selectedChoice === 'accept' ? "接受结果" : "拒绝结果"
             );
-            
+
             // 绘制结果描述文本
-            const resultText = (this.#selectedChoice === 'accept') 
-                ? this.#eventModel.acceptResult.description 
+            const resultText = (this.#selectedChoice === 'accept')
+                ? this.#eventModel.acceptResult.description
                 : this.#eventModel.declineResult.description;
-                
+
             // 绘制结果文本（更改位置以适应更长的文本）
             this.drawWrappedText(
-                resultText, 
-                logicWidth / 2, 
-                imgY + imgHeight + 20, 
+                resultText,
+                logicWidth / 2,
+                imgY + imgHeight + 20,
                 logicWidth * 0.8
             );
-        } 
+        }
         // 否则显示初始事件页面
         else {
             // 绘制主事件图片
             this.drawImageOrPlaceholder(
-                this.eventImage, 
-                imgX, imgY, 
-                imgWidth, imgHeight, 
+                this.eventImage,
+                imgX, imgY,
+                imgWidth, imgHeight,
                 "事件示意图"
             );
-            
+
             // 绘制描述文本
             this.drawWrappedText(
-                this.#eventModel.description, 
-                logicWidth / 2, 
-                imgY + imgHeight + 20, 
+                this.#eventModel.description,
+                logicWidth / 2,
+                imgY + imgHeight + 20,
                 logicWidth * 0.8
             );
-            
+
             // 绘制选择提示文本（将位置向下移动）
             const promptY = imgY + imgHeight + 140; // 给描述文本留足空间
             textAlign(CENTER, CENTER);
@@ -716,14 +767,14 @@ class RandomEventUI {
             fill(100, 255, 218);
             text(this.#eventModel.choicePrompt, logicWidth / 2, promptY);
         }
-    
+
         // 绘制按钮
         for (const btn of this.buttons) {
             btn.checkHover(this);
             btn.draw();
         }
     }
-    
+
     // 文本换行辅助函数 - 改进版支持更长文本
     drawWrappedText(textContent, x, y, maxWidth) {
         const words = textContent.split(' ');
@@ -732,9 +783,9 @@ class RandomEventUI {
         let lineHeight = 30;
         let maxLines = 6; // 限制最大行数，防止文本超出屏幕
         let currentLineCount = 0;
-        
+
         textAlign(CENTER, TOP);
-        
+
         for (let i = 0; i < words.length; i++) {
             // 处理换行符
             if (words[i].includes('\n')) {
@@ -749,7 +800,7 @@ class RandomEventUI {
                         currentLineCount++;
                         if (currentLineCount >= maxLines) return;
                     }
-                    
+
                     // 添加当前部分文本
                     if (parts[j].length > 0) {
                         testLine = line + parts[j] + ' ';
@@ -779,14 +830,14 @@ class RandomEventUI {
                 }
             }
         }
-        
+
         // 打印最后一行
         if (line.length > 0) {
             fill(255);
             text(line, x, y);
         }
     }
-    
+
     // 窗口大小改变时根据需要重新布局
     handleWindowResized() {
         if (!this.#isInit) return;
@@ -796,7 +847,7 @@ class RandomEventUI {
             this.createChoiceButtons();
         }
     }
-    
+
     // 鼠标按下
     handleMousePressed() {
         if (!this.#isInit) return;
@@ -806,7 +857,7 @@ class RandomEventUI {
             }
         }
     }
-  
+
     // 鼠标松开
     handleMouseReleased() {
         if (!this.#isInit) return;
@@ -817,7 +868,7 @@ class RandomEventUI {
             }
         }
     }
-    
+
     // 清除所有资源，特别是图片
     cleanup() {
         this.eventImage = null;

@@ -195,13 +195,18 @@ class MainUI {
         this.#shopUI.draw(gold);
     }
 
-    showRandomEventUI() {
+    showRandomEventUI(playerStatus) {
         if (this.#randomEventUI == null) {
             this.#randomEventUI = new RandomEventUI(this.#handleRandomEventSelection.bind(this));
         }
         if (!this.#randomEventUI.isInit()) {
             this.#randomEventUI.init();
         }
+        
+        if (playerStatus) {
+            this.#randomEventUI.updatePlayerStatus(playerStatus);
+        }
+        
         this.#randomEventUI.draw();
     }
 
