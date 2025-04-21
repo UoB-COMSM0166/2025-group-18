@@ -52,10 +52,9 @@ Video of Demo - TBD
 ### Week 03
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
-  <p align="center"><b>Paper Prototype</b></p>
-  <div style="text-align: center;">
-    <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
-  </div>
+    <div style="text-align: center;">
+      <video src="docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+    </div>
 2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
 3. [📜 Additional requirements](docs/labprocess/week03/AdditionalRequirements.md)
 
@@ -154,14 +153,17 @@ Video of Demo - TBD
   With this new direction in mind, we redesigned the game's initial concept, including multi-view ship models, conceptual environment art, and revamped gameplay mechanics (as shown below). This transformation not only gave our game a more distinctive theme but also provided a richer creative foundation for further development.
 
 <p align="center"><b>Player-Ship Design</b></p>
+
 | **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
 
 <p align="center"><b>Environment Design</b></p>
+
 ![process-02](docs/labprocess/week04/process-02.jpg)
 
 <p align="center"><b>Game GIF Design</b></p>
+
 | Name | Pre | Type | Descri |
 |------|----------|------|----------|
 | Boss1 | ![Boss1](docs/images/docs/gif/BOSS1.gif) | boss | boss1 |
