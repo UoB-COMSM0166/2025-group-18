@@ -9,7 +9,8 @@
 Video of Demo - TBD
 
 <div style="text-align: center;">
-  <video src="https://github.com/UoB-COMSM0166/2025-group-18/blob/Fix/md-pet-fix/docs/labprocess/week03/idea2.mp4" controls width="600"></video>
+  <video src="https://uob-comsm0166.github.io/2025-group-18/labprocess/week03/idea2.mp4
+  " controls width="600"></video>
 </div>
 
 
