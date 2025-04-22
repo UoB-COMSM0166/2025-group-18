@@ -33,8 +33,8 @@ class InGameUI {
         this.uiX = 30;
         this.uiY = 30;
 
-        this.pollutionX = 30;
-        this.pollutionY = logicHeight - 250;
+        this.pollutionX = 260;
+        this.pollutionY = 20;
     }
 
     handleWindowResized() {
@@ -119,7 +119,7 @@ class InGameUI {
         // translate(-120, 650);
         translate(this.pollutionX, this.pollutionY);
 
-        const barHeight = 200;
+        const barHeight = 150;
         const levelHeight = barHeight / this.maxPollutionLevel;
         const pollutionPercent = Math.min(this.pollution / this.maxPollution, 1);
         const barFillHeight = barHeight * pollutionPercent;
@@ -142,7 +142,7 @@ class InGameUI {
         }
 
         // text
-        push();
+        /*push();
         translate(50, 20 + barHeight);
         textFont(this.font || 'Arial Black');
         textSize(15);
@@ -152,7 +152,7 @@ class InGameUI {
         text(`Pollution: ${Math.round(this.pollution)}/${this.maxPollution}`, 0, 0);
         pop();
 
-        pop();
+        pop();*/
     }
 
     // 污染状态 + 轮回次数

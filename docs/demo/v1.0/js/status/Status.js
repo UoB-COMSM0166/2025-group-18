@@ -19,7 +19,9 @@ class Status {
     constructor() {
 
     }
-
+    setDifficulty(shipType) {
+        this.setShipBasicStatus(shipType);
+    }
     setShipBasicStatus(shipType) {
         this.#playerStatus.xSize = SHIP_MODEL[shipType].xSize;
         this.#playerStatus.ySize = SHIP_MODEL[shipType].ySize;
@@ -28,7 +30,7 @@ class Status {
         this.#playerStatus.speed = SHIP_MODEL[shipType].speed;
         this.#playerStatus.skillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
-        this.#playerStatus.pollution = 0;
+        this.#playerStatus.pollution = SHIP_MODEL[shipType].pollutionStart;
         this.#playerStatus.pollutionLevel = 1;
         this.#playerStatus.loopCount = 0;
     }

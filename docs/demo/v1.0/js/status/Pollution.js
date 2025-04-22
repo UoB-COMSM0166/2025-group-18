@@ -15,12 +15,12 @@ class Pollution {
         };
 
         this.pollutionEffects = {
-            1: { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, playerDeath: false },
-            2: { enemySpeedMul: 1.2, healthMul: 1.2, damageMul: 1.0, playerDeath: false },
-            3: { enemySpeedMul: 1.4, healthMul: 1.4, damageMul: 2.0, playerDeath: false },
-            4: { enemySpeedMul: 1.8, healthMul: 1.6, damageMul: 2.0, playerDeath: false },
-            5: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 2.0, playerDeath: false },
-            6: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 3.0, playerDeath: true },
+            1: { enemySpeedMul: 0.7, healthMul: 1.0, damageMul: 0.7, secondBoss: false, poisonFog: 0,},
+            2: { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, secondBoss: false, poisonFog: 0,},
+            3: { enemySpeedMul: 1.5, healthMul: 1.5, damageMul: 2.0, secondBoss: false, poisonFog: 0,},
+            4: { enemySpeedMul: 1.5, healthMul: 1.5, damageMul: 2.0, secondBoss: true, poisonFog: 0,},
+            5: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 2.0, secondBoss: true, poisonFog: 0.05,},
+            6: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 3.0, secondBoss: true, poisonFog: 0.1,},
         };
     }
 

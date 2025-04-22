@@ -82,7 +82,8 @@ const SHIP_MODEL = [
         ySize: 10,
         HPmax: 50,
         speed: 5,
-        skillCD: 1
+        skillCD: 1,
+        pollutionStart: 500
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
@@ -90,7 +91,8 @@ const SHIP_MODEL = [
         ySize: 10,
         HPmax: 5,
         speed: 3,
-        skillCD: 10
+        skillCD: 10,
+        pollutionStart: 700
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
@@ -98,7 +100,8 @@ const SHIP_MODEL = [
         ySize: 8,
         HPmax: 1,
         speed: 3,
-        skillCD: 15
+        skillCD: 15,
+        pollutionStart: 900
     }
 ];
 
