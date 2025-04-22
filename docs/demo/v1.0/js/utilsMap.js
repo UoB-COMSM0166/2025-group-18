@@ -745,7 +745,6 @@ const MAP_MODEL = [
             { x: 0.7, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.85, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.85, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.85, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.15, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.85, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
