@@ -212,14 +212,14 @@ class RandomEventUI {
                 acceptText: "接受帮助（HP + 50，Gold + 1000，Pollution - 100）",
                 declineText: "依靠自己的实力",
                 acceptResult: {
-                    description: "【继续勇往直前吧，勇士！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50，Gold + 1000，Pollution - 100】",
+                    description: "【继续勇往直前吧，勇士！】\n你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50，Gold + 1000，Pollution - 1000】",
                     outcomeType: "reward",
                     healthChange: 50,
                     goldChange: 1000,
                     pollutionChange: -1000
                 },
                 declineResult: {
-                    description: "【哦？居然不需要帮助？有骨气！我欣赏你这种靠自己实力通关的玩家！】开发者看起来很欣赏你的决定，对你的坚持表示了敬意。\n【没有变化】",
+                    description: "【哦？居然不需要帮助？有骨气！我欣赏你这种靠自己实力通关的玩家！】\n开发者看起来很欣赏你的决定，对你的坚持表示了敬意。\n【没有变化】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -271,11 +271,11 @@ class RandomEventUI {
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 300, Pollution + 100】",
+                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 300, Pollution + 300】",
                     outcomeType: "damage",
                     healthChange: -20,
                     goldChange: 300,
-                    pollutionChange: 100
+                    pollutionChange: 300
                 },
                 imagePath: null,
                 acceptImagePath: null,
@@ -342,18 +342,18 @@ class RandomEventUI {
                 acceptText: "相信直觉，选择一个方向前进",
                 declineText: "停船等待，直到确定方位",
                 acceptResult: {
-                    description: "你决定相信航海者的直觉，选择了一个方向前进。幸运的是，你的判断是正确的！不仅找到了正确航线，还意外发现了一条少有人知的捷径！\n【Gold + 100, Pollution - 50】",
+                    description: "你决定相信航海者的直觉，选择了一个方向前进。幸运的是，你的判断是正确的！不仅找到了正确航线，还意外发现了一条少有人知的捷径！\n【Gold + 200, Pollution - 50】",
                     outcomeType: "reward",
                     healthChange: 0,
-                    goldChange: 100,
+                    goldChange: 200,
                     pollutionChange: -50
                 },
                 declineResult: {
-                    description: "你决定停船等待。经过数日的漫长等待，磁场异常终于消失，但你消耗了额外的燃料。\n【Pollution + 100】",
+                    description: "你决定停船等待。经过数日的漫长等待，磁场异常终于消失，但你消耗了额外的燃料。\n【Pollution + 200】",
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
-                    pollutionChange: 100
+                    pollutionChange: 200
                 },
                 imagePath: null,
                 acceptImagePath: null,
