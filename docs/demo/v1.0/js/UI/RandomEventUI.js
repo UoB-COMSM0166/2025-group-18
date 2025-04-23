@@ -25,7 +25,7 @@ class RandomEventUI {
 
         this.MAX_EVENT_TYPES = 12;
         this.DEFAULT_EVENT_MODEL = [
-            {// 虽然我不知道为啥要有一个错误事件，但有总比没有好吧-Theodore
+            {
                 type: 0,
                 title: "ERROR",
                 description: "随机事件加载错误",
@@ -667,60 +667,26 @@ class RandomEventUI {
     // 绘制界面
     draw() {
         if (!this.#isInit) return;
-
+    
         background(0);
-
+    
         // 绘制标题
         textAlign(CENTER, TOP);
         textSize(36);
         fill(255, 215, 0);
         text(this.#eventModel.title, logicWidth / 2, logicHeight * 0.1);
-
+    
         // 图片区域配置
         const imgWidth = logicWidth * 0.4;
         const imgHeight = logicHeight * 0.3;
         const imgX = logicWidth / 2 - imgWidth / 2;
         const imgY = logicHeight * 0.2;
-
-        const promptY = imgY + imgHeight + 140;
-        textAlign(CENTER, CENTER);
-        textSize(24);
-        fill(100, 255, 218);
-        text(this.#eventModel.choicePrompt, logicWidth / 2, promptY);
-
-        // 添加玩家状态信息显示
-        const statusY = promptY + 40; // 在提示文本下方显示状态
-        const statusGap = 30; // 状态信息之间的间距
-        textAlign(CENTER, CENTER);
-        textSize(18);
-
-        // 显示生命值，根据百分比改变颜色
-        const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
-        if (hpPercent < 0.3) {
-            fill(255, 50, 50); // 低血量红色
-        } else if (hpPercent < 0.6) {
-            fill(255, 215, 0); // 中等血量黄色
-        } else {
-            fill(100, 255, 100); // 高血量绿色
-        }
-        text(`HP: ${this.playerStatus.HP}/${this.playerStatus.HPmax}`, logicWidth * 0.3, statusY);
-
-        // 显示金币
-        fill(255, 215, 0); // 金色
-        text(`Gold: ${this.playerStatus.gold}`, logicWidth * 0.5, statusY);
-
-        // 显示污染
-        const pollutionColor = this.playerStatus.pollutionLevel <= 2 ? color(100, 255, 100) :
-            this.playerStatus.pollutionLevel <= 4 ? color(255, 215, 0) :
-                color(255, 50, 50);
-        fill(pollutionColor);
-        text(`Pollution: ${this.playerStatus.pollution}/${Status.MAX_POLLUTION}`, logicWidth * 0.7, statusY);
-
+    
         // 如果正在显示结果页面
         if (this.#showingResult) {
             // 根据选择显示不同的结果图片
             const resultImage = this.#selectedChoice === 'accept' ? this.acceptImage : this.declineImage;
-
+    
             // 绘制相应的结果图片
             this.drawImageOrPlaceholder(
                 resultImage,
@@ -728,17 +694,18 @@ class RandomEventUI {
                 imgWidth, imgHeight,
                 this.#selectedChoice === 'accept' ? "接受结果" : "拒绝结果"
             );
-
+    
             // 绘制结果描述文本
             const resultText = (this.#selectedChoice === 'accept')
                 ? this.#eventModel.acceptResult.description
                 : this.#eventModel.declineResult.description;
-
-            // 绘制结果文本（更改位置以适应更长的文本）
+    
+            // 绘制结果文本（直接在图片下方）
+            const descriptionY = imgY + imgHeight + 20;
             this.drawWrappedText(
                 resultText,
                 logicWidth / 2,
-                imgY + imgHeight + 20,
+                descriptionY,
                 logicWidth * 0.8
             );
         }
@@ -751,29 +718,67 @@ class RandomEventUI {
                 imgWidth, imgHeight,
                 "事件示意图"
             );
-
-            // 绘制描述文本
+    
+            // 绘制描述文本（直接在图片下方）
+            const descriptionY = imgY + imgHeight + 20;
             this.drawWrappedText(
                 this.#eventModel.description,
                 logicWidth / 2,
-                imgY + imgHeight + 20,
+                descriptionY,
                 logicWidth * 0.8
             );
-
-            // 绘制选择提示文本（将位置向下移动）
-            const promptY = imgY + imgHeight + 140; // 给描述文本留足空间
+        }
+    
+        // 添加"当前状态"标题 - 放在中间位置
+        const statusTitleY = logicHeight * 0.65;
+        textAlign(CENTER, CENTER);
+        textSize(20);
+        fill(255);
+        text("当前状态", logicWidth / 2, statusTitleY);
+    
+        // 添加玩家状态信息显示
+        const statusY = statusTitleY + 30; // 在标题下方显示状态
+        textAlign(CENTER, CENTER);
+        textSize(18);
+    
+        // 显示生命值，根据百分比改变颜色
+        const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
+        if (hpPercent < 0.3) {
+            fill(255, 50, 50); // 低血量红色
+        } else if (hpPercent < 0.6) {
+            fill(255, 215, 0); // 中等血量黄色
+        } else {
+            fill(100, 255, 100); // 高血量绿色
+        }
+        text(`HP: ${this.playerStatus.HP}/${this.playerStatus.HPmax}`, logicWidth * 0.3, statusY);
+    
+        // 显示金币
+        fill(255, 215, 0); // 金色
+        text(`Gold: ${this.playerStatus.gold}`, logicWidth * 0.5, statusY);
+    
+        // 显示污染
+        const pollutionColor = this.playerStatus.pollutionLevel <= 2 ? color(100, 255, 100) :
+            this.playerStatus.pollutionLevel <= 4 ? color(255, 215, 0) :
+                color(255, 50, 50);
+        fill(pollutionColor);
+        text(`Pollution: ${this.playerStatus.pollution}/${Status.MAX_POLLUTION}`, logicWidth * 0.7, statusY);
+    
+        // 疑问句放在状态下方，按钮上方
+        if (!this.#showingResult) {
+            const promptY = statusY + 60; // 在状态下方显示提示文本
             textAlign(CENTER, CENTER);
             textSize(24);
             fill(100, 255, 218);
             text(this.#eventModel.choicePrompt, logicWidth / 2, promptY);
         }
-
+    
         // 绘制按钮
         for (const btn of this.buttons) {
             btn.checkHover(this);
             btn.draw();
         }
     }
+    
 
     // 文本换行辅助函数 - 改进版支持更长文本
     drawWrappedText(textContent, x, y, maxWidth) {
