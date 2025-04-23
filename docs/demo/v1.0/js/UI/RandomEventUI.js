@@ -620,44 +620,56 @@ class RandomEventUI {
         );
     }
 
-    // 显示结果页面
+    // 修改 showResultPage() 方法
     showResultPage() {
         this.#showingResult = true;
+
+        // 立即应用结果到实际游戏状态
+        if (this.#selectedChoice) {
+            // 获取选择结果
+            const result = (this.#selectedChoice == 'accept')
+                ? this.#eventModel.acceptResult
+                : this.#eventModel.declineResult;
+
+            // 如果是游戏结束类型的结果
+            if (result.outcomeType == 'gameover') {
+                // 特殊死亡，调用游戏结束回调
+                if (this.#eventCallbackFunction) {
+                    this.#eventCallbackFunction({
+                        action: 'gameover',
+                        deathReason: result.deathReason || 'generic'
+                    });
+                }
+                return; // 游戏结束，不需要创建继续按钮
+            }
+            // 其他类型的结果（奖励、伤害等）
+            else if (result.outcomeType == 'reward' || result.outcomeType == 'damage' || result.outcomeType == 'continue') {
+                // 立即更新游戏状态
+                if (this.#eventCallbackFunction) {
+                    this.#eventCallbackFunction({
+                        action: 'updateStatus', // 新增一个action类型
+                        healthChange: result.healthChange || 0,
+                        goldChange: result.goldChange || 0,
+                        pollutionChange: result.pollutionChange || 0
+                    });
+                }
+            }
+        }
+
+        // 创建"继续"按钮，现在仅用于返回地图
         this.createResultButtons();
     }
 
-    // 处理选择结果
+    // 修改 handleOutcome() 方法
     handleOutcome() {
-        if (!this.#selectedChoice) {
-            console.error("No choice was selected!");
-            return;
-        }
-
-        // 获取对应的结果
-        const result = (this.#selectedChoice == 'accept')
-            ? this.#eventModel.acceptResult
-            : this.#eventModel.declineResult;
-
-        // 根据结果类型执行不同操作
-        if (result.outcomeType == 'gameover') {
-            // 特殊死亡，调用游戏结束回调
-            if (this.#eventCallbackFunction) {
-                this.#eventCallbackFunction({
-                    action: 'gameover',
-                    deathReason: result.deathReason || 'generic'
-                });
-            }
-        }
-        else if (result.outcomeType == 'reward' || result.outcomeType == 'damage' || result.outcomeType == 'continue') {
-            // 所有其他结果类型，使用同一回调格式
-            if (this.#eventCallbackFunction) {
-                this.#eventCallbackFunction({
-                    action: 'continue',
-                    healthChange: result.healthChange || 0,
-                    goldChange: result.goldChange || 0,
-                    pollutionChange: result.pollutionChange || 0
-                });
-            }
+        // 由于状态已经在showResultPage()中更新，这里只需要返回地图
+        if (this.#eventCallbackFunction) {
+            this.#eventCallbackFunction({
+                action: 'continue',
+                healthChange: 0,
+                goldChange: 0,
+                pollutionChange: 0
+            });
         }
 
         // 重置UI状态
@@ -667,26 +679,26 @@ class RandomEventUI {
     // 绘制界面
     draw() {
         if (!this.#isInit) return;
-    
+
         background(0);
-    
+
         // 绘制标题
         textAlign(CENTER, TOP);
         textSize(36);
         fill(255, 215, 0);
         text(this.#eventModel.title, logicWidth / 2, logicHeight * 0.1);
-    
+
         // 图片区域配置
         const imgWidth = logicWidth * 0.4;
         const imgHeight = logicHeight * 0.3;
         const imgX = logicWidth / 2 - imgWidth / 2;
         const imgY = logicHeight * 0.2;
-    
+
         // 如果正在显示结果页面
         if (this.#showingResult) {
             // 根据选择显示不同的结果图片
             const resultImage = this.#selectedChoice === 'accept' ? this.acceptImage : this.declineImage;
-    
+
             // 绘制相应的结果图片
             this.drawImageOrPlaceholder(
                 resultImage,
@@ -694,12 +706,12 @@ class RandomEventUI {
                 imgWidth, imgHeight,
                 this.#selectedChoice === 'accept' ? "接受结果" : "拒绝结果"
             );
-    
+
             // 绘制结果描述文本
             const resultText = (this.#selectedChoice === 'accept')
                 ? this.#eventModel.acceptResult.description
                 : this.#eventModel.declineResult.description;
-    
+
             // 绘制结果文本（直接在图片下方）
             const descriptionY = imgY + imgHeight + 20;
             this.drawWrappedText(
@@ -718,7 +730,7 @@ class RandomEventUI {
                 imgWidth, imgHeight,
                 "事件示意图"
             );
-    
+
             // 绘制描述文本（直接在图片下方）
             const descriptionY = imgY + imgHeight + 20;
             this.drawWrappedText(
@@ -728,19 +740,19 @@ class RandomEventUI {
                 logicWidth * 0.8
             );
         }
-    
+
         // 添加"当前状态"标题 - 放在中间位置
         const statusTitleY = logicHeight * 0.65;
         textAlign(CENTER, CENTER);
         textSize(20);
         fill(255);
         text("当前状态", logicWidth / 2, statusTitleY);
-    
+
         // 添加玩家状态信息显示
         const statusY = statusTitleY + 30; // 在标题下方显示状态
         textAlign(CENTER, CENTER);
         textSize(18);
-    
+
         // 显示生命值，根据百分比改变颜色
         const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
         if (hpPercent < 0.3) {
@@ -751,18 +763,18 @@ class RandomEventUI {
             fill(100, 255, 100); // 高血量绿色
         }
         text(`HP: ${this.playerStatus.HP}/${this.playerStatus.HPmax}`, logicWidth * 0.3, statusY);
-    
+
         // 显示金币
         fill(255, 215, 0); // 金色
         text(`Gold: ${this.playerStatus.gold}`, logicWidth * 0.5, statusY);
-    
+
         // 显示污染
         const pollutionColor = this.playerStatus.pollutionLevel <= 2 ? color(100, 255, 100) :
             this.playerStatus.pollutionLevel <= 4 ? color(255, 215, 0) :
                 color(255, 50, 50);
         fill(pollutionColor);
         text(`Pollution: ${this.playerStatus.pollution}/${Status.MAX_POLLUTION}`, logicWidth * 0.7, statusY);
-    
+
         // 疑问句放在状态下方，按钮上方
         if (!this.#showingResult) {
             const promptY = statusY + 60; // 在状态下方显示提示文本
@@ -771,14 +783,14 @@ class RandomEventUI {
             fill(100, 255, 218);
             text(this.#eventModel.choicePrompt, logicWidth / 2, promptY);
         }
-    
+
         // 绘制按钮
         for (const btn of this.buttons) {
             btn.checkHover(this);
             btn.draw();
         }
     }
-    
+
 
     // 文本换行辅助函数 - 改进版支持更长文本
     drawWrappedText(textContent, x, y, maxWidth) {
