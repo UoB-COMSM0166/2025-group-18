@@ -454,7 +454,7 @@ class RandomEventUI {
     };
 
     //随机事件指定测试处，上传时改回随机——Theodore
-    init(eventType = 7) {
+    init(eventType = 9) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
@@ -654,15 +654,25 @@ class RandomEventUI {
     }
 
     handleOutcome() {
-        if (this.#eventCallbackFunction) {
-            this.#eventCallbackFunction({
-                action: 'continue',
-                healthChange: 0,
-                goldChange: 0,
-                pollutionChange: 0
-            });
+        // 检查玩家血量是否为0
+        if (this.playerStatus.HP <= 0) {
+            if (this.#eventCallbackFunction) {
+                this.#eventCallbackFunction({
+                    action: 'gameover',
+                    deathReason: 'Choose' 
+                });
+            }
+        } else {
+            if (this.#eventCallbackFunction) {
+                this.#eventCallbackFunction({
+                    action: 'continue',
+                    healthChange: 0,
+                    goldChange: 0,
+                    pollutionChange: 0
+                });
+            }
         }
-
+    
         // 重置UI状态
         this.#isInit = false;
     }
