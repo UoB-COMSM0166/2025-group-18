@@ -209,14 +209,14 @@ class RandomEventUI {
                 title: "来自开发者的消息",
                 description: "【喂喂！我是游戏开发者！看你在这片海域晃悠半天了，进度也太慢了吧！要不要来点开发者特权帮你快速通关啊？】",
                 choicePrompt: "要接受开发者的帮助吗?",
-                acceptText: "接受帮助（HP + 50，Gold + 1000）",
+                acceptText: "接受帮助（HP + 50，Gold + 1000，Pollution - 100）",
                 declineText: "依靠自己的实力",
                 acceptResult: {
-                    description: "【继续勇往直前吧，勇士！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50，Gold + 1000】",
+                    description: "【继续勇往直前吧，勇士！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50，Gold + 1000，Pollution - 100】",
                     outcomeType: "reward",
                     healthChange: 50,
                     goldChange: 1000,
-                    pollutionChange: 0
+                    pollutionChange: -1000
                 },
                 declineResult: {
                     description: "【哦？居然不需要帮助？有骨气！我欣赏你这种靠自己实力通关的玩家！】开发者看起来很欣赏你的决定，对你的坚持表示了敬意。\n【没有变化】",
@@ -454,7 +454,7 @@ class RandomEventUI {
     };
 
     //随机事件指定测试处，上传时改回随机——Theodore
-    init(eventType = 9) {
+    init(eventType = 7) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }

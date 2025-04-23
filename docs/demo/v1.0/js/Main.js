@@ -39,12 +39,17 @@ class Main {
         if (pollutionChange && pollutionChange !== 0) {
             if (this.#game) {
                 const currentPollution = this.#game.getPlayerStatus().pollution;
+                //确保不会因为随机事件降至0以下
+                const newPollution = Math.max(0, currentPollution + pollutionChange);
                 //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#game.setPollution(currentPollution + pollutionChange);
+                his.#game.setPollution(newPollution);
             } else {
                 const currentPollution = this.#status.getShipStatus().pollution;
+                //确保不会因为随机事件降至0以下
+                const newPollution = Math.max(0, currentPollution + pollutionChange);
                 //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#status.updatePollution(currentPollution + pollutionChange, null);
+                this.#status.updatePollution(newPollution, null);
+
             }
         }
     }
