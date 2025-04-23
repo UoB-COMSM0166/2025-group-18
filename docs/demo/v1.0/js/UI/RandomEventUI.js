@@ -17,7 +17,6 @@ class RandomEventUI {
             pollution: 0,
             pollutionLevel: 0
         };
-        // Image references
         this.eventImage = null;
         this.acceptImage = null;
         this.declineImage = null;
@@ -32,21 +31,18 @@ class RandomEventUI {
                 choicePrompt: "是否继续?",
                 acceptText: "接受",
                 declineText: "拒绝",
-                // 接受的结果
                 acceptResult: {
                     description: "发生了错误，但你决定继续前进。",
                     outcomeType: "continue",
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                // 拒绝的结果
                 declineResult: {
                     description: "你拒绝了这个错误事件。",
                     outcomeType: "continue",
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                // 事件图片
                 imagePath: null,
                 acceptImagePath: null,
                 declineImagePath: null
@@ -265,21 +261,21 @@ class RandomEventUI {
                 title: "黑帆来袭",
                 description: "远处出现了一艘黑色帆船，帆上画着骷髅标志。海盗船正快速向你驶来，看来是盯上了你的货物！",
                 choicePrompt: "面对海盗，你会怎么做?",
-                acceptText: "迎战海盗",
-                declineText: "缴纳过路费(Gold - 200)",
+                acceptText: "缴纳过路费(Gold - 200)",
+                declineText: "迎战海盗",
                 acceptResult: {
-                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 100, Pollution + 20】",
-                    outcomeType: "damage",
-                    healthChange: -20,
-                    goldChange: 100,
-                    pollutionChange: 20
-                },
-                declineResult: {
                     description: "你选择交出一部分财物，海盗满意地离开了。虽然损失了一些金币，但保全了船只，或许这是明智之举。\n【Gold - 200】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: -200,
                     pollutionChange: 0
+                },
+                declineResult: {
+                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 100, Pollution + 20】",
+                    outcomeType: "damage",
+                    healthChange: -20,
+                    goldChange: 100,
+                    pollutionChange: 20
                 },
                 imagePath: null,
                 acceptImagePath: null,
@@ -459,22 +455,17 @@ class RandomEventUI {
         }
     };
 
-    /**
-     * @param {number} eventType - 测试时请在此处更改你设计的事件类型，上传时改回随机
-     */
-    init(eventType = 6) {
+    //随机事件指定测试处，上传时改回随机——Theodore
+    init(eventType = 9) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
-
-        console.log("玩家当前金币:", this.playerStatus.gold);
     
-        // 获取事件模型
         try {
             this.#eventModel = this.DEFAULT_EVENT_MODEL[eventType];
             if (!this.#eventModel) {
                 console.error("找不到事件类型:", eventType);
-                this.#eventModel = this.DEFAULT_EVENT_MODEL[0]; // 使用错误事件作为后备
+                this.#eventModel = this.DEFAULT_EVENT_MODEL[0];
             }
         } catch (e) {
             console.error("加载事件模型失败:", e);
@@ -485,14 +476,12 @@ class RandomEventUI {
         this.#showingResult = false;
         this.#selectedChoice = null;
         this.buttonsCreated = false;
-    
-        // 重置图片加载状态
+
         this.eventImage = null;
         this.acceptImage = null;
         this.declineImage = null;
         this.imageLoadError = false;
     
-        // 尝试加载主事件图片
         if (this.#eventModel.imagePath) {
             try {
                 this.eventImage = loadImage(this.#eventModel.imagePath,
@@ -513,7 +502,6 @@ class RandomEventUI {
             }
         }
     
-        // 尝试加载接受选项图片
         if (this.#eventModel.acceptImagePath) {
             try {
                 this.acceptImage = loadImage(this.#eventModel.acceptImagePath);
@@ -523,7 +511,6 @@ class RandomEventUI {
             }
         }
     
-        // 尝试加载拒绝选项图片
         if (this.#eventModel.declineImagePath) {
             try {
                 this.declineImage = loadImage(this.#eventModel.declineImagePath);
@@ -538,20 +525,15 @@ class RandomEventUI {
         return this.#isInit;
     }
 
-    // 重要修复：将这个方法放在这里，确保在draw方法之前定义
-    // 绘制图片或占位符
     drawImageOrPlaceholder(img, x, y, w, h, placeholderText) {
         if (img && !this.imageLoadError) {
-            // 图片加载成功，绘制图片
             imageMode(CORNER);
             image(img, x, y, w, h);
         } else {
-            // 图片加载失败或没有图片，绘制占位区域
             rectMode(CORNER);
             fill(50, 50, 50);
             rect(x, y, w, h);
 
-            // 在占位区添加文字
             fill(100);
             textAlign(CENTER, CENTER);
             textSize(16);
@@ -559,7 +541,6 @@ class RandomEventUI {
         }
     }
 
-    // 创建初始选择按钮
     createChoiceButtons() {
         this.buttons = [];
         const acceptText = this.#eventModel.acceptText || '接受';
@@ -578,14 +559,12 @@ class RandomEventUI {
         textSize(24);
         const acceptWidth = textWidth(acceptText) + 60;
         const declineWidth = textWidth(declineText) + 60;
-        const btnWidth = Math.max(acceptWidth, declineWidth, 200); // 增加最小宽度
-        const btnHeight = 60; // 增加按钮高度
-        const spacing = 30; // 增加间距
+        const btnWidth = Math.max(acceptWidth, declineWidth, 200);
+        const btnHeight = 60;
+        const spacing = 30;
 
-        // 将按钮位置移动到更靠下的位置，给文本留出更多空间
-        const startY = logicHeight * 0.78; // 之前是0.65，现在改为0.78，更靠下
+        const startY = logicHeight * 0.78;
 
-        // "接受"按钮 - 左侧
         this.buttons.push(
             new this.EventButton(
                 logicWidth * 0.3 - btnWidth / 2,
@@ -599,11 +578,10 @@ class RandomEventUI {
                         this.showResultPage();
                     }
                 },
-                canAffordAccept // 添加参数表示是否可点击
+                canAffordAccept
             )
         );
 
-        // "拒绝"按钮 - 右侧
         this.buttons.push(
             new this.EventButton(
                 logicWidth * 0.7 - btnWidth / 2,
@@ -619,13 +597,13 @@ class RandomEventUI {
         );
     }
 
-    // 创建结果页面的按钮（继续）
+    // 创建结果页面的按钮
     createResultButtons() {
         this.buttons = [];
 
         const btnWidth = 150;
         const btnHeight = 60;
-        const startY = logicHeight * 0.8; // 按钮向下移动
+        const startY = logicHeight * 0.8;
 
         this.buttons.push(
             new this.EventButton(
@@ -646,30 +624,25 @@ class RandomEventUI {
         this.#showingResult = true;
         this.buttonsCreated = false;
 
-        // 立即应用结果到实际游戏状态
         if (this.#selectedChoice) {
-            // 获取选择结果
             const result = (this.#selectedChoice == 'accept')
                 ? this.#eventModel.acceptResult
                 : this.#eventModel.declineResult;
 
-            // 如果是游戏结束类型的结果
             if (result.outcomeType == 'gameover') {
-                // 特殊死亡，调用游戏结束回调
                 if (this.#eventCallbackFunction) {
                     this.#eventCallbackFunction({
                         action: 'gameover',
                         deathReason: result.deathReason || 'generic'
                     });
                 }
-                return; // 游戏结束，不需要创建继续按钮
+                return;
             }
-            // 其他类型的结果（奖励、伤害等）
             else if (result.outcomeType == 'reward' || result.outcomeType == 'damage' || result.outcomeType == 'continue') {
-                // 立即更新游戏状态
+
                 if (this.#eventCallbackFunction) {
                     this.#eventCallbackFunction({
-                        action: 'updateStatus', // 新增一个action类型
+                        action: 'updateStatus',
                         healthChange: result.healthChange || 0,
                         goldChange: result.goldChange || 0,
                         pollutionChange: result.pollutionChange || 0
@@ -682,9 +655,7 @@ class RandomEventUI {
         this.createResultButtons();
     }
 
-    // 修改 handleOutcome() 方法
     handleOutcome() {
-        // 由于状态已经在showResultPage()中更新，这里只需要返回地图
         if (this.#eventCallbackFunction) {
             this.#eventCallbackFunction({
                 action: 'continue',
@@ -719,22 +690,22 @@ class RandomEventUI {
         // 如果正在显示结果页面
         if (this.#showingResult) {
             // 根据选择显示不同的结果图片
-            const resultImage = this.#selectedChoice === 'accept' ? this.acceptImage : this.declineImage;
+            const resultImage = this.#selectedChoice == 'accept' ? this.acceptImage : this.declineImage;
 
             // 绘制相应的结果图片
             this.drawImageOrPlaceholder(
                 resultImage,
                 imgX, imgY,
                 imgWidth, imgHeight,
-                this.#selectedChoice === 'accept' ? "接受结果" : "拒绝结果"
+                this.#selectedChoice == 'accept' ? "接受结果" : "拒绝结果"
             );
 
             // 绘制结果描述文本
-            const resultText = (this.#selectedChoice === 'accept')
+            const resultText = (this.#selectedChoice == 'accept')
                 ? this.#eventModel.acceptResult.description
                 : this.#eventModel.declineResult.description;
 
-            // 绘制结果文本（直接在图片下方）
+            // 绘制结果文本
             const descriptionY = imgY + imgHeight + 20;
             this.drawWrappedText(
                 resultText,
@@ -743,7 +714,6 @@ class RandomEventUI {
                 logicWidth * 0.8
             );
         }
-        // 否则显示初始事件页面
         else {
             // 绘制主事件图片
             this.drawImageOrPlaceholder(
@@ -753,7 +723,6 @@ class RandomEventUI {
                 "事件示意图"
             );
 
-            // 绘制描述文本（直接在图片下方）
             const descriptionY = imgY + imgHeight + 20;
             this.drawWrappedText(
                 this.#eventModel.description,
@@ -763,50 +732,48 @@ class RandomEventUI {
             );
         }
 
-        // 添加"当前状态"标题 - 放在中间位置
         const statusTitleY = logicHeight * 0.65;
         textAlign(CENTER, CENTER);
         textSize(20);
         fill(255);
         text("当前状态", logicWidth / 2, statusTitleY);
 
-        // 添加玩家状态信息显示
-        const statusY = statusTitleY + 30; // 在标题下方显示状态
+        // 玩家状态信息
+        const statusY = statusTitleY + 30;
         textAlign(CENTER, CENTER);
         textSize(18);
 
-        // 显示生命值，根据百分比改变颜色
+        // 生命值
         const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
         if (hpPercent < 0.3) {
-            fill(255, 50, 50); // 低血量红色
+            fill(255, 50, 50);
         } else if (hpPercent < 0.6) {
-            fill(255, 215, 0); // 中等血量黄色
+            fill(255, 215, 0);
         } else {
-            fill(100, 255, 100); // 高血量绿色
+            fill(100, 255, 100);
         }
         text(`HP: ${this.playerStatus.HP}/${this.playerStatus.HPmax}`, logicWidth * 0.3, statusY);
 
-        // 显示金币
-        fill(255, 215, 0); // 金色
+        // 金币
+        fill(255, 215, 0);
         text(`Gold: ${this.playerStatus.gold}`, logicWidth * 0.5, statusY);
 
-        // 显示污染
+        // 污染
         const pollutionColor = this.playerStatus.pollutionLevel <= 2 ? color(100, 255, 100) :
             this.playerStatus.pollutionLevel <= 4 ? color(255, 215, 0) :
                 color(255, 50, 50);
         fill(pollutionColor);
         text(`Pollution: ${this.playerStatus.pollution}/${Status.MAX_POLLUTION}`, logicWidth * 0.7, statusY);
 
-        // 疑问句放在状态下方，按钮上方
+        // 疑问句
         if (!this.#showingResult) {
-            const promptY = statusY + 60; // 在状态下方显示提示文本
+            const promptY = statusY + 60;
             textAlign(CENTER, CENTER);
             textSize(24);
             fill(100, 255, 218);
             text(this.#eventModel.choicePrompt, logicWidth / 2, promptY);
         }
 
-        // 绘制按钮
         for (const btn of this.buttons) {
             btn.checkHover(this);
             btn.draw();
@@ -814,23 +781,21 @@ class RandomEventUI {
     }
 
 
-    // 文本换行辅助函数 - 改进版支持更长文本
+    // 文本换行辅助函数
     drawWrappedText(textContent, x, y, maxWidth) {
         const words = textContent.split(' ');
         let line = '';
         let testLine = '';
         let lineHeight = 30;
-        let maxLines = 6; // 限制最大行数，防止文本超出屏幕
+        let maxLines = 6;
         let currentLineCount = 0;
 
         textAlign(CENTER, TOP);
 
         for (let i = 0; i < words.length; i++) {
-            // 处理换行符
             if (words[i].includes('\n')) {
                 const parts = words[i].split('\n');
                 for (let j = 0; j < parts.length; j++) {
-                    // 如果不是第一部分，则添加到新行
                     if (j > 0) {
                         fill(255);
                         text(line, x, y);
@@ -840,7 +805,6 @@ class RandomEventUI {
                         if (currentLineCount >= maxLines) return;
                     }
 
-                    // 添加当前部分文本
                     if (parts[j].length > 0) {
                         testLine = line + parts[j] + ' ';
                         if (textWidth(testLine) > maxWidth && line.length > 0) {
@@ -870,7 +834,6 @@ class RandomEventUI {
             }
         }
 
-        // 打印最后一行
         if (line.length > 0) {
             fill(255);
             text(line, x, y);
