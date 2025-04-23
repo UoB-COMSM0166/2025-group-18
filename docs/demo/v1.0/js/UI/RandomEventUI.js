@@ -115,7 +115,7 @@ class RandomEventUI {
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你选择安全第一，绕道航行。产生了很多额外的开销，但至少保全了船只。\n【Pollution + 100】",
+                    description: "你选择安全第一，绕道航行。产生了很多额外的污染，但至少保全了船只。\n【Pollution + 100】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -186,9 +186,9 @@ class RandomEventUI {
                 acceptText: "购买橘子 (Gold - 500)",
                 declineText: "拒绝购买",
                 acceptResult: {
-                    description: "你决定购买一些橘子。橘子真的好甜，顺带也补充了维生素C，避免了坏血病的风险。精神和健康状况都有所提升！\n【HP + 10, Gold - 500】",
+                    description: "你决定购买一些橘子。橘子真的好甜，顺带也补充了维生素C，避免了坏血病的风险。精神和健康状况都有所提升！\n【HP + 20, Gold - 500】",
                     outcomeType: "continue",
-                    healthChange: 10,
+                    healthChange: 20,
                     goldChange: -500,
                     pollutionChange: 0
                 },
@@ -209,13 +209,13 @@ class RandomEventUI {
                 title: "来自开发者的消息",
                 description: "【喂喂！我是游戏开发者！看你在这片海域晃悠半天了，进度也太慢了吧！要不要来点开发者特权帮你快速通关啊？】",
                 choicePrompt: "要接受开发者的帮助吗?",
-                acceptText: "接受帮助（HP + 50）",
+                acceptText: "接受帮助（HP + 50，Gold + 1000）",
                 declineText: "依靠自己的实力",
                 acceptResult: {
-                    description: "【谢谢支持！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50】",
+                    description: "【继续勇往直前吧，勇士！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50，Gold + 1000】",
                     outcomeType: "reward",
                     healthChange: 50,
-                    goldChange: 0,
+                    goldChange: 1000,
                     pollutionChange: 0
                 },
                 declineResult: {
@@ -261,21 +261,21 @@ class RandomEventUI {
                 title: "黑帆来袭",
                 description: "远处出现了一艘黑色帆船，帆上画着骷髅标志。海盗船正快速向你驶来，看来是盯上了你的货物！",
                 choicePrompt: "面对海盗，你会怎么做?",
-                acceptText: "缴纳过路费(Gold - 200)",
+                acceptText: "缴纳过路费(Gold - 400)",
                 declineText: "迎战海盗",
                 acceptResult: {
-                    description: "你选择交出一部分财物，海盗满意地离开了。虽然损失了一些金币，但保全了船只，或许这是明智之举。\n【Gold - 200】",
+                    description: "你选择交出一部分财物，海盗满意地离开了。虽然损失了一些金币，但保全了船只，或许这是明智之举。\n【Gold - 400】",
                     outcomeType: "continue",
                     healthChange: 0,
-                    goldChange: -200,
+                    goldChange: -400,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 100, Pollution + 20】",
+                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 300, Pollution + 100】",
                     outcomeType: "damage",
                     healthChange: -20,
-                    goldChange: 100,
-                    pollutionChange: 20
+                    goldChange: 300,
+                    pollutionChange: 100
                 },
                 imagePath: null,
                 acceptImagePath: null,
@@ -377,11 +377,9 @@ class RandomEventUI {
             this.playerStatus.pollution = status.pollution || 0;
             this.playerStatus.pollutionLevel = status.pollutionLevel || 0;
             
-            // 仅在初始化后且未显示结果时创建按钮，并且只创建一次
             if (this.#isInit && !this.#showingResult && !this.buttonsCreated) {
                 this.createChoiceButtons();
-                this.buttonsCreated = true; // 设置标志，防止重复创建
-                console.log("玩家状态已更新，创建选择按钮。当前金币:", this.playerStatus.gold);
+                this.buttonsCreated = true;
             }
         }
     }
