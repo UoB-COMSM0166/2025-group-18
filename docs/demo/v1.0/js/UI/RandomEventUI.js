@@ -219,7 +219,7 @@ class RandomEventUI {
                     description: "【谢谢支持！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50】",
                     outcomeType: "reward",
                     healthChange: 50,
-                    goldChange: -300,
+                    goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
@@ -380,6 +380,13 @@ class RandomEventUI {
             this.playerStatus.gold = status.gold || 0;
             this.playerStatus.pollution = status.pollution || 0;
             this.playerStatus.pollutionLevel = status.pollutionLevel || 0;
+            
+            // 仅在初始化后且未显示结果时创建按钮，并且只创建一次
+            if (this.#isInit && !this.#showingResult && !this.buttonsCreated) {
+                this.createChoiceButtons();
+                this.buttonsCreated = true; // 设置标志，防止重复创建
+                console.log("玩家状态已更新，创建选择按钮。当前金币:", this.playerStatus.gold);
+            }
         }
     }
 
@@ -455,11 +462,13 @@ class RandomEventUI {
     /**
      * @param {number} eventType - 测试时请在此处更改你设计的事件类型，上传时改回随机
      */
-    init(eventType = null) {
+    init(eventType = 6) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
 
+        console.log("玩家当前金币:", this.playerStatus.gold);
+    
         // 获取事件模型
         try {
             this.#eventModel = this.DEFAULT_EVENT_MODEL[eventType];
@@ -471,17 +480,18 @@ class RandomEventUI {
             console.error("加载事件模型失败:", e);
             this.#eventModel = this.DEFAULT_EVENT_MODEL[0];
         }
-
+    
         this.#isInit = true;
         this.#showingResult = false;
         this.#selectedChoice = null;
-
+        this.buttonsCreated = false;
+    
         // 重置图片加载状态
         this.eventImage = null;
         this.acceptImage = null;
         this.declineImage = null;
         this.imageLoadError = false;
-
+    
         // 尝试加载主事件图片
         if (this.#eventModel.imagePath) {
             try {
@@ -502,7 +512,7 @@ class RandomEventUI {
                 this.eventImage = null;
             }
         }
-
+    
         // 尝试加载接受选项图片
         if (this.#eventModel.acceptImagePath) {
             try {
@@ -512,7 +522,7 @@ class RandomEventUI {
                 this.acceptImage = null;
             }
         }
-
+    
         // 尝试加载拒绝选项图片
         if (this.#eventModel.declineImagePath) {
             try {
@@ -522,8 +532,6 @@ class RandomEventUI {
                 this.declineImage = null;
             }
         }
-
-        this.createChoiceButtons();
     }
 
     isInit() {
@@ -636,6 +644,7 @@ class RandomEventUI {
     // 修改 showResultPage() 方法
     showResultPage() {
         this.#showingResult = true;
+        this.buttonsCreated = false;
 
         // 立即应用结果到实际游戏状态
         if (this.#selectedChoice) {
