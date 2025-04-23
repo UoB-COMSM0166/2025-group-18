@@ -82,10 +82,10 @@ class RandomEventUI {
                 acceptText: "打开宝箱",
                 declineText: "不理会",
                 acceptResult: {
-                    description: "你小心地打开了宝箱，里面装满了闪闪发光的金币和一些古老的航海用品！这是一笔意外之财！\n【Gold + 100】",
+                    description: "你小心地打开了宝箱，里面装满了闪闪发光的金币和一些古老的航海用品！这是一笔意外之财！\n【Gold + 300】",
                     outcomeType: "reward",
                     healthChange: 0,
-                    goldChange: 100,
+                    goldChange: 300,
                     pollutionChange: 0
                 },
                 declineResult: {
@@ -108,18 +108,18 @@ class RandomEventUI {
                 acceptText: "穿越风暴(HP - 10)",
                 declineText: "绕道而行(Pollution + 100)",
                 acceptResult: {
-                    description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤。\n【HP - 10】",
+                    description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤。\n【HP - 15】",
                     outcomeType: "damage",
-                    healthChange: -10,
+                    healthChange: -15,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你选择安全第一，绕道航行。产生了很多额外的污染，但至少保全了船只。\n【Pollution + 100】",
+                    description: "你选择安全第一，绕道航行。产生了很多额外的污染，但至少保全了船只。\n【Pollution + 200】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
-                    pollutionChange: 100
+                    pollutionChange: 200
                 },
                 imagePath: null,
                 acceptImagePath: null,
@@ -134,11 +134,11 @@ class RandomEventUI {
                 acceptText: "跟随海豚",
                 declineText: "继续原定航线",
                 acceptResult: {
-                    description: "海豚带领你找到了一处隐藏的航道，帮你避开了危险区域，节省了燃料并减少了污染！\n【Gold + 50, Pollution - 100】",
+                    description: "海豚带领你找到了一处隐藏的航道，帮你避开了危险区域，发现了宝藏，还节省了燃料并减少了污染！\n【Gold + 100, Pollution - 300】",
                     outcomeType: "reward",
                     healthChange: 0,
                     goldChange: 50,
-                    pollutionChange: -100
+                    pollutionChange: -300
                 },
                 declineResult: {
                     description: "你坚持自己的航线，海豚们失望地游走了。也许你错过了什么？\n【没有变化】",
@@ -186,9 +186,9 @@ class RandomEventUI {
                 acceptText: "购买橘子 (Gold - 500)",
                 declineText: "拒绝购买",
                 acceptResult: {
-                    description: "你决定购买一些橘子。橘子真的好甜，顺带也补充了维生素C，避免了坏血病的风险。精神和健康状况都有所提升！\n【HP + 20, Gold - 500】",
+                    description: "你决定购买一些橘子。橘子真的好甜，顺带也补充了维生素C，避免了坏血病的风险。精神和健康状况都有所提升！\n【HP + 10, Gold - 500】",
                     outcomeType: "continue",
-                    healthChange: 20,
+                    healthChange: 10,
                     goldChange: -500,
                     pollutionChange: 0
                 },
@@ -212,9 +212,9 @@ class RandomEventUI {
                 acceptText: "接受帮助（HP + 50，Gold + 1000，Pollution - 100）",
                 declineText: "依靠自己的实力",
                 acceptResult: {
-                    description: "【继续勇往直前吧，勇士！】\n你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50，Gold + 1000，Pollution - 1000】",
+                    description: "【继续勇往直前吧，勇士！】\n你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 100，Gold + 1000，Pollution - 1000】",
                     outcomeType: "reward",
-                    healthChange: 50,
+                    healthChange: 100,
                     goldChange: 1000,
                     pollutionChange: -1000
                 },
@@ -358,6 +358,84 @@ class RandomEventUI {
                 imagePath: null,
                 acceptImagePath: null,
                 declineImagePath: null
+            },
+            {
+                // 航海专家事件
+                type: 13,
+                title: "航海专家",
+                description: "你在小岛补给时遇到了一位资深航海家，他声称拥有丰富的航海知识和先进的航海技术，愿意指导你如何更高效地航行，但需要一笔不菲的咨询费。",
+                choicePrompt: "要支付金币请教这位航海专家吗?",
+                acceptText: "支付咨询费 (Gold - 300)",
+                declineText: "礼貌拒绝",
+                acceptResult: {
+                    description: "你支付了咨询费用，航海专家向你传授了宝贵的航海技巧和节能航行方法。这些知识帮助你减少了船只损耗和污染排放！\n【Gold - 300, Pollution - 300】",
+                    outcomeType: "continue",
+                    healthChange: 0,
+                    goldChange: -300,
+                    pollutionChange: -300
+                },
+                declineResult: {
+                    description: "你婉拒了航海专家的提议。他似乎有些失望，但还是给了你一些简单的建议就离开了。你不确定是否错过了重要的知识。\n【没有变化】",
+                    outcomeType: "continue",
+                    healthChange: 0,
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                imagePath: null,
+                acceptImagePath: null,
+                declineImagePath: null
+            },
+            {
+                // 船只升级事件
+                type: 14,
+                title: "临时船坞",
+                description: "航行途中，你发现一个隐蔽的临时船坞，那里的工匠正在为路过的船只提供维修和升级服务。他们的技术看起来相当不错。",
+                choicePrompt: "要为船只进行高级维修和升级吗?",
+                acceptText: "进行升级 (Gold - 400)",
+                declineText: "继续航行",
+                acceptResult: {
+                    description: "你决定投资升级船只。工匠们彻夜工作，加固了船体并改进了动力系统。你的船变得更加坚固且航行更为高效了！\n【HP + 40, Gold - 400, Pollution - 500】",
+                    outcomeType: "reward",
+                    healthChange: 40,
+                    goldChange: -400,
+                    pollutionChange: -500
+                },
+                declineResult: {
+                    description: "你认为目前的船只状态足够应付航程，婉拒了工匠们的服务。看到你离开，他们耸耸肩继续等待下一位客户。\n【没有变化】",
+                    outcomeType: "continue",
+                    healthChange: 0,
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                imagePath: null,
+                acceptImagePath: null,
+                declineImagePath: null
+            },
+            {
+                // 神秘商人事件
+                type: 15,
+                title: "海上黑市",
+                description: "在一个隐蔽的海湾中，你偶然发现了一个海上黑市。一位眼神闪烁不定的商人向你推销一种闪着异样光芒的<奇迹燃料>，声称可以大大增强船只性能，但价格极其昂贵。",
+                choicePrompt: "是否购买这种昂贵的<奇迹燃料>?",
+                acceptText: "购买燃料 (Gold - 300)",
+                declineText: "不相信商人",
+                acceptResult: {
+                    description: "你支付了一大笔金币，商人露出奸诈的笑容迅速消失在暗巷中。使用这种燃料后，你的引擎开始发出诡异的噪音，有毒气体在甲板上蔓延！这是一场骗局，这种燃料实际上是有毒废料！\n【HP - 25, Gold - 300, Pollution + 400】",
+                    outcomeType: "damage",
+                    healthChange: -25,
+                    goldChange: -300,
+                    pollutionChange: 400
+                },
+                declineResult: {
+                    description: "你警惕地观察商人，注意到他眼神中的不诚实。拒绝交易时，他显得异常恼怒。离开时，你听到有人警告说这个商人以卖有毒废料冒充燃料而臭名昭著。你庆幸自己做出了明智的选择。\n【没有变化】",
+                    outcomeType: "continue",
+                    healthChange: 0,
+                    goldChange: 0,
+                    pollutionChange: 0
+                },
+                imagePath: null,
+                acceptImagePath: null,
+                declineImagePath: null
             }
         ];
     }
@@ -454,7 +532,7 @@ class RandomEventUI {
     };
 
     //随机事件指定测试处，上传时改回随机——Theodore
-    init(eventType = 9) {
+    init(eventType = 15) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
