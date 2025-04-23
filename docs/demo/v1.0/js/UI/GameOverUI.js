@@ -19,7 +19,7 @@ class GameOverUI {
         this.specialDeathMessages = {
             "hp": "你血量耗尽，海洋吞噬了你的船...",
             "pollution": "污染值过高，毒害的环境反噬了你...",
-            "mermaid": "不是，哥们儿，你这真的敢去啊！",//"海边的美人鱼是危险的，她们迷人的歌声是致命陷阱...",
+            //"mermaid": "不是，哥们儿，你这真的敢去啊！",大哥说不要就不要吧
             "generic": "海上的危险终结了你的冒险..."
         };
     }
@@ -86,7 +86,7 @@ class GameOverUI {
         textSize(150);
         for (let i = 0; i < 10; i++) {
             fill(100, 0, 0, this.textOpacity * 100);
-            text("小笨蛋", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
+            text("死", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
         }
 
         fill(255, 0, 0, this.textOpacity * 255);
@@ -94,7 +94,7 @@ class GameOverUI {
         const offsetX = random(-shakeAmount, shakeAmount);
         const offsetY = random(-shakeAmount, shakeAmount);
 
-        text("小笨蛋", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
+        text("死", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
 
         // 死亡原因文本
         textSize(30);

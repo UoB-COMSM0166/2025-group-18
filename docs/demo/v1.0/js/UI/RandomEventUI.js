@@ -60,10 +60,9 @@ class RandomEventUI {
                 acceptText: "靠近(你依稀记得好像有人警告过你要远离美人鱼)",
                 declineText: "远离",
                 acceptResult: {
-                    description: "你被歌声迷惑，驾船靠近。当你距离足够近时，美人鱼们露出了可怕的真面目！她们锋利的爪子撕裂了船体，将你拖入水中...\n【游戏结束 - 死亡原因：美人鱼袭击】",
-                    outcomeType: "gameover",
-                    deathReason: "mermaid",
-                    healthChange: 0,
+                    description: "你被歌声迷惑，驾船靠近。当你距离足够近时，美人鱼们露出了可怕的真面目！她们锋利的爪子攻击了你的船只，造成了严重伤害，你勉强逃脱。\n【HP - 30】",
+                    outcomeType: "damage",
+                    healthChange: -30,
                     goldChange: 0,
                     pollutionChange: 0
                 },
@@ -188,7 +187,7 @@ class RandomEventUI {
                 title: "海上水果商人",
                 description: "你遇到了一艘小型商船，船上的商人正在兜售新鲜的橘子。【航海长途，小心坏血病！每箱橘子只要500金币！】商人热情地向你推销。",
                 choicePrompt: "要购买橘子预防坏血病吗?",
-                acceptText: "购买橘子 (HP + 10, Gold - 500)",
+                acceptText: "购买橘子 (Gold - 500)",
                 declineText: "拒绝购买",
                 acceptResult: {
                     description: "你决定购买一些橘子。橘子真的好甜，顺带也补充了维生素C，避免了坏血病的风险。精神和健康状况都有所提升！\n【HP + 10, Gold - 500】",
@@ -212,12 +211,12 @@ class RandomEventUI {
                 // 作者帮助事件
                 type: 7,
                 title: "来自开发者的消息",
-                description: "【喂喂！我是游戏开发者！看你在这片海域晃悠半天了，进度也太慢了吧！要不要来点开发者特权帮你快速通关啊？只需要300金币的'技术支持费'哦~】",
+                description: "【喂喂！我是游戏开发者！看你在这片海域晃悠半天了，进度也太慢了吧！要不要来点开发者特权帮你快速通关啊？】",
                 choicePrompt: "要接受开发者的帮助吗?",
-                acceptText: "接受帮助（HP + 50, Gold - 300）",
+                acceptText: "接受帮助（HP + 50）",
                 declineText: "依靠自己的实力",
                 acceptResult: {
-                    description: "【谢谢支持！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50, Gold - 300】",
+                    description: "【谢谢支持！】你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 50】",
                     outcomeType: "reward",
                     healthChange: 50,
                     goldChange: -300,
@@ -240,7 +239,7 @@ class RandomEventUI {
                 title: "云雾中的岛屿",
                 description: "航行中，你发现前方的浓雾中若隐若现一座小岛。据传说，那里可能藏有古代文明的遗迹，但也有可能暗藏危机。",
                 choicePrompt: "是否驶向这座神秘的岛屿?",
-                acceptText: "冒险登岛(HP - 15, Gold + 200)",
+                acceptText: "冒险登岛(HP - 15)",
                 declineText: "保持航线",
                 acceptResult: {
                     description: "你勇敢地驶入迷雾，找到了岛屿。岛上果然有古老的遗迹！你发现了一些值钱的古董，但也消耗了不少补给。\n【HP - 15, Gold + 200】",
@@ -276,7 +275,7 @@ class RandomEventUI {
                     pollutionChange: 20
                 },
                 declineResult: {
-                    description: "你选择交出一部分财物，海盗满意地离开了。虽然损失了一些金币，但保全了船只和健康，或许这是明智之举。\n【Gold - 200】",
+                    description: "你选择交出一部分财物，海盗满意地离开了。虽然损失了一些金币，但保全了船只，或许这是明智之举。\n【Gold - 200】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: -200,
@@ -318,7 +317,7 @@ class RandomEventUI {
                 title: "古老的沉船",
                 description: "你的探测器发现海底有一艘古老的沉船。根据初步判断，这可能是几个世纪前沉没的商船，里面可能藏有宝藏。",
                 choicePrompt: "要下潜探索沉船吗?",
-                acceptText: "组织潜水探索(HP - 15, Gold + 300)",
+                acceptText: "组织潜水探索(HP - 15)",
                 declineText: "继续航行",
                 acceptResult: {
                     description: "你组织了一次潜水行动。在沉船中，你发现了一些古老的金币和珠宝！但海底暗流险些造成事故，你受了轻伤。\n【HP - 15, Gold + 300】",
@@ -386,7 +385,7 @@ class RandomEventUI {
 
     // 内部按钮类
     EventButton = class {
-        constructor(x, y, w, h, label, onClick) {
+        constructor(x, y, w, h, label, onClick, isEnabled = true) {
             this.x = x;
             this.y = y;
             this.w = w;
@@ -395,16 +394,16 @@ class RandomEventUI {
             this.onClick = onClick;
             this.isHovered = false;
             this.scale = 1;
+            this.isEnabled = isEnabled;
         }
 
         draw() {
             drawingContext.save();
 
-            const mainColor = color(100, 255, 218);
-            const hoverColor = color(100, 255, 218, 153);
-            const textColor = this.isHovered ? color(0) : mainColor;
-            const bgColor = this.isHovered ? hoverColor : color(0, 0);
-
+            const mainColor = this.isEnabled ? color(100, 255, 218) : color(100, 100, 100);
+            const hoverColor = this.isEnabled ? color(100, 255, 218, 153) : color(100, 100, 100, 80);
+            const textColor = (this.isHovered && this.isEnabled) ? color(0) : mainColor;
+            const bgColor = (this.isHovered && this.isEnabled) ? hoverColor : color(0, 0);
             // 按钮缩放动画
             const currentScale = lerp(this.scale, 1, 0.2);
             translate(this.x + this.w / 2, this.y + this.h / 2);
@@ -432,11 +431,12 @@ class RandomEventUI {
         }
 
         checkHover(parentUI) {
-            this.isHovered =
+            this.isHovered = this.isEnabled && (
                 logicX > this.x &&
                 logicX < this.x + this.w &&
                 logicY > this.y &&
-                logicY < this.y + this.h;
+                logicY < this.y + this.h
+            );
             if (this.isHovered) {
                 parentUI.targetBorderSize = 80;
                 parentUI.borderColor = color(100, 255, 218, 102);
@@ -444,12 +444,11 @@ class RandomEventUI {
         }
 
         press() {
-            this.scale = 0.95;
+            if(this.isEnabled) this.scale = 0.95;
         }
-
         release() {
             this.scale = 1;
-            return this.isHovered;
+            return this.isEnabled && this.isHovered;
         }
     };
 
@@ -557,6 +556,17 @@ class RandomEventUI {
         this.buttons = [];
         const acceptText = this.#eventModel.acceptText || '接受';
         const declineText = this.#eventModel.declineText || '拒绝';
+
+        // 检查金币条件
+        const acceptRequiresGold = this.#eventModel.acceptResult && this.#eventModel.acceptResult.goldChange < 0;
+        const declineRequiresGold = this.#eventModel.declineResult && this.#eventModel.declineResult.goldChange < 0;
+
+        // 判断是否有足够金币
+        const canAffordAccept = !acceptRequiresGold ||
+            (this.playerStatus.gold >= Math.abs(this.#eventModel.acceptResult.goldChange));
+        const canAffordDecline = !declineRequiresGold ||
+            (this.playerStatus.gold >= Math.abs(this.#eventModel.declineResult.goldChange));
+
         textSize(24);
         const acceptWidth = textWidth(acceptText) + 60;
         const declineWidth = textWidth(declineText) + 60;
@@ -576,9 +586,12 @@ class RandomEventUI {
                 btnHeight,
                 acceptText,
                 () => {
-                    this.#selectedChoice = 'accept';
-                    this.showResultPage();
-                }
+                    if (canAffordAccept) {
+                        this.#selectedChoice = 'accept';
+                        this.showResultPage();
+                    }
+                },
+                canAffordAccept // 添加参数表示是否可点击
             )
         );
 
