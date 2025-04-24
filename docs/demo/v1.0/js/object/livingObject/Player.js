@@ -23,6 +23,7 @@ class Player extends BasicObject {
         this.lastFrameTime = 0;
         this.frameInterval = 100;
         this.pets = [];
+        this.mapType = 0;
 
         this.hasAttackedByAoe = false;
         this.lastAttackByAoeTime = 0;
@@ -121,6 +122,10 @@ class Player extends BasicObject {
         if (change < 0) {
             this.startFlash();
         }
+    }
+
+    updateMapType(type) {
+        this.mapType = type;
     }
 
     move(xSpeed, ySpeed) {

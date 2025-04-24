@@ -327,7 +327,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 30;
+let logicFrameRate = 45;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);

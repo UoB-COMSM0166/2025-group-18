@@ -94,7 +94,7 @@ class Game {
 
 
         // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore  这种中文注释谁写的谁记得删哦（把我这半行一起删了）。--QTY
-        //this.mapType = MAP_MODEL_9_TYPE;
+        // this.mapType = MAP_MODEL_9_TYPE;
         this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
@@ -484,6 +484,7 @@ class Game {
         }
 
         if (this.#player.HP > 0) {
+            this.#player.updateMapType(this.getMapType());
             this.checkAllBuffTriggers();
             this.#playerBuffController.updateFrame(this.curTime);
             this.updateEnemyBuffs(this.curTime);
@@ -855,21 +856,21 @@ class Game {
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 25;
+            explosionSize = 50;
             bulletXSize = 25;
-            bulletYSize = 20;
+            bulletYSize = 25;
             bulletSpeed = 180 / logicFrameRate;
         } else if (bulletType == BOSS_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 100;
+            explosionSize = 105;
             bulletXSize = 100;
             bulletYSize = 100;
             bulletSpeed = 300 / logicFrameRate;
         } else if (bulletType == PET_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 20;
+            explosionSize = 25;
             bulletXSize = 20;
             bulletYSize = 20;
             bulletSpeed = 180 / logicFrameRate;
