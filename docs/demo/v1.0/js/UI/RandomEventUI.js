@@ -121,9 +121,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 200
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/3_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/3_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/3_2.webp'
             },
             {
                 // 海豚事件
@@ -147,9 +147,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/4_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/4_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/4_3.webp'
             },
             {
                 // 游戏评价事件
@@ -173,9 +173,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'//改文件名丢对应文件夹就能适配
             },
             {
                 // 橘子贩子事件
@@ -199,9 +199,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'//改文件名丢对应文件夹就能适配
             },
             {
                 // 作者帮助事件
@@ -531,8 +531,8 @@ class RandomEventUI {
         }
     };
 
-    //随机事件指定测试处，上传时改回随机——Theodore
-    init(eventType = 7) {
+    //随机事件指定测试处，上传时改回null则为随机——Theodore
+    init(eventType = 1) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
@@ -623,8 +623,7 @@ class RandomEventUI {
                     imgWidth = imgHeight * imgRatio;
                 }
             }
-            
-            // 使用CENTER模式，位置是容器中心点
+
             image(img, x + w/2, y + h/2, imgWidth, imgHeight);
         } else {
             rectMode(CORNER);
