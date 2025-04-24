@@ -82,8 +82,8 @@ class Game {
             70,  // 轨道半径
             2,   // 轨道速度
             5,   // 攻击力
-            (x, y, harm, attackBit, explodeType) =>
-                this.addExplode(x, y, harm, attackBit, explodeType)
+            (x, y, harm, attackBit, explodeType, explodeSize) =>
+                this.addExplode(x, y, harm, attackBit, explodeType, explodeSize),
         );
     }
 
@@ -287,8 +287,8 @@ class Game {
                 building.x * logicWidth,
                 building.y * logicHeight,
                 building.type,
-                (x, y, harm, attackBit, explodeType) =>
-                    this.addExplode(x, y, harm, attackBit, explodeType)
+                (x, y, harm, attackBit, explodeType, explodeSize) =>
+                    this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
             );
             this.#buildings.push(newBuilding);
         }
@@ -349,7 +349,8 @@ class Game {
                     bullet.yCoordinate,
                     bullet.harm,
                     bullet.attackBit,
-                    EXPLODE_MODEL_BULLET_TYPE
+                    EXPLODE_MODEL_BULLET_TYPE,
+                    bullet.explosionSize
                 );
                 this.#bullets[i].toDelete = true;
             } else {
@@ -561,7 +562,8 @@ class Game {
                         enemy.yCoordinate,
                         damage * 0.3,
                         ENEMY_TYPE,
-                        EXPLODE_MODEL_BULLET_TYPE
+                        EXPLODE_MODEL_BULLET_TYPE,
+                        5
                     );
                 } else {
                     enemy.updateHP(-damage * 0.5);
@@ -571,7 +573,8 @@ class Game {
                         enemy.yCoordinate,
                         damage * 0.1,
                         ENEMY_TYPE,
-                        EXPLODE_MODEL_BULLET_TYPE
+                        EXPLODE_MODEL_BULLET_TYPE,
+                        5
                     );
                 }
             }
@@ -583,7 +586,8 @@ class Game {
                 endY,
                 damage * 0.05,
                 ENEMY_TYPE,
-                EXPLODE_MODEL_BULLET_TYPE
+                EXPLODE_MODEL_BULLET_TYPE,
+                5
             );
         }
 
@@ -856,9 +860,9 @@ class Game {
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 50;
-            bulletXSize = 25;
-            bulletYSize = 25;
+            explosionSize = 20;
+            bulletXSize = 15;
+            bulletYSize = 15;
             bulletSpeed = 180 / logicFrameRate;
         } else if (bulletType == BOSS_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
@@ -870,9 +874,9 @@ class Game {
         } else if (bulletType == PET_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 25;
-            bulletXSize = 20;
-            bulletYSize = 20;
+            explosionSize = 20;
+            bulletXSize = 15;
+            bulletYSize = 15;
             bulletSpeed = 180 / logicFrameRate;
         }
         const bullet = new Bullet(
@@ -1019,8 +1023,8 @@ class Game {
         return false;
     }
 
-    addExplode(xCoor, yCoor, harm, attackBit, explodeType) {
-        const explode = new Explode(xCoor, yCoor, harm, attackBit, explodeType);
+    addExplode(xCoor, yCoor, harm, attackBit, explodeType, explodeSize) {
+        const explode = new Explode(xCoor, yCoor, harm, attackBit, explodeType, explodeSize);
         explode.show();
         this.checkCollideExplode(explode);
         this.#bulletExplode.push(explode);
