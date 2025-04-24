@@ -145,8 +145,9 @@ class PlayerControl {
 
     updateShoot() {
         if (this.shootKey && millis() - this.lastShootTime >= this.shootCD * 1000) {
-            let logicX = map(mouseX, 0, width, 0, logicWidth);
-            let logicY = map(mouseY, 0, height, 0, logicHeight);
+            // let logicX = map(mouseX, 0, width, 0, logicWidth);
+            // let logicY = map(mouseY, 0, height, 0, logicHeight);
+            console.log("1 logicX: ", logicX, "; logicY: ", logicY);
             let distance = dist(this.#player.xCoordinate, this.#player.yCoordinate, logicX, logicY);
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
@@ -189,7 +190,7 @@ class PlayerControl {
         //console.log("playerControl() Using skill");
 
         playSound(playerSkillSound);
-        
+
         this.skillUseCallBack();
         let target = this.targetCallBack(this.#player);
         let dx = this.#player.xCoordinate - target.xCoordinate;

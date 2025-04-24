@@ -150,9 +150,9 @@ class InGameUI {
         noStroke();
         textAlign(LEFT, CENTER);
         text(`Pollution: ${Math.round(this.pollution)}/${this.maxPollution}`, 0, 0);
-        pop();
-
         pop();*/
+
+        pop();
     }
 
     // 污染状态 + 轮回次数

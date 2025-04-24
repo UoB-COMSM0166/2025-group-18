@@ -271,7 +271,7 @@ function preload() {
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/2.png'));
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/3.png'));
-    
+
 
     // // orbiter
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
@@ -327,7 +327,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 35;
+let logicFrameRate = 30;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -348,7 +348,7 @@ function draw() {
     // logicCanvas.image(frames.sea, logicWidth/2, 0, logicWidth, logicHeight);
     // logicCanvas.image(frames.sea, 0, logicHeight/2, logicWidth, logicHeight);
     // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
-    
+
     // 使用当前选择的背景图
     if (frames.currentBackground) {
         logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
@@ -359,15 +359,17 @@ function draw() {
 
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
-    logicX = map(mouseX, 0, width, 0, logicWidth);
-    logicY = map(mouseY, 0, height, 0, logicHeight);
 
     scaleRatio = min(scaleX, scaleY);
+
+    const marginX = (width - logicWidth * scaleRatio) / 2;
+    const marginY = (height - logicHeight * scaleRatio) / 2;
+
+    logicX = map(mouseX, marginX, marginX + logicWidth * scaleRatio, 0, logicWidth);
+    logicY = map(mouseY, marginY, marginY + logicHeight * scaleRatio, 0, logicHeight);
+    
     push();
-    translate(
-        (width - logicWidth * scaleRatio) / 2,
-        (height - logicHeight * scaleRatio) / 2
-    );
+    translate(marginX, marginY);
     scale(scaleRatio);
     // scale(scaleX, scaleY);
     clip(mask);

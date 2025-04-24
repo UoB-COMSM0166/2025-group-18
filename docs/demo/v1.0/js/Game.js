@@ -419,7 +419,7 @@ class Game {
                 if (aoeSkill.frameCount < aoeSkill.liveTime) {
                     aoeSkill.show();
                 } else {
-                    console.log(aoeSkill.name, frameCount, aoeSkill.delayTime, aoeSkill.liveTime, aoeSkill.frameCount, frameRate());
+                    // console.log(aoeSkill.name, frameCount, aoeSkill.delayTime, aoeSkill.liveTime, aoeSkill.frameCount, frameRate());
                     this.#aoeSkills.splice(i, 1);
                 }
             }

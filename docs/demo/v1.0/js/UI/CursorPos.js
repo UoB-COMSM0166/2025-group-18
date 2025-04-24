@@ -9,8 +9,8 @@ class CursorPos {
 
     show() {
         // Mouse location
-        this.x = lerp(this.x, logicX, 0.25);
-        this.y = lerp(this.y, logicY, 0.25);
+        this.x = lerp(this.x, logicX, 0.5);
+        this.y = lerp(this.y, logicY, 0.5);
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
         
         // Mouse shadow
