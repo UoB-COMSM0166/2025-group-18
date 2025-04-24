@@ -124,6 +124,7 @@ class ShopInMapUI {
         });
 
         if (buttonClicked && this.#jump2ShopCallback) {
+            playSound(frames.soundEffect.hover);
             this.#jump2ShopCallback();
         }
     }

@@ -70,6 +70,9 @@ class Bullet extends BasicObject {
             framesLength = frames.enemyBullet.length;
         } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
             framesLength = frames.bossBullet.length;
+        } else if (this.bulletTypes == PET_BULLET_TYPE) {
+            // 暂用player子弹
+            framesLength = frames.bullet.length;
         }
 
         if (this.frameCount % this.frameRate == 0) {
@@ -111,6 +114,12 @@ class Bullet extends BasicObject {
                 this.xSize, this.ySize);
                 // frames.bossBullet[this.currentFrame].width / 20, 
                 // frames.bossBullet[this.currentFrame].height / 20);    
+        } else if (this.bulletTypes == PET_BULLET_TYPE) {
+            // 暂用player子弹
+            image(frames.bullet[this.currentFrame], 0, 0,
+                this.xSize, this.ySize);
+                // frames.bullet[this.currentFrame].width / 20, 
+                // frames.bullet[this.currentFrame].height / 20);    
         }
         pop();
     }

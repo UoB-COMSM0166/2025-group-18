@@ -53,6 +53,14 @@ let frames = {
     island: [],
     sea: null,
     currentBackground: null, //背景测试
+    soundEffect: {
+        correct: null,
+        egg: null,
+        horn: null,
+        hover: null,
+        radioNoise: null,
+        wrong: null,
+    },
 };
 
 function preload() {
@@ -285,6 +293,28 @@ function preload() {
     // player skill 音频
     playerSkillSound = loadSound('./MusicPack/player/skill/skill-01.ogg');
     playerSkillSound.setVolume(0.5);
+
+    // soundEffect 音频
+    frames.soundEffect.correct = loadSound('./MusicPack/soundEffects/Correct.ogg');
+    frames.soundEffect.correct.setVolume(0.5);
+    frames.soundEffect.wrong = loadSound('./MusicPack/soundEffects/Wrong.ogg');
+    frames.soundEffect.wrong.setVolume(0.5);
+    frames.soundEffect.horn = loadSound('./MusicPack/soundEffects/Horn.ogg');
+    frames.soundEffect.horn.setVolume(0.5);
+    frames.soundEffect.hover = loadSound('./MusicPack/soundEffects/Hover.ogg');
+    frames.soundEffect.hover.setVolume(0.5);
+    frames.soundEffect.radioNoise = loadSound('./MusicPack/soundEffects/RadioNoise.ogg');
+    frames.soundEffect.radioNoise.setVolume(0.5);
+    frames.soundEffect.egg = loadSound('./MusicPack/soundEffects/egg.ogg');
+    frames.soundEffect.egg.setVolume(0.5);
+}
+
+function playSound(sound) {
+    if (typeof sound != 'undefined') {
+        if (!sound.isPlaying()) {
+            sound.play();
+        }
+    }
 }
 
 let logicCanvas;
@@ -297,7 +327,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 30;
+let logicFrameRate = 35;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);

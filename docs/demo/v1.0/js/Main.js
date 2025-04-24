@@ -39,12 +39,17 @@ class Main {
         if (pollutionChange && pollutionChange !== 0) {
             if (this.#game) {
                 const currentPollution = this.#game.getPlayerStatus().pollution;
-               //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#game.setPollution(currentPollution + pollutionChange);
+                //确保不会因为随机事件降至0以下
+                const newPollution = Math.max(0, currentPollution + pollutionChange);
+                //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                his.#game.setPollution(newPollution);
             } else {
                 const currentPollution = this.#status.getShipStatus().pollution;
+                //确保不会因为随机事件降至0以下
+                const newPollution = Math.max(0, currentPollution + pollutionChange);
                 //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#status.updatePollution(currentPollution + pollutionChange, null);
+                this.#status.updatePollution(newPollution, null);
+
             }
         }
     }
@@ -90,7 +95,7 @@ class Main {
     continueGame() {
         if (this.#game == null) {
             this.initNewGame();
-            
+
             if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
                 this.mapAlertMessage = "警告: 引擎故障！船只无法移动！准备抵御敌人进攻！";
                 this.showMapAlert = true;
@@ -99,7 +104,7 @@ class Main {
         }
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
-    
+
         if (this.#game.getGameWin()) {
             if (this.#nextGameType == GAME_TYPE_BOSS_ENEMY) {
                 this.updateStep(MAIN_STEP_WIN_BOSS);
@@ -162,7 +167,10 @@ class Main {
                 break;
             }
             case MAIN_STEP_RANDOM_EVENT: {
-                this.#UI.showRandomEventUI();
+                // 先获取玩家状态
+                const playerStatus = this.#status.getShipStatus();
+                // 然后传递给 UI
+                this.#UI.showRandomEventUI(playerStatus);
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
@@ -405,38 +413,38 @@ class Main {
         const alertDuration = 5000;
         const currentTime = Date.now();
         const elapsedTime = currentTime - this.mapAlertStartTime;
-        
+
         if (elapsedTime > alertDuration) {
             this.showMapAlert = false;
             return;
         }
-        
+
         let alpha = 255;
         if (elapsedTime > alertDuration - 1000) {
             alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
         }
-        
+
         push();
         // 绘制提示框
         const boxWidth = logicWidth * 0.6;
         const boxHeight = 80;
         const boxX = (logicWidth - boxWidth) / 2;
         const boxY = logicHeight * 0.2;
-        
+
         // 警告框背景
         fill(0, 0, 0, alpha * 0.8);
         stroke(255, 50, 50, alpha);
         strokeWeight(3);
         rectMode(CORNER);
         rect(boxX, boxY, boxWidth, boxHeight, 10);
-        
+
         textAlign(CENTER, CENTER);
         textSize(36);
-        
+
         const pulseEffect = (sin(frameCount * 60 / logicFrameRate * 0.1) * 0.2 + 0.8);
         fill(255, 50, 50, alpha * pulseEffect);
-        text(this.mapAlertMessage, logicWidth/2, boxY + boxHeight/2);
-        
+        text(this.mapAlertMessage, logicWidth / 2, boxY + boxHeight / 2);
+
         pop();
     }
 

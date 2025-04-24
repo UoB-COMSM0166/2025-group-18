@@ -301,11 +301,13 @@ class CaptainUI {
     // 处理鼠标释放
     handleMouseReleased() {
         if (this.backButton.isHovered && this.backButton.scale < 1) {
+            playSound(frames.soundEffect.hover);
             this.backButton.onClick();
         }
         this.backButton.scale = 1;
 
         if (this.playPauseButton.isHovered && this.playPauseButton.scale < 1) {
+            playSound(frames.soundEffect.hover);
             this.playPauseButton.onClick();
         }
         this.playPauseButton.scale = 1;

@@ -8,6 +8,11 @@
 
 Video of Demo - TBD
 
+<div style="text-align: center;">
+    <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
+</div>
+
+
 >  [!IMPORTANT] 
 >
 > Our team previously developed and modified code in this [📦 GitHub repository](https://github.com/qtyohh/Plan-Roguelike-Knight)
@@ -48,6 +53,12 @@ Video of Demo - TBD
 ### Week 03
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
+    
+    <div style="text-align: center;">
+      <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
+    </div>
+
+    
 2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
 3. [📜 Additional requirements](docs/labprocess/week03/AdditionalRequirements.md)
 
@@ -66,7 +77,6 @@ Video of Demo - TBD
 ### Week 07
 
 1. [📊 Heuristic Evaluation](docs/labprocess/week07/heuristic-evaluation.md)
-
 
 ### Week 08
 1. [📜 Three Challenges](docs/labprocess/week08/three-challenges.md)
@@ -92,7 +102,13 @@ Video of Demo - TBD
 ### Requirements
 
 #### Identifying Stakeholders
-[<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="1200"/>](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
+
+<div align="center">
+
+[<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="800"/>](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
+
+</div>
+
 #### Epic
 
 | Bot | User Story | Acceptance Criteria |
@@ -145,19 +161,42 @@ Video of Demo - TBD
 
   With this new direction in mind, we redesigned the game's initial concept, including multi-view ship models, conceptual environment art, and revamped gameplay mechanics (as shown below). This transformation not only gave our game a more distinctive theme but also provided a richer creative foundation for further development.
 
-| Vessel | Terrain | Multi-view |
-| --- | --- | --- |
-| <img src="docs/labprocess/week04/vessel-01.png" width="300"> | <img src="docs/labprocess/week04/Environment-01.png" width="300"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
-| **Boss1** | **Boss2** | |
-| <img src="docs/labprocess/week04/BOSS1.gif" width="300"> | <img src="docs/labprocess/week04/BOSS2.gif" width="300"> | |
+<p align="center"><b>Player-Ship Design</b></p>
 
+| **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
+
+<p align="center"><b>Environment Design</b></p>
 
 ![process-02](docs/labprocess/week04/process-02.jpg)
+
+<p align="center"><b>Game GIF Design</b></p>
+
+<div align="center">
+
+| Name | Pre | Type | Descri |
+|------|------|------|--------|
+| Boss1 | <img src="docs/images/docs/gif/BOSS1.gif" width="80"/> | boss | boss1 |
+| Boss2 | <img src="docs/images/docs/gif/BOSS2.gif" width="80"/> | boss | boss2 |
+| Enemy1 | <img src="docs/images/docs/gif/enemy1.gif" width="80"/> | enemy | enemy1 |
+| Enemy2 | <img src="docs/images/docs/gif/enemy2.gif" width="80"/> | enemy | enemy2 |
+| Enemy3 | <img src="docs/images/docs/gif/enemy3.gif" width="80"/> | enemy | enemy3 |
+| Enemy4 | <img src="docs/images/docs/gif/enemy4.gif" width="80"/> | enemy | enemy4 |
+| Pet | <img src="docs/images/docs/gif/pet.gif" width="80"/> | pet | orbiter or fort or laser |
+| Pullute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pullution |
+| Tnt | <img src="docs/images/docs/gif/TNT.gif" width="80"/> | building | tnt |
+
+</div>
 
 ### Design
 
 - 15% ~750 words 
 - System architecture. Class diagrams, behavioural diagrams. 
+
+> [!WARNING]
+>
+> system architecture ? 
 
 #### Class Diagram
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
@@ -168,6 +207,10 @@ Video of Demo - TBD
 ### Implementation
 
 - 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
+
+> [!IMPORTANT]
+>
+> **Challenge** 全局缩放? 延迟? 卡顿?
 
 1. **Dynamic Pollution System**  
    **Description:**  
@@ -192,6 +235,11 @@ Video of Demo - TBD
 
 
 ### Evaluation
+
+> [!WARNING]
+>
+> 定量:性能测试, 运行时间, 资源消耗...
+> 代码测试描述: 自动化测试, 人工测试, 边界条件...
 
 - 15% ~750 words[One qualitative evaluation (your choice) /One quantitative evaluation (of your choice)/Description of how code was tested.]
 #### Heuristic Evaluation: *Sink or Pollute*

@@ -157,6 +157,7 @@ class StartUI {
         });
 
         if (buttonClicked && this.onButtonClick) {
+            playSound(frames.soundEffect.hover);
             this.onButtonClick(clickedType);
         }
     }

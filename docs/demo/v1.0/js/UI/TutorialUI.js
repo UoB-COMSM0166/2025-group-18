@@ -357,7 +357,7 @@ class TutorialUI {
         textSize(16);
         text("Encounter mysterious events at sea", textX, y + 30 + textLineHeight);
         text("Your choices will impact your journey", textX, y + 30 + textLineHeight * 2);
-        text("(Captain's warning: Stay away from mermaids!)", textX, y + 30 + textLineHeight * 3);
+        text("(Warning: Stay away from mermaids!)", textX, y + 30 + textLineHeight * 3);
         
         pop();
     }
@@ -634,9 +634,11 @@ class TutorialUI {
     // 处理鼠标释放事件
     handleMouseReleased() {
         if (this.nextButton && this.nextButton.release() && this.nextButton.isHovered) {
+            playSound(frames.soundEffect.hover);
             this.nextButton.onClick();
         }
         if (this.backButton && this.backButton.release() && this.backButton.isHovered) {
+            playSound(frames.soundEffect.hover);
             this.backButton.onClick();
         }
     }

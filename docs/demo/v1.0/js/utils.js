@@ -226,8 +226,8 @@ const PET_MODEL = [
     {
         name: "orbiter",
         type: PET_MODEL_3_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 25,
+        ySize: 25,
         HP: 5000,
         speed: 7,
         attackPower: 1,

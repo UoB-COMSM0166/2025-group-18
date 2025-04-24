@@ -251,6 +251,7 @@ class ShopUI {
                         this.#handleShoppingSelection(btn.itemData.type, btn.price * -1);
                     }
                 }
+                playSound(frames.soundEffect.hover);
             }
         }
     
@@ -262,6 +263,7 @@ class ShopUI {
             if (this.#handleShopExitSelection) {
                 this.#handleShopExitSelection();
             }
+            playSound(frames.soundEffect.hover);
         }
     }
   

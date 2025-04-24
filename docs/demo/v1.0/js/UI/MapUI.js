@@ -328,6 +328,7 @@ class MapUI {
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
                 if (btn.release() && btn.isHovered) {
+                    playSound(frames.soundEffect.hover);
                     // 如果点的是内圈（currentRing - 1）
                     if (btn.ring == currentRing - 1) {
                         // 更新玩家位置
@@ -533,7 +534,7 @@ class MapUI {
 
     getRandomType() { //随机事件出现的概率在这里调哦——Theodore
         const randomNum = Math.random();
-        if (randomNum < 0.6) {
+        if (randomNum < 0.1) {
             return MAIN_STEP_IN_GAME;
         } else {
             return MAIN_STEP_RANDOM_EVENT;
