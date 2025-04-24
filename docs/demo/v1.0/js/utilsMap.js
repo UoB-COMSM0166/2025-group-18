@@ -22,7 +22,7 @@ const MAP_MODEL = [
         building: [],
         enemy: []
     }, {
-        modelType: MAP_MODEL_1_TYPE,//战斗坐牢图-TNT图
+        modelType: MAP_MODEL_1_TYPE,//战斗坐牢图-TNT图(测试通过)
         playerStart: { x: 0.1, y: 0.5 },
         island: [
             { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
@@ -137,7 +137,7 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_2_TYPE,//战斗图-骷髅
+        modelType: MAP_MODEL_2_TYPE,//战斗图-骷髅(测试通过)
         playerStart: { x: 0.1, y: 0.5 },
         island: [
             // =============== “额头”或“顶部” ===============
@@ -230,8 +230,8 @@ const MAP_MODEL = [
             //     ]
         ]
     }, {
-        modelType: MAP_MODEL_3_TYPE,//战斗图-化学桶十字
-        playerStart: { x: 0.5, y: 0.5 },//嘿嘿-我故意的——Theodore
+        modelType: MAP_MODEL_3_TYPE,//战斗图-化学桶十字(化学桶竖直间距0.6，水平间距0.4时不触发连爆，且能阻挡玩家)
+        playerStart: { x: 0.5, y: 0.5 },
         island: [
             { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
             { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
@@ -239,47 +239,51 @@ const MAP_MODEL = [
             { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
         ],
         building: [
+            // 竖直方向的化学桶 - 间隔调整为0.6
             { x: 0.5, y: 0, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.05, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.5, y: 0.10, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.15, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.20, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.25, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.06, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.12, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.18, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.24, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.30, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.35, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.40, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.45, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.5, y: 0.50, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.55, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.36, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.42, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.5, y: 0.48, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.5, y: 0.54, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE }, // 中心位置留出间隔
             { x: 0.5, y: 0.60, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.65, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.70, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.75, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.80, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.85, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.5, y: 0.90, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 0.95, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.5, y: 1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.66, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.72, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.78, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.84, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.90, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.96, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+                    
+            // 水平方向的化学桶 - 间隔调整为0.4
             { x: 0, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.05, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.10, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.15, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.04, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.08, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.12, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.16, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.20, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.25, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.30, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.35, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.24, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.28, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.36, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.40, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.45, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.50, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.55, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.44, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.48, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            //{ x: 0.52, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE }, // 中心位置留出间隔
+            { x: 0.56, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.60, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.65, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.70, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.75, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.64, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.72, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.76, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.80, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.85, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.90, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.95, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.84, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.88, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.92, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.96, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 1, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
         ],
         enemy: [
@@ -307,7 +311,7 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_4_TYPE,//梗图-Bristol
+        modelType: MAP_MODEL_4_TYPE,//梗图-Bristol(好不容易拼出来的，还是不想删，保留吧)
         playerStart: { x: 0.03, y: 0.5 },
         island: [],
         building: [
@@ -471,7 +475,7 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_5_TYPE,//战斗图-化学桶中间四个宝箱
+        modelType: MAP_MODEL_5_TYPE,//战斗图-化学四角(设计思路同Map3 你可以选择绕路花时间击破化学箱，也可以选择避免击破)
         playerStart: { x: 0.1, y: 0.5 },
         island: [
             { x: 0.15, y: 0.20, type: ISLAND_MODEL_2_TYPE },
@@ -483,49 +487,57 @@ const MAP_MODEL = [
         building: [
             // 右上化学桶
             { x: 0.8, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.75, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.7, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.7, y: 0.25, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.7, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.65, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.6, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.6, y: 0.35, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-
+            { x: 0.76, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.72, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.26, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.64, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.60, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.56, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.56, y: 0.38, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+    
             // 右下的
             { x: 0.8, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.75, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.7, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.7, y: 0.75, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.7, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.65, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.6, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.6, y: 0.65, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-
+            { x: 0.76, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.72, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.74, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.68, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.64, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.60, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.56, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.56, y: 0.62, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+    
             // 左上
             { x: 0.2, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.25, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.3, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.3, y: 0.25, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.3, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.35, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.4, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.4, y: 0.35, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-
+            { x: 0.24, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.28, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.26, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.36, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.40, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.44, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.44, y: 0.38, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+    
             // 左下
             { x: 0.2, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.25, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.3, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.3, y: 0.75, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.3, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.35, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.4, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            { x: 0.4, y: 0.65, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-
-            // 中间四个箱子
-            { x: 0.45, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.24, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.28, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.74, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.32, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.36, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.40, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.44, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.44, y: 0.62, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+    
+            // 中间四个化学箱
+            { x: 0.45, y: 0.45, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE},
+            { x: 0.55, y: 0.45, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.45, y: 0.55, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.55, y: 0.55, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
         ],
         enemy: [
             // 第一步
@@ -555,6 +567,7 @@ const MAP_MODEL = [
     },
 
     {
+        //(现在tnt是会连爆的，图中共16个海洋垃圾（每个减少50点污染值），60个TNT(每个增加20点污染值)，如果肆无忌惮的攻击也只增加400点污染值)
         modelType: MAP_MODEL_6_TYPE,// 战斗图-五角星连线
         playerStart: { x: 0.5, y: 0.7 },
         island: [
@@ -562,7 +575,6 @@ const MAP_MODEL = [
         ],
         building: [
             // 顶线-垃圾线
-            { x: 0.5, y: 0.48, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.46, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.44, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.42, type: BUILDING_MODEL_RUBBISH_TYPE },
@@ -583,7 +595,6 @@ const MAP_MODEL = [
             { x: 0.5, y: 0.13, type: BUILDING_MODEL_CHEST_TYPE },
 
             // 右上角点-TNT连线
-            { x: 0.52, y: 0.48, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.54, y: 0.46, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.56, y: 0.44, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.58, y: 0.42, type: BUILDING_MODEL_TNT_TYPE },
@@ -603,7 +614,6 @@ const MAP_MODEL = [
             { x: 0.84, y: 0.16, type: BUILDING_MODEL_CHEST_TYPE },
 
             // 右下角点-TNT连线
-            { x: 0.52, y: 0.52, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.54, y: 0.54, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.56, y: 0.56, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.58, y: 0.58, type: BUILDING_MODEL_TNT_TYPE },
@@ -623,7 +633,6 @@ const MAP_MODEL = [
             { x: 0.84, y: 0.84, type: BUILDING_MODEL_CHEST_TYPE },
 
             // 左下角点-TNT
-            { x: 0.48, y: 0.52, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.46, y: 0.54, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.44, y: 0.56, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.42, y: 0.58, type: BUILDING_MODEL_TNT_TYPE },
@@ -643,7 +652,6 @@ const MAP_MODEL = [
             { x: 0.16, y: 0.84, type: BUILDING_MODEL_CHEST_TYPE },
 
             // 左上角点-TNT
-            { x: 0.48, y: 0.48, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.46, y: 0.46, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.44, y: 0.44, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.42, y: 0.42, type: BUILDING_MODEL_TNT_TYPE },
@@ -693,7 +701,7 @@ const MAP_MODEL = [
             ],
         ]
     }, {
-        modelType: MAP_MODEL_7_TYPE,//战斗图-化学桶多多
+        modelType: MAP_MODEL_7_TYPE,//战斗图-化学桶多多(屏幕实体尚且可控，属于限制玩家肆无忌惮的攻击)
         playerStart: { x: 0.05, y: 0.05 },
         island: [
             { x: 0.15, y: 0.15, type: ISLAND_MODEL_2_TYPE },
@@ -766,447 +774,480 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_8_TYPE,//木箱多多图(Theodore-元气骑士里有相似的图，就是木箱堆满房间，但目前我觉得效果不好)
-        playerStart: { x: 0.1, y: 0.5 },
-        island: [],
-        building: [
-            // Row 1 (y=0.2)
-            { x: 0.20, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 2 (y=0.25)
-            { x: 0.20, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 3 (y=0.30)
-            { x: 0.20, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 4 (y=0.35)
-            { x: 0.20, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 5 (y=0.40)
-            { x: 0.20, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 6 (y=0.45)
-            { x: 0.20, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 7 (y=0.50)
-            { x: 0.20, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 8 (y=0.55)
-            { x: 0.20, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 9 (y=0.60)
-            { x: 0.20, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 10 (y=0.65)
-            { x: 0.20, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 11 (y=0.70)
-            { x: 0.20, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 12 (y=0.75)
-            { x: 0.20, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-
-            // Row 13 (y=0.80)
-            { x: 0.20, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.25, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.30, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.35, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.40, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.45, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.50, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.55, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.60, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.65, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.70, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.75, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.80, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-        ],
-        enemy: [
-            // 第一波
-            [
-                { x: 0.10, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.30, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.70, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.90, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.10, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.30, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.70, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.90, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.05, y: 0.10, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.05, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.05, y: 0.70, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.05, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.95, y: 0.10, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.95, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.95, y: 0.70, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.95, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
-            ],
-
-            // 第二波
-            [
-                { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.05, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.25, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.75, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.25, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.75, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.05, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.05, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-            ],
-
-            // 第三波
-            [
-                { x: 0.10, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.90, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.10, y: 0.90, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.90, y: 0.90, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.05, y: 0.40, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.05, y: 0.60, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.40, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.60, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.40, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.60, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.40, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.60, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-            ],
-
-            // 第四波
-            [
-                { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.15, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.85, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.05, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.95, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE },
-            ]
-        ]
-    }, {
-        modelType: MAP_MODEL_9_TYPE,//战斗图-小岛多多图(不要问我为什么有这么屎的图。除了island，其他的buildings都把图大小写死了，我懒得调，创意来源元气骑士)
+        modelType: MAP_MODEL_8_TYPE,//拼多多图，什么都有一点
         playerStart: { x: 0.1, y: 0.5 },
         island: [
-            // Row 1
-            { x: 0.08, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.1, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 2
-            { x: 0.08, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.2, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 3
-            { x: 0.08, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.3, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 4
-            { x: 0.08, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.4, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 5
-            { x: 0.08, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.5, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 6
-            { x: 0.08, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.6, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 7
-            { x: 0.08, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.7, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 8
-            { x: 0.08, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.8, type: ISLAND_MODEL_5_TYPE },
-
-            // Row 9
-            { x: 0.08, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.16, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.24, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.32, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.40, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.48, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.56, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.64, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.72, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.80, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.88, y: 0.9, type: ISLAND_MODEL_5_TYPE },
-            { x: 0.96, y: 0.9, type: ISLAND_MODEL_5_TYPE },
+            // 中心交叉形态
+            { x: 0.5, y: 0.5, type: ISLAND_MODEL_2_TYPE },
+            
+            // 角落岛屿
+            { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.2, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
+            
+            // 小小岛
+            { x: 0.35, y: 0.35, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.65, y: 0.35, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.35, y: 0.65, type: ISLAND_MODEL_5_TYPE },
+            { x: 0.65, y: 0.65, type: ISLAND_MODEL_5_TYPE },
         ],
-        building: [],
+        building: [
+            // 上方炸弹
+            { x: 0.30, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.35, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.40, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.45, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.55, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.60, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.65, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.70, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 下方炸弹
+            { x: 0.30, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.35, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.40, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.45, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.55, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.60, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.65, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.70, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 左侧炸弹
+            { x: 0.15, y: 0.30, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.35, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.40, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.45, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.55, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.60, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.65, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.15, y: 0.70, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 右侧炸弹
+            { x: 0.85, y: 0.30, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.35, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.40, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.45, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.55, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.60, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.65, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.85, y: 0.70, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 化学桶
+            { x: 0.4, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.6, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            
+            // 垃圾
+            { x: 0.25, y: 0.25, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.75, y: 0.25, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.25, y: 0.75, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.75, y: 0.75, type: BUILDING_MODEL_RUBBISH_TYPE },
+            
+            // 宝箱
+            { x: 0.5, y: 0.2, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.5, y: 0.8, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.2, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.8, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
+        ],
         enemy: [
-            // 第一波
+            // 第一波 - 周边敌人
             [
-                { x: 0.12, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.28, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.44, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.60, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.76, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
-                { x: 0.92, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.3, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.3, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.7, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.5, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
             ],
-            // 第二波
+            
+            // 第二波 - 角落伏击
             [
-                { x: 0.20, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.36, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.52, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.68, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.84, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.15, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.85, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.5, y: 0.7, type: EASY_ENEMY_MODEL_3_TYPE },
             ],
-            // 第三波
+            
+            // 第三波 - 更强的敌人
             [
-                { x: 0.12, y: 0.55, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.52, y: 0.55, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.92, y: 0.55, type: EASY_ENEMY_MODEL_3_TYPE },
-                { x: 0.28, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.44, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.60, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-                { x: 0.76, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+                { x: 0.4, y: 0.2, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.6, y: 0.2, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.4, y: 0.8, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.6, y: 0.8, type: EASY_ENEMY_MODEL_3_TYPE },
             ],
-            // 第四波
+            
+            // 第四波 - 最终挑战
             [
-                { x: 0.20, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.36, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.52, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.68, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
-                { x: 0.84, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
+                { x: 0.3, y: 0.5, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.7, y: 0.5, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.5, y: 0.3, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.5, y: 0.7, type: EASY_ENEMY_MODEL_3_TYPE },
+                { x: 0.4, y: 0.4, type: EASY_ENEMY_MODEL_4_TYPE },
+                { x: 0.6, y: 0.6, type: EASY_ENEMY_MODEL_4_TYPE },
             ]
         ]
-    }, {
+    },
+    {
+        modelType: MAP_MODEL_9_TYPE,//困境图——我是真牛逼，全新玩法更新了！
+        playerStart: { x: 0.5, y: 0.5 },
+        island: [
+            // 玩家脚下的小岛，将玩家卡在原地
+            { x: 0.5, y: 0.5, type: ISLAND_MODEL_5_TYPE },
+            
+            // 边缘岛屿作为装饰和边界
+            { x: 0.1, y: 0.1, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.9, y: 0.1, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.1, y: 0.9, type: ISLAND_MODEL_1_TYPE },
+            { x: 0.9, y: 0.9, type: ISLAND_MODEL_1_TYPE },
+        ],
+        building: [
+            // 上边缘的化学箱和垃圾
+            { x: 0.2, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.3, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.4, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.5, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.6, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.7, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.8, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            
+            // 右边缘的化学箱和TNT
+            { x: 0.9, y: 0.2, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.9, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.9, y: 0.4, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.9, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.9, y: 0.6, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.9, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.9, y: 0.8, type: BUILDING_MODEL_TNT_TYPE },
+            
+            // 下边缘的垃圾和化学箱
+            { x: 0.2, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.3, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.4, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.5, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.6, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            { x: 0.7, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.8, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
+            
+            // 左边缘的TNT和化学箱
+            { x: 0.1, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.1, y: 0.3, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.1, y: 0.5, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            { x: 0.1, y: 0.7, type: BUILDING_MODEL_TNT_TYPE },
+            { x: 0.1, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
+            
+            // 宝箱
+            { x: 0.3, y: 0.3, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.7, y: 0.3, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.3, y: 0.7, type: BUILDING_MODEL_CHEST_TYPE },
+            { x: 0.7, y: 0.7, type: BUILDING_MODEL_CHEST_TYPE },
+        ],
+        enemy: [//不要问我为什么不用近战敌人用远程敌人，因为我们该死的碰撞逻辑，我用最省事的方法限制小船移动的代价就是近战敌人咬不到玩家！！！！
+            // 第一波
+            [
+                { x: 0.20, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE }, 
+            ],
+            
+            // 第二波
+            [
+                { x: 0.20, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.20, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+            ],
+            
+            // 第三波
+            [
+                { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE }, 
+                { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.50, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.20, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+                { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+            ]
+            
+        ]
+    }
+    //现在木箱多多图变更为测试地图，移除极限测试和小岛多多图
+    // {
+    //     modelType: MAP_MODEL_???_TYPE,//木箱多多图(Theodore-元气骑士里有相似的图，就是木箱堆满房间，但目前我觉得效果不好)
+    //     playerStart: { x: 0.1, y: 0.5 },
+    //     island: [],
+    //     building: [
+    //         // Row 1 (y=0.2)
+    //         { x: 0.20, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 2 (y=0.25)
+    //         { x: 0.20, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 3 (y=0.30)
+    //         { x: 0.20, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 4 (y=0.35)
+    //         { x: 0.20, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 5 (y=0.40)
+    //         { x: 0.20, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 6 (y=0.45)
+    //         { x: 0.20, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 7 (y=0.50)
+    //         { x: 0.20, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 8 (y=0.55)
+    //         { x: 0.20, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 9 (y=0.60)
+    //         { x: 0.20, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 10 (y=0.65)
+    //         { x: 0.20, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 11 (y=0.70)
+    //         { x: 0.20, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 12 (y=0.75)
+    //         { x: 0.20, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
+
+    //         // Row 13 (y=0.80)
+    //         { x: 0.20, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.25, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.30, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.35, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.40, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.45, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.50, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.55, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.60, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.65, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.70, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.75, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //         { x: 0.80, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
+    //     ],
+    //     enemy: [
+    //         // 第一波
+    //         [
+    //             { x: 0.10, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.30, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.70, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.90, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.10, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.30, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.70, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.90, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.05, y: 0.10, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.05, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.05, y: 0.70, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.05, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.95, y: 0.10, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.95, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.95, y: 0.70, type: EASY_ENEMY_MODEL_1_TYPE },
+    //             { x: 0.95, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
+    //         ],
+
+    //         // 第二波
+    //         [
+    //             { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.05, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.25, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.75, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.25, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.75, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.05, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.05, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
+    //         ],
+
+    //         // 第三波
+    //         [
+    //             { x: 0.10, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.90, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.10, y: 0.90, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.90, y: 0.90, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.05, y: 0.40, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.05, y: 0.60, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.40, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.60, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.40, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.60, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.40, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.60, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //         ],
+
+    //         // 第四波
+    //         [
+    //             { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_4_TYPE },
+    //             { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_4_TYPE },
+    //             { x: 0.15, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
+    //             { x: 0.85, y: 0.85, type: EASY_ENEMY_MODEL_4_TYPE },
+    //             { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_2_TYPE },
+    //             { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.05, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE },
+    //             { x: 0.95, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE },
+    //         ]
+    //     ]
+    // },
+    ,{
         modelType: MAP_MODEL_BOSS_1_TYPE,
         playerStart: { x: 0.5, y: 0.9 },
         island: [],
@@ -1231,449 +1272,6 @@ const MAP_MODEL = [
             { x: 0.5, y: 0.2, type: BOSS_MODEL_BIRD_TYPE },
         ]
     }
-
-    //请在修复加载方法后启用，这是一个极限测试-Theodore
-    // {
-    //     modelType: MAP_MODEL_?_TYPE,
-    //     playerStart: { x: 0.05, y: 0.5 },
-    //     island: [],
-    //     building: [
-
-    //         // Row 1 (y=0.10)
-    //         { x: 0.10, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.10, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 2 (y=0.15)
-    //         { x: 0.10, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 3 (y=0.20)
-    //         { x: 0.10, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.20, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 4 (y=0.25)
-    //         { x: 0.10, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.25, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 5 (y=0.30)
-    //         { x: 0.10, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 6 (y=0.35)
-    //         { x: 0.10, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 7 (y=0.40)
-    //         { x: 0.10, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 8 (y=0.45)
-    //         { x: 0.10, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 9 (y=0.50)
-    //         { x: 0.10, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 10 (y=0.55)
-    //         { x: 0.10, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 11 (y=0.60)
-    //         { x: 0.10, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 12 (y=0.65)
-    //         { x: 0.10, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 13 (y=0.70)
-    //         { x: 0.10, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 14 (y=0.75)
-    //         { x: 0.10, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.75, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 15 (y=0.80)
-    //         { x: 0.10, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
-    //         // Row 16 (y=0.85) - 续
-    //         { x: 0.45, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.85, type: BUILDING_MODEL_CHEST_TYPE },
-
-    //         // Row 17 (y=0.90)
-    //         { x: 0.10, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.15, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.20, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.25, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.30, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.35, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.40, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.45, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.50, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.55, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.60, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.65, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.70, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.75, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.80, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.85, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //         { x: 0.90, y: 0.90, type: BUILDING_MODEL_CHEST_TYPE },
-    //     ],
-    //     enemy: [
-    //         // First wave - enemies from all sides
-    //         [
-    //             // Top edge
-    //             { x: 0.10, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.20, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.30, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.40, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.60, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.70, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.80, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.90, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
-
-    //             // Bottom edge
-    //             { x: 0.10, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.20, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.30, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.40, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.60, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.70, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.80, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.90, y: 0.95, type: EASY_ENEMY_MODEL_1_TYPE },
-
-    //             // Left edge
-    //             { x: 0.05, y: 0.10, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.40, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.60, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.70, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.05, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
-
-    //             // Right edge
-    //             { x: 0.95, y: 0.10, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.30, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.40, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.60, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.70, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
-    //             { x: 0.95, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
-    //         ],
-
-    //         // Second wave - stronger enemies from corners
-    //         [
-    //             // Corners
-    //             { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.05, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-
-    //             // More positions around edges with stronger enemies
-    //             { x: 0.25, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.75, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-
-    //             { x: 0.25, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.75, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-
-    //             { x: 0.05, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.05, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-
-    //             { x: 0.95, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-    //         ],
-
-    //         // Third wave - stationary enemies and fast moving ones
-    //         [
-    //             // Stationary enemies (type 3) at corner areas
-    //             { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_3_TYPE },
-    //             { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_3_TYPE },
-    //             { x: 0.15, y: 0.85, type: EASY_ENEMY_MODEL_3_TYPE },
-    //             { x: 0.85, y: 0.85, type: EASY_ENEMY_MODEL_3_TYPE },
-
-    //             // Fast moving enemies (type 2) from edges
-    //             { x: 0.05, y: 0.33, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.05, y: 0.66, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.33, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.66, type: EASY_ENEMY_MODEL_2_TYPE },
-
-    //             { x: 0.33, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.66, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.33, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.66, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //         ],
-
-    //         // Fourth wave - final challenge with tough enemies (Type 4)
-    //         [
-    //             // Tough enemies from corners
-    //             { x: 0.10, y: 0.10, type: EASY_ENEMY_MODEL_4_TYPE },
-    //             { x: 0.90, y: 0.10, type: EASY_ENEMY_MODEL_4_TYPE },
-    //             { x: 0.10, y: 0.90, type: EASY_ENEMY_MODEL_4_TYPE },
-    //             { x: 0.90, y: 0.90, type: EASY_ENEMY_MODEL_4_TYPE },
-
-    //             // Additional enemies from midpoints of edges
-    //             { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_3_TYPE },
-    //             { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE },
-    //             { x: 0.05, y: 0.50, type: EASY_ENEMY_MODEL_3_TYPE },
-    //             { x: 0.95, y: 0.50, type: EASY_ENEMY_MODEL_3_TYPE },
-
-    //             // Extra standard enemies to increase difficulty
-    //             { x: 0.25, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.75, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.25, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.75, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.05, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.05, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.25, type: EASY_ENEMY_MODEL_2_TYPE },
-    //             { x: 0.95, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
-    //         ]
-    //     ]
-    // }
 ];
 
 function getMapModel(mapType) {

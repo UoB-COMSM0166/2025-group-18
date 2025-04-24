@@ -10,6 +10,7 @@ class Player extends BasicObject {
             NO_HARM_ATTACK_BIT,
             HP,
             speed,
+            // speed * 60 / logicFrameRate,
         );
         this.HPmax = HP;
         this.skillCD = skillCD;

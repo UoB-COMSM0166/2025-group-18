@@ -10,7 +10,7 @@ class Pet extends BasicObject {
             petModel.ySize,
             PET_BULLET_ATTACK_BIT,
             petModel.HP,
-            petModel.speed,
+            petModel.speed * 60 / logicFrameRate,
         );
         this.modelType = petModel.type;
         this.name = petModel.name;
@@ -25,7 +25,7 @@ class Pet extends BasicObject {
         this.wavePushX = 0;
         this.wavePushY = 0;
 
-        this.baseSpeed = petModel.speed;
+        this.baseSpeed = petModel.speed * 60 / logicFrameRate;
         this.baseAttack = petModel.attackPower;
         this.baseHP = petModel.HP;
         this.pollutionInstance = pollutionInstance;
@@ -36,7 +36,7 @@ class Pet extends BasicObject {
         this.lastAttackByAoeTime = 0;
 
         this.currentFrame = 0;  
-        this.frameRate = 20;  
+        this.frameRate = round(logicFrameRate / 3);  
         this.frameCount = 0; 
         // this.frame = this.getFrames();
         
@@ -95,7 +95,7 @@ class Pet extends BasicObject {
             rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
             // pet图像
-            //this.drawPet();
+            this.drawPet();
             
             //血条出现在贴图上方
             let imageTopY = this.yCoordinate - this.ySize;

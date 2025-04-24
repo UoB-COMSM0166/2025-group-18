@@ -66,7 +66,7 @@ class InGameUI {
         this.currentHP = Math.max(0, Math.min(this.currentHP, this.targetHP));
 
         // dynamic scaling
-        this.pulse = sin(frameCount * 0.01) * 0.002;
+        this.pulse = sin(frameCount * 60 / logicFrameRate * 0.01) * 0.002;
         this.uiScale = 1 + this.pulse;
 
         // flash effect
@@ -165,7 +165,7 @@ class InGameUI {
         const roundTimeInfo = this.playerLoopCount;
         
         let statusColor;
-        let pulseEffect = sin(frameCount * 0.1) * 0.2 + 0.8;
+        let pulseEffect = sin(frameCount * 60 / logicFrameRate * 0.1) * 0.2 + 0.8;
         
         switch(this.pollutionLevel) {
             case 1:
@@ -228,7 +228,7 @@ class InGameUI {
         rectMode(CENTER);
 
         // rect
-        const glowSize = 20 + abs(sin(frameCount * 0.1)) * 5;
+        const glowSize = 20 + abs(sin(frameCount * 60 / logicFrameRate * 0.1)) * 5;
 
         drawingContext.shadowColor = color(100, 255, 218);
         drawingContext.shadowBlur = glowSize;

@@ -13,7 +13,7 @@ class Explode {
 
         // this.frames;
         this.currentFrame = 0;
-        this.frameRate = 5;
+        this.frameRate = round(logicFrameRate / 20);
         this.frameCount = 0;
     }
 

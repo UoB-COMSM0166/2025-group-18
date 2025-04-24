@@ -255,14 +255,15 @@ function preload() {
     // // ------------------------ 宠物 ------------------------
     // // 不知道是几帧的, 你看着来
     // // fort
-    // frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/1.png'));
+    frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/1.png'));
+    frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/2.png'));
+    frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/3.png'));
+    frames.pets.fort.push(loadImage('images/docs/img/png/pet/fort/4.png'));
     // // laser
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/2.png'));
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/3.png'));
-    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/4.png'));
-    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/5.png'));
-    frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/6.png'));
+    
 
     // // orbiter
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
@@ -296,6 +297,8 @@ let logicX;
 let logicY;
 let scaleRatio;
 
+let logicFrameRate = 30;
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     // logicWidth = window.screen.width;
@@ -303,7 +306,7 @@ function setup() {
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
     main = new Main();
-    frameRate(45);
+    frameRate(logicFrameRate);
 }
 
 function draw() {

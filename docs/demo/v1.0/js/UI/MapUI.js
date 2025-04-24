@@ -487,7 +487,7 @@ class MapUI {
                 stroke(255, 255, 255, 150);
                 strokeWeight(2);
 
-                const t = (frameCount % 60) / 60;
+                const t = (frameCount % logicFrameRate) / logicFrameRate;
                 const x = bezierPoint(road.x1, road.xc1, road.xc1, road.x2, t);
                 const y = bezierPoint(road.y1, road.yc1, road.yc1, road.y2, t);
 

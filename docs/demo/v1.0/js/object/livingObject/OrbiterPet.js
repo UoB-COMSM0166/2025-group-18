@@ -29,7 +29,7 @@ class OrbiterPet extends BasicObject {
         this.originalPosition = {x: 0, y: 0};
         
         this.currentFrame = 0;
-        this.frameRate = 15;
+        this.frameRate = round(logicFrameRate / 4);
         this.frameCount = 0;
         // 图片预留
         // this.frames = frames.bullet;
@@ -153,7 +153,7 @@ class OrbiterPet extends BasicObject {
             this.xSize * 1, this.ySize * 1);
 
         if (this.skillCD == 0 && !this.isUsingSkill) {
-            fill(0, 255, 255, 150 + 50 * Math.sin(frameCount * 0.1));
+            fill(0, 255, 255, 150 + 50 * Math.sin(this.frameCount * 0.1));
             noStroke();
             ellipse(this.xCoordinate + this.xSize * 1.5, this.yCoordinate, this.xSize, this.ySize);
         }

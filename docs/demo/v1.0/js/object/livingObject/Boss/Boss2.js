@@ -33,9 +33,9 @@ class Boss2 extends Boss {
             const yCoor = this.yCoordinate + skillModel.ySize / 2 * sin(this.skill1Angle);
             this.bossSkill(xCoor, yCoor, ENEMY_ATTACK_BIT, this.attackPower,
                 BOSS_SKILL_MODEL_BIRD_TYPE_1, this.skill1Angle + PI / 2);
-        } else if (this.attack1number >= 60) {
-            this.xCoordinate += this.speed * cos(this.skill1Angle) * ((this.attack1number - 60) * 0.1);
-            this.yCoordinate += this.speed * sin(this.skill1Angle) * ((this.attack1number - 60) * 0.1);
+        } else if (this.attack1number >= logicFrameRate) {
+            this.xCoordinate += this.speed * cos(this.skill1Angle) * ((this.attack1number - logicFrameRate) * 0.1);
+            this.yCoordinate += this.speed * sin(this.skill1Angle) * ((this.attack1number - logicFrameRate) * 0.1);
 
             if (this.xCoordinate < this.xSize / 2 + 10 || this.xCoordinate > logicWidth - this.xSize / 2 - 10 ||
                 this.yCoordinate < this.ySize / 2 + 10 || this.yCoordinate > logicHeight - this.ySize / 2 - 10) {
