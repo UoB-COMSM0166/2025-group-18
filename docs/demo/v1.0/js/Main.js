@@ -441,6 +441,7 @@ class Main {
     }
 
     setShipBasic(shipType) {
+        this.#status.setDifficulty(shipType);
         this.#status.setShipBasicStatus(shipType);
     }
 

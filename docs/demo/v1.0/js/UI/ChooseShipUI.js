@@ -1,3 +1,15 @@
+let buttonText = [
+    {
+        label: 'easy',
+        text: 'futural weapon\nfriendly environment\nBaby enemies'
+    }, {
+        label: 'hard',
+        text: 'reliable cannon\nfragile environment\nstronger enemies'
+    }, {
+        label: 'hell',
+        text: 'Way to HELL\nAnger of nature\nPlease do not try'
+    }
+];
 class ChooseShipUI {
     constructor(onShipSelect) {
         this.buttons = [];
@@ -7,13 +19,14 @@ class ChooseShipUI {
         this.onShipSelect = onShipSelect; // 回调
     }
   
-    ShipButton = class {
-        constructor(x, y, w, h, label, shipType) {
+    LevelButton = class {
+        constructor(x, y, w, h, shipType) {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
-            this.label = label;
+            this.label = buttonText[shipType - 1].label;
+            this.text = buttonText[shipType - 1].text;
             this.shipType = shipType;
             this.isHovered = false;
             this.isPressed = false;
@@ -41,9 +54,11 @@ class ChooseShipUI {
             
             fill(textColor);
             noStroke();
-            textSize(24);
+            textSize(30);
             textAlign(CENTER, CENTER);
-            text(this.label, this.w / 2, this.h / 2);
+            text(this.label, this.w * 0.5, this.h * 0.3);
+            textSize(20);
+            text(this.text, this.w * 0.5, this.h * 0.6);
     
             drawingContext.restore();
         }
@@ -88,9 +103,9 @@ class ChooseShipUI {
         const y = logicHeight / 2 - btnHeight / 2;
     
         this.buttons.push(
-            new this.ShipButton(startX, y, btnWidth, btnHeight, '#Level 1#', SHIP_MODEL_1_TYPE),
-            new this.ShipButton(startX + btnWidth + spacing, y, btnWidth, btnHeight, '#Level 2#', SHIP_MODEL_2_TYPE),
-            new this.ShipButton(startX + 2 * (btnWidth + spacing), y, btnWidth, btnHeight, '#Level 3#', SHIP_MODEL_3_TYPE)
+            new this.LevelButton(startX, y, btnWidth, btnHeight, SHIP_MODEL_1_TYPE),
+            new this.LevelButton(startX + btnWidth + spacing, y, btnWidth, btnHeight, SHIP_MODEL_2_TYPE),
+            new this.LevelButton(startX + 2 * (btnWidth + spacing), y, btnWidth, btnHeight, SHIP_MODEL_3_TYPE)
         );
     }
   
