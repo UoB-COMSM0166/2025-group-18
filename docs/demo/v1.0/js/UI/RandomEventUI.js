@@ -69,9 +69,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_3.webp'
             },
             {
                 // 宝藏事件
@@ -95,9 +95,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/2_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/2_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/2_3.webp'
             },
             {
                 // 风暴事件
@@ -121,9 +121,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 200
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 海豚事件
@@ -147,9 +147,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 游戏评价事件
@@ -173,9 +173,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 橘子贩子事件
@@ -199,9 +199,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 作者帮助事件
@@ -225,9 +225,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 神秘岛屿事件
@@ -251,9 +251,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 海盗袭击事件
@@ -277,9 +277,9 @@ class RandomEventUI {
                     goldChange: 300,
                     pollutionChange: 300
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 生态保护事件
@@ -303,9 +303,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 300
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 沉船遗迹事件
@@ -329,9 +329,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 迷失方向事件
@@ -355,9 +355,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 200
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 航海专家事件
@@ -381,9 +381,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 船只升级事件
@@ -407,9 +407,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
                 // 神秘商人事件
@@ -433,9 +433,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: null,
-                acceptImagePath: null,
-                declineImagePath: null
+                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             }
         ];
     }
@@ -502,7 +502,7 @@ class RandomEventUI {
             // 绘制文字
             fill(textColor);
             noStroke();
-            textSize(24);
+            textSize(22);//按钮文字
             textAlign(CENTER, CENTER);
             text(this.label, 0, 0);
 
@@ -532,7 +532,7 @@ class RandomEventUI {
     };
 
     //随机事件指定测试处，上传时改回随机——Theodore
-    init(eventType = 15) {
+    init(eventType = 7) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
@@ -603,16 +603,37 @@ class RandomEventUI {
 
     drawImageOrPlaceholder(img, x, y, w, h, placeholderText) {
         if (img && !this.imageLoadError) {
-            imageMode(CORNER);
-            image(img, x, y, w, h);
+            imageMode(CENTER);
+
+            let imgWidth, imgHeight;
+            const imgRatio = img.width / img.height;
+            
+            if (imgRatio >= 1) {
+                imgHeight = h * 0.8;
+                imgWidth = imgHeight * imgRatio;
+                if (imgWidth > w) {
+                    imgWidth = w * 0.8;
+                    imgHeight = imgWidth / imgRatio;
+                }
+            } else {
+                imgWidth = w * 0.8;
+                imgHeight = imgWidth / imgRatio;
+                if (imgHeight > h) {
+                    imgHeight = h * 0.8;
+                    imgWidth = imgHeight * imgRatio;
+                }
+            }
+            
+            // 使用CENTER模式，位置是容器中心点
+            image(img, x + w/2, y + h/2, imgWidth, imgHeight);
         } else {
             rectMode(CORNER);
             fill(50, 50, 50);
             rect(x, y, w, h);
-
+    
             fill(100);
             textAlign(CENTER, CENTER);
-            textSize(16);
+            textSize(28);
             text(placeholderText, x + w / 2, y + h / 2);
         }
     }
@@ -639,7 +660,7 @@ class RandomEventUI {
         const btnHeight = 60;
         const spacing = 30;
 
-        const startY = logicHeight * 0.78;
+        const startY = logicHeight * 0.90;
 
         this.buttons.push(
             new this.EventButton(
@@ -679,7 +700,7 @@ class RandomEventUI {
 
         const btnWidth = 150;
         const btnHeight = 60;
-        const startY = logicHeight * 0.8;
+        const startY = logicHeight * 0.90;
 
         this.buttons.push(
             new this.EventButton(
@@ -763,15 +784,15 @@ class RandomEventUI {
 
         // 绘制标题
         textAlign(CENTER, TOP);
-        textSize(36);
+        textSize(28);
         fill(255, 215, 0);
         text(this.#eventModel.title, logicWidth / 2, logicHeight * 0.1);
 
         // 图片区域配置
-        const imgWidth = logicWidth * 0.4;
-        const imgHeight = logicHeight * 0.3;
+        const imgWidth = logicWidth * 0.75;
+        const imgHeight = logicHeight * 0.55;
         const imgX = logicWidth / 2 - imgWidth / 2;
-        const imgY = logicHeight * 0.2;
+        const imgY = logicHeight * 0.1;
 
         // 如果正在显示结果页面
         if (this.#showingResult) {
@@ -792,7 +813,7 @@ class RandomEventUI {
                 : this.#eventModel.declineResult.description;
 
             // 绘制结果文本
-            const descriptionY = imgY + imgHeight + 20;
+            const descriptionY = imgY + imgHeight;
             this.drawWrappedText(
                 resultText,
                 logicWidth / 2,
@@ -809,7 +830,7 @@ class RandomEventUI {
                 "事件示意图"
             );
 
-            const descriptionY = imgY + imgHeight + 20;
+            const descriptionY = imgY + imgHeight;
             this.drawWrappedText(
                 this.#eventModel.description,
                 logicWidth / 2,
@@ -818,16 +839,16 @@ class RandomEventUI {
             );
         }
 
-        const statusTitleY = logicHeight * 0.65;
+        const statusTitleY = logicHeight * 0.80;
         textAlign(CENTER, CENTER);
-        textSize(20);
+        textSize(24);
         fill(255);
         text("当前状态", logicWidth / 2, statusTitleY);
 
         // 玩家状态信息
         const statusY = statusTitleY + 30;
         textAlign(CENTER, CENTER);
-        textSize(18);
+        textSize(20);
 
         // 生命值
         const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
@@ -853,7 +874,7 @@ class RandomEventUI {
 
         // 疑问句
         if (!this.#showingResult) {
-            const promptY = statusY + 60;
+            const promptY = statusY + 50;
             textAlign(CENTER, CENTER);
             textSize(24);
             fill(100, 255, 218);
@@ -872,11 +893,12 @@ class RandomEventUI {
         const words = textContent.split(' ');
         let line = '';
         let testLine = '';
-        let lineHeight = 30;
+        let lineHeight = 26;
         let maxLines = 6;
         let currentLineCount = 0;
 
         textAlign(CENTER, TOP);
+        textSize(22);//story文本大小
 
         for (let i = 0; i < words.length; i++) {
             if (words[i].includes('\n')) {
