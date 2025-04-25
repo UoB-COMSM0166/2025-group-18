@@ -1,4 +1,4 @@
-let main;
+let main = null;
 // 重定义的 frames 对象
 let frames = {
     bullet: [],
@@ -64,8 +64,6 @@ let frames = {
 };
 
 function preload() {
-    
-    main = new Main();
     // 加载岛屿图片
     frames.island.push(loadImage('images/docs/img/png/island/1.png'));
     frames.island.push(loadImage('images/docs/img/png/island/2.png'));
@@ -332,6 +330,7 @@ let scaleRatio;
 let logicFrameRate = 45;
 
 function setup() {
+    main = new Main();
     createCanvas(windowWidth, windowHeight);
     // logicWidth = window.screen.width;
     // logicHeight = window.screen.height;
@@ -385,23 +384,33 @@ function mask() {
 }
 
 function keyPressed() {
-    main.keyPressed();
+    if (main != null) {
+        main.keyPressed();
+    }
 }
 
 function mousePressed() {
-    main.mousePressed();
+    if (main != null) {
+        main.mousePressed();
+    }
 }
 
 function mouseReleased() {
-    main.mouseReleased();
+    if (main != null) {
+        main.mouseReleased();
+    }
 }
 
 // 侦听键盘松开
 function keyReleased() {
-    main.keyReleased();
+    if (main != null) {
+        main.keyReleased();
+    }
 }
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-    main.windowResized();
+    if (main != null) {
+        main.windowResized();
+    }
 }
