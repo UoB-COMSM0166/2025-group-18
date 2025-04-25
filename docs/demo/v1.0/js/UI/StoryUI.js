@@ -2,13 +2,14 @@ class StoryUI {
     constructor(storyCompleteCallback) {
         this.storyCompleteCallback = storyCompleteCallback;
         this.currentPage = 0;
-        this.totalPages = 5;
+        this.totalPages = 6;
         this.storyImages = [];
         this.storyTexts = [
             "海洋吞噬了一切，家园已经不复存在。",
             "我只能被迫踏上旅程。\n可前方，究竟有什么在等待着我？",
-            "是无尽的风暴？",
-            "还是愈演愈烈的污染？",
+            "是挚友亡魂的助力？",
+            "还是无尽的风暴？",
+            "亦或愈演愈烈的污染？",
             "又或者——是这一切的罪魁祸首!"
 
         ];

@@ -353,7 +353,7 @@ class RandomEventUI {
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
-                    pollutionChange: 200
+                    pollutionChange: 2000
                 },
                 imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
                 acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
@@ -532,7 +532,7 @@ class RandomEventUI {
     };
 
     //随机事件指定测试处，上传时改回null则为随机——Theodore
-    init(eventType = 1) {
+    init(eventType = 12) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
@@ -735,7 +735,13 @@ class RandomEventUI {
                 return;
             }
             else if (result.outcomeType == 'reward' || result.outcomeType == 'damage' || result.outcomeType == 'continue') {
-
+            let pollutionChange = result.pollutionChange || 0;
+            if (pollutionChange > 0) {
+                const maxPossibleIncrease = Status.MAX_POLLUTION - this.playerStatus.pollution;
+                if (pollutionChange > maxPossibleIncrease) {
+                    pollutionChange = maxPossibleIncrease;
+                }
+            }
                 if (this.#eventCallbackFunction) {
                     this.#eventCallbackFunction({
                         action: 'updateStatus',
