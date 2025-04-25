@@ -64,6 +64,8 @@ let frames = {
 };
 
 function preload() {
+    
+    main = new Main();
     // 加载岛屿图片
     frames.island.push(loadImage('images/docs/img/png/island/1.png'));
     frames.island.push(loadImage('images/docs/img/png/island/2.png'));
@@ -335,7 +337,6 @@ function setup() {
     // logicHeight = window.screen.height;
     rectMode(CENTER);
     logicCanvas = createGraphics(logicWidth, logicHeight);
-    main = new Main();
     frameRate(logicFrameRate);
 }
 
