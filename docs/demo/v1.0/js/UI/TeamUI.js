@@ -4,7 +4,7 @@ class TeamUI {
         this.teamMembers = [
             "柳宇童",
             "肖璟龙",
-            "祁田宇",
+            "Tianyu Qi",
             "梁立琨",
             "夏梓豪",
             "夏光隆"
@@ -13,7 +13,7 @@ class TeamUI {
         this.messages = {
             "柳宇童": "我也不知道自己改说些什么。\n怎么办。",
             "肖璟龙": "我觉得这个作为彩蛋很有创意。\n你也自己改。",
-            "祁田宇": "你也记得自己改。",
+            "Tianyu Qi": "Two sentances to say.\nInclude the previous one.:)",
             "梁立琨": "就不改。",
             "夏梓豪": "任何话都可以往里面加。",
             "夏光隆": "Never compromise.\nNot even in the face of armageddon."
