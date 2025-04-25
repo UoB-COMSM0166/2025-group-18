@@ -105,7 +105,7 @@ class RandomEventUI {
                 title: "突如其来的风暴",
                 description: "天空突然变得阴沉，海面开始翻腾，一场猛烈的风暴正向你袭来！",
                 choicePrompt: "要冒险穿越风暴还是绕道而行?",
-                acceptText: "穿越风暴(HP - 10)",
+                acceptText: "穿越风暴(HP - 15)",
                 declineText: "绕道而行(Pollution + 100)",
                 acceptResult: {
                     description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤。\n【HP - 15】",
