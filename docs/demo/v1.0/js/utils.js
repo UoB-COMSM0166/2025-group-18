@@ -83,23 +83,26 @@ const SHIP_MODEL = [
         ySize: 10,
         HPmax: 50,
         speed: 10,
-        skillCD: 1
+        skillCD: 3,
+        pollutionStart: 500
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 5,
+        HPmax: 40,
         speed: 6,
-        skillCD: 10
+        skillCD: 5,
+        pollutionStart: 700
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
         xSize: 8,
         ySize: 8,
-        HPmax: 1,
+        HPmax: 30,
         speed: 6,
-        skillCD: 15
+        skillCD: 15,
+        pollutionStart: 900
     }
 ];
 
@@ -223,8 +226,8 @@ const PET_MODEL = [
     {
         name: "orbiter",
         type: PET_MODEL_3_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 25,
+        ySize: 25,
         HP: 5000,
         speed: 7,
         attackPower: 1,
@@ -490,8 +493,8 @@ const EXPLODE_MODEL = [
     }, {
         name: "bullet_explode",
         type: EXPLODE_MODEL_BULLET_TYPE,
-        xSize: 10,
-        ySize: 10
+        xSize: 20,
+        ySize: 20
     }, {
         name: "TNT_explode",
         type: EXPLODE_MODEL_TNT_TYPE,

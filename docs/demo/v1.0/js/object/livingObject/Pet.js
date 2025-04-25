@@ -91,8 +91,8 @@ class Pet extends BasicObject {
     show() {
         if (this.isAlive) {
             rectMode(CENTER);
-            fill(100, 100, 100, 150);
-            rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
+            // fill(100, 100, 100, 150);
+            // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
             // pet图像
             this.drawPet();

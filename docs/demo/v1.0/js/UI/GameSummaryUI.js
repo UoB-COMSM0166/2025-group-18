@@ -255,6 +255,7 @@ class GameSummaryUI {
     // 处理鼠标释放
     handleMouseReleased() {
         if (this.continueButton.isHovered) {
+            playSound(frames.soundEffect.hover);
             this.continueButton.scale = 1;
             this.continueButton.onClick();
         }

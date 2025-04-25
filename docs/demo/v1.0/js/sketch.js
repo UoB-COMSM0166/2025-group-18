@@ -53,6 +53,14 @@ let frames = {
     island: [],
     sea: null,
     currentBackground: null, //背景测试
+    soundEffect: {
+        correct: null,
+        egg: null,
+        horn: null,
+        hover: null,
+        radioNoise: null,
+        wrong: null,
+    },
 };
 
 function preload() {
@@ -263,7 +271,7 @@ function preload() {
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/1.png'));
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/2.png'));
     frames.pets.laser.push(loadImage('images/docs/img/png/pet/laser/3.png'));
-    
+
 
     // // orbiter
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
@@ -285,6 +293,28 @@ function preload() {
     // player skill 音频
     playerSkillSound = loadSound('./MusicPack/player/skill/skill-01.ogg');
     playerSkillSound.setVolume(0.5);
+
+    // soundEffect 音频
+    frames.soundEffect.correct = loadSound('./MusicPack/soundEffects/Correct.ogg');
+    frames.soundEffect.correct.setVolume(0.5);
+    frames.soundEffect.wrong = loadSound('./MusicPack/soundEffects/Wrong.ogg');
+    frames.soundEffect.wrong.setVolume(0.5);
+    frames.soundEffect.horn = loadSound('./MusicPack/soundEffects/Horn.ogg');
+    frames.soundEffect.horn.setVolume(0.5);
+    frames.soundEffect.hover = loadSound('./MusicPack/soundEffects/Hover.ogg');
+    frames.soundEffect.hover.setVolume(0.5);
+    frames.soundEffect.radioNoise = loadSound('./MusicPack/soundEffects/RadioNoise.ogg');
+    frames.soundEffect.radioNoise.setVolume(0.5);
+    frames.soundEffect.egg = loadSound('./MusicPack/soundEffects/egg.ogg');
+    frames.soundEffect.egg.setVolume(0.5);
+}
+
+function playSound(sound) {
+    if (typeof sound != 'undefined') {
+        if (!sound.isPlaying()) {
+            sound.play();
+        }
+    }
 }
 
 let logicCanvas;
@@ -297,7 +327,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 30;
+let logicFrameRate = 45;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -318,7 +348,7 @@ function draw() {
     // logicCanvas.image(frames.sea, logicWidth/2, 0, logicWidth, logicHeight);
     // logicCanvas.image(frames.sea, 0, logicHeight/2, logicWidth, logicHeight);
     // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
-    
+
     // 使用当前选择的背景图
     if (frames.currentBackground) {
         logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
@@ -329,15 +359,17 @@ function draw() {
 
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
-    logicX = map(mouseX, 0, width, 0, logicWidth);
-    logicY = map(mouseY, 0, height, 0, logicHeight);
 
     scaleRatio = min(scaleX, scaleY);
+
+    const marginX = (width - logicWidth * scaleRatio) / 2;
+    const marginY = (height - logicHeight * scaleRatio) / 2;
+
+    logicX = map(mouseX, marginX, marginX + logicWidth * scaleRatio, 0, logicWidth);
+    logicY = map(mouseY, marginY, marginY + logicHeight * scaleRatio, 0, logicHeight);
+    
     push();
-    translate(
-        (width - logicWidth * scaleRatio) / 2,
-        (height - logicHeight * scaleRatio) / 2
-    );
+    translate(marginX, marginY);
     scale(scaleRatio);
     // scale(scaleX, scaleY);
     clip(mask);

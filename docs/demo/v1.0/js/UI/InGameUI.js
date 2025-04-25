@@ -33,8 +33,8 @@ class InGameUI {
         this.uiX = 30;
         this.uiY = 30;
 
-        this.pollutionX = 30;
-        this.pollutionY = logicHeight - 250;
+        this.pollutionX = 260;
+        this.pollutionY = -7;
     }
 
     handleWindowResized() {
@@ -119,7 +119,7 @@ class InGameUI {
         // translate(-120, 650);
         translate(this.pollutionX, this.pollutionY);
 
-        const barHeight = 200;
+        const barHeight = 120;
         const levelHeight = barHeight / this.maxPollutionLevel;
         const pollutionPercent = Math.min(this.pollution / this.maxPollution, 1);
         const barFillHeight = barHeight * pollutionPercent;
@@ -130,19 +130,19 @@ class InGameUI {
         rect(20, 30, 20, barHeight, 5);
 
         // pollution bar fill
-        fill(100, 255, 100);
+        fill(100, 200, 100);
         rect(20, 30 + barHeight - barFillHeight, 20, barFillHeight, 5);
 
         // level lines
         stroke(255);
         strokeWeight(2);
-        for (let i = 1; i <= this.maxPollutionLevel; i++) {
+        for (let i = 0; i <= this.maxPollutionLevel; i++) {
             const y = 30 + barHeight - i * levelHeight;
             line(20, y, 40, y);
         }
 
         // text
-        push();
+        /*push();
         translate(50, 20 + barHeight);
         textFont(this.font || 'Arial Black');
         textSize(15);
@@ -150,7 +150,7 @@ class InGameUI {
         noStroke();
         textAlign(LEFT, CENTER);
         text(`Pollution: ${Math.round(this.pollution)}/${this.maxPollution}`, 0, 0);
-        pop();
+        pop();*/
 
         pop();
     }

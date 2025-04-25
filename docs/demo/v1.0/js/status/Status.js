@@ -1,6 +1,7 @@
 class Status {
     static MAX_POLLUTION = 1000;
     static POLLUTION_MAX_LEVEL = 6;
+    static POLLUTION_OVERFLOW = 600;
     #playerStatus = {
         xSize: 0,
         ySize: 0,
@@ -19,7 +20,9 @@ class Status {
     constructor() {
 
     }
-
+    setDifficulty(shipType) {
+        this.setShipBasicStatus(shipType);
+    }
     setShipBasicStatus(shipType) {
         this.#playerStatus.xSize = SHIP_MODEL[shipType].xSize;
         this.#playerStatus.ySize = SHIP_MODEL[shipType].ySize;
@@ -28,7 +31,7 @@ class Status {
         this.#playerStatus.speed = SHIP_MODEL[shipType].speed;
         this.#playerStatus.skillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
-        this.#playerStatus.pollution = 0;
+        this.#playerStatus.pollution = SHIP_MODEL[shipType].pollutionStart;
         this.#playerStatus.pollutionLevel = 1;
         this.#playerStatus.loopCount = 0;
     }
@@ -79,7 +82,7 @@ class Status {
         const newGold = this.#playerStatus.gold + goldChange;
         this.#playerStatus.gold = Math.max(0, newGold);
     }
-    
+
     // 增加轮回次数
     incrementLoopCount() {
         this.#playerStatus.loopCount++;
@@ -89,5 +92,9 @@ class Status {
     // 获取轮回次数
     getLoopCount() {
         return this.#playerStatus.loopCount;
+    }
+
+    getPlayerPollution() {
+        return this.#playerStatus.pollution;
     }
 }

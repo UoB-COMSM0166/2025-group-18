@@ -46,9 +46,9 @@ class Boss1 extends Boss {
                     const yCoor = this.yCoordinate + skillModel.ySize / 2 * sin(this.skill2CurrentAngle);
                     this.bossSkill(xCoor, yCoor, ENEMY_ATTACK_BIT, this.attackPower,
                         BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1, this.skill2CurrentAngle + PI / 2);
-                    console.log(frameCount);
+                    // console.log(frameCount);
                 } else if (this.attack2number < logicFrameRate * 4 && this.attack2number >= logicFrameRate) {
-                    console.log(frameCount);
+                    // console.log(frameCount);
 
                     const playerAngle = atan2(playerY - this.yCoordinate, playerX - this.xCoordinate);
 
@@ -77,7 +77,7 @@ class Boss1 extends Boss {
     boss1Skill1(playerX, playerY) {
         const count = 5;
         const startAngle = 0;
-        console.log("boss1Skill1", this.frameCount);
+        // console.log("boss1Skill1", this.frameCount);
         for (let i = 0; i < count; i++) {
             const radius = 100;
             const angle = startAngle + map(i, 0, count, 0, TWO_PI);
