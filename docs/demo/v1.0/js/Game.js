@@ -144,7 +144,7 @@ class Game {
             this.initPlayer(playerBasicStatus, this.mapType);
         }
 
-        this.initBoss(info.boss, loopCount);
+        this.initBoss(this.#loopCount);
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
         this.initBuilding(info.building);
@@ -197,15 +197,13 @@ class Game {
         }
     }
 
-    initBoss(bossInfo, loopCount = 0) {
-        this.#loopCount = loopCount;
-        //console.log(bossInfo);
+    initBoss(loopCount) {
+        console.log(this.#bossCount);
         let boss = [];
-        //if (bossInfo[0].type == BOSS_MODEL_OCTOPUS_TYPE) {
         if (this.#bossCount == 0) {
             boss = new Boss1(
-                logicWidth * bossInfo[0].x,
-                logicHeight * bossInfo[0].y,
+                logicWidth * 0.5,
+                logicHeight * 0.3,
                 (
                     xSpeed, ySpeed,
                     bulletType, bulletMoveType,
@@ -225,31 +223,31 @@ class Game {
                 ),
                 this.#pollution
             );
-            this.#bossCount++;
+            this.#bossCount = 1;
         } else {
-            //} else if (bossInfo[0].type == BOSS_MODEL_BIRD_TYPE) {
-                boss = new Boss2(
-                    logicWidth * bossInfo[0].x,
-                    logicHeight * bossInfo[0].y,
-                    (
-                        xSpeed, ySpeed,
-                        bulletType, bulletMoveType,
-                        attackPower,
-                        enemy
-                    ) => this.addBullet(
-                        xSpeed, ySpeed,
-                        bulletType, bulletMoveType,
-                        attackPower,
-                        enemy
-                    ),
-                    (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
-                    (
-                        xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
-                    ) => this.addBossAoeSkill(
-                        xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
-                    ),
-                    this.#pollution
-                );
+            boss = new Boss2(
+                logicWidth * 0.5,
+                logicHeight * 0.2,
+                (
+                    xSpeed, ySpeed,
+                    bulletType, bulletMoveType,
+                    attackPower,
+                    enemy
+                ) => this.addBullet(
+                    xSpeed, ySpeed,
+                    bulletType, bulletMoveType,
+                    attackPower,
+                    enemy
+                ),
+                (xMove, yMove, enemy) => this.enemyMove(xMove, yMove, enemy),
+                (
+                    xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+                ) => this.addBossAoeSkill(
+                    xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate
+                ),
+                this.#pollution
+            );
+            this.#bossCount = 0;
         }
         // 根据轮回次数增强Boss能力
         if (loopCount > 0) {
@@ -469,12 +467,11 @@ class Game {
                 }
             }
         }
-        pollutionEffect = this.#pollution.getEffect();
         if (this.#enemies.length == 0) {
             if (this.#bossCount == 0 ) {
                 this.initEnemies(this.#loopCount);
             } else {
-                if (pollutionEffect.secondBoss) {
+                if (this.#pollution.getEffect().secondBoss) {
                     this.initBoss(this.#loopCount);
                 }
             }
