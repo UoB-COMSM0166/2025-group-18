@@ -382,9 +382,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: -200
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/13.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/13.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/13.webp'
             },
             {
                 // 船只升级事件
