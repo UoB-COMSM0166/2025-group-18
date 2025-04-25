@@ -15,7 +15,7 @@ class AoeSkill {
 
         // this.frames = frames.aoeSkill[this.name];
         this.currentFrame = 0;
-        this.frameRate = 5;
+        this.frameRate = round(logicFrameRate / 20);
         this.frameCount = 0;
     }
 
@@ -25,14 +25,15 @@ class AoeSkill {
         rotate(this.rotate);
         rectMode(CENTER);
 
+        noFill();
+        stroke(200, 0, 0, 100);
+        strokeWeight(5);
+        rect(0, 0,
+            this.xSize, this.ySize,
+            this.xSize / 5, this.xSize / 5,
+            this.xSize / 5, this.xSize / 5);
+
         if (millis() - this.startTime < this.delayTime) {
-            noFill();
-            stroke(200, 0, 0, 100);
-            strokeWeight(5);
-            rect(0, 0,
-                this.xSize, this.ySize,
-                this.xSize / 5, this.xSize / 5,
-                this.xSize / 5, this.xSize / 5);
             let scale = (millis() - this.startTime) / this.delayTime;
             let c = color(255, 0, 0, 50);
             fill(c);
@@ -42,9 +43,11 @@ class AoeSkill {
                 this.xSize / 5 * scale, this.xSize / 5 * scale,
                 this.xSize / 5 * scale, this.xSize / 5 * scale);
         } else {
-            imageMode(CENTER);
-            image(frames.aoeSkill[this.name][this.currentFrame],
-                0, 0, this.xSize, this.ySize);
+            if (this.currentFrame < frames.aoeSkill[this.name].length) {
+                imageMode(CENTER);
+                image(frames.aoeSkill[this.name][this.currentFrame],
+                    0, 0, this.xSize, this.ySize);
+            }
             this.frameCount++;
             if (this.frameCount % this.frameRate == 0) {
                 this.currentFrame++;

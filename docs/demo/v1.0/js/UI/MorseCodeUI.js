@@ -291,6 +291,9 @@ class MorseCodeUI {
 
     // 处理鼠标释放
     handleMouseReleased() {
+        if (this.listenButton.isHovered || this.continueButton.isHovered || this.decodeButton.isHovered) {
+            playSound(frames.soundEffect.hover);
+        }
         if (this.listenButton.isHovered) {
             this.listenButton.scale = 1;
             this.listenButton.onClick();

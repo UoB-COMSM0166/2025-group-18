@@ -19,14 +19,16 @@ class ShopUI {
   
     // 用于创建内部按钮类（与 GameRewardUI 中的 ChooseBuffButton 类似）
     ShopButton = class {
-        constructor(x, y, w, h, label, price, itemData, isExit = false) {
+        constructor(x, y, w, h, label, price, effct, times, priceIncrease, isExit = false) {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
             this.label = label;       // 商品名称
             this.price = price;       // 商品价格
-            this.itemData = itemData; // 其他道具信息，可自定义
+            this.times = times;
+            this.type = effct;      // 商品效果
+            this.priceIncrease = priceIncrease; // 商品价格增量
             this.isExit = isExit;     // 用于区分是否是退出按钮
             this.isHovered = false;
             this.isPressed = false;
@@ -106,12 +108,12 @@ class ShopUI {
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
         let items = [
-            { label: 'Item A', price: 100, effect: 'Increase Speed' },
-            { label: 'Item B', price: 25, effect: 'Increase Speed' },
-            { label: 'Item C', price: 75, effect: 'Increase Speed' },
-            { label: 'Item D', price: 99, effect: 'Increase Speed' },
-            { label: 'Item E', price: 20000, effect: 'Increase Speed' },
-            { label: 'Item F', price: 5, effect: 'Increase Speed' },
+            { label: 'Item A', price: 100, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
+            { label: 'Item B', price: 25, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
+            { label: 'HP+20', price: 60, effect: 'HP+20', times: -1, priceIncrease: 30},
+            { label: 'Item D', price: 99, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
+            { label: 'ONE PIECE', price: 20000, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
+            { label: 'Pollution-100', price: 50, effect: 'decrease pollution', times: -1, priceIncrease: 25 },
         ];
         this.#isInit = true;
         textFont('Helvetica');
@@ -132,8 +134,8 @@ class ShopUI {
         // 若有 6 个商品按钮，每排 3 个
         const rows = 2;
         const cols = Math.ceil(items.length / rows);
-        const btnWidth = 150;
-        const btnHeight = 70;
+        const btnWidth = 200;
+        const btnHeight = 100;
         const spacingX = 50;
         const spacingY = 30;
     
@@ -151,7 +153,7 @@ class ShopUI {
                 const y = startY + r * (btnHeight + spacingY);
         
                 // 注意，这里将价格与其他信息分开传入
-                const { label, price, ...otherData } = items[index];
+                const { label, price, effect, times, priceIncrease } = items[index];
         
                 const button = new this.ShopButton(
                     x,
@@ -160,7 +162,9 @@ class ShopUI {
                     btnHeight,
                     label,
                     price,
-                    otherData
+                    effect,
+                    times,
+                    priceIncrease
                 );
                 this.buttons.push(button);
                 index++;
@@ -243,25 +247,32 @@ class ShopUI {
                 if (this.currentGold < btn.price) {
                     console.log('Not enough gold to purchase:', btn.label);
                 } else {
-                    // 成功购买：从UI移除按钮
-                    this.buttons.splice(i, 1);
-        
                     // 执行回调（外部可根据 itemData 处理金币扣除、道具增加等逻辑）
                     if (this.#handleShoppingSelection) {
-                        this.#handleShoppingSelection(btn.itemData.type, btn.price * -1);
+                        this.#handleShoppingSelection(btn.type, btn.price * -1);
                     }
+                    
+                    this.buttons[i].times--;
+                    if (this.buttons[i].times == 0) {
+                        this.buttons.splice(i, 1);
+                    } else {
+                        this.buttons[i].price += this.buttons[i].priceIncrease;
+                    }
+        
                 }
+                playSound(frames.soundEffect.hover);
             }
         }
     
         // 检查退出按钮
         if (this.exitButton.release() && this.exitButton.isHovered) {
-            this.#isInit = false; // 退出商店时，设置为未初始化状态
-            this.buttons = [];    // 清空按钮列表
-            this.exitButton = null; // 清空退出按钮
+            // this.#isInit = false; // 退出商店时，设置为未初始化状态
+            // this.buttons = [];    // 清空按钮列表
+            // this.exitButton = null; // 清空退出按钮
             if (this.#handleShopExitSelection) {
                 this.#handleShopExitSelection();
             }
+            playSound(frames.soundEffect.hover);
         }
     }
   

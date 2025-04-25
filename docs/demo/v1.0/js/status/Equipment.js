@@ -19,9 +19,10 @@ class Equipment {
             name: "Default Weapon",
             attackPower: 1,
             pollutionValue: 0,
-            bulletSize: 2, 
-            bulletSpeed: 10, 
-            explosionSize: 10, 
+            bulletXSize: 15, 
+            bulletYSize: 15,
+            bulletSpeed: 600 / logicFrameRate, 
+            explosionSize: 20, 
             partAttributes: null
         };
         this.addWeapon(defaultWeapon);

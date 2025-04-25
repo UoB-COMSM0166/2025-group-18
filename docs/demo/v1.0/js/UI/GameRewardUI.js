@@ -123,6 +123,7 @@ class GameRewardUI {
         let selectedBuff = null;
         this.buttons.forEach(btn => {
             if(btn.release() && btn.isHovered) {
+                playSound(frames.soundEffect.hover);
                 selectedBuff = btn.buffType;
             }
         });

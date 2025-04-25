@@ -15,7 +15,8 @@ const MAIN_STEP_LOSE = 13;
 const MAIN_STEP_MORSE_CODE = 14;
 const MAIN_STEP_GAME_SUMMARY = 15;
 const MAIN_STEP_CAPTAIN_UI = 16;
-const MAIN_STEP_MAX = 17;
+const MAIN_STEP_STORY_UI = 17;
+const MAIN_STEP_MAX = 18;
 
 /**
  *  attackBit: each bit controls which object could this object attack
@@ -81,24 +82,27 @@ const SHIP_MODEL = [
         xSize: 10,
         ySize: 10,
         HPmax: 50,
-        speed: 5,
-        skillCD: 1
+        speed: 10,
+        skillCD: 3,
+        pollutionStart: 500
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 5,
-        speed: 3,
-        skillCD: 10
+        HPmax: 40,
+        speed: 6,
+        skillCD: 5,
+        pollutionStart: 700
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
         xSize: 8,
         ySize: 8,
-        HPmax: 1,
-        speed: 3,
-        skillCD: 15
+        HPmax: 30,
+        speed: 6,
+        skillCD: 15,
+        pollutionStart: 900
     }
 ];
 
@@ -222,8 +226,8 @@ const PET_MODEL = [
     {
         name: "orbiter",
         type: PET_MODEL_3_TYPE,
-        xSize: 20,
-        ySize: 20,
+        xSize: 25,
+        ySize: 25,
         HP: 5000,
         speed: 7,
         attackPower: 1,
@@ -315,7 +319,7 @@ const BOSS_SKILL_MODEL = [
         ySize: 150,
         delayTime: 1,
         harm: 2,
-        liveTime: 40
+        liveTime: 16 // logicFrameRate * 2 / 3
     }, {
         name: "boss_1_skill_2_1",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_1,
@@ -323,7 +327,7 @@ const BOSS_SKILL_MODEL = [
         ySize: 1800,
         delayTime: 1,
         harm: 3,
-        liveTime: 2
+        liveTime: 1
     }, {
         name: "boss_1_skill_2_2",
         type: BOSS_SKILL_MODEL_OCTOPUS_TYPE_2_2,
@@ -489,8 +493,8 @@ const EXPLODE_MODEL = [
     }, {
         name: "bullet_explode",
         type: EXPLODE_MODEL_BULLET_TYPE,
-        xSize: 10,
-        ySize: 10
+        xSize: 20,
+        ySize: 20
     }, {
         name: "TNT_explode",
         type: EXPLODE_MODEL_TNT_TYPE,

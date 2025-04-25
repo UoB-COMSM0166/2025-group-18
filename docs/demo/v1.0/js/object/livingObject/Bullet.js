@@ -1,12 +1,12 @@
 class Bullet extends BasicObject {
-    constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, explosionSize, size, speed, targetCallBack) {
+    constructor(xCoordinate, yCoordinate, xSpeed, ySpeed, bulletType, bulletMoveType, attackPower, explosionSize, xSize, ySize, speed, targetCallBack) {
         super(
             "bullet",
             BULLET_TYPE,
             xCoordinate,
             yCoordinate,
-            size, // bullet size
-            size,
+            xSize, // bullet size
+            ySize,
             0,
             10,
             speed,
@@ -24,13 +24,13 @@ class Bullet extends BasicObject {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
-            this.maxTurnAngle = Math.PI / 36;
+            this.maxTurnAngle = Math.PI / 36 * 60 / logicFrameRate;
         }
         this.toDelete = false;
         this.exploded = false;
         this.targetCallBack = targetCallBack;
         this.currentFrame = 0;
-        this.frameRate = 10;
+        this.frameRate = round(logicFrameRate / 6);
         this.frameCount = 0;
         // this.frames;
         this.bulletTypes = bulletType;
@@ -70,6 +70,9 @@ class Bullet extends BasicObject {
             framesLength = frames.enemyBullet.length;
         } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
             framesLength = frames.bossBullet.length;
+        } else if (this.bulletTypes == PET_BULLET_TYPE) {
+            // 暂用player子弹
+            framesLength = frames.bullet.length;
         }
 
         if (this.frameCount % this.frameRate == 0) {
@@ -98,16 +101,25 @@ class Bullet extends BasicObject {
         
         if (this.bulletTypes == PLAYER_BULLET_TYPE) {
             image(frames.bullet[this.currentFrame], 0, 0,
-                frames.bullet[this.currentFrame].width / 20, 
-                frames.bullet[this.currentFrame].height / 20);
+                this.xSize, this.ySize);
+                // frames.bullet[this.currentFrame].width / 20, 
+                // frames.bullet[this.currentFrame].height / 20);
         } else if (this.bulletTypes == ENEMY_BULLET_TYPE) {
             image(frames.enemyBullet[this.currentFrame], 0, 0,
-                frames.enemyBullet[this.currentFrame].width / 4, 
-                frames.enemyBullet[this.currentFrame].height / 4);    
+                this.xSize, this.ySize);
+                // frames.enemyBullet[this.currentFrame].width / 4, 
+                // frames.enemyBullet[this.currentFrame].height / 4);    
         } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
             image(frames.bossBullet[this.currentFrame], 0, 0,
-                frames.bossBullet[this.currentFrame].width / 20, 
-                frames.bossBullet[this.currentFrame].height / 20);    
+                this.xSize, this.ySize);
+                // frames.bossBullet[this.currentFrame].width / 20, 
+                // frames.bossBullet[this.currentFrame].height / 20);    
+        } else if (this.bulletTypes == PET_BULLET_TYPE) {
+            // 暂用player子弹
+            image(frames.bullet[this.currentFrame], 0, 0,
+                this.xSize, this.ySize);
+                // frames.bullet[this.currentFrame].width / 20, 
+                // frames.bullet[this.currentFrame].height / 20);    
         }
         pop();
     }

@@ -10,6 +10,7 @@ class Player extends BasicObject {
             NO_HARM_ATTACK_BIT,
             HP,
             speed,
+            // speed * 60 / logicFrameRate,
         );
         this.HPmax = HP;
         this.skillCD = skillCD;
@@ -22,6 +23,7 @@ class Player extends BasicObject {
         this.lastFrameTime = 0;
         this.frameInterval = 100;
         this.pets = [];
+        this.mapType = 0;
 
         this.hasAttackedByAoe = false;
         this.lastAttackByAoeTime = 0;
@@ -120,6 +122,10 @@ class Player extends BasicObject {
         if (change < 0) {
             this.startFlash();
         }
+    }
+
+    updateMapType(type) {
+        this.mapType = type;
     }
 
     move(xSpeed, ySpeed) {

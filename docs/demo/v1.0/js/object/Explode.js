@@ -1,11 +1,11 @@
 class Explode {
-    constructor(xCoor, yCoor, harm, attackBit, explodeType) {
+    constructor(xCoor, yCoor, harm, attackBit, explodeType, explodeSize) {
         const explodeModel = getExplodeModel(explodeType);
         this.name = explodeModel.name
         this.xCoordinate = xCoor;
         this.yCoordinate = yCoor;
-        this.xSize = explodeModel.xSize;
-        this.ySize = explodeModel.ySize;
+        this.xSize = explodeSize;
+        this.ySize = explodeSize;
         this.harm = harm;
         this.attackBit = attackBit;
         //console.log("=========================" + this.attackBit);
@@ -13,7 +13,7 @@ class Explode {
 
         // this.frames;
         this.currentFrame = 0;
-        this.frameRate = 5;
+        this.frameRate = round(logicFrameRate / 20);
         this.frameCount = 0;
     }
 

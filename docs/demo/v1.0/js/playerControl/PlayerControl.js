@@ -75,7 +75,7 @@ class PlayerControl {
             this.#player.equipment.getCurrentWeapon().attackPower,
         );
 
-        if (typeof playerShootSound !== 'undefined') {
+        if (typeof playerShootSound != 'undefined') {
             playerShootSound.play();
         }
         this.lastShootTime = millis();
@@ -145,8 +145,9 @@ class PlayerControl {
 
     updateShoot() {
         if (this.shootKey && millis() - this.lastShootTime >= this.shootCD * 1000) {
-            let logicX = map(mouseX, 0, width, 0, logicWidth);
-            let logicY = map(mouseY, 0, height, 0, logicHeight);
+            // let logicX = map(mouseX, 0, width, 0, logicWidth);
+            // let logicY = map(mouseY, 0, height, 0, logicHeight);
+            // console.log("1 logicX: ", logicX, "; logicY: ", logicY);
             let distance = dist(this.#player.xCoordinate, this.#player.yCoordinate, logicX, logicY);
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
@@ -156,9 +157,11 @@ class PlayerControl {
     }
 
     updateStatus() {
-        this.updateCoordinate();
+        if (this.#player.mapType != MAP_MODEL_9_TYPE) {
+            this.updateCoordinate();
+            this.updateWavePush();
+        }
         this.updateSkillCD();
-        this.updateWavePush();
         this.updateShoot();
     }
 
@@ -182,17 +185,13 @@ class PlayerControl {
 
     useSkill() {
         if (this.#player.skillCD > 0) {
-            console.log("playerControl() Skill is not ready");
+            // console.log("playerControl() Skill is not ready");
             return;
         }
 
         //console.log("playerControl() Using skill");
 
-        if (typeof playerSkillSound !== 'undefined') {
-            if (!playerSkillSound.isPlaying()) {
-                playerSkillSound.play();
-            }
-        }
+        playSound(playerSkillSound);
 
         this.skillUseCallBack();
         let target = this.targetCallBack(this.#player);

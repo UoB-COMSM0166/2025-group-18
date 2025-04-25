@@ -2,6 +2,7 @@ class MainUI {
 
     #currentStep = MAIN_STEP_START_UI;
     #startUI;
+    #storyUI;
     #teamUI;
     #chooseShipUI;
     #inGameUI;
@@ -26,8 +27,7 @@ class MainUI {
         updateChooseGame,
         updateGoldStatus,
         updatePlayerHealth,
-        updatePlayerPollution)
-    {
+        updatePlayerPollution) {
         this.updateStep = updateStep;
         this.updateShipStatus = updateShipStatus;
         this.updateBuffStatus = updateBuffStatus;
@@ -52,6 +52,7 @@ class MainUI {
         this.#teamUI = new TeamUI(this.#handleTeamUIBack.bind(this));
         this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
         this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
+        this.#storyUI = new StoryUI(this.#handleStoryComplete.bind(this));
     }
 
     showStartUI() {
@@ -64,6 +65,25 @@ class MainUI {
 
     initStartUI() {
         this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
+    }
+
+    showStoryUI() {
+        if (!this.#storyUI) {
+            this.#storyUI = new StoryUI(this.#handleStoryComplete.bind(this));
+        }
+        this.#storyUI.draw();
+    }
+
+    storyUIMousePressed() {
+        if (this.#currentStep == MAIN_STEP_STORY_UI && this.#storyUI) {
+            this.#storyUI.handleMousePressed();
+        }
+    }
+
+    storyUIMouseReleased() {
+        if (this.#currentStep == MAIN_STEP_STORY_UI && this.#storyUI) {
+            this.#storyUI.handleMouseReleased();
+        }
     }
 
     showTeamUI() {
@@ -175,13 +195,18 @@ class MainUI {
         this.#shopUI.draw(gold);
     }
 
-    showRandomEventUI() {
+    showRandomEventUI(playerStatus) {
         if (this.#randomEventUI == null) {
             this.#randomEventUI = new RandomEventUI(this.#handleRandomEventSelection.bind(this));
         }
         if (!this.#randomEventUI.isInit()) {
             this.#randomEventUI.init();
         }
+        
+        if (playerStatus) {
+            this.#randomEventUI.updatePlayerStatus(playerStatus);
+        }
+        
         this.#randomEventUI.draw();
     }
 
@@ -410,6 +435,11 @@ class MainUI {
                     this.#startUI.handleWindowResized();
                 }
                 break;
+            case MAIN_STEP_STORY_UI:
+                if (this.#storyUI) {
+                    this.#storyUI.handleWindowResized();
+                }
+                break;
             case MAIN_STEP_TUTORIAL_UI:
                 if (this.#tutorialUI) {
                     this.#tutorialUI.handleWindowResized();
@@ -455,10 +485,16 @@ class MainUI {
 
     #handleStartUIButtonClick(buttonType) {
         if (buttonType == MAIN_STEP_START_UI) {
-            this.updateStep(MAIN_STEP_TUTORIAL_UI);
+            this.updateStep(MAIN_STEP_STORY_UI);
         } else if (buttonType == MAIN_STEP_START_UI_TEAM) {
             this.updateStep(MAIN_STEP_START_UI_TEAM);
             this.showTeamUI();
+        }
+    }
+
+    #handleStoryComplete() {
+        if (this.updateStep) {
+            this.updateStep(MAIN_STEP_TUTORIAL_UI);
         }
     }
 
@@ -531,25 +567,21 @@ class MainUI {
     }
 
     #handleRandomEventSelection(eventResult) {
-        //console.log("随机事件处理结果:", eventResult);
         if (eventResult.action == 'gameover') {
             this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
             this.#gameOverUI.setDeathReason(eventResult.deathReason || 'generic');
             this.updateStep(MAIN_STEP_GAME_OVER);
-        } else if (eventResult.action == 'continue') {
+        } else if (eventResult.action == 'updateStatus') {
             if (eventResult.goldChange) {
-                console.log("处理金币变化:", eventResult.goldChange);
                 this.updateGoldStatus(eventResult.goldChange);
             }
             if (eventResult.healthChange && this.#updatePlayerHealth) {
-                console.log("处理生命值变化:", eventResult.healthChange);
                 this.#updatePlayerHealth(eventResult.healthChange);
             }
             if (eventResult.pollutionChange && this.#updatePlayerPollution) {
-                console.log("处理污染值变化:", eventResult.pollutionChange);
                 this.#updatePlayerPollution(eventResult.pollutionChange);
             }
-
+        } else if (eventResult.action == 'continue') {
             this.updateStep(MAIN_STEP_MAP_UI);
         }
     }

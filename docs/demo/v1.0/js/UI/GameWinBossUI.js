@@ -226,6 +226,7 @@ class GameWinBossUI {
     handleMouseReleased() {
         for (let btn of this.buttons) {
             if (btn.release() && btn.isHovered) {
+                playSound(frames.soundEffect.hover);
                 if (this.gameWinBossCallBack) {
                     this.gameWinBossCallBack(btn.buttonType);
                 }

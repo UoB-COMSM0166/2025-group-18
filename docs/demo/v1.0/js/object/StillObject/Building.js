@@ -20,7 +20,7 @@ class Building extends BasicObject {
         this.modelType = buildingModel.type;
         this.explodeCallBack = explodeCallBack;
         this.currentFrame = 0;  
-        this.frameRate = 10;
+        this.frameRate = round(logicFrameRate / 6);
         this.frameCount = 0; 
         // this.frames = this.getFrames();
     }

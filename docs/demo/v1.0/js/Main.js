@@ -30,7 +30,7 @@ class Main {
         if (healthChange && healthChange !== 0) {
             const currentHP = this.#status.getShipStatus().HP;
             const newHP = Math.max(0, currentHP + healthChange);
-            console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
+            // console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
             this.#status.updateHP(newHP);
         }
     }
@@ -39,12 +39,17 @@ class Main {
         if (pollutionChange && pollutionChange !== 0) {
             if (this.#game) {
                 const currentPollution = this.#game.getPlayerStatus().pollution;
-               //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#game.setPollution(currentPollution + pollutionChange);
+                //确保不会因为随机事件降至0以下，最大值以上
+                const newPollution = Math.min(Status.MAX_POLLUTION, Math.max(0, currentPollution + pollutionChange));
+                //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
+                his.#game.setPollution(newPollution);
             } else {
                 const currentPollution = this.#status.getShipStatus().pollution;
+                //确保不会因为随机事件降至0以下，最大值以上
+                const newPollution = Math.min(Status.MAX_POLLUTION, Math.max(0, currentPollution + pollutionChange));
                 //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                this.#status.updatePollution(currentPollution + pollutionChange, null);
+                this.#status.updatePollution(newPollution, null);
+
             }
         }
     }
@@ -90,6 +95,14 @@ class Main {
     continueGame() {
         if (this.#game == null) {
             this.initNewGame();
+            if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
+                this.mapAlertMessage = "警告: 引擎故障！船只无法移动！准备抵御敌人进攻！";
+                this.showMapAlert = true;
+            } else {
+                this.alertInGame = true;
+                this.mapOverflowMessage = "WARNING: Pollution Overflow!";
+            }
+            this.mapAlertStartTime = Date.now();
         }
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
@@ -121,6 +134,10 @@ class Main {
                 this.#UI.showStartUI();
                 break;
             }
+            case MAIN_STEP_STORY_UI: {
+                this.#UI.showStoryUI();
+                break;
+            }
             case MAIN_STEP_TUTORIAL_UI: {
                 this.#UI.showTutorialUI();
                 break;
@@ -138,6 +155,11 @@ class Main {
             case MAIN_STEP_IN_GAME: {
                 this.continueGame();
                 this.#UI.showInGameUI(this.#status.getShipStatus());
+                if (this.showMapAlert) {
+                    this.showMapTypeAlert(this.mapAlertMessage);
+                } else if (this.#status.getPlayerPollution() >= Status.POLLUTION_OVERFLOW) {
+                    this.showMapTypeAlert(this.mapOverflowMessage);
+                }
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
@@ -149,7 +171,10 @@ class Main {
                 break;
             }
             case MAIN_STEP_RANDOM_EVENT: {
-                this.#UI.showRandomEventUI();
+                // 先获取玩家状态
+                const playerStatus = this.#status.getShipStatus();
+                // 然后传递给 UI
+                this.#UI.showRandomEventUI(playerStatus);
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
@@ -220,6 +245,10 @@ class Main {
                 this.#UI.startUIPressed();
                 break;
             }
+            case MAIN_STEP_STORY_UI: {
+                this.#UI.storyUIMousePressed();
+                break;
+            }
             case MAIN_STEP_TUTORIAL_UI: {
                 this.#UI.tutorialUIMousePressed();
                 break;
@@ -281,6 +310,10 @@ class Main {
             }
             case MAIN_STEP_START_UI: {
                 this.#UI.startUIReleased();
+                break;
+            }
+            case MAIN_STEP_STORY_UI: {
+                this.#UI.storyUIMouseReleased();
                 break;
             }
             case MAIN_STEP_TUTORIAL_UI: {
@@ -379,7 +412,49 @@ class Main {
         }
     }
 
+    //show 放Main里确实很不规范，但这个判断确实区别于其他的，放着似乎还是合适的——Theodore
+    showMapTypeAlert(message) {
+        const alertDuration = 5000;
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - this.mapAlertStartTime;
+
+        if (!this.alertInGame && elapsedTime > alertDuration) {
+            this.showMapAlert = false;
+            return;
+        }
+
+        let alpha = 255;
+        if (this.alertInGame && elapsedTime > alertDuration) {
+            this.mapAlertStartTime = currentTime;
+        }
+        alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
+
+        push();
+        // 绘制提示框
+        const boxWidth = logicWidth * 0.6;
+        const boxHeight = 80;
+        const boxX = (logicWidth - boxWidth) / 2;
+        const boxY = logicHeight * 0.2;
+
+        // 警告框背景
+        fill(0, 0, 0, alpha * 0.8);
+        stroke(255, 50, 50, alpha);
+        strokeWeight(3);
+        rectMode(CORNER);
+        rect(boxX, boxY, boxWidth, boxHeight, 10);
+
+        textAlign(CENTER, CENTER);
+        textSize(36);
+
+        const pulseEffect = (sin(frameCount * 60 / logicFrameRate * 0.1) * 0.2 + 0.8);
+        fill(255, 50, 50, alpha * pulseEffect);
+        text(message, logicWidth / 2, boxY + boxHeight / 2);
+
+        pop();
+    }
+
     setShipBasic(shipType) {
+        this.#status.setDifficulty(shipType);
         this.#status.setShipBasicStatus(shipType);
     }
 
