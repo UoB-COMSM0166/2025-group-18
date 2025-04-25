@@ -15,7 +15,7 @@ class SoundEffects {
             this.isNoiseLoaded = true;
         });
 
-        this.eggSound = loadSound('./MusicPack/SoundEffects/Egg.ogg', () => {
+        this.eggSound = loadSound('./MusicPack/SoundEffects/egg.ogg', () => {
             this.isEggLoaded = true;
         });
 
