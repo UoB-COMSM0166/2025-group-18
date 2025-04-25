@@ -493,8 +493,8 @@ const EXPLODE_MODEL = [
     }, {
         name: "bullet_explode",
         type: EXPLODE_MODEL_BULLET_TYPE,
-        xSize: 10,
-        ySize: 10
+        xSize: 20,
+        ySize: 20
     }, {
         name: "TNT_explode",
         type: EXPLODE_MODEL_TNT_TYPE,

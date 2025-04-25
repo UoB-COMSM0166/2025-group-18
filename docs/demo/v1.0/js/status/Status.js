@@ -1,6 +1,7 @@
 class Status {
     static MAX_POLLUTION = 1000;
     static POLLUTION_MAX_LEVEL = 6;
+    static POLLUTION_OVERFLOW = 600;
     #playerStatus = {
         xSize: 0,
         ySize: 0,
@@ -81,7 +82,7 @@ class Status {
         const newGold = this.#playerStatus.gold + goldChange;
         this.#playerStatus.gold = Math.max(0, newGold);
     }
-    
+
     // 增加轮回次数
     incrementLoopCount() {
         this.#playerStatus.loopCount++;
@@ -91,5 +92,9 @@ class Status {
     // 获取轮回次数
     getLoopCount() {
         return this.#playerStatus.loopCount;
+    }
+
+    getPlayerPollution() {
+        return this.#playerStatus.pollution;
     }
 }

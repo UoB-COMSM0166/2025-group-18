@@ -893,7 +893,7 @@ const MAP_MODEL = [
         playerStart: { x: 0.5, y: 0.5 },
         island: [
             // 玩家脚下的小岛，将玩家卡在原地
-            { x: 0.5, y: 0.5, type: ISLAND_MODEL_5_TYPE },
+            // { x: 0.5, y: 0.5, type: ISLAND_MODEL_5_TYPE },
             
             // 边缘岛屿作为装饰和边界
             { x: 0.1, y: 0.1, type: ISLAND_MODEL_1_TYPE },

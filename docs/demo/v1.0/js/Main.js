@@ -30,7 +30,7 @@ class Main {
         if (healthChange && healthChange !== 0) {
             const currentHP = this.#status.getShipStatus().HP;
             const newHP = Math.max(0, currentHP + healthChange);
-            console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
+            // console.log(`Updating player health: ${currentHP} -> ${newHP} (${healthChange > 0 ? '+' : ''}${healthChange})`);
             this.#status.updateHP(newHP);
         }
     }
@@ -95,12 +95,14 @@ class Main {
     continueGame() {
         if (this.#game == null) {
             this.initNewGame();
-
             if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
                 this.mapAlertMessage = "警告: 引擎故障！船只无法移动！准备抵御敌人进攻！";
                 this.showMapAlert = true;
-                this.mapAlertStartTime = Date.now();
+            } else {
+                this.alertInGame = true;
+                this.mapOverflowMessage = "WARNING: Pollution Overflow!";
             }
+            this.mapAlertStartTime = Date.now();
         }
         this.#game.updateObjectStatus();
         this.updatePlayerStatus();
@@ -154,7 +156,9 @@ class Main {
                 this.continueGame();
                 this.#UI.showInGameUI(this.#status.getShipStatus());
                 if (this.showMapAlert) {
-                    this.showMapTypeAlert();
+                    this.showMapTypeAlert(this.mapAlertMessage);
+                } else if (this.#status.getPlayerPollution() >= Status.POLLUTION_OVERFLOW) {
+                    this.showMapTypeAlert(this.mapOverflowMessage);
                 }
                 break;
             }
@@ -409,20 +413,21 @@ class Main {
     }
 
     //show 放Main里确实很不规范，但这个判断确实区别于其他的，放着似乎还是合适的——Theodore
-    showMapTypeAlert() {
+    showMapTypeAlert(message) {
         const alertDuration = 5000;
         const currentTime = Date.now();
         const elapsedTime = currentTime - this.mapAlertStartTime;
 
-        if (elapsedTime > alertDuration) {
+        if (!this.alertInGame && elapsedTime > alertDuration) {
             this.showMapAlert = false;
             return;
         }
 
         let alpha = 255;
-        if (elapsedTime > alertDuration - 1000) {
-            alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
+        if (this.alertInGame && elapsedTime > alertDuration) {
+            this.mapAlertStartTime = currentTime;
         }
+        alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
 
         push();
         // 绘制提示框
@@ -443,7 +448,7 @@ class Main {
 
         const pulseEffect = (sin(frameCount * 60 / logicFrameRate * 0.1) * 0.2 + 0.8);
         fill(255, 50, 50, alpha * pulseEffect);
-        text(this.mapAlertMessage, logicWidth / 2, boxY + boxHeight / 2);
+        text(message, logicWidth / 2, boxY + boxHeight / 2);
 
         pop();
     }

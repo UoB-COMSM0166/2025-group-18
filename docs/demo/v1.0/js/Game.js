@@ -82,8 +82,8 @@ class Game {
             70,  // 轨道半径
             2,   // 轨道速度
             5,   // 攻击力
-            (x, y, harm, attackBit, explodeType) =>
-                this.addExplode(x, y, harm, attackBit, explodeType)
+            (x, y, harm, attackBit, explodeType, explodeSize) =>
+                this.addExplode(x, y, harm, attackBit, explodeType, explodeSize),
         );
     }
 
@@ -94,7 +94,7 @@ class Game {
 
 
         // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore  这种中文注释谁写的谁记得删哦（把我这半行一起删了）。--QTY
-        //this.mapType = MAP_MODEL_9_TYPE;
+        // this.mapType = MAP_MODEL_9_TYPE;
         this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
@@ -287,8 +287,8 @@ class Game {
                 building.x * logicWidth,
                 building.y * logicHeight,
                 building.type,
-                (x, y, harm, attackBit, explodeType) =>
-                    this.addExplode(x, y, harm, attackBit, explodeType)
+                (x, y, harm, attackBit, explodeType, explodeSize) =>
+                    this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
             );
             this.#buildings.push(newBuilding);
         }
@@ -349,7 +349,8 @@ class Game {
                     bullet.yCoordinate,
                     bullet.harm,
                     bullet.attackBit,
-                    EXPLODE_MODEL_BULLET_TYPE
+                    EXPLODE_MODEL_BULLET_TYPE,
+                    bullet.explosionSize
                 );
                 this.#bullets[i].toDelete = true;
             } else {
@@ -484,6 +485,7 @@ class Game {
         }
 
         if (this.#player.HP > 0) {
+            this.#player.updateMapType(this.getMapType());
             this.checkAllBuffTriggers();
             this.#playerBuffController.updateFrame(this.curTime);
             this.updateEnemyBuffs(this.curTime);
@@ -560,7 +562,8 @@ class Game {
                         enemy.yCoordinate,
                         damage * 0.3,
                         ENEMY_TYPE,
-                        EXPLODE_MODEL_BULLET_TYPE
+                        EXPLODE_MODEL_BULLET_TYPE,
+                        5
                     );
                 } else {
                     enemy.updateHP(-damage * 0.5);
@@ -570,7 +573,8 @@ class Game {
                         enemy.yCoordinate,
                         damage * 0.1,
                         ENEMY_TYPE,
-                        EXPLODE_MODEL_BULLET_TYPE
+                        EXPLODE_MODEL_BULLET_TYPE,
+                        5
                     );
                 }
             }
@@ -582,7 +586,8 @@ class Game {
                 endY,
                 damage * 0.05,
                 ENEMY_TYPE,
-                EXPLODE_MODEL_BULLET_TYPE
+                EXPLODE_MODEL_BULLET_TYPE,
+                5
             );
         }
 
@@ -855,14 +860,14 @@ class Game {
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 25;
-            bulletXSize = 25;
-            bulletYSize = 20;
+            explosionSize = 20;
+            bulletXSize = 15;
+            bulletYSize = 15;
             bulletSpeed = 180 / logicFrameRate;
         } else if (bulletType == BOSS_BULLET_TYPE) {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 100;
+            explosionSize = 105;
             bulletXSize = 100;
             bulletYSize = 100;
             bulletSpeed = 300 / logicFrameRate;
@@ -870,8 +875,8 @@ class Game {
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
             explosionSize = 20;
-            bulletXSize = 20;
-            bulletYSize = 20;
+            bulletXSize = 15;
+            bulletYSize = 15;
             bulletSpeed = 180 / logicFrameRate;
         }
         const bullet = new Bullet(
@@ -1018,8 +1023,8 @@ class Game {
         return false;
     }
 
-    addExplode(xCoor, yCoor, harm, attackBit, explodeType) {
-        const explode = new Explode(xCoor, yCoor, harm, attackBit, explodeType);
+    addExplode(xCoor, yCoor, harm, attackBit, explodeType, explodeSize) {
+        const explode = new Explode(xCoor, yCoor, harm, attackBit, explodeType, explodeSize);
         explode.show();
         this.checkCollideExplode(explode);
         this.#bulletExplode.push(explode);
