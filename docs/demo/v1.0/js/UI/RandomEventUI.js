@@ -360,26 +360,27 @@ class RandomEventUI {
                 declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
             },
             {
-                // 航海专家事件
+                // 
                 type: 13,
-                title: "航海专家",
-                description: "你在小岛补给时遇到了一位资深航海家，他声称拥有丰富的航海知识和先进的航海技术，愿意指导你如何更高效地航行，但需要一笔不菲的咨询费。",
-                choicePrompt: "要支付金币请教这位航海专家吗?",
-                acceptText: "支付咨询费 (Gold - 300)",
-                declineText: "礼貌拒绝",
+                title: "Equilibrium Covenant",
+                description: `A spectral balance drifts out of the lightless gulf, tilting upon currents no mortal wind commands.\n` +
+                    `From the yawning dark beyond thought, a thousand overlapping tongues rasp in your weary skull:\n`,
+                choicePrompt: `\"Equilibrium… virtue… decision… or… vice…\"`,
+                acceptText: "VICE — Embrace Corruption",
+                declineText: "VIRTUE — Offer Vitality",
                 acceptResult: {
-                    description: "你支付了咨询费用，航海专家向你传授了宝贵的航海技巧和节能航行方法。这些知识帮助你减少了船只损耗和污染排放！\n【Gold - 300, Pollution - 300】",
+                    description: "Trade tainted vapors for flesh made whole.\n\"Prostrate… befoulment… the Unseen Patron is amused.\"\n(HP + 15 Pollution + 200)",
                     outcomeType: "continue",
-                    healthChange: 0,
-                    goldChange: -300,
-                    pollutionChange: -300
+                    healthChange: 15,
+                    goldChange: 0,
+                    pollutionChange: 200
                 },
                 declineResult: {
-                    description: "你婉拒了航海专家的提议。他似乎有些失望，但还是给了你一些简单的建议就离开了。你不确定是否错过了重要的知识。\n【没有变化】",
+                    description: "Let fading breath scour the stain from your soul.\n\"K-k-k-k-k… benevolence… oblation… exquisite…\"\n(HP - 15 Pollution - 200)",
                     outcomeType: "continue",
-                    healthChange: 0,
+                    healthChange: -15,
                     goldChange: 0,
-                    pollutionChange: 0
+                    pollutionChange: -200
                 },
                 imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
                 acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
