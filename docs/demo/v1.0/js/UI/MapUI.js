@@ -534,7 +534,7 @@ class MapUI {
 
     getRandomType() { //随机事件出现的概率在这里调哦——Theodore
         const randomNum = Math.random();
-        if (randomNum < 0.1) {
+        if (randomNum < 0.3) {
         //if (randomNum < 1) {
             return MAIN_STEP_IN_GAME;
         } else {

@@ -353,7 +353,7 @@ class RandomEventUI {
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
-                    pollutionChange: 2000
+                    pollutionChange: 200
                 },
                 imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
                 acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
@@ -532,7 +532,7 @@ class RandomEventUI {
     };
 
     //随机事件指定测试处，上传时改回null则为随机——Theodore
-    init(eventType = 12) {
+    init(eventType = null) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
         }
