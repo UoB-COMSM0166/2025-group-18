@@ -61,10 +61,12 @@ class PlayerControl {
     mousePressed() {
         //shoot
         this.shootKey = true;
+        this.#player.isShoot = true;
     }
 
     mouseReleased() {
         this.shootKey = false;
+        this.#player.isShoot = false;
     }
 
     shoot(xSpeed, ySpeed) {
@@ -152,6 +154,10 @@ class PlayerControl {
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
             this.shoot(shootX, shootY);
+            const shrapnel = BuffController.instance.getBuffByName("shrapnel");
+            if (shrapnel) {
+                shrapnel.addBulletCount.bind(this)(shootX, shootY, this.shoot);
+            }
             //console.log("updateShoot()");
         }
     }

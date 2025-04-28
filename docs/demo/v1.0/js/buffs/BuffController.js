@@ -1,22 +1,37 @@
 class BuffController {
+    static instance = undefined;
+    static shopBuff = [];
+    static messageStack = []
+    static messageList = []
+    #messageTimer = setInterval(() => {
+        if (BuffController.messageList.length === 0) return;
+        console.log(BuffController.messageList)
+        BuffController.messageStack.push(BuffController.messageList.shift())
+    }, 1000);
     constructor(targetCharacter) {
-        this.target = targetCharacter;
+        if (BuffController.instance) return BuffController.instance;
+        BuffController.instance = this;
         this.activeBuffList = new Map();
+        this.target = targetCharacter;
         this.temporaryShield = 0; // init shield value
+        BuffController.shopBuff.forEach(item => this.addNewBuff(item));
+        this.activeBuffList.forEach(item => item.start())
     }
 
     addNewBuff(newBuff) {
-        const existingBuff = this.activeBuffList.get(newBuff.effectType);
+        if (!newBuff) return;
+        const key = newBuff.id ? newBuff.effectType : newBuff.id;
+        const existingBuff = this.activeBuffList.get(key);
 
         if (existingBuff) {
             if (existingBuff.tryAddStack()) return;
-            this.removeBuff(existingBuff.effectType);
+            this.removeBuff(key);
         }
 
-        this.activeBuffList.set(newBuff.effectType, newBuff);
-        
+        this.activeBuffList.set(newBuff.id, newBuff);
+
         // shield add
-        if (newBuff.effectType == BuffTypes.SHIELD_ADD) {
+        if (newBuff.effectType === BuffTypes.SHIELD_ADD) {
             this.temporaryShield += newBuff.currentEffectValue;
         }
 
@@ -24,24 +39,25 @@ class BuffController {
         if (newBuff.onApply) {
             newBuff.onApply(this.target, newBuff);
         }
-
         // auto remove
         if (newBuff.totalDuration > 0) {
             setTimeout(() => {
-                this.removeBuff(newBuff.effectType);
+                this.removeBuff(newBuff.key);
             }, newBuff.totalDuration);
         }
 
         // damage change
         // ...
+
+        this.showBuffInfo(newBuff)
     }
 
-    removeBuff(targetType) {
-        const buff = this.activeBuffList.get(targetType);
+    removeBuff(key) {
+        const buff = this.activeBuffList.get(key);
         if (!buff) return;
 
         // when shield is removed, compare the value
-        if (buff.effectType == BuffTypes.SHIELD_ADD) {
+        if (buff.effectType === BuffTypes.SHIELD_ADD) {
             this.temporaryShield = Math.max(0, this.temporaryShield - buff.currentEffectValue);
         }
 
@@ -49,14 +65,14 @@ class BuffController {
             buff.onEnd(this.target, buff);
         }
 
-        this.activeBuffList.delete(targetType);
+        this.activeBuffList.delete(key);
     }
 
     updateFrame(curTime) {
         // handle buff expiration
-        this.activeBuffList.forEach((buff, type) => {
+        this.activeBuffList.forEach((buff, key) => {
             if (buff.isExpired) {
-                this.removeBuff(type);
+                this.removeBuff(key);
             }
         });
 
@@ -70,6 +86,8 @@ class BuffController {
                     this.target.HP -= buff.currentEffectValue * ((curTime - buff.startTime) / 1000);
                     break;
             }
+            buff.player = this.target
+            buff.update(curTime)
         });
 
         // HP limit
@@ -96,7 +114,7 @@ class BuffController {
     calcSpeedChange() {
         let rate = 1.0;
         this.activeBuffList.forEach(buff => {
-            if (buff.effectType == BuffTypes.SPEED_CHANGE) {
+            if (buff.effectType === BuffTypes.SPEED_CHANGE) {
                 rate *= 1 + buff.currentEffectValue;
             }
         });
@@ -106,7 +124,7 @@ class BuffController {
     calcDamageChange() {
         let rate = 1.0;
         this.activeBuffList.forEach(buff => {
-            if (buff.effectType == BuffTypes.DAMAGE_CHANGE) {
+            if (buff.effectType === BuffTypes.DAMAGE_CHANGE) {
                 rate *= 1 + buff.currentEffectValue;
             }
         });
@@ -116,10 +134,55 @@ class BuffController {
     calcShield() {
         let total = 0;
         this.activeBuffList.forEach(buff => {
-            if (buff.effectType == BuffTypes.SHIELD_ADD) {
+            if (buff.effectType === BuffTypes.SHIELD_ADD) {
                 total += buff.currentEffectValue;
             }
         });
         return total;
     }
+
+    getBuffById(id) {
+        const buff = this.activeBuffList.get(id)
+        if (buff) return buff;
+        console.error(`Not found buff by id: ${id}`)
+        return null;
+    }
+
+    getBuff(obj) {
+        for (const item of this.activeBuffList.values()) {
+            if (item instanceof  obj) {
+                return item;
+            }
+        }
+        error(`Not found buff by object: ${obj.toString()}`);
+        return null;
+    }
+
+    getBuffByKey(key) {
+        return this.getBuffById(key);
+    }
+
+    /**
+     * 根据buff的Label
+     * @param name
+     * @returns {Buff}
+     */
+    getBuffByName(name) {
+        for (const item of this.activeBuffList.values()) {
+            if (item.label === name) {
+                return item;
+            }
+        }
+        console.error(`Not found buff by name: ${name}`);
+        return null;
+    }
+
+    /**
+     * 显示buff信息
+     * @param buff
+     */
+    showBuffInfo(buff) {
+        BuffController.messageList.push(buff.description ?? "");
+    }
+
 }

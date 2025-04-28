@@ -1,5 +1,7 @@
 class Buff {
     constructor({
+        label = '',
+        price = 0,
         effectDesc = '',             // 效果描述
         effectType,                  // 效果类型
         rarity,                      // 稀有度
@@ -13,6 +15,9 @@ class Buff {
         whenEnd = null,              // 回调
         imgPath = ''                 // 图标路径
     }) {
+        this.id = crypto.randomUUID();
+        this.label = label;
+        this.price = price;
         // basic
         this.effectType = effectType;
         this.currentValue = effectValue;
@@ -62,5 +67,12 @@ class Buff {
     // get current effect value
     get currentEffectValue() {
         return this.currentValue * this.currentStack;
+    }
+    
+    start() {
+
+    }
+    update(curTime) {
+
     }
 }

@@ -465,8 +465,11 @@ class Main {
         // this.#status.updateGold(this.#gameReward.gold);
     }
 
-    chooseBuff(buffType) {
+    chooseBuff(data) {
         //console.log(buffType);
+        console.log(data);
+        
+        BuffController.shopBuff.push(data.buff)
     }
 
     chooseGameMap(gameType) {

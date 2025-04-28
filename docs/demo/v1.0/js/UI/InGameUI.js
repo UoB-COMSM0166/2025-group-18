@@ -92,9 +92,84 @@ class InGameUI {
         this.drawPollutionStatusAndRoundTimes();
         this.drawSkillStatus(playerStatus);
         this.drawGoldStatus();
+        this.drawBuffIcon()
+        this.drawBuffInfo()
         pop();
 
         this.drawPollutionBar();
+    }
+
+    drawBuffIcon() {
+        push();
+        if (BuffController.instance) { // 每 10 帧执行一次
+            const buffController = BuffController.instance;
+            const iconSize = 32; // 图标大小
+            const iconSpacing = 8; // 图标间距
+            let iconCount = 0; // 记录当前行已绘制的图标数量
+            let x = -110; // 起始 x 坐标
+            let y = 90; // 起始 y 坐标
+
+            buffController.activeBuffList.forEach(item => {
+                if (item.imgPath) {
+                    image(item.imgPath, x, y, iconSize, iconSize);
+
+                    const isHovered = (
+                        logicX > x &&
+                        logicX < x + iconSize &&
+                        logicY > y &&
+                        logicY < y + iconSize
+                    );
+                    // 检查鼠标是否悬停在图标上
+                    if (isHovered) {
+                        // 显示提示信息
+                        fill(255);
+                        rect(x, y + 30, textWidth(item.description), 20);
+                        fill(0);
+                        textSize(24)
+                        text(item.label, x, y + 30);
+                        text(item.description, x, y + 50);
+                    }
+
+                    iconCount++;
+                    x += iconSize + iconSpacing; // 更新 x 坐标
+
+                    if (iconCount % 6 === 0) {
+                        // 当一行绘制了 6 个图标后，换行
+                        x = 50;
+                        y += iconSize + iconSpacing;
+                    }
+                }
+            });
+        }
+        pop();
+    }
+
+    drawBuffInfo() {
+        push();
+        const scrollSpeed = 1;
+        if (BuffController.instance) {
+            if (BuffController.messageStack.length > 0) {
+                fill(255); // 设置文本颜色为白色
+                textSize(24); // 设置文本大小
+                let yOffset = 20; // 文本初始垂直偏移量
+                // 遍历消息栈并逐个打印消息
+                for (let i = 0; i < BuffController.messageStack.length; i++) {
+                    const message = BuffController.messageStack[i];
+                    // 绘制消息
+                    const xPosition = logicWidth - 200; // 减去 50 作为右边距
+                    textAlign(RIGHT)
+                    text(message, xPosition, yOffset);
+                    // 更新消息的垂直位置
+                    yOffset += 50;
+                    yOffset -= scrollSpeed;
+
+                }
+                while (BuffController.messageStack.length > 3) {
+                    BuffController.messageStack.shift()
+                }
+            }
+        }
+        pop();
     }
 
     // Theodore-金币显示

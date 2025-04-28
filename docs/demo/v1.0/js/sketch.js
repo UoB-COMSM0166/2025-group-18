@@ -259,6 +259,9 @@ function preload() {
     frames.building.chemical_box.push(loadImage('images/docs/img/png/building/chbox/1.png'));
     frames.building.chemical_box.push(loadImage('images/docs/img/png/building/chbox/2.png'));
     frames.building.chemical_box.push(loadImage('images/docs/img/png/building/chbox/3.png'));
+    // ------------------------ buff icon ------------------------
+    frames.buff = new Map()
+    frames.buff.set("health", loadImage('images/docs/img/png/buff/health.png'))
 
     // // ------------------------ 宠物 ------------------------
     // // 不知道是几帧的, 你看着来

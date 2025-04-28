@@ -108,12 +108,14 @@ class ShopUI {
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
         let items = [
-            { label: 'Item A', price: 100, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'Item B', price: 25, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'HP+20', price: 60, effect: 'HP+20', times: -1, priceIncrease: 30},
-            { label: 'Item D', price: 99, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'ONE PIECE', price: 20000, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'Pollution-100', price: 50, effect: 'decrease pollution', times: -1, priceIncrease: 25 },
+            new GoldBuff(),
+            new IncreasesAttackDamage(),
+            new IncreasesBulletSpeed(),
+            new IncreasesHealth(),
+            new IncreasesMaxHealth(),
+            new IncreasesPlayerMovementSpeed(),
+            new Shrapnel(),
+            new IncreaseHealtAndPower()
         ];
         this.#isInit = true;
         textFont('Helvetica');
@@ -166,6 +168,7 @@ class ShopUI {
                     times,
                     priceIncrease
                 );
+                button.buff = items[index];
                 this.buttons.push(button);
                 index++;
             }
@@ -249,7 +252,7 @@ class ShopUI {
                 } else {
                     // 执行回调（外部可根据 itemData 处理金币扣除、道具增加等逻辑）
                     if (this.#handleShoppingSelection) {
-                        this.#handleShoppingSelection(btn.type, btn.price * -1);
+                        this.#handleShoppingSelection(btn, btn.price * -1);
                     }
                     
                     this.buttons[i].times--;

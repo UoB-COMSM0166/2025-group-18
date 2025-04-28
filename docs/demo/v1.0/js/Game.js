@@ -75,6 +75,7 @@ class Game {
             () => this.addPet(),
             (player) => this.findPlayerClosestTarget(player)
         );
+        this.#player.info = playerBasicStatus
         this.#playerBuffController = new BuffController(this.#player);
 
         this.#orbiter = new Orbiter(
