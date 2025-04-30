@@ -108,14 +108,12 @@ class ShopUI {
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
         let items = [
-            new GoldBuff(),
-            new IncreasesAttackDamage(),
-            new IncreasesBulletSpeed(),
-            new IncreasesHealth(),
-            new IncreasesMaxHealth(),
-            new IncreasesPlayerMovementSpeed(),
-            new Shrapnel(),
-            new IncreaseHealtAndPower()
+            { label: 'GoldBuff', price: 100, effect: BUFF_TYPE_GOLD, times: 1, priceIncrease: 0 },
+            { label: 'Health & Power', price: 25, effect: BUFF_TYPE_INCREASE_HEALTH_AND_POWER, times: 1, priceIncrease: 0 },
+            { label: 'HP+20', price: 60, effect: -1, times: -1, priceIncrease: 30},
+            { label: 'Bullet Speed', price: 99, effect: BUFF_TYPE_INCREASE_BULLET_SPEED, times: 1, priceIncrease: 0 },
+            { label: 'ONE PIECE', price: 20000, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
+            { label: 'Pollution-100', price: 50, effect: -2, times: -1, priceIncrease: 25 },
         ];
         this.#isInit = true;
         textFont('Helvetica');

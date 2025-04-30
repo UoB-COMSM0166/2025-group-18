@@ -100,3 +100,12 @@ const BUFF_ARRAY_MAP = [
     IncreaseHealtAndPower
 ];
 
+// Define getNewBuff as a standalone function
+function getNewBuff(buffType) {
+    if (buffType < 1 || buffType >= BUFF_ARRAY_MAP.length) {
+        console.error(`Buff type ${buffType} is not valid.`);
+        return null;
+    }
+    return new BUFF_ARRAY_MAP[buffType]();
+}
+

@@ -468,8 +468,16 @@ class Main {
     chooseBuff(buffType) {
         //console.log(buffType);
         console.log(buffType);
-        
-        BuffController.shopBuff.push(new getNewBuff(buffType)());
+        if (buffType >= 0) {
+            BuffController.shopBuff.push(getNewBuff(buffType));
+        } else {
+            if (buffType == -1) {
+                this.#status.updateHP(20);
+            }
+            if (buffType == -2) {
+                this.#status.updatePollution(-100);
+            }
+        }
     }
 
     chooseGameMap(gameType) {
