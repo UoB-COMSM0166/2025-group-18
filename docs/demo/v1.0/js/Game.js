@@ -46,7 +46,7 @@ class Game {
         this.#bossCount = 0;
     }
 
-    initPlayer(playerBasicStatus, mapType = 1) {
+    initPlayer(playerBasicStatus, mapType) {
         const mapModel = getMapModel(mapType);
 
         this.#player = new Player(

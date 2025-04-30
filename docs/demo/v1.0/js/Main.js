@@ -65,7 +65,7 @@ class Main {
             (stepChangeType) => this.updateStep(stepChangeType)
         );
 
-        this.#game.initPlayer(playerBasicStatus);
+        //this.#game.initPlayer(playerBasicStatus);
         this.#game.setPollution(this.#status.getShipStatus().pollution);
         this.initInGameMap();
     }
