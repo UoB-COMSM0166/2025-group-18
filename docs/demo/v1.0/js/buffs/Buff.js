@@ -76,3 +76,27 @@ class Buff {
 
     }
 }
+
+const BUFF_TYPE_ERROR = 0;
+const BUFF_TYPE_GOLD = 1;
+const BUFF_TYPE_INCREASE_ATTACK_DAMAGE = 2;
+const BUFF_TYPE_INCREASE_BULLET_SPEED = 3;
+const BUFF_TYPE_INCREASE_HEALTH = 4;
+const BUFF_TYPE_INCREASE_MAX_HEALTH = 5;
+const BUFF_TYPE_INCREASE_PLAYER_SPEED = 6;
+const BUFF_TYPE_SHRAPNEL = 7;
+const BUFF_TYPE_INCREASE_HEALTH_AND_POWER = 8;
+const BUFF_TYPE_MAX_COUNT = 9;
+
+const BUFF_ARRAY_MAP = [
+    null,
+    GoldBuff,
+    IncreasesAttackDamage,
+    IncreasesBulletSpeed,
+    IncreasesHealth,
+    IncreasesMaxHealth,
+    IncreasesPlayerMovementSpeed,
+    Shrapnel,
+    IncreaseHealtAndPower
+];
+
