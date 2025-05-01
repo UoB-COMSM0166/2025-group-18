@@ -51,8 +51,8 @@ class Game {
 
         this.#player = new Player(
             "Player",
-            mapModel.playerStart.x * logicWidth,
-            mapModel.playerStart.y * logicHeight,
+            0,//mapModel.playerStart.x * logicWidth,
+            0,//mapModel.playerStart.y * logicHeight,
             playerBasicStatus.xSize,
             playerBasicStatus.ySize,
             playerBasicStatus.HP,
@@ -100,9 +100,9 @@ class Game {
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
+        console.log(info);
 
-
-        const playerBasicStatus = this.#player ? {
+        /*const playerBasicStatus = this.#player ? {
             xSize: this.#player.xSize,
             ySize: this.#player.ySize,
             HP: this.#player.HPmax,
@@ -113,7 +113,9 @@ class Game {
 
         if (playerBasicStatus) {
             this.initPlayer(playerBasicStatus, this.mapType);
-        }
+        }*/
+        this.#player.xCoordinate = info.playerStart.x * logicWidth;
+        this.#player.yCoordinate = info.playerStart.y * logicHeight;
 
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
@@ -132,7 +134,7 @@ class Game {
         this.#loopCount = loopCount;
 
 
-        const playerBasicStatus = this.#player ? {
+        /*const playerBasicStatus = this.#player ? {
             xSize: this.#player.xSize,
             ySize: this.#player.ySize,
             HP: this.#player.HPmax,
@@ -143,7 +145,9 @@ class Game {
 
         if (playerBasicStatus) {
             this.initPlayer(playerBasicStatus, this.mapType);
-        }
+        }*/
+        this.#player.xCoordinate = info.playerStart.x * logicWidth;
+        this.#player.yCoordinate = info.playerStart.y * logicHeight;
 
         this.initBoss(this.#loopCount);
         this.initEnemies(info.enemy, loopCount);

@@ -1,5 +1,5 @@
 class Player extends BasicObject {
-    static instance = null;
+    //static instance = null;
     constructor(name, xCoordinate, yCoordinate, xSize, ySize, HP, speed, skillCD, maxSkillCD) {
         super(
             name,
@@ -14,8 +14,8 @@ class Player extends BasicObject {
             // speed * 60 / logicFrameRate,
         );
         // 单例模式，防止多次实例化，全局可获取玩家对象
-        if (Player.instance) return Player.instance;
-        Player.instance = this;
+        // if (Player.instance) return Player.instance;
+        // Player.instance = this;
         this.HPmax = HP;
         this.skillCD = skillCD;
         this.maxSkillCD = maxSkillCD;

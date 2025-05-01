@@ -56,6 +56,11 @@ class Status {
         this.#playerStatus.HP = Math.min(HP, this.#playerStatus.HPmax);
     }
     
+    updateHPby(HP) {
+        this.#playerStatus.HP = Math.min(this.#playerStatus.HPmax, this.#playerStatus.HP + HP);
+
+    }
+
     recoverToMaxHP() {
         this.#playerStatus.HP = this.#playerStatus.HPmax;
     }

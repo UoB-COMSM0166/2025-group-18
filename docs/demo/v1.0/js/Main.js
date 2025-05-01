@@ -65,7 +65,7 @@ class Main {
             (stepChangeType) => this.updateStep(stepChangeType)
         );
 
-        //this.#game.initPlayer(playerBasicStatus);
+        this.#game.initPlayer(playerBasicStatus);
         this.#game.setPollution(this.#status.getShipStatus().pollution);
         this.initInGameMap();
     }
@@ -472,7 +472,7 @@ class Main {
             BuffController.shopBuff.push(getNewBuff(buffType));
         } else {
             if (buffType == -1) {
-                this.#status.updateHP(20);
+                this.#status.updateHPby(20);
             }
             if (buffType == -2) {
                 this.#status.updatePollution(-100);
