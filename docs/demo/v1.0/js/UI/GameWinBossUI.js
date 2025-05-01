@@ -11,13 +11,13 @@ class GameWinBossUI {
         this.loopCount = 0;
     }
 
-    // 添加轮回次数设置方法
+    // Added a method to set the number of cycles
     setLoopCount(count) {
         this.loopCount = count;
-        console.log("设置轮回次数:", count);
+        console.log("Set the number of rounds:", count);
     }
 
-    // 设置玩家状态
+    // Set the player status
     setPlayerStats(stats) {
         this.playerStats = stats;
     }
@@ -35,7 +35,7 @@ class GameWinBossUI {
             this.scale = 1;
         }
 
-        // 绘制按钮
+        // Draw the button
         draw() {
             drawingContext.save();
 
@@ -85,19 +85,19 @@ class GameWinBossUI {
         }
     }
 
-    // 初始化
+    // initialization
     init() {
         textFont('Helvetica');
         noStroke();
         this.createButtons();
     }
 
-    // 设置玩家状态
+    // Set the player status
     setPlayerStats(stats) {
         this.playerStats = stats;
     }
 
-    // 创建按钮
+    // Creating a Button
     createButtons() {
         this.buttons = [];
 
@@ -107,15 +107,15 @@ class GameWinBossUI {
 
         this.buttons.push(
             new this.ChooseBuffButton(
-                logicWidth * 0.25 - btnWidth / 2, y, btnWidth, btnHeight, "继续征程", MAIN_STEP_MAP_UI
+                logicWidth * 0.25 - btnWidth / 2, y, btnWidth, btnHeight, "Continue the journey", MAIN_STEP_MAP_UI
             ),
             new this.ChooseBuffButton(
-                logicWidth * 0.75 - btnWidth / 2, y, btnWidth, btnHeight, "返回码头", MAIN_STEP_MORSE_CODE
+                logicWidth * 0.75 - btnWidth / 2, y, btnWidth, btnHeight, "Return to the pier", MAIN_STEP_MORSE_CODE
             )
         );
     }
 
-    // 绘制界面
+    // Drawing interface
     draw() {
         background(0);
 
@@ -123,11 +123,11 @@ class GameWinBossUI {
         textAlign(CENTER, CENTER);
         textSize(40);
         fill(255, 215, 0);
-        text("恭喜击败Boss！", logicWidth / 2, logicHeight * 0.1);
+        text("Congratulations on defeating the Boss!", logicWidth / 2, logicHeight * 0.1);
 
         textSize(30);
         fill(255);
-        text("你击败了深海的强大存在，但海洋中的危险远未结束！", logicWidth / 2, logicHeight * 0.2);
+        text("You have defeated the powerful beings of the deep, but the dangers in the ocean are far from over!", logicWidth / 2, logicHeight * 0.2);
         pop();
 
         this.drawPlayerStats();
@@ -138,7 +138,7 @@ class GameWinBossUI {
         });
     }
 
-    // 绘制玩家状态数据
+    // Drawing player status data
     drawPlayerStats() {
         if (!this.playerStats) return;
         const centerX = logicWidth * 0.5;
@@ -149,32 +149,32 @@ class GameWinBossUI {
         textAlign(CENTER, CENTER);
         textSize(24);
         fill(255);
-        text("当前状态:", centerX, topY);
+        text("Current Status:", centerX, topY);
 
         textSize(20);
         fill(200);
 
-        // 显示生命值
+        // Show health
         const hpPercent = this.playerStats.HP / this.playerStats.HPmax;
         if (hpPercent < 0.3) fill(255, 100, 100);
         else if (hpPercent < 0.6) fill(255, 215, 0);
         else fill(100, 255, 100);
 
-        text(`生命值: ${this.playerStats.HP}/${this.playerStats.HPmax}`, centerX, topY + lineHeight);
+        text(`Health: ${this.playerStats.HP}/${this.playerStats.HPmax}`, centerX, topY + lineHeight);
         fill(200);
-        text(`金币: ${this.playerStats.gold}`, centerX, topY + lineHeight * 2);
+        text(`gold: ${this.playerStats.gold}`, centerX, topY + lineHeight * 2);
 
-        // 污染值颜色
+        // Pollution value color
         if (this.playerStats.pollutionLevel <= 2) fill(100, 255, 100);
         else if (this.playerStats.pollutionLevel <= 4) fill(255, 215, 0);
         else fill(255, 100, 100);
 
-        text(`污染值: ${this.playerStats.pollution}/${Status.MAX_POLLUTION}`, centerX, topY + lineHeight * 3);
-        text(`污染等级: ${this.playerStats.pollutionLevel}/${Status.POLLUTION_MAX_LEVEL}`, centerX, topY + lineHeight * 4);
+        text(`Pollution value: ${this.playerStats.pollution}/${Status.MAX_POLLUTION}`, centerX, topY + lineHeight * 3);
+        text(`Pollution degree: ${this.playerStats.pollutionLevel}/${Status.POLLUTION_MAX_LEVEL}`, centerX, topY + lineHeight * 4);
         pop();
     }
 
-    // 绘制选择提示信息
+    // Draw selection hint information
     drawChoiceInfo() {
         const btnWidth = 200;
         const leftX = logicWidth * 0.25 - btnWidth / 2;
@@ -187,33 +187,33 @@ class GameWinBossUI {
 
         textSize(24);
         fill(100, 255, 218);
-        text("继续征程:", logicWidth * 0.25, topY);
+        text("Continue the journey:", logicWidth * 0.25, topY);
 
         textSize(18);
         fill(200);
-        text(`• 获得${this.bossReward}金币`, logicWidth * 0.25, topY + lineHeight);
-        text("• 生命值完全恢复", logicWidth * 0.25, topY + lineHeight * 2);
+        text(`• Get${this.bossReward}coins`, logicWidth * 0.25, topY + lineHeight);
+        text("• Health fully restored", logicWidth * 0.25, topY + lineHeight * 2);
 
         fill(255, 215, 0);
-        text(`• 轮回次数+1 (敌人将变强)`, logicWidth * 0.25, topY + lineHeight * 3);
+        text(`•Number of reincarnations+1 (The enemy will become stronger)`, logicWidth * 0.25, topY + lineHeight * 3);
 
         fill(200);
-        text("• 挑战更多的深海危险", logicWidth * 0.25, topY + lineHeight * 4);
+        text("• Challenge more deep-sea dangers", logicWidth * 0.25, topY + lineHeight * 4);
 
         textSize(24);
         fill(255, 215, 0);
-        text("返回码头:", logicWidth * 0.75, topY);
+        text("Return to the pier:", logicWidth * 0.75, topY);
 
         textSize(18);
         fill(200);
-        text("• 解码神秘的信号", logicWidth * 0.75, topY + lineHeight);
-        text("• 完成此次冒险", logicWidth * 0.75, topY + lineHeight * 2);
-        text("• 查看你的航行成果", logicWidth * 0.75, topY + lineHeight * 3);
+        text("• Decoding the mysterious signal", logicWidth * 0.75, topY + lineHeight);
+        text("• Complete this adventure", logicWidth * 0.75, topY + lineHeight * 2);
+        text("• View your sailing results", logicWidth * 0.75, topY + lineHeight * 3);
         pop();
     }
 
 
-    // 处理鼠标按下事件
+    // Handling mouse press events
     handleMousePressed() {
         this.buttons.forEach(btn => {
             if (btn.isHovered) {
@@ -222,7 +222,7 @@ class GameWinBossUI {
         });
     }
 
-    // 处理鼠标释放事件
+    // Handling mouse release events
     handleMouseReleased() {
         for (let btn of this.buttons) {
             if (btn.release() && btn.isHovered) {

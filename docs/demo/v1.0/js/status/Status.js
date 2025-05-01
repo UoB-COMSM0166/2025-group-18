@@ -83,13 +83,13 @@ class Status {
         this.#playerStatus.gold = Math.max(0, newGold);
     }
 
-    // 增加轮回次数
+    // Increase the number of reincarnations
     incrementLoopCount() {
         this.#playerStatus.loopCount++;
-        console.log(`轮回次数增加至: ${this.#playerStatus.loopCount}`);
+        console.log(`Increase the number of turns to: ${this.#playerStatus.loopCount}`);
     }
     
-    // 获取轮回次数
+    // Get the number of reincarnations
     getLoopCount() {
         return this.#playerStatus.loopCount;
     }

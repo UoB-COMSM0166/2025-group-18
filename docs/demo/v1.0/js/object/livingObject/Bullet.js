@@ -71,7 +71,7 @@ class Bullet extends BasicObject {
         } else if (this.bulletTypes == BOSS_BULLET_TYPE) {
             framesLength = frames.bossBullet.length;
         } else if (this.bulletTypes == PET_BULLET_TYPE) {
-            // 暂用player子弹
+            // Temporarily use player bullets
             framesLength = frames.bullet.length;
         }
 
@@ -115,7 +115,7 @@ class Bullet extends BasicObject {
                 // frames.bossBullet[this.currentFrame].width / 20, 
                 // frames.bossBullet[this.currentFrame].height / 20);    
         } else if (this.bulletTypes == PET_BULLET_TYPE) {
-            // 暂用player子弹
+            // Temporarily use player bullets
             image(frames.bullet[this.currentFrame], 0, 0,
                 this.xSize, this.ySize);
                 // frames.bullet[this.currentFrame].width / 20, 
@@ -128,7 +128,7 @@ class Bullet extends BasicObject {
         /* if (bulletFrames.length === 0) {
             this.preload();
         } */
-        //console.log("发射了子弹图片");
+        //console.log("Bullet fired pictures");
         // fill(0, 255, 0);
         // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
         this.drawBullet();

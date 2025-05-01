@@ -9,7 +9,7 @@ class SoundEffects {
         this.isHornLoaded = false;
     }
 
-    // 预加载音效
+    // Preload sound effects
     preload() {
         this.noiseSound = loadSound('./MusicPack/SoundEffects/RadioNoise.ogg', () => {
             this.isNoiseLoaded = true;
@@ -24,19 +24,19 @@ class SoundEffects {
         });
     }
 
-    // 播放噪声音效
+    // Play noise sound effect
     playNoise() {
         this.isNoiseLoaded && this.noiseSound;
         this.noiseSound.play();
     }
 
-    // 播放彩蛋音效
+    // Play Easter egg sound effects
     playEgg() {
         this.isEggLoaded && this.eggSound && !this.isEggPlaying;
         this.isEggPlaying = true;
         this.eggSound.play();
 
-        // 重置状态
+        // Reset state
         this.eggSound.onended(() => {
             this.isEggPlaying = false;
         });
@@ -44,7 +44,7 @@ class SoundEffects {
 
     }
 
-    //播放鸣笛声
+    //Play whistle
     playHorn() {
         if (this.isHornLoaded && this.hornSound) {
             this.hornSound.play();
@@ -52,7 +52,7 @@ class SoundEffects {
             //console.log("Horn sound not loaded yet");
         }
     }
-    // 在这停顿！！
+    // Pause here!!
     stopAllSounds() {
         if (this.isNoiseLoaded && this.noiseSound && this.noiseSound.isPlaying()) {
             this.noiseSound.stop();
@@ -63,7 +63,7 @@ class SoundEffects {
         }
     }
 
-    // 判断彩蛋音效是否正在播放
+    // Determine whether the Easter egg sound effect is playing
     isEggSoundPlaying() {
         return this.isEggPlaying;
     }

@@ -5,14 +5,14 @@ class ThemeMusic {
         this.isPlaying = false;
     }
 
-    // 预加载
+    // Preloading
     preload() {
         this.music = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg', () => {
             this.isLoaded = true;
         });
     }
 
-    // 循环播放主题曲
+    // Play theme song on loop
     playTheme() {
         if (this.isLoaded && this.music && !this.isPlaying) {
             this.music.loop();
@@ -20,7 +20,7 @@ class ThemeMusic {
         }
     }
 
-    // 停止音乐
+    // Stop the music
     stopTheme() {
         if (this.isLoaded && this.music && this.isPlaying) {
             this.music.stop();

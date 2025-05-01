@@ -1,17 +1,17 @@
 class Buff {
     constructor({
-        effectDesc = '',             // 效果描述
-        effectType,                  // 效果类型
-        rarity,                      // 稀有度
-        effectValue,                 // 效果数值
-        effectDuration = 0,          // 持续时间（0表示立刻生效）
-        canStack = false,            // 能否叠加
-        maxStackCount = 1,           // 最大叠加层数
-        triggerCondition,            // 触发条件
-        applyRule = null,            // 自定义生效规则
-        whenApply = null,            // 回调 (effectDuration == 0 时生效)
-        whenEnd = null,              // 回调
-        imgPath = ''                 // 图标路径
+        effectDesc = '',             // Effect description
+        effectType,                  // Effect Type
+        rarity,                      // Rarity
+        effectValue,                 // Effect Value
+        effectDuration = 0,          // Duration (0 means immediate effect)
+        canStack = false,            // Can it be superimposed?
+        maxStackCount = 1,           // Maximum number of stacking layers
+        triggerCondition,            // Trigger conditions
+        applyRule = null,            // Customize the effectiveness rules
+        whenApply = null,            // Callback (effective when effectDuration == 0)
+        whenEnd = null,              // Callbacks
+        imgPath = ''                 // Icon Path
     }) {
         // basic
         this.effectType = effectType;
