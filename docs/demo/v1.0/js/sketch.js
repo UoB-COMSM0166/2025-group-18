@@ -61,6 +61,12 @@ let frames = {
         radioNoise: null,
         wrong: null,
     },
+    mapIcon: {
+        event: [],
+        enemy: [],
+        boss: [],
+        boat: [],
+    }
 };
 
 function preload() {
@@ -277,6 +283,13 @@ function preload() {
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/1.png'));
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/2.png'));
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/3.png'));
+
+
+    // ------------------------ 地图图标 ------------------------
+    frames.mapIcon.event.push(loadImage('images/docs/img/png/mapIcon/event.png'));
+    frames.mapIcon.enemy.push(loadImage('images/docs/img/png/mapIcon/enemy.png'));
+    frames.mapIcon.boss.push(loadImage('images/docs/img/png/mapIcon/boss.png'));
+    frames.mapIcon.boat.push(loadImage('images/docs/img/png/mapIcon/boat.png'));
 
 
     // 主题曲音频
