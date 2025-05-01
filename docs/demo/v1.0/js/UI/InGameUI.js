@@ -97,7 +97,7 @@ class InGameUI {
         this.drawPollutionBar();
     }
 
-    // Theodore-金币显示
+    // Theodore-Gold Coin Display
     drawGoldStatus() {
         push();
         translate(-120, -50);
@@ -155,7 +155,7 @@ class InGameUI {
         pop();
     }
 
-    // 污染状态 + 轮回次数
+    // Pollution status + number of reincarnations
     drawPollutionStatusAndRoundTimes() {
         push();
         rectMode(CENTER);
@@ -198,11 +198,11 @@ class InGameUI {
         textFont(this.font || 'Arial Black');
         textSize(14);
 
-        // 设置阴影效果
+        // Setting the shadow effect
         drawingContext.shadowColor = statusColor;
         drawingContext.shadowBlur = 8;
         
-        // 高污染等级时，文字抖动
+        // When the pollution level is high, the text will shake
         if (this.pollutionLevel >= 4) {
             let jitterX = random(-1, 1);
             let jitterY = random(-1, 1);
@@ -210,7 +210,7 @@ class InGameUI {
         }
 
         fill(statusColor);
-        // 居中
+        // Center
         textAlign(LEFT);
         text(`ECO STATUS: ${statusInfo.name}    LoopTimes: ${this.playerLoopCount}`, 0, 0);
         pop();
@@ -219,7 +219,7 @@ class InGameUI {
     }
 
     applyDynamicScaling() {
-        translate(30 + 120, 30 + 50); // 左上
+        translate(30 + 120, 30 + 50); // Top left
         scale(this.uiScale);
     }
 
@@ -260,9 +260,9 @@ class InGameUI {
         noStroke();
         rect(20, 30, 200, 20, 5);
 
-        // LLK，你的血条UI太丑了，我改了。:)
+        // LLK, your health bar UI is too ugly, I changed it. :)
         // By Theodore
-        // 根据血量百分比决定颜色
+        // Color determined by health percentage
         let hpColor;
         if (hpPercent < 0.3) {
             hpColor = color(255, 50, 50);
@@ -286,7 +286,7 @@ class InGameUI {
         textFont(this.font || 'Arial Black');
         textSize(15);
 
-        // Theodore-血量百分比改变文字颜色
+        // Theodore-HP percentage changes text color
         if (hpPercent < 0.3) {
             fill(255, 150, 150, 220 + 35 * this.hpFlash);
         } else if (hpPercent < 0.6) {

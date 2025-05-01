@@ -115,47 +115,47 @@ class PlayerControl {
         }
         if (xMove > 0 && yMove == 0) {
 
-            this.#player.setAnimation('D');//调用向右移动帧
+            this.#player.setAnimation('D');//Call to move frames right
         }
 
         if (xMove < 0 && yMove == 0) {
 
-            this.#player.setAnimation('A');//调用向右移动帧
+            this.#player.setAnimation('A');//Call to move frames right
         }
 
         if (yMove > 0 && xMove == 0) {
 
-            this.#player.setAnimation('S');//调用向右移动帧
+            this.#player.setAnimation('S');//Call to move frames right
         }
 
         if (yMove < 0 && xMove == 0) {
 
-            this.#player.setAnimation('W');//调用向右移动帧
+            this.#player.setAnimation('W');//Call to move frames right
         }
 
         if (xMove > 0 && yMove > 0) {
 
-            this.#player.setAnimation('DS');//调用向右移动帧
+            this.#player.setAnimation('DS');//Call to move frames right
         }
 
         if (xMove > 0 && yMove < 0) {
 
-            this.#player.setAnimation('DW');//调用向右移动帧
+            this.#player.setAnimation('DW');//Call to move frames right
         }
 
         if (xMove < 0 && yMove < 0) {
 
-            this.#player.setAnimation('AW');//调用向右移动帧
+            this.#player.setAnimation('AW');//Call to move frames right
         }
 
         if (xMove < 0 && yMove > 0) {
 
-            this.#player.setAnimation('AS');//调用向右移动帧
+            this.#player.setAnimation('AS');//Call to move frames right
         }
 
         if (xMove == 0 && yMove == 0) {
 
-            this.#player.setAnimation('idleD');//调用向右移动         
+            this.#player.setAnimation('idleD');//Call to move frames right         
         }
         this.playerMoveCallBack(xMove, yMove);
     }

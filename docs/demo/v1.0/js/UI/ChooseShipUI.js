@@ -16,7 +16,7 @@ class ChooseShipUI {
         this.borderSize = 50;
         this.targetBorderSize = 50;
         this.borderColor = null;
-        this.onShipSelect = onShipSelect; // 回调
+        this.onShipSelect = onShipSelect; // Callbacks
     }
   
     LevelButton = class {

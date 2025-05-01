@@ -48,24 +48,24 @@ class CaptainUI {
             this.videoLoaded = true;
             this.isPlaying = false;
         } catch (error) {
-            console.error("加载视频时出错:", error);
+            console.error("Error loading video:", error);
             this.videoLoaded = false;
         }
     }
 
-    // 创建按钮
+    // Creating a Button
     createButtons() {
         const btnWidth = 100;
         const btnHeight = 40;
         const margin = 20;
 
-        // 返回按钮
+        // Back Button
         this.backButton = {
             x: logicWidth * 2 / 3 + margin,
             y: margin,
             w: btnWidth,
             h: btnHeight,
-            label: "返回",
+            label: "return",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -79,13 +79,13 @@ class CaptainUI {
             }
         };
 
-        // 添加播放/暂停按钮
+        // Add a Play/Pause Button
         this.playPauseButton = {
             x: logicWidth * 2 / 3 + margin,
             y: margin + btnHeight + 10,
             w: btnWidth,
             h: btnHeight,
-            label: "播放",
+            label: "Play",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -93,18 +93,18 @@ class CaptainUI {
                     if (this.isPlaying) {
                         this.videoElement.pause();
                         this.isPlaying = false;
-                        this.playPauseButton.label = "播放";
+                        this.playPauseButton.label = "Play";
                     } else {
                         this.videoElement.play();
                         this.isPlaying = true;
-                        this.playPauseButton.label = "暂停";
+                        this.playPauseButton.label = "pause";
                     }
                 }
             }
         };
     }
 
-    // 绘制按钮
+    // Draw the button
     drawButton(btn) {
         push();
         const mainColor = color(100, 255, 218);
@@ -146,7 +146,7 @@ class CaptainUI {
         }
     }
 
-    // 绘制滚动的诗文
+    // Draw scrolling poems
     drawPoemText() {
         push();
         const leftSectionWidth = logicWidth / 3;
@@ -190,14 +190,14 @@ class CaptainUI {
         pop();
     }
 
-    // 绘制视频和说明文本
+    // Draw video and description text
     drawVideoAndText() {
         push();
         const rightSectionX = logicWidth / 3;
         const rightSectionWidth = logicWidth * 2 / 3;
         const margin = 30;
 
-        // 视频部分
+        // Video Section
         if (this.videoLoaded && this.videoElement) {
             const videoWidth = rightSectionWidth - margin * 2;
             const videoHeight = videoWidth * 9 / 16;
@@ -209,19 +209,19 @@ class CaptainUI {
             ellipse(videoX + videoWidth - 15, videoY + 15, 10, 10);
             image(this.videoElement, videoX + videoWidth / 2, videoY + videoHeight / 2, videoWidth, videoHeight);
 
-            // 版权声明
+            // Copyright Notice
             fill(150);
             textSize(12);
             textAlign(CENTER, TOP);
-            text("Public Domain Mark 1.0 Universal, 版权合法", rightSectionX + rightSectionWidth / 2, videoY + videoHeight + 10);
+            text("Public Domain Mark 1.0 Universal, Copyright legality", rightSectionX + rightSectionWidth / 2, videoY + videoHeight + 10);
 
-            // 说明文本区域
+            // Description text area
             const textY = videoY + videoHeight + 40;
             const textWidth = videoWidth;
             textAlign(LEFT, TOP);
             fill(255, 215, 0);
             textSize(20);
-            text("神秘代码解码: O Captain! my Captain!", videoX, textY);
+            text("Mysterious Code Decoded: O Captain! my Captain!", videoX, textY);
             fill(255);
             textSize(16);
             const explanationText =
@@ -248,12 +248,12 @@ class CaptainUI {
             fill(255);
             textSize(24);
             textAlign(CENTER, CENTER);
-            text("正在加载视频...", rightSectionX + rightSectionWidth / 2, logicHeight / 2);
+            text("Loading video...", rightSectionX + rightSectionWidth / 2, logicHeight / 2);
         }
         pop();
     }
 
-    // 用于绘制带有换行的文本
+    // Used to draw text with line breaks
     drawWrappedText(messageText, x, y, maxWidth) {
         const words = messageText.split(' ');
         let currentLine = '';
@@ -277,7 +277,7 @@ class CaptainUI {
         text(currentLine, x, y + yOffset);
     }
 
-    // 主绘制函数
+    // Main drawing function
     draw() {
         background(0);
         this.drawPoemText();
@@ -288,7 +288,7 @@ class CaptainUI {
         this.drawButton(this.playPauseButton);
     }
 
-    // 处理鼠标按下
+    // Handling Mouse Clicks
     handleMousePressed() {
         if (this.backButton.isHovered) {
             this.backButton.scale = 0.95;
@@ -298,7 +298,7 @@ class CaptainUI {
         }
     }
 
-    // 处理鼠标释放
+    // Handling Mouse Release
     handleMouseReleased() {
         if (this.backButton.isHovered && this.backButton.scale < 1) {
             playSound(frames.soundEffect.hover);
@@ -313,7 +313,7 @@ class CaptainUI {
         this.playPauseButton.scale = 1;
     }
 
-    // 处理窗口大小变化
+    // Handling window size changes
     handleWindowResized() {
         this.createButtons();
     }
