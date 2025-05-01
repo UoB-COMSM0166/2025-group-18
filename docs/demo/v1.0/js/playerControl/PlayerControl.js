@@ -67,13 +67,30 @@ class PlayerControl {
         this.shootKey = false;
     }
 
-    shoot(xSpeed, ySpeed) {
+    shoot(xSpeed, ySpeed, bulletMoveType, attackMultiple, bulletNum) {
         //console.log("Shooting!");
-        this.shootCallBack(
-            xSpeed, ySpeed,
-            PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
-            this.#player.equipment.getCurrentWeapon().attackPower,
-        );
+        if (bulletNum == 1) {
+            this.shootCallBack(
+                xSpeed, ySpeed,
+                PLAYER_BULLET_TYPE, bulletMoveType,
+                this.#player.equipment.getCurrentWeapon().attackPower,
+            );
+        } else if (bulletNum > 1) {
+            let totalAngle = Math.PI / 24 * bulletNum;
+            let angleStep = totalAngle / (bulletNum - 1);
+            let baseAngle = Math.atan2(ySpeed, xSpeed);
+
+            for (let i = 0; i < bulletNum; i++) {
+                let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
+                let targetXSpeed = Math.cos(offsetAngle);
+                let targetYSpeed = Math.sin(offsetAngle);
+                this.shootCallBack(
+                    targetXSpeed, targetYSpeed,
+                    PLAYER_BULLET_TYPE, bulletMoveType,
+                    this.#player.equipment.getCurrentWeapon().attackPower,
+                );
+            }
+        }
 
         if (typeof playerShootSound != 'undefined') {
             playerShootSound.play();
@@ -145,13 +162,12 @@ class PlayerControl {
 
     updateShoot() {
         if (this.shootKey && millis() - this.lastShootTime >= this.shootCD * 1000) {
-            // let logicX = map(mouseX, 0, width, 0, logicWidth);
-            // let logicY = map(mouseY, 0, height, 0, logicHeight);
-            // console.log("1 logicX: ", logicX, "; logicY: ", logicY);
             let distance = dist(this.#player.xCoordinate, this.#player.yCoordinate, logicX, logicY);
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
-            this.shoot(shootX, shootY);
+            this.shoot(shootX, shootY, BULLET_MOVE_TYPE_NORMAL, 
+                this.#player.equipment.getCurrentWeapon().attackPower, 
+                this.#player.bulletNum);
             //console.log("updateShoot()");
         }
     }
@@ -197,20 +213,24 @@ class PlayerControl {
         let target = this.targetCallBack(this.#player);
         let dx = this.#player.xCoordinate - target.xCoordinate;
         let dy = this.#player.yCoordinate - target.yCoordinate;
-        let baseAngle = Math.atan2(dy, dx);
-        let totalAngle = Math.PI / 3 * 2;
-        let angleStep = totalAngle / 7;
 
-        for (let i = 0; i < 8; i++) {
-            let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
-            let targetXSpeed = Math.cos(offsetAngle);
-            let targetYSpeed = Math.sin(offsetAngle);
-            this.shootCallBack(
-                targetXSpeed, targetYSpeed,
-                PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
-                2 * this.#player.equipment.getCurrentWeapon().attackPower,
-            );
-        }
+        this.shoot(dx, dy, BULLET_MOVE_TYPE_HOMING, 
+            this.#player.equipment.getCurrentWeapon().attackPower, 
+            16);
+        // let baseAngle = Math.atan2(dy, dx);
+        // let totalAngle = Math.PI / 3 * 2;
+        // let angleStep = totalAngle / 7;
+
+        // for (let i = 0; i < 8; i++) {
+        //     let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
+        //     let targetXSpeed = Math.cos(offsetAngle);
+        //     let targetYSpeed = Math.sin(offsetAngle);
+        //     this.shootCallBack(
+        //         targetXSpeed, targetYSpeed,
+        //         PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
+        //         2 * this.#player.equipment.getCurrentWeapon().attackPower,
+        //     );
+        // }
 
         this.#player.skillCD = this.#player.maxSkillCD;
     }

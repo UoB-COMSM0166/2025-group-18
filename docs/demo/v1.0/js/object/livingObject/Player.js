@@ -16,6 +16,7 @@ class Player extends BasicObject {
         this.skillCD = skillCD;
         this.maxSkillCD = maxSkillCD;
         this.equipment = new Equipment(name, 0, 0, 0, 0, 0, {});
+        this.bulletNum = 3; // bulletNum
         this.wavePushX = 0;
         this.wavePushY = 0;
         this.currentFrames = [];
@@ -101,6 +102,7 @@ class Player extends BasicObject {
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
             pop();
         } else {
+            console.log(this.frameIndex);
             image(this.currentFrames[this.frameIndex], 
                   this.xCoordinate, this.yCoordinate, 
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
