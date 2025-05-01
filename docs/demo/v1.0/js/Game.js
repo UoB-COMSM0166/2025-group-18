@@ -847,6 +847,8 @@ class Game {
         let bulletYSize = 0;
         let bulletSpeed = 0;
         if (bulletType == PLAYER_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the player's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
@@ -855,25 +857,31 @@ class Game {
             bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize;
             bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
         } else if (bulletType == ENEMY_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the enemy's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 20;
-            bulletXSize = 15;
-            bulletYSize = 15;
+            explosionSize = 20 * scale;
+            bulletXSize = 15 * scale;
+            bulletYSize = 15 * scale;
             bulletSpeed = 180 / logicFrameRate;
         } else if (bulletType == BOSS_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the boss's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 105;
-            bulletXSize = 100;
-            bulletYSize = 100;
+            explosionSize = 105 * scale;
+            bulletXSize = 100 * scale;
+            bulletYSize = 100 * scale;
             bulletSpeed = 300 / logicFrameRate;
         } else if (bulletType == PET_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the pet's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 20;
-            bulletXSize = 15;
-            bulletYSize = 15;
+            explosionSize = 20 * scale;
+            bulletXSize = 15 * scale;
+            bulletYSize = 15 * scale;
             bulletSpeed = 180 / logicFrameRate;
         }
         const bullet = new Bullet(
