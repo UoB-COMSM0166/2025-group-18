@@ -67,6 +67,7 @@ let frames = {
         boss: null,
         boat: null,
         mapBG: null,
+        mapMask: null,
     }
 };
 
@@ -292,6 +293,7 @@ function preload() {
     frames.mapIcon.boss = loadImage('images/docs/img/png/mapIcon/boss.png');
     frames.mapIcon.boat = loadImage('images/docs/img/png/mapIcon/boat.png');
     frames.mapIcon.mapBG = loadImage('images/docs/img/png/mapIcon/mapBG.webp');
+    frames.mapIcon.mapMask = loadImage('images/docs/img/png/mapIcon/mask.webp');
 
 
     // 主题曲音频
@@ -365,12 +367,12 @@ function draw() {
     // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
 
     // 使用当前选择的背景图
-    if (frames.currentBackground) {
-        logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
-        logicCanvas.image(frames.currentBackground, logicWidth / 2, 0, logicWidth, logicHeight);
-        logicCanvas.image(frames.currentBackground, 0, logicHeight / 2, logicWidth, logicHeight);
-        logicCanvas.image(frames.currentBackground, logicWidth / 2, logicHeight / 2, logicWidth, logicHeight);
-    }
+    // if (frames.currentBackground) {
+    //     logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
+        // logicCanvas.image(frames.currentBackground, logicWidth / 2, 0, logicWidth, logicHeight);
+        // logicCanvas.image(frames.currentBackground, 0, logicHeight / 2, logicWidth, logicHeight);
+        // logicCanvas.image(frames.currentBackground, logicWidth / 2, logicHeight / 2, logicWidth, logicHeight);
+    // }
 
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
@@ -389,11 +391,12 @@ function draw() {
     scale(scaleRatio);
     // scale(scaleX, scaleY);
 
-    // beginClip();
-    // rect(0, 0, logicWidth, logicHeight);
-    // endClip();
+    beginClip();
+    rect(0, 0, logicWidth, logicHeight);
+    endClip();
     
     // rectMode(CORNER);
+    imageMode(CENTER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
 }

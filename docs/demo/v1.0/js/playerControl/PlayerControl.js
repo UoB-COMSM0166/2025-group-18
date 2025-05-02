@@ -76,7 +76,12 @@ class PlayerControl {
                 this.#player.equipment.getCurrentWeapon().attackPower,
             );
         } else if (bulletNum > 1) {
-            let totalAngle = Math.PI / 24 * bulletNum;
+            let totalAngle;
+            if (bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
+                totalAngle = Math.PI / 12 * bulletNum;
+            } else {
+                totalAngle = Math.PI / 48 * bulletNum;
+            }
             let angleStep = totalAngle / (bulletNum - 1);
             let baseAngle = Math.atan2(ySpeed, xSpeed);
 
@@ -165,8 +170,8 @@ class PlayerControl {
             let distance = dist(this.#player.xCoordinate, this.#player.yCoordinate, logicX, logicY);
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
-            this.shoot(shootX, shootY, BULLET_MOVE_TYPE_NORMAL, 
-                this.#player.equipment.getCurrentWeapon().attackPower, 
+            this.shoot(shootX, shootY, BULLET_MOVE_TYPE_NORMAL,
+                this.#player.equipment.getCurrentWeapon().attackPower,
                 this.#player.bulletNum);
             //console.log("updateShoot()");
         }
@@ -214,9 +219,9 @@ class PlayerControl {
         let dx = this.#player.xCoordinate - target.xCoordinate;
         let dy = this.#player.yCoordinate - target.yCoordinate;
 
-        this.shoot(dx, dy, BULLET_MOVE_TYPE_HOMING, 
-            this.#player.equipment.getCurrentWeapon().attackPower, 
-            16);
+        this.shoot(dx, dy, BULLET_MOVE_TYPE_HOMING,
+            2 * this.#player.equipment.getCurrentWeapon().attackPower,
+            8);
         // let baseAngle = Math.atan2(dy, dx);
         // let totalAngle = Math.PI / 3 * 2;
         // let angleStep = totalAngle / 7;
