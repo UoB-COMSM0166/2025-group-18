@@ -31,6 +31,8 @@ Video of Demo - TBD
 | Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | TBD | TBD |
 | Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | TBD | TBD |
 
+</div>
+
 ## Kanban link
 
 > [🧩 Board · 2025-Group-18](https://github.com/orgs/UoB-COMSM0166/projects/129)
@@ -101,6 +103,7 @@ Video of Demo - TBD
 
 <div align="center">
 	<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
+</div>
 
 #### Epic
 
@@ -178,6 +181,8 @@ Video of Demo - TBD
 | Pet | <img src="docs/images/docs/gif/pet.gif" width="80"/> | pet | orbiter or fort or laser |
 | Pollute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pollution |
 | Tnt | <img src="docs/images/docs/gif/TNT.gif" width="80"/> | building | tnt |
+
+</div>
 
 ### Design
 
@@ -379,3 +384,5 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 | Yutong Liu | xm24685@bristol.ac.uk | TBD | TBD |
 | Zihao Xia | qh24613@bristol.ac.uk | TBD | TBD |
 | Guanglong Xia | iu24606@bristol.ac.uk | TBD | TBD |
+
+</div>
