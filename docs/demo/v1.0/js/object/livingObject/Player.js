@@ -102,7 +102,7 @@ class Player extends BasicObject {
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
             pop();
         } else {
-            console.log(this.frameIndex);
+            // console.log(this.frameIndex);
             image(this.currentFrames[this.frameIndex], 
                   this.xCoordinate, this.yCoordinate, 
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);

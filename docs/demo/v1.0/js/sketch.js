@@ -62,10 +62,11 @@ let frames = {
         wrong: null,
     },
     mapIcon: {
-        event: [],
-        enemy: [],
-        boss: [],
-        boat: [],
+        event: null,
+        enemy: null,
+        boss: null,
+        boat: null,
+        mapBG: null,
     }
 };
 
@@ -286,10 +287,11 @@ function preload() {
 
 
     // ------------------------ 地图图标 ------------------------
-    frames.mapIcon.event.push(loadImage('images/docs/img/png/mapIcon/event.png'));
-    frames.mapIcon.enemy.push(loadImage('images/docs/img/png/mapIcon/enemy.png'));
-    frames.mapIcon.boss.push(loadImage('images/docs/img/png/mapIcon/boss.png'));
-    frames.mapIcon.boat.push(loadImage('images/docs/img/png/mapIcon/boat.png'));
+    frames.mapIcon.event = loadImage('images/docs/img/png/mapIcon/event.png');
+    frames.mapIcon.enemy = loadImage('images/docs/img/png/mapIcon/enemy.png');
+    frames.mapIcon.boss = loadImage('images/docs/img/png/mapIcon/boss.png');
+    frames.mapIcon.boat = loadImage('images/docs/img/png/mapIcon/boat.png');
+    frames.mapIcon.mapBG = loadImage('images/docs/img/png/mapIcon/mapBG.webp');
 
 
     // 主题曲音频
@@ -340,7 +342,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 45;
+let logicFrameRate = 30;
 
 function setup() {
     main = new Main();
@@ -382,19 +384,31 @@ function draw() {
     logicY = map(mouseY, marginY, marginY + logicHeight * scaleRatio, 0, logicHeight);
     
     push();
+    resetMatrix();
     translate(marginX, marginY);
     scale(scaleRatio);
     // scale(scaleX, scaleY);
-    clip(mask);
+
+    // beginClip();
+    // rect(0, 0, logicWidth, logicHeight);
+    // endClip();
+    
     // rectMode(CORNER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
 }
 
-function mask() {
-    rectMode(CORNER);
-    rect(0, 0, logicWidth, logicHeight);
-}
+// function mask() {
+//     rectMode(CORNER);
+//     rect(0, 0, logicWidth, logicHeight);
+// }
+
+// function mapMask() {
+//     logicCanvas.translate(-logicWidth / 2, -logicHeight / 2);
+//     logicCanvas.ellipseMode(CENTER);
+//     logicCanvas.ellipse(logicWidth / 2, logicHeight / 2, logicHeight * 0.88, logicHeight * 0.88);
+//     // logicCanvas.ellipse(0,0, logicHeight * 0.88, logicHeight * 0.88);
+// }
 
 function keyPressed() {
     if (main != null) {

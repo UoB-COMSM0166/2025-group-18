@@ -12,6 +12,13 @@ class MapUI {
         this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;    // 最外层罗盘半径
         this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
+        // this.mapCanvas = createGraphics(logicWidth * 2, logicHeight * 2);
+        // this.mapCanvas.imageMode(CORNER);
+        // this.mapCanvas.image(frames.mapIcon.mapBG, 0, 0, logicWidth * 2, logicHeight * 2);
+
+        this.mapCoorX = logicWidth;
+        this.mapCoorY = logicHeight / 4 * 6;
+
         // 5 作为最外圈(outer ring)，0 作为中心
         this.maxRing = 5; // 最外圈是 5
         this.minRing = 0; // 中心是 0
@@ -21,22 +28,22 @@ class MapUI {
         // roads 用来存储绘制曲线的结构
         this.roads = [];
 
-        // 玩家所处的环及该环中的索引(第几个点)
-        this.playerLocation = { ring: 5, index: 0 };
+        // // 玩家所处的环及该环中的索引(第几个点)
+        this.playerLocation = { ring: this.maxRing, index: 0 };
 
         // 玩家图标信息
         this.playerMarker = {
-            x: this.xCoor,
-            y: this.yCoor,
-            targetX: this.xCoor,
-            targetY: this.yCoor,
+            x: this.mapCoorX,
+            y: this.mapCoorY,
+            targetX: this.mapCoorX,
+            targetY: this.mapCoorY,
             rotation: 0,
-            targetRotation: 0
+            // targetRotation: 0
         };
 
-        // 罗盘自身旋转（若需要可保留，也可不使用）
-        this.compassRotation = 0;
-        this.targetRotation = 0;
+        // // 罗盘自身旋转（若需要可保留，也可不使用）
+        // this.compassRotation = 0;
+        // this.targetRotation = 0;
 
         // 初始化最外圈( ring=5 )并将玩家随机放置在外圈的某个点上
         this.init();
@@ -61,66 +68,89 @@ class MapUI {
             this.scale = 1;
         }
 
-        draw() {
-            drawingContext.save();
+        draw(xPlayer, yPlayer) {
+            // console.log("draw button", this.x, this.y);
+            // drawingContext.save();
 
-            const mainColor = color(100, 255, 218);
-            const bossColor = color(255, 100, 100);
-            const hoverColor = color(100, 255, 218, 153);
-            const visitedColor = this.isVisited ? color(150, 200, 180) : mainColor;
+            // const mainColor = color(100, 255, 218);
+            // const bossColor = color(255, 100, 100);
+            // const hoverColor = color(100, 255, 218, 153);
+            // const visitedColor = this.isVisited ? color(150, 200, 180) : mainColor;
 
             // ring=0 → BOSS；其他环 → 普通
             const isBoss = (this.ring == 0);
 
-            const buttonColor = isBoss ? bossColor : visitedColor;
-            const textColor = this.isHovered ? color(0) : buttonColor;
-            const bgColor = this.isHovered ? hoverColor : color(0, 0);
+            // const buttonColor = isBoss ? bossColor : visitedColor;
+            // const textColor = this.isHovered ? color(0) : buttonColor;
+            // const bgColor = this.isHovered ? hoverColor : color(0, 0);
 
             // 缩放动画
             const currentScale = lerp(this.scale, 1, 0.2);
 
-            push();
-            translate(this.x, this.y);
-            scale(currentScale);
+            // mapCanvas.push();
+            // mapCanvas.translate(this.x, this.y);
+            // mapCanvas.scale(currentScale);
 
-            drawingContext.shadowColor = buttonColor;
-            drawingContext.shadowBlur = this.isHovered ? 40 : 20;
-            fill(bgColor);
-            stroke(buttonColor);
-            strokeWeight(2);
+            // drawingContext.shadowColor = buttonColor;
+            // drawingContext.shadowBlur = this.isHovered ? 40 : 20;
+            // fill(bgColor);
+            // stroke(buttonColor);
+            // strokeWeight(2);
 
             // BOSS 用菱形，其它用圆
+            logicCanvas.push();
+            logicCanvas.imageMode(CENTER);
             if (isBoss) {
-                beginShape();
-                vertex(0, -this.h / 2);
-                vertex(this.w / 2, 0);
-                vertex(0, this.h / 2);
-                vertex(-this.w / 2, 0);
-                endShape(CLOSE);
+                // beginShape();
+                // vertex(0, -this.h / 2);
+                // vertex(this.w / 2, 0);
+                // vertex(0, this.h / 2);
+                // vertex(-this.w / 2, 0);
+                // endShape(CLOSE);
+                logicCanvas.image(
+                    frames.mapIcon.boss,
+                    this.x - xPlayer + logicWidth / 2,
+                    this.y - yPlayer + logicHeight / 2,
+                    this.w * 2 * currentScale, this.h * 2 * currentScale);
             } else {
-                ellipse(0, 0, this.w, this.h);
+                if (this.mapType == MAIN_STEP_IN_GAME) {
+                    logicCanvas.image(
+                        frames.mapIcon.enemy,
+                        this.x,
+                        this.y,
+                        this.w * currentScale, this.h * currentScale);
+                } else {
+                    logicCanvas.image(
+                        frames.mapIcon.event,
+                        this.x - xPlayer + logicWidth / 2,
+                        this.y - yPlayer + logicHeight / 2,
+                        this.w * currentScale, this.h * currentScale);
+                }
+                // ellipse(0, 0, this.w, this.h);
             }
 
-            // image loading
-            fill(textColor);
-            noStroke();
-            textSize(this.w * 0.4);
-            textAlign(CENTER, CENTER);
-            if (this.mapType == MAIN_STEP_IN_GAME) {
-                text("Fight!", 0, 0);
-            } else {
-                text("???", 0, 0);
-            }
+            // // image loading
+            // fill(textColor);
+            // noStroke();
+            // textSize(this.w * 0.4);
+            // textAlign(CENTER, CENTER);
+            // if (this.mapType == MAIN_STEP_IN_GAME) {
+            //     text("Fight!", 0, 0);
+            // } else {
+            //     text("???", 0, 0);
+            // }
 
-            pop();
-            drawingContext.restore();
+            logicCanvas.pop();
+            // drawingContext.restore();
         }
 
-        checkHover() {
-            const dx = logicX - this.x;
-            const dy = logicY - this.y;
-            const distance = sqrt(dx * dx + dy * dy);
-            this.isHovered = (distance < this.w / 2);
+        checkHover(xPlayer, yPlayer) {
+            // const dx = logicX - this.x;
+            // const dy = logicY - this.y;
+            // const distance = sqrt(dx * dx + dy * dy);
+            const distance = dist(logicX, logicY, this.x - xPlayer + logicWidth / 2, this.y - yPlayer + logicHeight / 2);
+            // this.isHovered = (distance < this.w / 2);
+            this.isHovered = (distance < 100);
         }
 
         press() {
@@ -140,27 +170,29 @@ class MapUI {
         this.roads = [];
 
         // 只生成 ring=5 (最外环) 的节点，然后让玩家随机放在那
-        this.createRing(5);
+        this.createRing(this.maxRing);
 
-        // 在 ring=5 上的节点中随机选一个作为玩家初始位置
-        const ring5Buttons = this.rings[5];
-        const randomIndex = floor(random(ring5Buttons.length));
-        const startBtn = ring5Buttons[randomIndex];
+        // // 在 ring=5 上的节点中随机选一个作为玩家初始位置
+        // const ring5Buttons = this.rings[5];
+        // const randomIndex = floor(random(ring5Buttons.length));
+        // const startBtn = ring5Buttons[randomIndex];
 
-        // 标记为已访问
-        startBtn.isVisited = true;
-        this.playerLocation = { ring: 5, index: randomIndex };
+        // // 标记为已访问
+        // startBtn.isVisited = true;
+        // this.playerLocation = { ring: 5, index: randomIndex };
 
         // 玩家初始位置
-        this.playerMarker.x = startBtn.x;
-        this.playerMarker.y = startBtn.y;
-        this.playerMarker.targetX = startBtn.x;
-        this.playerMarker.targetY = startBtn.y;
+        this.playerMarker.x = this.mapCoorX;
+        this.playerMarker.y = this.mapCoorY;
+        this.playerMarker.targetX = this.mapCoorX;
+        this.playerMarker.targetY = this.mapCoorY;
 
         // 若玩家箭头始终指向中心，这里只给一个初值即可
-        const angleToCenter = atan2(this.yCoor - startBtn.y, this.xCoor - startBtn.x);
-        this.playerMarker.rotation = angleToCenter;
-        this.playerMarker.targetRotation = angleToCenter;
+        // const angleToCenter = atan2(this.yCoor - startBtn.y, this.xCoor - startBtn.x);
+        // this.playerMarker.rotation = angleToCenter;
+        // this.playerMarker.targetRotation = angleToCenter;
+        this.playerMarker.rotation = 0;
+        this.playerMarker.targetRotation = 0;
     }
 
     // =============== 生成指定环的节点（最外圈=5 只生成 1 个，其余正常 2 个；中心=0 只有 1 个） ===============
@@ -169,35 +201,48 @@ class MapUI {
         if (this.rings[ringIndex]) return;
 
         // ringIndex=0 → 中心点
+        // if (ringIndex == 0) {
+        //     const centerBtn = new this.MapButton(
+        //         this.xCoor,
+        //         this.yCoor,
+        //         this.buttonSize,
+        //         0,
+        //         0,
+        //         -PI / 2 // 角度随意
+        //     );
+        //     this.rings[0] = [centerBtn];
+        //     return;
+        // }
         if (ringIndex == 0) {
             const centerBtn = new this.MapButton(
-                this.xCoor,
-                this.yCoor,
+                this.playerMarker.x,
+                this.playerMarker.y - logicHeight / 4,
                 this.buttonSize,
                 0,
                 0,
-                -PI / 2 // 角度随意
+                0, // 角度随意
             );
             this.rings[0] = [centerBtn];
             return;
         }
 
         // ringIndex=5 → 最外圈只生成 1 个节点
-        if (ringIndex == 5) {
-            let angle = random(-PI / 4, PI / 4) - PI / 2; // 随机角度偏上
-            const ringDist = this.outerRadius * (ringIndex / this.maxRing);
+        if (ringIndex == this.maxRing) {
+            // let angle = random(-PI / 4, PI / 4) - PI / 2; // 随机角度偏上
+            // const ringDist = this.outerRadius * (ringIndex / this.maxRing);
 
-            const x2 = this.xCoor + cos(angle) * ringDist;
-            const y2 = this.yCoor + sin(angle) * ringDist;
+            // const x2 = this.xCoor + cos(angle) * ringDist;
+            // const y2 = this.yCoor + sin(angle) * ringDist;
 
             let btn = new this.MapButton(
-                x2, y2,
+                this.playerMarker.x,
+                this.playerMarker.y,
                 this.buttonSize,
                 ringIndex,
                 0,
-                angle
+                0
             );
-            this.rings[5] = [btn];
+            this.rings[this.maxRing] = [btn];
             return;
         }
 
@@ -212,12 +257,13 @@ class MapUI {
         angle1 -= PI / 2;
         angle2 -= PI / 2;
 
-        const ringDist = this.outerRadius * (ringIndex / this.maxRing);
+        // const ringDist = this.outerRadius * (ringIndex / this.maxRing);
 
         let btns = [];
         [angle1, angle2].forEach((ang, idx) => {
-            const x2 = this.xCoor + cos(ang) * ringDist;
-            const y2 = this.yCoor + sin(ang) * ringDist;
+            const ringDist = logicHeight / 5 + random(-logicHeight / 10, logicHeight / 10);
+            const x2 = this.playerMarker.x + cos(ang) * ringDist;
+            const y2 = this.playerMarker.y + sin(ang) * ringDist;
             let btn = new this.MapButton(
                 x2, y2,
                 this.buttonSize,
@@ -291,17 +337,17 @@ class MapUI {
         this.playerMarker.x = lerp(this.playerMarker.x, this.playerMarker.targetX, 0.1);
         this.playerMarker.y = lerp(this.playerMarker.y, this.playerMarker.targetY, 0.1);
 
-        // 若玩家箭头始终朝中心，这里实时计算 targetRotation 即可
-        // （若想更平滑，也可以只在玩家移动后再更新，保持动画）
-        let angleToCenter = atan2(
-            this.yCoor - this.playerMarker.y,
-            this.xCoor - this.playerMarker.x
-        );
-        this.playerMarker.targetRotation = angleToCenter;
-        this.playerMarker.rotation = lerp(this.playerMarker.rotation, this.playerMarker.targetRotation, 0.1);
+        // // 若玩家箭头始终朝中心，这里实时计算 targetRotation 即可
+        // // （若想更平滑，也可以只在玩家移动后再更新，保持动画）
+        // let angleToCenter = atan2(
+        //     this.yCoor - this.playerMarker.y,
+        //     this.xCoor - this.playerMarker.x
+        // );
+        // this.playerMarker.targetRotation = angleToCenter;
+        // this.playerMarker.rotation = lerp(this.playerMarker.rotation, this.playerMarker.targetRotation, 0.1);
 
         // 罗盘旋转（可保留可省略）
-        this.compassRotation = lerp(this.compassRotation, this.targetRotation, 0.05);
+        // this.compassRotation = lerp(this.compassRotation, this.targetRotation, 0.05);
     }
 
     // =============== 鼠标按下 ===============
@@ -405,13 +451,13 @@ class MapUI {
 
     // =============== 窗口尺寸变化 ===============
     handleWindowResized() {
-        this.xCoor = logicWidth / 2;
-        this.yCoor = logicHeight / 2;
-        this.xSize = logicWidth * 0.8;
-        this.ySize = logicHeight * 0.8;
-        this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;
-        this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;
-        this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
+        // this.xCoor = logicWidth / 2;
+        // this.yCoor = logicHeight / 2;
+        // this.xSize = logicWidth * 0.8;
+        // this.ySize = logicHeight * 0.8;
+        // this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;
+        // this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;
+        // this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
         // 简单处理：重新 init()
         // 窗口变化不需要 init 了
@@ -420,122 +466,186 @@ class MapUI {
 
     // =============== 绘制 ===============
     draw() {
-        background(0);
+        let offsetX = logicWidth - this.playerMarker.x;
+        let offsetY = logicHeight - this.playerMarker.y;
 
-        // 1) 罗盘背景（可保留原样）
-        push();
-        translate(this.xCoor, this.yCoor);
-        rotate(this.compassRotation);
+        logicCanvas.push();
+        // logicCanvas.resetMatrix();
 
-        fill(20);
-        stroke(100, 255, 218, 80);
-        strokeWeight(2);
-        ellipse(0, 0, this.outerRadius * 2.2, this.outerRadius * 2.2);
+        // logicCanvas.beginClip();
+        // logicCanvas.ellipseMode(CENTER);
+        // logicCanvas.ellipse(
+        //     logicWidth / 2, logicHeight / 2,
+        //     this.outerRadius * 2.2, this.outerRadius * 2.2);
+        // logicCanvas.endClip();
 
-        for (let i = 0; i < 8; i++) {
-            const angle = i * TWO_PI / 8;
-            stroke(100, 255, 218, 80);
-            strokeWeight(1);
-            line(0, 0, cos(angle) * this.outerRadius * 1.1, sin(angle) * this.outerRadius * 1.1);
-
-            // NESW
-            if (i % 2 === 0) {
-                noStroke();
-                fill(100, 255, 218);
-                textSize(this.buttonSize * 0.4);
-                textAlign(CENTER, CENTER);
-                const labels = ["N", "E", "S", "W"];
-                text(labels[i / 2],
-                    cos(angle) * this.outerRadius * 1.15,
-                    sin(angle) * this.outerRadius * 1.15);
-            }
-        }
-
-        noFill();
-        stroke(100, 255, 218, 40);
-        strokeWeight(1);
-        for (let r = 1; r <= 3; r++) {
-            ellipse(0, 0, this.outerRadius * 2 * r / 3, this.outerRadius * 2 * r / 3);
-        }
-
-        fill(20);
-        stroke(100, 255, 218);
-        strokeWeight(2);
-        ellipse(0, 0, this.centerRadius * 2, this.centerRadius * 2);
-
-        pop();
-
+        logicCanvas.imageMode(CENTER);
+        logicCanvas.image(
+            frames.mapIcon.mapBG, 
+            logicWidth / 2 + offsetX, 
+            logicHeight / 2 + offsetY, 
+            logicWidth * 2, logicHeight * 2);
         // 2) 绘制道路
-        for (let road of this.roads) {
-            stroke(road.color);
-            strokeWeight(road.weight);
-            noFill();
 
+        for (let road of this.roads) {
+            logicCanvas.stroke(road.color);
+            logicCanvas.strokeWeight(road.weight);
+            logicCanvas.noFill();
+
+            logicCanvas.drawingContext.save();
             if (road.visited) {
-                drawingContext.setLineDash([]);
+                logicCanvas.drawingContext.setLineDash([]);
             } else {
-                drawingContext.setLineDash([5, 5]);
+                logicCanvas.drawingContext.setLineDash([5, 5]);
             }
 
-            beginShape();
-            vertex(road.x1, road.y1);
-            quadraticVertex(road.xc1, road.yc1, road.x2, road.y2);
-            endShape();
+            logicCanvas.beginShape();
+            logicCanvas.vertex(road.x1 + offsetX, road.y1 + offsetY);
+            logicCanvas.quadraticVertex(
+                road.xc1 + offsetX, road.yc1 + offsetY, 
+                road.x2 + offsetX, road.y2 + offsetY);
+            logicCanvas.endShape();
 
             // 已访问的道路上显示流动圆点
             if (road.visited) {
-                push();
-                stroke(255, 255, 255, 150);
-                strokeWeight(2);
+                logicCanvas.push();
+                logicCanvas.stroke(255, 255, 255, 150);
+                logicCanvas.strokeWeight(2);
 
                 const t = (frameCount % logicFrameRate) / logicFrameRate;
                 const x = bezierPoint(road.x1, road.xc1, road.xc1, road.x2, t);
                 const y = bezierPoint(road.y1, road.yc1, road.yc1, road.y2, t);
 
-                fill(255);
-                noStroke();
-                ellipse(x, y, 6, 6);
+                logicCanvas.fill(255);
+                logicCanvas.noStroke();
+                logicCanvas.ellipse(x + offsetX, y + offsetY, 6, 6);
 
-                pop();
+                logicCanvas.pop();
             }
-            drawingContext.setLineDash([]);
+            logicCanvas.drawingContext.setLineDash([]);
         }
 
         // 3) 绘制节点
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
-                btn.checkHover();
-                btn.draw();
+                btn.checkHover(this.playerMarker.x, this.playerMarker.y);
+                btn.draw(this.playerMarker.x, this.playerMarker.y);
             }
         }
 
+        logicCanvas.drawingContext.restore();
+
         // 4) 绘制玩家图标（箭头始终朝中心）
-        push();
-        translate(this.playerMarker.x, this.playerMarker.y);
+        logicCanvas.push();
+        // logicCanvas.translate(this.playerMarker.x, this.playerMarker.y);
         // + PI/2 让“正上方”当做箭头朝向
-        rotate(this.playerMarker.rotation + PI / 2);
-        fill(255, 255, 100);
-        stroke(255, 200, 0);
-        strokeWeight(2);
+        // this.mapCanvas.rotate(this.playerMarker.rotation + PI / 2);
+        // this.mapCanvas.fill(255, 255, 100);
+        // this.mapCanvas.stroke(255, 200, 0);
+        // this.mapCanvas.strokeWeight(2);
 
-        beginShape();
-        vertex(0, -this.buttonSize / 2);
-        vertex(this.buttonSize / 4, this.buttonSize / 4);
-        vertex(0, 0);
-        vertex(-this.buttonSize / 4, this.buttonSize / 4);
-        endShape(CLOSE);
+        // this.mapCanvas.beginShape();
+        // this.mapCanvas.vertex(0, -this.buttonSize / 2);
+        // this.mapCanvas.vertex(this.buttonSize / 4, this.buttonSize / 4);
+        // this.mapCanvas.vertex(0, 0);
+        // this.mapCanvas.vertex(-this.buttonSize / 4, this.buttonSize / 4);
+        // this.mapCanvas.endShape(CLOSE);
+        logicCanvas.imageMode(CENTER);
+        logicCanvas.image(
+            frames.mapIcon.boat, 
+            logicWidth / 2, logicHeight / 2, 
+            this.buttonSize * 2, this.buttonSize * 2);
+        logicCanvas.pop();
 
-        // 光晕
-        drawingContext.shadowColor = color(255, 200, 0);
-        drawingContext.shadowBlur = 15;
-        ellipse(0, 0, this.buttonSize / 4, this.buttonSize / 4);
-        pop();
+        // logicCanvas.pop();
+        // // 光晕
+        // this.mapCanvas.drawingContext.shadowColor = color(255, 200, 0);
+        // this.mapCanvas.drawingContext.shadowBlur = 15;
+        // this.mapCanvas.ellipse(0, 0, this.buttonSize / 4, this.buttonSize / 4);
+        // this.mapCanvas.pop();
+
+        // logicCanvas.push();
+        // logicCanvas.resetMatrix();
+        // logicCanvas.clip(mapMask);
+
+        // logicCanvas.beginClip();
+        // logicCanvas.ellipseMode(CENTER);
+        // logicCanvas.ellipse(logicWidth / 2, logicHeight / 2, this.outerRadius * 22, this.outerRadius * 22);
+        // logicCanvas.endClip();
+
+        // logicCanvas.translate(
+        //     -this.playerMarker.x + logicWidth / 2,
+        //     -this.playerMarker.y + logicHeight / 2
+        // );
+        // logicCanvas.translate(logicWidth / 2, logicHeight / 2);
+
+        // logicCanvas.imageMode(CENTER);
+        // logicCanvas.image(
+        //     this.mapCanvas,
+        //     logicWidth,
+        //     logicHeight,
+        //     this.mapCanvas.width,
+        //     this.mapCanvas.height
+        // );
+
+        // logicCanvas.pop();
+        // push();
+        // begingClip({ invert: true });
+        // logicCanvas.ellipseMode(CENTER);
+        // logicCanvas.ellipse(logicWidth / 2, logicHeight / 2, this.outerRadius * 2, this.outerRadius * 2);
+        // endClip();
+        // logicCanvas.background(0);
+        // pop();
+
+
+        // 1) 罗盘背景（可保留原样）
+        logicCanvas.push();
+        let lineColor = color(255);
+        // logicCanvas.resetMatrix();
+        logicCanvas.translate(logicWidth / 2, logicHeight / 2);
+        // rotate(this.compassRotation);
+
+        logicCanvas.noFill();
+        // stroke(100, 255, 218, 80);
+        logicCanvas.stroke(lineColor);
+        logicCanvas.strokeWeight(2);
+        logicCanvas.ellipseMode(CENTER);
+        logicCanvas.ellipse(0, 0, this.outerRadius * 2.2, this.outerRadius * 2.2);
+
+        for (let i = 0; i < 8; i++) {
+            const angle = i * TWO_PI / 8;
+            logicCanvas.stroke(lineColor);
+            logicCanvas.strokeWeight(1);
+            logicCanvas.line(0, 0, cos(angle) * this.outerRadius * 1.1, sin(angle) * this.outerRadius * 1.1);
+
+            // NESW
+            if (i % 2 === 0) {
+                logicCanvas.noStroke();
+                logicCanvas.fill(lineColor);
+                logicCanvas.textSize(this.buttonSize * 0.4);
+                logicCanvas.textAlign(CENTER, CENTER);
+                const labels = ["N", "E", "S", "W"];
+                logicCanvas.text(labels[i / 2],
+                    cos(angle) * this.outerRadius * 1.15,
+                    sin(angle) * this.outerRadius * 1.15);
+            }
+        }
+
+        logicCanvas.noFill();
+        logicCanvas.stroke(lineColor);
+        logicCanvas.strokeWeight(1);
+        for (let r = 1; r <= 3; r++) {
+            logicCanvas.ellipse(0, 0, this.outerRadius * 2 * r / 3, this.outerRadius * 2 * r / 3);
+        }
+        logicCanvas.pop();
+
+        logicCanvas.pop();
     }
 
     getRandomType() { //随机事件出现的概率在这里调哦——Theodore
         const randomNum = Math.random();
         if (randomNum < 0.3) {
-        //if (randomNum < 1) {
+            //if (randomNum < 1) {
             return MAIN_STEP_IN_GAME;
         } else {
             return MAIN_STEP_RANDOM_EVENT;
@@ -547,15 +657,15 @@ class MapUI {
         this.rings = [];
         this.roads = [];
         this.playerLocation = { ring: 5, index: 0 };
-        this.compassRotation = 0;
+        // this.compassRotation = 0;
         this.targetRotation = 0;
 
         // 重置玩家标记位置
         this.playerMarker = {
-            x: this.xCoor,
-            y: this.yCoor,
-            targetX: this.xCoor,
-            targetY: this.yCoor,
+            x: this.mapCoorX,
+            y: this.mapCoorY,
+            targetX: this.mapCoorX,
+            targetY: this.mapCoorY,
             rotation: 0,
             targetRotation: 0
         };
