@@ -16,7 +16,7 @@ class MapUI {
         this.mapCoorY = logicHeight / 4 * 6;
 
         // 5 作为最外圈(outer ring)，0 作为中心
-        this.maxRing = 5; // 最外圈是 5
+        this.maxRing = 8; // 修改关卡数
         this.minRing = 0; // 中心是 0
 
         // rings[i] 存储第 i 环上的所有节点
@@ -116,17 +116,17 @@ class MapUI {
         this.rings = [];
         this.roads = [];
 
-        // 只生成 ring=5 (最外环) 的节点，然后让玩家随机放在那
+        // 只生成 ring=this.maxRing (最外环) 的节点，然后让玩家随机放在那
         this.createRing(this.maxRing);
 
         // 在 ring=5 上的节点中随机选一个作为玩家初始位置
-        const ring5Buttons = this.rings[5];
-        const randomIndex = floor(random(ring5Buttons.length));
-        const startBtn = ring5Buttons[randomIndex];
+        const ringFirstButtons = this.rings[this.maxRing];
+        const randomIndex = floor(random(ringFirstButtons.length));
+        const startBtn = ringFirstButtons[randomIndex];
 
         // 标记为已访问
         startBtn.isVisited = true;
-        this.playerLocation = { ring: 5, index: randomIndex };
+        this.playerLocation = { ring: this.maxRing, index: randomIndex };
 
         // 玩家初始位置
         this.playerMarker.x = this.mapCoorX;
@@ -183,7 +183,7 @@ class MapUI {
 
         let btns = [];
         [angle1, angle2].forEach((ang, idx) => {
-            const ringDist = logicHeight / 5 + random(-logicHeight / 10, logicHeight / 10);
+            const ringDist = (logicHeight / 5 + random(-logicHeight / 10, logicHeight / 10)) * 0.8;
             const x2 = this.playerMarker.targetX + cos(ang) * ringDist;
             const y2 = this.playerMarker.targetY + sin(ang) * ringDist;
             let btn = new this.MapButton(
@@ -385,7 +385,7 @@ class MapUI {
             frames.mapIcon.mapBG, 
             logicWidth / 2 + offsetX, 
             logicHeight / 2 + offsetY, 
-            logicWidth * 2, logicHeight * 2);
+            logicWidth * 3, logicHeight * 3);
         // 2) 绘制道路
 
         for (let road of this.roads) {
@@ -423,9 +423,9 @@ class MapUI {
                 const x = bezierPoint(road.x1, road.xc1, road.xc1, road.x2, t);
                 const y = bezierPoint(road.y1, road.yc1, road.yc1, road.y2, t);
 
-                logicCanvas.fill(255);
+                logicCanvas.fill(0);
                 logicCanvas.noStroke();
-                logicCanvas.ellipse(x + offsetX, y + offsetY, 6, 6);
+                logicCanvas.ellipse(x + offsetX - logicWidth / 2, y + offsetY - logicHeight / 2, 6, 6);
 
                 logicCanvas.pop();
             }
