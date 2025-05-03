@@ -108,12 +108,12 @@ class ShopUI {
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
         let items = [
-            { label: 'Item A', price: 100, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'Item B', price: 25, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'HP+20', price: 60, effect: 'HP+20', times: -1, priceIncrease: 30},
-            { label: 'Item D', price: 99, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'ONE PIECE', price: 20000, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'Pollution-100', price: 50, effect: 'decrease pollution', times: -1, priceIncrease: 25 },
+            { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: 1, priceIncrease: 0 },
+            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_UP].name, price: 25, effect: BuffTypes.BULLET_NUMBER_UP, times: 1, priceIncrease: 0 },
+            { label: 'HP+20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 30},
+            { label: BUFF_MODEL[BuffTypes.SPEED_CHANGE].name, price: 99, effect: BuffTypes.SPEED_CHANGE, times: 1, priceIncrease: 0 },
+            { label: 'ONE PIECE', price: 20000, effect: BuffTypes.HEALTH_FULL_RECOVER, times: 1, priceIncrease: 0 },
+            { label: 'Pollution-100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 25 },
         ];
         this.#isInit = true;
         textFont('Helvetica');

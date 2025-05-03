@@ -466,7 +466,8 @@ class Main {
     }
 
     chooseBuff(buffType) {
-        //console.log(buffType);
+        console.log(buffType);
+        this.#status.addBuff(buffType);
     }
 
     chooseGameMap(gameType) {

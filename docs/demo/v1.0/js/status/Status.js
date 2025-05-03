@@ -9,7 +9,7 @@ class Status {
         HP: 0,
         speed: 0,
         shipType: 0,
-        gold: 999,
+        gold: 99,
         skillCD: 0,
         maxSkillCD: 0,
         pollution: 0,
@@ -50,6 +50,37 @@ class Status {
 
     getPollutionMaxLeverl() {
         return Status.POLLUTION_MAX_LEVEL;
+    }
+
+    addBuff(buffType) {
+        if (buffType == null || buffType == undefined) {
+            return;
+        }
+        switch (buffType) {
+            case BuffTypes.SPEED_CHANGE:
+                this.#playerStatus.speed += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.DAMAGE_CHANGE:
+                this.#playerStatus.damage += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.EXPLODE_CHANGE:
+                this.#playerStatus.shield += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.BULLET_NUMBER_UP:
+                this.#playerStatus.shield += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.HEALTH_FULL_RECOVER:
+                this.recoverToMaxHP();
+                break;
+            case BuffTypes.HEALTH_CHANGE:
+                this.updateHP(this.#playerStatus.HP + BUFF_MODEL[buffType].value);
+                break;
+            case BuffTypes.POLLUTION_EFFECT:
+                this.#playerStatus.pollution += BUFF_MODEL[buffType].value;
+                break;
+            default:
+                console.log("Unknown buff type: " + buffType);
+        }
     }
 
     updateHP(HP) {
