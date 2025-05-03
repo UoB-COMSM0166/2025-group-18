@@ -1,6 +1,6 @@
 # 2025-group-18
 
-2025 COMSM0166 group 18
+![Qphoto](docs/labprocess/week01/top.png)
 
 ## 🚢🌊♻️ - Sink or Pollute
 
@@ -19,7 +19,9 @@ Video of Demo - TBD
 
 ## 👥 Our Group
 
-![描述文本](docs/labprocess/week01/ourphoto.jpeg)
+![Qphoto](docs/labprocess/week01/group.jpg)
+
+![photo](docs/labprocess/week01/ourphoto.jpeg)
 
 <div align="center">
 
@@ -97,6 +99,8 @@ Video of Demo - TBD
   - A dynamic weather system changes the gameplay. Big storms can change your route, ocean currents affect your speed, and strange sea events bring new threats. Players must adapt to harsh weather and change tactics to survive and fight well.
   - A pollution system changes with player and enemy actions. It affects the ecosystem, resources, and enemy power. High pollution can cause mutant creatures, lower resources, and speed up ocean decay. Lowering pollution can unlock tech upgrades and ally support. Players can clean the environment for long-term gains or use the chaos from pollution as a tactic.
 
+---
+
 ### Requirements
 
 #### Identifying Stakeholders
@@ -104,7 +108,6 @@ Video of Demo - TBD
 <div align="center">
 	<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
 </div>
-
 #### Epic
 
 | Bot                      | User Story                                                                                                                                                 | Acceptance Criteria                                                                                                                                                                                               |
@@ -184,6 +187,8 @@ Video of Demo - TBD
 
 </div>
 
+---
+
 ### Design
 
 - 15% ~750 words 
@@ -199,6 +204,8 @@ Video of Demo - TBD
 
 #### Sequence Diagram
 [<img src="docs/labprocess/week05/SequenceDiagram.png" width="1200"/>](docs/labprocess/week05/SequenceDiagram.png)
+
+---
 
 ### Implementation
 
@@ -246,6 +253,8 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
    1. We wanted the game to automatically adapt to various window sizes. To achieve this, we changed many basic settings, including virtual canvas design and logical mouse handling, allowing the game screen to adjust to different window sizes.
    2. Since we designed animated effects with at least 3 frames for each entity, this caused lag and frame drops, especially with a frame rate of 60. We explored several solutions, optimized the entity update logic, and improved the image loading process. Additionally, we added caching during refreshes, which greatly improved the game's smoothness.
 
+---
+
 ### Evaluation
 
 > [!WARNING]
@@ -266,7 +275,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 | **UI/UX** | No skill cooldown feedback, making ability timing difficult | Visibility of System Status | 3 | 3 | 3 | 3.00 |
 | **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints | Error Prevention | 3 | 4 | 4 | 3.67 |
 
-
+---
 
 ### Process
 
@@ -301,6 +310,8 @@ We used several tools to make our work easier and to collaborate effectively.
 Working as a team was key to overcoming challenges. We regularly held meetings to talk about our progress, solve problems, and share ideas. Whenever an issue came up, like optimizing the pollution system or fixing performance problems, we worked together to find the best solution.
 
 For example, we faced lag and frame drops due to the animated effects we used for the entities. To fix this, we discussed different optimization strategies as a team. After trying a few solutions, we found one that improved performance while keeping the quality of the animations. This experience taught us a lot about problem-solving as a team and how to tackle similar issues in the future.
+
+---
 
 ### Sustainability, ethics and accessibility
 
@@ -341,6 +352,8 @@ Technology plays a big role in how we create and experience games. We focused on
 3. **Focus on Accessibility:**
     Accessibility was a key consideration in our game. We included features like customizable controls, colorblind mode, and adjustable difficulty levels to make the game enjoyable for players with different abilities. These features help ensure that the game is accessible to a broad audience, allowing everyone to enjoy it.
 
+---
+
 ### Conclusion
 
 - 10% ~500 words
@@ -370,6 +383,8 @@ We also want to expand the environmental system. The pollution system is just th
 We also aim to improve player mechanics and weapons. There are plenty of ideas for new weapons, abilities, and strategic options that we want to include. This will give players more variety and control over their gameplay. Additionally, we plan to improve the game’s UI and visuals to make it more enjoyable and immersive.
 
 In conclusion, while we’ve made great progress, the game is still a work in progress. We’ve learned a lot, and each challenge has helped us improve. We are excited about the future of the project and look forward to making it even better with new features and improvements.
+
+---
 
 ### Contribution Statement
 
