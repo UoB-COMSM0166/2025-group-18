@@ -852,9 +852,9 @@ class Game {
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
-            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize;
-            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize;
-            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize;
+            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize * scale;
+            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize * scale;
+            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize * scale;
             bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             let baseAttackPower = 1;// keep it same as the enemy's attack power
