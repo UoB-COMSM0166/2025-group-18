@@ -203,7 +203,6 @@ class MapUI {
             btns.push(btn);
         });
         this.rings[ringIndex] = btns;
-        console.log("生成第", ringIndex, "环", btns[0].x, btns[0].y, btns[1].x, btns[1].y);
     }
 
     // =============== Generate an inner ring for the current ring and draw a line ===============
