@@ -60,7 +60,7 @@ class MapUI {
             this.scale = 1;
         }
 
-        draw() {
+        draw(xPlayer, yPlayer) {
             // ring=0 → BOSS; other rings → normal
             const isBoss = (this.ring == 0);
 
@@ -164,12 +164,6 @@ class MapUI {
 
         // ringIndex=5 → Only one node is generated in the outermost ring
         if (ringIndex == this.maxRing) {
-            let angle = random(-PI / 4, PI / 4) - PI / 2; // Random angle up
-            const ringDist = this.outerRadius * (ringIndex / this.maxRing);
-
-            const x2 = this.xCoor + cos(angle) * ringDist;
-            const y2 = this.yCoor + sin(angle) * ringDist;
-
             let btn = new this.MapButton(
                 this.playerMarker.x,
                 this.playerMarker.y,
@@ -269,20 +263,6 @@ class MapUI {
         this.playerMarker.x = lerp(this.playerMarker.x, this.playerMarker.targetX, 0.1);
         this.playerMarker.y = lerp(this.playerMarker.y, this.playerMarker.targetY, 0.1);
 
-        // ===============================================================
-        // If the player's arrow is always pointing to the center:
-        // - The targetRotation can be calculated in real time here
-        // - For smoother animation, update only after the player moves
-        // ===============================================================
-        let angleToCenter = atan2(
-            this.yCoor - this.playerMarker.y,
-            this.xCoor - this.playerMarker.x
-        );
-        this.playerMarker.targetRotation = angleToCenter;
-        this.playerMarker.rotation = lerp(this.playerMarker.rotation, this.playerMarker.targetRotation, 0.1);
-
-        // Compass rotation (can be retained or omitted)
-        this.compassRotation = lerp(this.compassRotation, this.targetRotation, 0.05);
     }
 
     // =============== Mouse down ===============
