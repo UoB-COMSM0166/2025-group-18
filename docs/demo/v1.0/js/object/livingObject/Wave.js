@@ -49,7 +49,7 @@ class Wave {
         this.xCoordinate += this.vx;
         this.yCoordinate += this.vy;
         
-        // 快速检查是否超出边界
+        // Quick check for out of bounds
         if (this.xCoordinate - this.xSize / 2 > logicWidth ||
             this.xCoordinate + this.xSize / 2 < 0 ||
             this.yCoordinate - this.ySize / 2 > logicHeight ||
@@ -58,13 +58,13 @@ class Wave {
             return;
         }
         
-        // 岛屿碰撞检测
-        // 只检查附近的岛屿而不是所有岛屿
+        // Island collision detection
+        // Only check nearby islands instead of all islands
         for (let island of islands) {
             const dx = Math.abs(this.xCoordinate - island.xCoordinate);
             const dy = Math.abs(this.yCoordinate - island.yCoordinate);
             
-            // 如果距离太远，跳过详细碰撞检测
+            // If the distance is too far, skip detailed collision detection
             if (dx > (this.xSize + island.xSize) / 2 || dy > (this.ySize + island.ySize) / 2) {
                 continue;
             }
@@ -103,7 +103,7 @@ class Wave {
             }
         }
         
-        // 降低动画帧率
+        // Reduce animation frame rate
         if (millis() - this.lastFrameTime > this.frameInterval) {
             // console.log(frames.wave[this.type]);
             // console.log(frames.wave[this.type].length);
@@ -120,10 +120,10 @@ class Wave {
     }
 
     drawWaveGreen() {
-        push(); // 保存当前颜色状态
-        tint(100, 255, 100, 200); // 绿色滤镜
+        push(); // Save the current color state
+        tint(100, 255, 100, 200); // Green filter
         this.drawWave();
-        pop(); // 恢复颜色状态
+        pop(); // Restore color status
     }
 
     show() {
@@ -142,12 +142,12 @@ class WaveManager {
     constructor() {
         this.waves = [];
         this.lastWaveTime = 0;
-        this.interval = 300;//生成频率
+        this.interval = 300;//Generation frequency
         this.direction;
     }
 
     update(islands, player, enemies) {
-        // 限制生成新波浪的频率
+        // Limit the frequency of generating new waves
         const currentTime = millis();
         const shouldGenerateWave = this.waves.length < 60 && 
                                   currentTime - this.lastWaveTime > this.interval;
@@ -157,24 +157,24 @@ class WaveManager {
             this.lastWaveTime = currentTime;
         }
     
-        // 只对屏幕内或靠近屏幕的波浪进行更新
-        const screenMargin = 200; // 屏幕外的缓冲区
+        // Only update waves that are on or close to the screen
+        const screenMargin = 200; // Off-screen buffer
         
         for (let i = this.waves.length - 1; i >= 0; i--) {
             let wave = this.waves[i];
             
-            // 检查波浪是否已经远离屏幕
+            // Check if the wave has left the screen
             if (wave.xCoordinate - wave.xSize / 2 > logicWidth + screenMargin ||
                 wave.xCoordinate + wave.xSize / 2 < -screenMargin ||
                 wave.yCoordinate - wave.ySize / 2 > logicHeight + screenMargin ||
                 wave.yCoordinate + wave.ySize / 2 < -screenMargin) {
                 
-                // 直接移除远离屏幕的波浪，无需进一步处理
+                // Remove waves that are off the screen without further processing
                 this.waves.splice(i, 1);
                 continue;
             }
             
-            // 更新波浪状态
+            // Update wave status
             wave.updateStatus(islands, player, enemies);
             
             if (wave.finished) {
@@ -182,7 +182,7 @@ class WaveManager {
             }
         }
     
-        // 每隔几帧才进行一次碰撞检测，减少计算量
+        // Perform collision detection only once every few frames to reduce the amount of calculation
         if (frameCount % round(logicFrameRate / 20) == 0) {
             this.checkWaveCollisions();
         }
@@ -204,33 +204,33 @@ class WaveManager {
             y = random(logicHeight);
             vx = speed;
             vy = 0;
-            this.direction = 'D'; // 波浪向左
+            this.direction = 'D'; // Wave to the left
         } else if (randomEdge == "right") {
             x = logicWidth - 10;
             y = random(logicHeight);
             vx = -speed;
             vy = 0;
-            this.direction = 'A'; // 波浪向右
+            this.direction = 'A'; // Wave to the right
         } else if (randomEdge == "up") {
             x = random(logicWidth);
             y = 10;
             vx = 0;
             vy = speed;
-            this.direction = 'S'; // 波浪向下
+            this.direction = 'S'; // Waves Downward
         } else {
             x = random(logicWidth);
             y = logicHeight - 10;
             vx = 0;
             vy = -speed;
-            this. direction = 'W'; // 波浪向上
+            this. direction = 'W'; // Waves Upward
         }
 
         
         let type = random() < 0.2 ? "big" : "normal";
         let wave = new Wave(x, y, vx, vy, type, this.direction);
 
-        // wave.setAnimation(this.direction); // 在实例上调用 setAnimation
-        this.waves.push(wave); // 添加到 waves 数组 
+        // wave.setAnimation(this.direction); // Calling setAnimation on the instance
+        this.waves.push(wave); // Add to the waves array 
     }
 
     checkWaveCollisions() {

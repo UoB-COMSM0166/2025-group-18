@@ -2,32 +2,32 @@ class MapUI {
     constructor(inGameCallBack) {
         this.inGameCallBack = inGameCallBack;
 
-        // 画面和半径
+        // Screen and Radius
         this.xCoor = logicWidth / 2;
         this.yCoor = logicHeight / 2;
         this.xSize = logicWidth * 0.8;
         this.ySize = logicHeight * 0.8;
 
-        this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;  // 中心圈半径
-        this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;    // 最外层罗盘半径
+        this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;  // Center circle radius
+        this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;    // Outer compass radius
         this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
         this.mapCoorX = logicWidth;
         this.mapCoorY = logicHeight / 4 * 6;
 
-        // 5 作为最外圈(outer ring)，0 作为中心
-        this.maxRing = 8; // 修改关卡数
-        this.minRing = 0; // 中心是 0
+        // 5 as the outer ring, 0 as the center
+        this.maxRing = 5; // The outermost circle is 5
+        this.minRing = 0; // The center is 0
 
-        // rings[i] 存储第 i 环上的所有节点
+        // rings[i] stores all nodes on the i-th ring
         this.rings = [];
-        // roads 用来存储绘制曲线的结构
+        // roads is a structure used to store drawn curves
         this.roads = [];
 
-        // // 玩家所处的环及该环中的索引(第几个点)
+        // The ring the player is in and the index in the ring (the number of points)
         this.playerLocation = { ring: this.maxRing, index: 0 };
 
-        // 玩家图标信息
+        // Player Icon Information
         this.playerMarker = {
             x: this.mapCoorX,
             y: this.mapCoorY,
@@ -37,20 +37,20 @@ class MapUI {
             // targetRotation: 0
         };
 
-        // 初始化最外圈( ring=5 )并将玩家随机放置在外圈的某个点上
+        // Initialize the outermost ring (ring=5) and place the player randomly at a point in the outer ring
         this.init();
     }
 
-    // =============== 节点类（按钮） ===============
+    // =============== Node class (button) ===============
     MapButton = class {
         constructor(x, y, size, ring, indexInRing, angle, mapType) {
             this.x = x;
             this.y = y;
             this.w = size;
             this.h = size;
-            this.ring = ring;              // 哪一环
-            this.indexInRing = indexInRing; // 该环内第几个
-            this.angle = angle;            // 用于朝向（可不用了，如果玩家箭头始终朝中心）
+            this.ring = ring;              // Which link
+            this.indexInRing = indexInRing; // Which one in the ring
+            this.angle = angle;            // Used for orientation (not necessary if the player's arrow is always facing the center)
 
             this.mapType = mapType;
 
@@ -60,13 +60,14 @@ class MapUI {
             this.scale = 1;
         }
 
-        draw(xPlayer, yPlayer) {
-            // ring=0 → BOSS；其他环 → 普通
+        draw() {
+            // ring=0 → BOSS; other rings → normal
             const isBoss = (this.ring == 0);
-            // 缩放动画
+
+            // Scale Animation
             const currentScale = lerp(this.scale, 1, 0.2);
 
-            // BOSS 用菱形，其它用圆
+            // BOSS uses diamonds, others use circles
             logicCanvas.push();
             logicCanvas.imageMode(CENTER);
             if (isBoss) {
@@ -110,25 +111,25 @@ class MapUI {
         }
     }
 
-    // =============== 初始化最外环( ring=5 ) + 放置玩家 ===============
+    // =============== Initialize the outermost ring (ring=5) + place the player ===============
     init() {
         // noStroke();
         this.rings = [];
         this.roads = [];
 
-        // 只生成 ring=this.maxRing (最外环) 的节点，然后让玩家随机放在那
+        // Only generate nodes in ring=5 (the outermost ring), and then let the player randomly place them there
         this.createRing(this.maxRing);
 
-        // 在 ring=5 上的节点中随机选一个作为玩家初始位置
+        // Randomly select a node on ring=5 as the player's initial position
         const ringFirstButtons = this.rings[this.maxRing];
         const randomIndex = floor(random(ringFirstButtons.length));
         const startBtn = ringFirstButtons[randomIndex];
 
-        // 标记为已访问
+        // Mark as visited
         startBtn.isVisited = true;
         this.playerLocation = { ring: this.maxRing, index: randomIndex };
 
-        // 玩家初始位置
+        // Player initial position
         this.playerMarker.x = this.mapCoorX;
         this.playerMarker.y = this.mapCoorY;
         this.playerMarker.targetX = this.mapCoorX;
@@ -138,9 +139,14 @@ class MapUI {
         this.playerMarker.targetRotation = 0;
     }
 
-    // =============== 生成指定环的节点（最外圈=5 只生成 1 个，其余正常 2 个；中心=0 只有 1 个） ===============
+    // ===============================================================
+    // Generate the nodes of the specified ring:
+    // - Only 1 node is generated for the center (ring = 0)
+    // - 2 nodes are generated for rings 1-4
+    // - Only 1 node is generated for the outermost ring (ring = 5)
+    // ===============================================================
     createRing(ringIndex) {
-        // 已存在则不再生成
+        // If it already exists, do not generate it again
         if (this.rings[ringIndex]) return;
 
         if (ringIndex == 0) {
@@ -150,14 +156,20 @@ class MapUI {
                 this.buttonSize,
                 0,
                 0,
-                0, // 角度随意
+                0, // Any angle
             );
             this.rings[0] = [centerBtn];
             return;
         }
 
-        // ringIndex=5 → 最外圈只生成 1 个节点
+        // ringIndex=5 → Only one node is generated in the outermost ring
         if (ringIndex == this.maxRing) {
+            let angle = random(-PI / 4, PI / 4) - PI / 2; // Random angle up
+            const ringDist = this.outerRadius * (ringIndex / this.maxRing);
+
+            const x2 = this.xCoor + cos(angle) * ringDist;
+            const y2 = this.yCoor + sin(angle) * ringDist;
+
             let btn = new this.MapButton(
                 this.playerMarker.x,
                 this.playerMarker.y,
@@ -170,14 +182,14 @@ class MapUI {
             return;
         }
 
-        // 其他环（1~4），生成 2 个并保证它们角度差>=30°
+        // For other rings (1-4), generate 2 and ensure that their angle difference is >= 30°
         let angle1, angle2;
         do {
             angle1 = random(-PI / 4, PI / 4);
             angle2 = random(-PI / 4, PI / 4);
         } while (abs(angle1 - angle2) < (PI / 6));
 
-        // 整体往上偏移
+        // Overall upward deviation
         angle1 -= PI / 2;
         angle2 -= PI / 2;
 
@@ -200,9 +212,9 @@ class MapUI {
         console.log("生成第", ringIndex, "环", btns[0].x, btns[0].y, btns[1].x, btns[1].y);
     }
 
-    // =============== 为当前环生成内环并画线 ===============
+    // =============== Generate an inner ring for the current ring and draw a line ===============
     createInnerRingIfNeeded(currentRing) {
-        if (currentRing <= 0) return; // 到中心了不用生成
+        if (currentRing <= 0) return; // No need to generate when you reach the center
 
         const innerRing = currentRing - 1;
         this.createRing(innerRing);
@@ -221,7 +233,7 @@ class MapUI {
             const dist = p5.Vector.dist(createVector(x1, y1), createVector(x2, y2));
             const curveStrength = dist * 0.3;
 
-            // 垂线方向
+            // Vertical direction
             const dx = x2 - x1;
             const dy = y2 - y1;
             const perpX = -dy;
@@ -231,7 +243,7 @@ class MapUI {
             const xc1 = midX + (perpX / perpLength) * curveStrength;
             const yc1 = midY + (perpY / perpLength) * curveStrength;
 
-            // 已有此路则不再重复
+            // If this path already exists, then it will not be repeated.
             let exist = this.roads.find(r =>
                 r.x1 == x1 && r.y1 == y1 && r.x2 == x2 && r.y2 == y2
             );
@@ -248,17 +260,32 @@ class MapUI {
         });
     }
 
-    // =============== 每帧更新 ===============
+    // =============== Update every frame ===============
     update() {
-        // 如果玩家不在中心，则生成内圈
+        // If the player is not in the center, generate the inner circle
         this.createInnerRingIfNeeded(this.playerLocation.ring);
 
-        // 玩家图标平滑移动
+        // Smooth player icon movement
         this.playerMarker.x = lerp(this.playerMarker.x, this.playerMarker.targetX, 0.1);
         this.playerMarker.y = lerp(this.playerMarker.y, this.playerMarker.targetY, 0.1);
+
+        // ===============================================================
+        // If the player's arrow is always pointing to the center:
+        // - The targetRotation can be calculated in real time here
+        // - For smoother animation, update only after the player moves
+        // ===============================================================
+        let angleToCenter = atan2(
+            this.yCoor - this.playerMarker.y,
+            this.xCoor - this.playerMarker.x
+        );
+        this.playerMarker.targetRotation = angleToCenter;
+        this.playerMarker.rotation = lerp(this.playerMarker.rotation, this.playerMarker.targetRotation, 0.1);
+
+        // Compass rotation (can be retained or omitted)
+        this.compassRotation = lerp(this.compassRotation, this.targetRotation, 0.05);
     }
 
-    // =============== 鼠标按下 ===============
+    // =============== Mouse down ===============
     handleMousePressed() {
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
@@ -269,32 +296,36 @@ class MapUI {
         }
     }
 
-    // =============== 鼠标松开：从当前环移动到内圈，移除未选中的道路 ===============
+    // ===============================================================
+    // Release the mouse:
+    // - Move from the current ring to the inner ring
+    // - Remove unselected roads
+    // ===============================================================
     handleMouseReleased() {
         let currentRing = this.playerLocation.ring;
         let currentIndex = this.playerLocation.index;
         let selectedGame = null;
         let selectedMapType = null;
 
-        // 当前节点
+        // Current Node
         let prevBtn = this.rings[currentRing][currentIndex];
 
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
                 if (btn.release() && btn.isHovered) {
                     playSound(frames.soundEffect.hover);
-                    // 如果点的是内圈（currentRing - 1）
+                    // If the point is the inner circle (currentRing - 1)
                     if (btn.ring == currentRing - 1) {
-                        // 更新玩家位置
+                        // Update player position
                         this.playerLocation.ring = btn.ring;
                         this.playerLocation.index = btn.indexInRing;
                         btn.isVisited = true;
 
-                        // 更新移动目标
+                        // Update mobile target
                         this.playerMarker.targetX = btn.x;
                         this.playerMarker.targetY = btn.y;
 
-                        // 找到这条被选中的路
+                        // Find the chosen path
                         let chosenRoad = null;
                         this.roads.forEach(road => {
                             if (
@@ -305,34 +336,34 @@ class MapUI {
                             }
                         });
 
-                        // 1) 高亮选中道路
+                        // 1) Highlight selected road
                         if (chosenRoad) {
                             chosenRoad.weight = 6;
                             chosenRoad.visited = true;
                             chosenRoad.color = color(150, 255, 218);
                         }
 
-                        // 2) 移除“未被选择”的道路：即同样从当前节点发散到内圈的其他道路
+                        // 2) Remove "unselected" roads: other roads that also radiate from the current node to the inner circle
                         this.roads = this.roads.filter(road => {
                             let fromCurrentNode =
                                 (road.x1 === prevBtn.x && road.y1 === prevBtn.y);
 
-                            // 只保留被选中的那一条
+                            // Keep only the selected one
                             if (fromCurrentNode) {
                                 return (road == chosenRoad);
                             }
-                            // 其他不相关的路保持不动
+                            // Other irrelevant roads remain unchanged
                             return true;
                         });
 
-                        // 3) 移除“未被选中”的节点
-                        //   比如当内圈有多个节点时，只保留这次点击的 btn
+                        // 3) Remove "unselected" nodes
+                        //   For example, when there are multiple nodes in the inner circle, only the btn clicked this time is retained.
                         if (this.rings[btn.ring]) {
                             this.rings[btn.ring] = [btn];
                             this.playerLocation.index = 0;
                         }
 
-                        // 若到达 ring=0，视为 BOSS，否则普通
+                        // If it reaches ring=0, it is considered as BOSS, otherwise it is normal
                         if (btn.ring == 0) {
                             selectedMapType = MAIN_STEP_IN_GAME;
                             selectedGame = GAME_TYPE_BOSS_ENEMY;
@@ -348,7 +379,7 @@ class MapUI {
             if (selectedMapType) break;
         }
 
-        // 回调
+        // Callbacks
         if (selectedMapType && this.inGameCallBack) {
             setTimeout(() => {
                 this.inGameCallBack(selectedMapType, selectedGame);
@@ -357,7 +388,7 @@ class MapUI {
     }
 
 
-    // =============== 窗口尺寸变化 ===============
+    // =============== Window size changes ===============
     handleWindowResized() {
         // this.xCoor = logicWidth / 2;
         // this.yCoor = logicHeight / 2;
@@ -367,12 +398,12 @@ class MapUI {
         // this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;
         // this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
-        // 简单处理：重新 init()
-        // 窗口变化不需要 init 了
+        // Simple solution: Re-init()
+        // Window changes no longer require init
         // this.init();
     }
 
-    // =============== 绘制 ===============
+    // =============== draw ===============
     draw() {
         let offsetX = logicWidth - this.playerMarker.x;
         let offsetY = logicHeight - this.playerMarker.y;
@@ -386,7 +417,7 @@ class MapUI {
             logicWidth / 2 + offsetX, 
             logicHeight / 2 + offsetY, 
             logicWidth * 3, logicHeight * 3);
-        // 2) 绘制道路
+        // 2) draw roads
 
         for (let road of this.roads) {
             // logicCanvas.stroke(road.color);
@@ -413,7 +444,7 @@ class MapUI {
                 road.y2 + offsetY - logicHeight / 2);
             logicCanvas.endShape();
 
-            // 已访问的道路上显示流动圆点
+            // Display flow dots on visited roads
             if (road.visited) {
                 logicCanvas.push();
                 logicCanvas.stroke(255, 255, 255, 150);
@@ -432,7 +463,7 @@ class MapUI {
             logicCanvas.drawingContext.setLineDash([]);
         }
 
-        // 3) 绘制节点
+        // 3) Draw Node
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
                 btn.checkHover(this.playerMarker.x, this.playerMarker.y);
@@ -442,7 +473,7 @@ class MapUI {
 
         logicCanvas.drawingContext.restore();
 
-        // 4) 绘制玩家图标（箭头始终朝中心）
+        // 4) Draw Player Icon
         logicCanvas.push();
         logicCanvas.imageMode(CENTER);
         logicCanvas.image(
@@ -451,7 +482,7 @@ class MapUI {
             this.buttonSize, this.buttonSize * 2);
         logicCanvas.pop();
         
-        // 1) 罗盘背景（可保留原样）
+        // 1) Draw Compass
         logicCanvas.push();
         let lineColor = color(0);
         logicCanvas.resetMatrix();
@@ -498,7 +529,7 @@ class MapUI {
         logicCanvas.pop();
     }
 
-    getRandomType() { //随机事件出现的概率在这里调哦——Theodore
+    getRandomType() { //The probability of random events is adjusted here. - Theodore
         const randomNum = Math.random();
         if (randomNum < 0.3) {
             //if (randomNum < 1) {
@@ -508,24 +539,4 @@ class MapUI {
         }
     }
 
-    // // Theodore-重置地图
-    // resetMap() {
-    //     this.rings = [];
-    //     this.roads = [];
-    //     this.playerLocation = { ring: 5, index: 0 };
-    //     // this.compassRotation = 0;
-    //     this.targetRotation = 0;
-
-    //     // 重置玩家标记位置
-    //     this.playerMarker = {
-    //         x: this.mapCoorX,
-    //         y: this.mapCoorY,
-    //         targetX: this.mapCoorX,
-    //         targetY: this.mapCoorY,
-    //         rotation: 0,
-    //         targetRotation: 0
-    //     };
-
-    //     this.init();
-    // }
 }

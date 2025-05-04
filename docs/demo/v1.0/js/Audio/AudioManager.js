@@ -1,4 +1,4 @@
-// 全局音频管理器
+// Global Audio Manager
 class AudioManager {
     constructor() {
         if (AudioManager._instance) {
@@ -19,14 +19,14 @@ class AudioManager {
         return AudioManager._instance;
     }
     
-    // 播放悬停音效
+    // Play hover sound effect
     playHover() {
         if (this.isEnabled) {
             this.soundEffects.playHover();
         }
     }
     
-    // 播放点击音效
+    // Play click sound effect
     playClick() {
         if (this.isEnabled) {
             this.soundEffects.playClick();
