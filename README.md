@@ -57,8 +57,9 @@ Video of Demo - TBD
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
    
     <div style="text-align: center;">
-      <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
+      <video src="https://github.com/user-attachments/assets/f10a8343-5c8b-4841-b726-3268efc43926" controls width="600"></video>
     </div>
+    
     
     
 2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
@@ -181,7 +182,7 @@ Video of Demo - TBD
 | Enemy2 | <img src="docs/images/docs/gif/enemy2.gif" width="80"/> | enemy | enemy2 |
 | Enemy3 | <img src="docs/images/docs/gif/enemy3.gif" width="80"/> | enemy | enemy3 |
 | Enemy4 | <img src="docs/images/docs/gif/enemy4.gif" width="80"/> | enemy | enemy4 |
-| Pet | <img src="docs/images/docs/gif/pet.gif" width="80"/> | pet | orbiter or fort or laser |
+| Bird | <img src="docs/images/docs/gif/pet.gif" width="80"/> | orbiter | orbiter |
 | Pollute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pollution |
 | Tnt | <img src="docs/images/docs/gif/TNT.gif" width="80"/> | building | tnt |
 
