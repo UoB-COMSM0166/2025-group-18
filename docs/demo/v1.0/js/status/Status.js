@@ -10,6 +10,9 @@ class Status {
         speed: 0,
         shipType: 0,
         gold: 99,
+        damage: 0,
+        basicDamage: 0,
+        bulletNumber: 0,
         skillCD: 0,
         maxSkillCD: 0,
         pollution: 0,
@@ -31,6 +34,9 @@ class Status {
         this.#playerStatus.speed = SHIP_MODEL[shipType].speed;
         this.#playerStatus.skillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
+        this.#playerStatus.damage = SHIP_MODEL[shipType].damage;
+        this.#playerStatus.basicDamage = SHIP_MODEL[shipType].basicDamage;
+        this.#playerStatus.bulletNumber = SHIP_MODEL[shipType].bulletNumber;
         this.#playerStatus.pollution = SHIP_MODEL[shipType].pollutionStart;
         this.#playerStatus.pollutionLevel = 1;
         this.#playerStatus.loopCount = 0;
@@ -63,14 +69,12 @@ class Status {
             case BuffTypes.DAMAGE_CHANGE:
                 this.#playerStatus.damage += BUFF_MODEL[buffType].value;
                 break;
-            case BuffTypes.EXPLODE_CHANGE:
-                this.#playerStatus.shield += BUFF_MODEL[buffType].value;
+            case BuffTypes.BULLET_NUMBER_CHANGE:
+                this.#playerStatus.bulletNumber += BUFF_MODEL[buffType].value;
                 break;
-            case BuffTypes.BULLET_NUMBER_UP:
-                this.#playerStatus.shield += BUFF_MODEL[buffType].value;
-                break;
-            case BuffTypes.HEALTH_FULL_RECOVER:
-                this.recoverToMaxHP();
+            case BuffTypes.MAX_HEALTH_CHANGE:
+                this.#playerStatus.HPmax += BUFF_MODEL[buffType].value;
+                this.updateHP(this.#playerStatus.HP + BUFF_MODEL[buffType].value);
                 break;
             case BuffTypes.HEALTH_CHANGE:
                 this.updateHP(this.#playerStatus.HP + BUFF_MODEL[buffType].value);
@@ -127,5 +131,17 @@ class Status {
 
     getPlayerPollution() {
         return this.#playerStatus.pollution;
+    }
+
+    getPlayerDamage() {
+        return this.#playerStatus.damage;
+    }
+
+    getPlayerBasicDamage() {
+        return this.#playerStatus.basicDamage;
+    }
+
+    getPlayerBulletNumber() {
+        return this.#playerStatus.bulletNumber;
     }
 }

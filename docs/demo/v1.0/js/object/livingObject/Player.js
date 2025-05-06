@@ -1,5 +1,17 @@
 class Player extends BasicObject {
-    constructor(name, xCoordinate, yCoordinate, xSize, ySize, HP, speed, skillCD, maxSkillCD) {
+    constructor(
+        name, 
+        xCoordinate, 
+        yCoordinate, 
+        xSize, 
+        ySize, 
+        HP, 
+        speed, 
+        damage,
+        basicDamage,
+        bulletNumber,
+        skillCD, 
+        maxSkillCD) {
         super(
             name,
             PLAYER_TYPE,
@@ -9,14 +21,16 @@ class Player extends BasicObject {
             ySize,
             NO_HARM_ATTACK_BIT,
             HP,
-            speed,
+            speed
             // speed * 60 / logicFrameRate,
         );
         this.HPmax = HP;
         this.skillCD = skillCD;
         this.maxSkillCD = maxSkillCD;
+        this.damage = damage;
+        this.basicDamage = basicDamage;
         this.equipment = new Equipment(name, 0, 0, 0, 0, 0, {});
-        this.bulletNum = 3; // bulletNum
+        this.bulletNum = bulletNumber; // bulletNum
         this.wavePushX = 0;
         this.wavePushY = 0;
         this.currentFrames = [];
@@ -102,7 +116,7 @@ class Player extends BasicObject {
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
             pop();
         } else {
-            console.log(this.frameIndex);
+            //console.log(this.frameIndex);
             image(this.currentFrames[this.frameIndex], 
                   this.xCoordinate, this.yCoordinate, 
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);

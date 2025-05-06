@@ -107,13 +107,14 @@ class ShopUI {
     // Initialize the shop UI
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
+        console.log(BUFF_MODEL);
         let items = [
             { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: 1, priceIncrease: 0 },
-            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_UP].name, price: 25, effect: BuffTypes.BULLET_NUMBER_UP, times: 1, priceIncrease: 0 },
-            { label: 'HP+20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 30},
+            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 25, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: 1, priceIncrease: 0 },
+            { label: 'HP +20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 30},
             { label: BUFF_MODEL[BuffTypes.SPEED_CHANGE].name, price: 99, effect: BuffTypes.SPEED_CHANGE, times: 1, priceIncrease: 0 },
             { label: 'ONE PIECE', price: 20000, effect: BuffTypes.HEALTH_FULL_RECOVER, times: 1, priceIncrease: 0 },
-            { label: 'Pollution-100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 25 },
+            { label: 'Pollution -100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 25 },
         ];
         this.#isInit = true;
         textFont('Helvetica');

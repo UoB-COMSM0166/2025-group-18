@@ -48,7 +48,7 @@ class Game {
 
     initPlayer(playerBasicStatus, mapType = 1) {
         const mapModel = getMapModel(mapType);
-
+        console.log(playerBasicStatus);
         this.#player = new Player(
             "Player",
             mapModel.playerStart.x * logicWidth,
@@ -57,6 +57,9 @@ class Game {
             playerBasicStatus.ySize,
             playerBasicStatus.HP,
             playerBasicStatus.speed,
+            playerBasicStatus.damage,
+            playerBasicStatus.basicDamage,
+            playerBasicStatus.bulletNumber,
             playerBasicStatus.skillCD,
             playerBasicStatus.maxSkillCD
         );
@@ -100,19 +103,8 @@ class Game {
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
 
-
-        const playerBasicStatus = this.#player ? {
-            xSize: this.#player.xSize,
-            ySize: this.#player.ySize,
-            HP: this.#player.HPmax,
-            speed: this.#player.speed,
-            skillCD: this.#player.maxSkillCD,
-            maxSkillCD: this.#player.maxSkillCD
-        } : null;
-
-        if (playerBasicStatus) {
-            this.initPlayer(playerBasicStatus, this.mapType);
-        }
+        this.#player.xCoordinate = info.playerStart.x * logicWidth;
+        this.#player.yCoordinate = info.playerStart.y * logicHeight;
 
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
@@ -847,14 +839,15 @@ class Game {
         let bulletYSize = 0;
         let bulletSpeed = 0;
         if (bulletType == PLAYER_BULLET_TYPE) {
-            let baseAttackPower = 1;// keep it same as the player's attack power
+            attackPower = this.#player.damage;
+            let baseAttackPower = this.#player.basicDamage;// keep it same as the player's attack power
             let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
-            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize;
-            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize;
-            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize;
+            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize * scale;
+            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize * scale;
+            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize * scale;
             bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
         } else if (bulletType == ENEMY_BULLET_TYPE) {
             let baseAttackPower = 1;// keep it same as the enemy's attack power

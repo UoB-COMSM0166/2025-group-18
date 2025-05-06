@@ -75,34 +75,46 @@ const SHIP_MODEL = [
         ySize: 0,
         HPmax: 0,
         speed: 0,
-        skillCD: 0
+        skillCD: 0,
+        damage: 0,
+        basicDamage: 0,
+        bulletNumber: 0,
     }, {
         name: "ship1",
         type: SHIP_MODEL_1_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 50,
+        HPmax: 60,
         speed: 10,
-        skillCD: 3,
-        pollutionStart: 500
+        skillCD: 2,
+        damage: 2,
+        basicDamage: 1,
+        bulletNumber: 1,
+        pollutionStart: 400
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 40,
+        HPmax: 50,
         speed: 6,
         skillCD: 5,
-        pollutionStart: 700
+        damage: 1.5,
+        basicDamage: 1,
+        bulletNumber: 1,
+        pollutionStart: 550
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
-        xSize: 8,
-        ySize: 8,
-        HPmax: 30,
+        xSize: 10,
+        ySize: 10,
+        HPmax: 40,
         speed: 6,
-        skillCD: 15,
-        pollutionStart: 900
+        skillCD: 10,
+        damage: 1.5,
+        basicDamage: 1.5,
+        bulletNumber: 1,
+        pollutionStart: 700
     }
 ];
 
@@ -533,12 +545,11 @@ const BuffTypes = {
     DRINKING_BLOOD: 4,
     ATTACK_UP_BY_KILLing: 5,*/
     DAMAGE_CHANGE: 1,        // Damage change
-    EXPLODE_CHANGE: 2,       // Explode change
-    BULLET_NUMBER_CHANGE: 3,
-    SPEED_CHANGE: 4,         // Speed change
-    HEALTH_FULL_RECOVER: 5,  // HP recover
-    HEALTH_CHANGE: 6,        // HP change
-    POLLUTION_EFFECT: 7,     // Pollution effect
+    BULLET_NUMBER_CHANGE: 2,
+    SPEED_CHANGE: 3,         // Speed change
+    MAX_HEALTH_CHANGE: 4,  // HP map change
+    HEALTH_CHANGE: 5,        // HP change
+    POLLUTION_EFFECT: 6,     // Pollution effect
 };
 
 const TriggerConditions = {
@@ -580,15 +591,6 @@ const BUFF_MODEL = [
         maxStackCount: 3,
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
-        name: "Bullet explode up!",
-        type: BuffTypes.EXPLODE_CHANGE,
-        rarity: RarityLevel.RARE,
-        value: 1,
-        stillTime: 0,
-        canStack: true,
-        maxStackCount: 3,
-        triggerCondition: TriggerConditions.GET_ITEM
-    }, {
         name: "bullet number up!",
         type: BuffTypes.BULLET_NUMBER_UP,
         rarity: RarityLevel.COMMON,
@@ -607,10 +609,10 @@ const BUFF_MODEL = [
         maxStackCount: 1,
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
-        name: "A fully rest",
-        type: BuffTypes.HEALTH_FULL_RECOVER,
+        name: "Max HP +5!",
+        type: BuffTypes.MAX_HEALTH_CHANGE,
         rarity: RarityLevel.RARE,
-        value: 999,
+        value: 5,
         stillTime: 0,
         canStack: false,
         maxStackCount: 1,

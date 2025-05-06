@@ -26,7 +26,7 @@ class Equipment {
             partAttributes: null
         };
         this.addWeapon(defaultWeapon);
-        this.weapons[0].attackPower = 10;
+        //this.weapons[0].attackPower = 10;
         this.currentWeapon = defaultWeapon;
     }
 

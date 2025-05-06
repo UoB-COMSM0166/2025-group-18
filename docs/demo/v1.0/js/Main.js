@@ -66,7 +66,7 @@ class Main {
         );
 
         this.#game.initPlayer(playerBasicStatus);
-        this.#game.setPollution(this.#status.getShipStatus().pollution);
+        this.#game.setPollution(playerBasicStatus.pollution);
         this.initInGameMap();
     }
 
