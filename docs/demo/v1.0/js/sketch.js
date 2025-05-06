@@ -61,6 +61,14 @@ let frames = {
         radioNoise: null,
         wrong: null,
     },
+    mapIcon: {
+        event: null,
+        enemy: null,
+        boss: null,
+        boat: null,
+        mapBG: null,
+        mapMask: null,
+    }
 };
 
 function preload() {
@@ -279,6 +287,14 @@ function preload() {
     frames.pets.orbiter.push(loadImage('images/docs/img/png/pet/orbiter/3.png'));
 
 
+    // ------------------------ map icons ------------------------
+    frames.mapIcon.event = loadImage('images/docs/img/png/mapIcon/event.png');
+    frames.mapIcon.enemy = loadImage('images/docs/img/png/mapIcon/enemy.png');
+    frames.mapIcon.boss = loadImage('images/docs/img/png/mapIcon/boss.png');
+    frames.mapIcon.boat = loadImage('images/docs/img/png/mapIcon/boat.png');
+    frames.mapIcon.mapBG = loadImage('images/docs/img/png/mapIcon/mapBG.webp');
+    frames.mapIcon.mapMask = loadImage('images/docs/img/png/mapIcon/mask.webp');
+
     // Theme song audio
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
 
@@ -327,7 +343,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 45;
+let logicFrameRate = 30;
 
 function setup() {
     main = new Main();
@@ -350,12 +366,12 @@ function draw() {
     // logicCanvas.image(frames.sea, logicWidth/2, logicHeight/2, logicWidth, logicHeight);
 
     // Use currently selected background image
-    if (frames.currentBackground) {
-        logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
-        logicCanvas.image(frames.currentBackground, logicWidth / 2, 0, logicWidth, logicHeight);
-        logicCanvas.image(frames.currentBackground, 0, logicHeight / 2, logicWidth, logicHeight);
-        logicCanvas.image(frames.currentBackground, logicWidth / 2, logicHeight / 2, logicWidth, logicHeight);
-    }
+    // if (frames.currentBackground) {
+    //     logicCanvas.image(frames.currentBackground, 0, 0, logicWidth, logicHeight);
+    //     logicCanvas.image(frames.currentBackground, logicWidth / 2, 0, logicWidth, logicHeight);
+    //     logicCanvas.image(frames.currentBackground, 0, logicHeight / 2, logicWidth, logicHeight);
+    //     logicCanvas.image(frames.currentBackground, logicWidth / 2, logicHeight / 2, logicWidth, logicHeight);
+    // }
 
     const scaleX = width / logicWidth;
     const scaleY = height / logicHeight;
@@ -369,19 +385,32 @@ function draw() {
     logicY = map(mouseY, marginY, marginY + logicHeight * scaleRatio, 0, logicHeight);
     
     push();
+    resetMatrix();
     translate(marginX, marginY);
     scale(scaleRatio);
     // scale(scaleX, scaleY);
-    clip(mask);
+
+    beginClip();
+    rect(0, 0, logicWidth, logicHeight);
+    endClip();
+    
     // rectMode(CORNER);
+    imageMode(CENTER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);
     main.updateAll();
 }
 
-function mask() {
-    rectMode(CORNER);
-    rect(0, 0, logicWidth, logicHeight);
-}
+// function mask() {
+//     rectMode(CORNER);
+//     rect(0, 0, logicWidth, logicHeight);
+// }
+
+// function mapMask() {
+//     logicCanvas.translate(-logicWidth / 2, -logicHeight / 2);
+//     logicCanvas.ellipseMode(CENTER);
+//     logicCanvas.ellipse(logicWidth / 2, logicHeight / 2, logicHeight * 0.88, logicHeight * 0.88);
+//     // logicCanvas.ellipse(0,0, logicHeight * 0.88, logicHeight * 0.88);
+// }
 
 function keyPressed() {
     if (main != null) {

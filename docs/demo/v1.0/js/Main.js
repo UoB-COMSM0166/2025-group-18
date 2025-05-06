@@ -125,6 +125,8 @@ class Main {
     }
 
     updateAll() {
+        // push();
+        // logicCanvas.push();
         switch (this.#step) {
             case MAIN_STEP_CAPTAIN_UI: {
                 this.#UI.showCaptainUI();
@@ -148,7 +150,10 @@ class Main {
                 break;
             }
             case MAIN_STEP_MAP_UI: {
+                logicCanvas.push();
+                logicCanvas.translate(- logicWidth / 2, - logicHeight / 2);
                 this.#UI.showMapUI();
+                logicCanvas.pop();
                 this.#UI.showShopinMapUI();
                 break;
             }
@@ -199,6 +204,8 @@ class Main {
                 break;
             }
         }
+        // logicCanvas.pop();
+        // pop();
 
         this.#cursorPos.show();
     }

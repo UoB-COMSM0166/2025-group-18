@@ -12,6 +12,9 @@ class MapUI {
         this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;    // Outer compass radius
         this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
+        this.mapCoorX = logicWidth;
+        this.mapCoorY = logicHeight / 4 * 6;
+
         // 5 as the outer ring, 0 as the center
         this.maxRing = 5; // The outermost circle is 5
         this.minRing = 0; // The center is 0
@@ -22,21 +25,17 @@ class MapUI {
         this.roads = [];
 
         // The ring the player is in and the index in the ring (the number of points)
-        this.playerLocation = { ring: 5, index: 0 };
+        this.playerLocation = { ring: this.maxRing, index: 0 };
 
         // Player Icon Information
         this.playerMarker = {
-            x: this.xCoor,
-            y: this.yCoor,
-            targetX: this.xCoor,
-            targetY: this.yCoor,
+            x: this.mapCoorX,
+            y: this.mapCoorY,
+            targetX: this.mapCoorX,
+            targetY: this.mapCoorY,
             rotation: 0,
-            targetRotation: 0
+            // targetRotation: 0
         };
-
-        // The compass rotates on its own (you can keep it if you want, or not use it)
-        this.compassRotation = 0;
-        this.targetRotation = 0;
 
         // Initialize the outermost ring (ring=5) and place the player randomly at a point in the outer ring
         this.init();
@@ -61,65 +60,44 @@ class MapUI {
             this.scale = 1;
         }
 
-        draw() {
-            drawingContext.save();
-
-            const mainColor = color(100, 255, 218);
-            const bossColor = color(255, 100, 100);
-            const hoverColor = color(100, 255, 218, 153);
-            const visitedColor = this.isVisited ? color(150, 200, 180) : mainColor;
-
+        draw(xPlayer, yPlayer) {
             // ring=0 → BOSS; other rings → normal
             const isBoss = (this.ring == 0);
-
-            const buttonColor = isBoss ? bossColor : visitedColor;
-            const textColor = this.isHovered ? color(0) : buttonColor;
-            const bgColor = this.isHovered ? hoverColor : color(0, 0);
 
             // Scale Animation
             const currentScale = lerp(this.scale, 1, 0.2);
 
-            push();
-            translate(this.x, this.y);
-            scale(currentScale);
-
-            drawingContext.shadowColor = buttonColor;
-            drawingContext.shadowBlur = this.isHovered ? 40 : 20;
-            fill(bgColor);
-            stroke(buttonColor);
-            strokeWeight(2);
-
             // BOSS uses diamonds, others use circles
+            logicCanvas.push();
+            logicCanvas.imageMode(CENTER);
             if (isBoss) {
-                beginShape();
-                vertex(0, -this.h / 2);
-                vertex(this.w / 2, 0);
-                vertex(0, this.h / 2);
-                vertex(-this.w / 2, 0);
-                endShape(CLOSE);
+                logicCanvas.image(
+                    frames.mapIcon.boss,
+                    this.x - xPlayer + logicWidth / 2,
+                    this.y - yPlayer + logicHeight / 2,
+                    this.w * 2 * currentScale, this.h * 2 * currentScale);
             } else {
-                ellipse(0, 0, this.w, this.h);
+                if (this.mapType == MAIN_STEP_IN_GAME) {
+                    logicCanvas.image(
+                        frames.mapIcon.enemy,
+                        this.x - xPlayer + logicWidth / 2,
+                        this.y - yPlayer + logicHeight / 2,
+                        this.w * currentScale, this.h * currentScale);
+                } else {
+                    logicCanvas.image(
+                        frames.mapIcon.event,
+                        this.x - xPlayer + logicWidth / 2,
+                        this.y - yPlayer + logicHeight / 2,
+                        this.w * currentScale, this.h * currentScale);
+                }
             }
 
-            // image loading
-            fill(textColor);
-            noStroke();
-            textSize(this.w * 0.4);
-            textAlign(CENTER, CENTER);
-            if (this.mapType == MAIN_STEP_IN_GAME) {
-                text("Fight!", 0, 0);
-            } else {
-                text("???", 0, 0);
-            }
 
-            pop();
-            drawingContext.restore();
+            logicCanvas.pop();
         }
 
-        checkHover() {
-            const dx = logicX - this.x;
-            const dy = logicY - this.y;
-            const distance = sqrt(dx * dx + dy * dy);
+        checkHover(xPlayer, yPlayer) {
+            const distance = dist(logicX, logicY, this.x - xPlayer + logicWidth / 2, this.y - yPlayer + logicHeight / 2);
             this.isHovered = (distance < this.w / 2);
         }
 
@@ -135,32 +113,30 @@ class MapUI {
 
     // =============== Initialize the outermost ring (ring=5) + place the player ===============
     init() {
-        noStroke();
+        // noStroke();
         this.rings = [];
         this.roads = [];
 
         // Only generate nodes in ring=5 (the outermost ring), and then let the player randomly place them there
-        this.createRing(5);
+        this.createRing(this.maxRing);
 
         // Randomly select a node on ring=5 as the player's initial position
-        const ring5Buttons = this.rings[5];
-        const randomIndex = floor(random(ring5Buttons.length));
-        const startBtn = ring5Buttons[randomIndex];
+        const ringFirstButtons = this.rings[this.maxRing];
+        const randomIndex = floor(random(ringFirstButtons.length));
+        const startBtn = ringFirstButtons[randomIndex];
 
         // Mark as visited
         startBtn.isVisited = true;
-        this.playerLocation = { ring: 5, index: randomIndex };
+        this.playerLocation = { ring: this.maxRing, index: randomIndex };
 
         // Player initial position
-        this.playerMarker.x = startBtn.x;
-        this.playerMarker.y = startBtn.y;
-        this.playerMarker.targetX = startBtn.x;
-        this.playerMarker.targetY = startBtn.y;
+        this.playerMarker.x = this.mapCoorX;
+        this.playerMarker.y = this.mapCoorY;
+        this.playerMarker.targetX = this.mapCoorX;
+        this.playerMarker.targetY = this.mapCoorY;
 
-        // If the player's arrow always points to the center, just give an initial value here
-        const angleToCenter = atan2(this.yCoor - startBtn.y, this.xCoor - startBtn.x);
-        this.playerMarker.rotation = angleToCenter;
-        this.playerMarker.targetRotation = angleToCenter;
+        this.playerMarker.rotation = 0;
+        this.playerMarker.targetRotation = 0;
     }
 
     // ===============================================================
@@ -173,36 +149,30 @@ class MapUI {
         // If it already exists, do not generate it again
         if (this.rings[ringIndex]) return;
 
-        // ringIndex=0 → center point
         if (ringIndex == 0) {
             const centerBtn = new this.MapButton(
-                this.xCoor,
-                this.yCoor,
+                this.playerMarker.targetX,
+                this.playerMarker.targetY - logicHeight / 4,
                 this.buttonSize,
                 0,
                 0,
-                -PI / 2 // Any angle
+                0, // Any angle
             );
             this.rings[0] = [centerBtn];
             return;
         }
 
         // ringIndex=5 → Only one node is generated in the outermost ring
-        if (ringIndex == 5) {
-            let angle = random(-PI / 4, PI / 4) - PI / 2; // Random angle up
-            const ringDist = this.outerRadius * (ringIndex / this.maxRing);
-
-            const x2 = this.xCoor + cos(angle) * ringDist;
-            const y2 = this.yCoor + sin(angle) * ringDist;
-
+        if (ringIndex == this.maxRing) {
             let btn = new this.MapButton(
-                x2, y2,
+                this.playerMarker.x,
+                this.playerMarker.y,
                 this.buttonSize,
                 ringIndex,
                 0,
-                angle
+                0
             );
-            this.rings[5] = [btn];
+            this.rings[this.maxRing] = [btn];
             return;
         }
 
@@ -217,12 +187,11 @@ class MapUI {
         angle1 -= PI / 2;
         angle2 -= PI / 2;
 
-        const ringDist = this.outerRadius * (ringIndex / this.maxRing);
-
         let btns = [];
         [angle1, angle2].forEach((ang, idx) => {
-            const x2 = this.xCoor + cos(ang) * ringDist;
-            const y2 = this.yCoor + sin(ang) * ringDist;
+            const ringDist = (logicHeight / 5 + random(-logicHeight / 10, logicHeight / 10)) * 0.8;
+            const x2 = this.playerMarker.targetX + cos(ang) * ringDist;
+            const y2 = this.playerMarker.targetY + sin(ang) * ringDist;
             let btn = new this.MapButton(
                 x2, y2,
                 this.buttonSize,
@@ -243,10 +212,6 @@ class MapUI {
         const innerRing = currentRing - 1;
         this.createRing(innerRing);
 
-        // console.log("currentRing", currentRing, "innerRing", innerRing);
-        // console.log("currentRing", this.rings[currentRing][this.playerLocation.index]);
-        // console.log("innerRing", this.rings[innerRing]);
-        // console.log("playerLocation", this.playerLocation);
         let currentBtn = this.rings[currentRing][this.playerLocation.index];
         if (!currentBtn) return;
 
@@ -283,6 +248,7 @@ class MapUI {
                     weight: 1,
                     visited: false
                 });
+                // console.log("生成道路", x1, y1, x2, y2, xc1, yc1);
             }
         });
     }
@@ -296,20 +262,6 @@ class MapUI {
         this.playerMarker.x = lerp(this.playerMarker.x, this.playerMarker.targetX, 0.1);
         this.playerMarker.y = lerp(this.playerMarker.y, this.playerMarker.targetY, 0.1);
 
-        // ===============================================================
-        // If the player's arrow is always pointing to the center:
-        // - The targetRotation can be calculated in real time here
-        // - For smoother animation, update only after the player moves
-        // ===============================================================
-        let angleToCenter = atan2(
-            this.yCoor - this.playerMarker.y,
-            this.xCoor - this.playerMarker.x
-        );
-        this.playerMarker.targetRotation = angleToCenter;
-        this.playerMarker.rotation = lerp(this.playerMarker.rotation, this.playerMarker.targetRotation, 0.1);
-
-        // Compass rotation (can be retained or omitted)
-        this.compassRotation = lerp(this.compassRotation, this.targetRotation, 0.05);
     }
 
     // =============== Mouse down ===============
@@ -417,13 +369,13 @@ class MapUI {
 
     // =============== Window size changes ===============
     handleWindowResized() {
-        this.xCoor = logicWidth / 2;
-        this.yCoor = logicHeight / 2;
-        this.xSize = logicWidth * 0.8;
-        this.ySize = logicHeight * 0.8;
-        this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;
-        this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;
-        this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
+        // this.xCoor = logicWidth / 2;
+        // this.yCoor = logicHeight / 2;
+        // this.xSize = logicWidth * 0.8;
+        // this.ySize = logicHeight * 0.8;
+        // this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;
+        // this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;
+        // this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
 
         // Simple solution: Re-init()
         // Window changes no longer require init
@@ -432,146 +384,138 @@ class MapUI {
 
     // =============== draw ===============
     draw() {
-        background(0);
+        let offsetX = logicWidth - this.playerMarker.x;
+        let offsetY = logicHeight - this.playerMarker.y;
 
-        // 1) Compass background (can be left as is)
-        push();
-        translate(this.xCoor, this.yCoor);
-        rotate(this.compassRotation);
+        logicCanvas.push();
+        logicCanvas.resetMatrix();
 
-        fill(20);
-        stroke(100, 255, 218, 80);
-        strokeWeight(2);
-        ellipse(0, 0, this.outerRadius * 2.2, this.outerRadius * 2.2);
+        logicCanvas.imageMode(CENTER);
+        logicCanvas.image(
+            frames.mapIcon.mapBG, 
+            logicWidth / 2 + offsetX, 
+            logicHeight / 2 + offsetY, 
+            logicWidth * 3, logicHeight * 3);
+        // 2) draw roads
 
-        for (let i = 0; i < 8; i++) {
-            const angle = i * TWO_PI / 8;
-            stroke(100, 255, 218, 80);
-            strokeWeight(1);
-            line(0, 0, cos(angle) * this.outerRadius * 1.1, sin(angle) * this.outerRadius * 1.1);
-
-            // NESW
-            if (i % 2 === 0) {
-                noStroke();
-                fill(100, 255, 218);
-                textSize(this.buttonSize * 0.4);
-                textAlign(CENTER, CENTER);
-                const labels = ["N", "E", "S", "W"];
-                text(labels[i / 2],
-                    cos(angle) * this.outerRadius * 1.15,
-                    sin(angle) * this.outerRadius * 1.15);
-            }
-        }
-
-        noFill();
-        stroke(100, 255, 218, 40);
-        strokeWeight(1);
-        for (let r = 1; r <= 3; r++) {
-            ellipse(0, 0, this.outerRadius * 2 * r / 3, this.outerRadius * 2 * r / 3);
-        }
-
-        fill(20);
-        stroke(100, 255, 218);
-        strokeWeight(2);
-        ellipse(0, 0, this.centerRadius * 2, this.centerRadius * 2);
-
-        pop();
-
-        // 2) Draw the road
         for (let road of this.roads) {
-            stroke(road.color);
-            strokeWeight(road.weight);
-            noFill();
+            // logicCanvas.stroke(road.color);
+            logicCanvas.stroke(0);
+            logicCanvas.strokeWeight(road.weight);
+            logicCanvas.noFill();
 
+            logicCanvas.drawingContext.save();
             if (road.visited) {
-                drawingContext.setLineDash([]);
+                logicCanvas.drawingContext.setLineDash([]);
             } else {
-                drawingContext.setLineDash([5, 5]);
+                logicCanvas.drawingContext.setLineDash([5, 5]);
             }
 
-            beginShape();
-            vertex(road.x1, road.y1);
-            quadraticVertex(road.xc1, road.yc1, road.x2, road.y2);
-            endShape();
+            logicCanvas.beginShape();
+            logicCanvas.vertex(
+                road.x1 + offsetX - logicWidth / 2, 
+                road.y1 + offsetY - logicHeight / 2);
+            // console.log("road: ", road.x1 + offsetX, road.y1 + offsetY);
+            logicCanvas.quadraticVertex(
+                road.xc1 + offsetX - logicWidth / 2, 
+                road.yc1 + offsetY - logicHeight / 2, 
+                road.x2 + offsetX - logicWidth / 2, 
+                road.y2 + offsetY - logicHeight / 2);
+            logicCanvas.endShape();
 
             // Display flow dots on visited roads
             if (road.visited) {
-                push();
-                stroke(255, 255, 255, 150);
-                strokeWeight(2);
+                logicCanvas.push();
+                logicCanvas.stroke(255, 255, 255, 150);
+                logicCanvas.strokeWeight(2);
 
                 const t = (frameCount % logicFrameRate) / logicFrameRate;
                 const x = bezierPoint(road.x1, road.xc1, road.xc1, road.x2, t);
                 const y = bezierPoint(road.y1, road.yc1, road.yc1, road.y2, t);
 
-                fill(255);
-                noStroke();
-                ellipse(x, y, 6, 6);
+                logicCanvas.fill(0);
+                logicCanvas.noStroke();
+                logicCanvas.ellipse(x + offsetX - logicWidth / 2, y + offsetY - logicHeight / 2, 6, 6);
 
-                pop();
+                logicCanvas.pop();
             }
-            drawingContext.setLineDash([]);
+            logicCanvas.drawingContext.setLineDash([]);
         }
 
         // 3) Draw Node
         for (let ringButtons of Object.values(this.rings)) {
             for (let btn of ringButtons) {
-                btn.checkHover();
-                btn.draw();
+                btn.checkHover(this.playerMarker.x, this.playerMarker.y);
+                btn.draw(this.playerMarker.x, this.playerMarker.y);
             }
         }
 
-        // 4) Draws the player icon (arrow always points to the center)
-        push();
-        translate(this.playerMarker.x, this.playerMarker.y);
-        // + PI/2 Let "directly above" be the direction of the arrow
-        rotate(this.playerMarker.rotation + PI / 2);
-        fill(255, 255, 100);
-        stroke(255, 200, 0);
-        strokeWeight(2);
+        logicCanvas.drawingContext.restore();
 
-        beginShape();
-        vertex(0, -this.buttonSize / 2);
-        vertex(this.buttonSize / 4, this.buttonSize / 4);
-        vertex(0, 0);
-        vertex(-this.buttonSize / 4, this.buttonSize / 4);
-        endShape(CLOSE);
+        // 4) Draw Player Icon
+        logicCanvas.push();
+        logicCanvas.imageMode(CENTER);
+        logicCanvas.image(
+            frames.mapIcon.boat, 
+            logicWidth / 2, logicHeight / 2, 
+            this.buttonSize, this.buttonSize * 2);
+        logicCanvas.pop();
+        
+        // 1) Draw Compass
+        logicCanvas.push();
+        let lineColor = color(0);
+        logicCanvas.resetMatrix();
+        logicCanvas.translate(logicWidth / 2, logicHeight / 2);
+        // rotate(this.compassRotation);
 
-        // Halo
-        drawingContext.shadowColor = color(255, 200, 0);
-        drawingContext.shadowBlur = 15;
-        ellipse(0, 0, this.buttonSize / 4, this.buttonSize / 4);
-        pop();
+        logicCanvas.imageMode(CENTER);
+        logicCanvas.image(frames.mapIcon.mapMask, 0, 0, logicWidth, logicHeight);
+
+        logicCanvas.noFill();
+        // stroke(100, 255, 218, 80);
+        logicCanvas.stroke(lineColor);
+        logicCanvas.strokeWeight(2);
+        logicCanvas.ellipseMode(CENTER);
+        logicCanvas.ellipse(0, 0, this.outerRadius * 2.2, this.outerRadius * 2.2);
+
+        for (let i = 0; i < 8; i++) {
+            const angle = i * TWO_PI / 8;
+            logicCanvas.stroke(lineColor);
+            logicCanvas.strokeWeight(1);
+            logicCanvas.line(0, 0, cos(angle) * this.outerRadius * 1.1, sin(angle) * this.outerRadius * 1.1);
+
+            // NESW
+            if (i % 2 === 0) {
+                logicCanvas.noStroke();
+                logicCanvas.fill(255);
+                logicCanvas.textSize(this.buttonSize);
+                logicCanvas.textAlign(CENTER, CENTER);
+                const labels = ["N", "E", "S", "W"];
+                logicCanvas.text(labels[i / 2],
+                    cos(angle) * this.outerRadius * 1.15,
+                    sin(angle) * this.outerRadius * 1.15);
+            }
+        }
+
+        logicCanvas.noFill();
+        logicCanvas.stroke(lineColor);
+        logicCanvas.strokeWeight(1);
+        for (let r = 1; r <= 3; r++) {
+            logicCanvas.ellipse(0, 0, this.outerRadius * 2 * r / 3, this.outerRadius * 2 * r / 3);
+        }
+        logicCanvas.pop();
+
+        logicCanvas.pop();
     }
 
     getRandomType() { //The probability of random events is adjusted here. - Theodore
         const randomNum = Math.random();
         if (randomNum < 0.3) {
-        //if (randomNum < 1) {
+            //if (randomNum < 1) {
             return MAIN_STEP_IN_GAME;
         } else {
             return MAIN_STEP_RANDOM_EVENT;
         }
     }
 
-    // Theodore-Reset Map
-    resetMap() {
-        this.rings = [];
-        this.roads = [];
-        this.playerLocation = { ring: 5, index: 0 };
-        this.compassRotation = 0;
-        this.targetRotation = 0;
-
-        // Reset player marker position
-        this.playerMarker = {
-            x: this.xCoor,
-            y: this.yCoor,
-            targetX: this.xCoor,
-            targetY: this.yCoor,
-            rotation: 0,
-            targetRotation: 0
-        };
-
-        this.init();
-    }
 }

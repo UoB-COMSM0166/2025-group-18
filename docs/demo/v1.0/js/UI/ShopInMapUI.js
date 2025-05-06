@@ -23,6 +23,7 @@ class ShopInMapUI {
         }
 
         draw() {
+            push();
             drawingContext.save();
             rectMode(CENTER);
 
@@ -54,6 +55,7 @@ class ShopInMapUI {
             text(this.label, 0, 0);
 
             drawingContext.restore();
+            pop();
         }
 
         checkHover(shopInMapUI) {
