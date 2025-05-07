@@ -53,16 +53,16 @@ class RandomEventUI {
                 title: "The Siren's Song",
                 description: 
                     "During the voyage, you heard beautiful singing from afar. " +
-                    "Beautiful figures were vaguely visible on the water. " +
-                    "They were the legendary mermaids, waving to you.",
+                    "\nBeautiful figures were vaguely visible on the water. " +
+                    "\nThey were the legendary mermaids, waving to you.",
                 choicePrompt: "Get close to these beautiful creatures?",
-                acceptText: "Come closer (you vaguely remember someone warning you to stay away from mermaids)",
-                declineText: "keep away",
+                acceptText: "Come closer",
+                declineText: "Keep away",
                 acceptResult: {
                     description: 
                         "You are mesmerized by the singing and sail closer. " +
-                        "When you get close enough, the mermaids reveal their terrifying true colors! " +
-                        "Their sharp claws attack your boat, causing severe damage, and you barely escape. " +
+                        "\nWhen you get close enough, the mermaids reveal their terrifying true colors! " +
+                        "\nTheir sharp claws attack your boat, causing severe damage, and you barely escape. " +
                         "\n【HP - 30】",
                     outcomeType: "damage",
                     healthChange: -30,
@@ -89,15 +89,15 @@ class RandomEventUI {
                 title: "Drifting Treasure Chest",
                 description: 
                     "You find an ancient treasure chest floating on the sea, " +
-                    "which looks like it has been drifting on the sea for a long time.",
+                    "\nwhich looks like it has been drifting on the sea for a long time.",
                 choicePrompt: "Do you want to open this mysterious box?",
                 acceptText: "Open the treasure chest",
                 declineText: "Ignore",
                 acceptResult: {
                     description: 
                         "You carefully opened the treasure chest, " +
-                        "which was filled with glittering gold coins and some ancient sailing supplies! " +
-                        "This is a windfall! " +
+                        "\nwhich was filled with glittering gold coins and some ancient sailing supplies! " +
+                        "\nThis is a windfall! " +
                         "\n【Gold + 300】",
                     outcomeType: "reward",
                     healthChange: 0,
@@ -133,7 +133,7 @@ class RandomEventUI {
                 declineResult: {
                     description: 
                         "You chose safety first and took a detour. " +
-                        "This caused a lot of extra pollution, but at least the ship was saved. " +
+                        "\nThis caused a lot of extra pollution, but at least the ship was saved. " +
                         "\n【Pollution + 200】",
                     outcomeType: "continue",
                     healthChange: 0,
@@ -155,7 +155,7 @@ class RandomEventUI {
                 acceptResult: {
                     description: 
                         "Dolphins lead you to a hidden channel, " +
-                        "helping you avoid dangerous areas, discover treasure, save fuel and reduce pollution! " +
+                        "\nhelping you avoid dangerous areas, discover treasure, save fuel and reduce pollution! " +
                         "\n【Gold + 100, Pollution - 300】",
                     outcomeType: "reward",
                     healthChange: 0,
@@ -163,7 +163,7 @@ class RandomEventUI {
                     pollutionChange: -300
                 },
                 declineResult: {
-                    description: "You stick to your route, and the dolphins swim away in disappointment. Maybe you missed something? \n【No change】",
+                    description: "You stick to your route, and the dolphins swim away in disappointment.\n Maybe you missed something? \n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -177,19 +177,19 @@ class RandomEventUI {
                 // Game evaluation event
                 type: 5,
                 title: "Game Experience Survey",
-                description: "A mysterious letter falls from the sky, with the words 【Survey from the developer: How do you feel about this game? Please answer honestly.】",
+                description: "A mysterious letter falls from the sky, with the words.\n【Survey from the developer: How do you feel about this game? Please answer honestly.】",
                 choicePrompt: "How would you rate this game?",
                 acceptText: "Great! I like it! (HP + 30)",
                 declineText: "Not good, needs improvement (HP - 10)",
                 acceptResult: {
-                    description: "Text appears on the letter: 【Thank you for your positive feedback! As a reward, your health has been restored!】\nA warm light envelops your ship, and you feel energized.\n【HP + 30】",
+                    description: "Text appears on the letter: \n【Thank you for your positive feedback! \nAs a reward, your health has been restored!】\nA warm light envelops your ship, and you feel energized.\n【HP + 30】",
                     outcomeType: "reward",
                     healthChange: 30,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "Text appears on the letter: 【Honest, but hurtful. We'll keep working hard!】The petty developer uses mysterious forces to hit your ship, causing some damage.\n【HP - 10】",
+                    description: "Text appears on the letter: \n【Honest, but hurtful. We'll keep working hard!】\nThe petty developer uses mysterious forces to hit your ship, causing some damage.\n【HP - 10】",
                     outcomeType: "damage",
                     healthChange: -10,
                     goldChange: 0,
@@ -203,15 +203,15 @@ class RandomEventUI {
                 // Orange seller event
                 type: 6,
                 title: "Maritime Fruit Merchant",
-                description: "You encounter a small merchant ship with a trader selling fresh oranges. 【Long sea voyage, beware of scurvy! Only 500 gold per crate of oranges!】 The merchant enthusiastically promotes to you.",
+                description: "You encounter a small merchant ship with a trader selling fresh oranges.\n【Long sea voyage, beware of scurvy! Only 200 gold per crate of oranges!】\nThe merchant enthusiastically promotes to you.",
                 choicePrompt: "Do you want to buy oranges to prevent scurvy?",
-                acceptText: "Buy oranges (Gold - 500)",
+                acceptText: "Buy oranges (Gold - 200)",
                 declineText: "Refuse to buy",
                 acceptResult: {
-                    description: "You decide to buy some oranges. The oranges are really sweet, and they also supplement vitamin C, avoiding the risk of scurvy. Your mental and health conditions have improved!\n【HP + 10, Gold - 500】",
+                    description: "You decide to buy some oranges.\n The oranges are really sweet, and they also supplement vitamin C, avoiding the risk of scurvy. \nYour mental and health conditions have improved!\n【HP + 10, Gold - 200】",
                     outcomeType: "continue",
                     healthChange: 10,
-                    goldChange: -500,
+                    goldChange: 200,
                     pollutionChange: 0
                 },
                 declineResult: {
@@ -255,19 +255,19 @@ class RandomEventUI {
                 // Mysterious island event
                 type: 8,
                 title: "Island in the Clouds",
-                description: "During your voyage, you discover a small island faintly visible in the thick fog ahead. Legend has it that ancient civilization ruins might be hidden there, but dangers may also lurk.",
+                description: "During your voyage, you discover a small island faintly visible in the thick fog ahead.\n Legend has it that ancient civilization ruins might be hidden there, but dangers may also lurk.",
                 choicePrompt: "Do you want to sail toward this mysterious island?",
                 acceptText: "Adventure to the island (HP - 15)",
                 declineText: "Maintain course",
                 acceptResult: {
-                    description: "You bravely sail into the mist and find the island. There are indeed ancient ruins on the island! You discover some valuable antiques, but also consume quite a few supplies.\n【HP - 15, Gold + 200】",
+                    description: "You bravely sail into the mist and find the island.\n There are indeed ancient ruins on the island! You discover some valuable antiques, but also consume quite a few supplies.\n【HP - 15, Gold + 200】",
                     outcomeType: "reward",
                     healthChange: -15,
                     goldChange: 200,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "You choose not to take risks and continue on your planned route. Perhaps it was just a mirage, or perhaps you missed something, but at least you avoided potential dangers.\n【No change】",
+                    description: "You choose not to take risks and continue on your planned route.\n Perhaps it was just a mirage, or perhaps you missed something, but at least you avoided potential dangers.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -281,19 +281,19 @@ class RandomEventUI {
                 // Pirate attack event
                 type: 9,
                 title: "Black Sail Approaching",
-                description: "A black sailing ship appears in the distance with a skull flag. The pirate ship is rapidly approaching you, apparently targeting your cargo!",
+                description: "A black sailing ship appears in the distance with a skull flag.\n The pirate ship is rapidly approaching you, apparently targeting your cargo!",
                 choicePrompt: "Facing pirates, what will you do?",
                 acceptText: "Pay the toll (Gold - 400)",
                 declineText: "Fight the pirates",
                 acceptResult: {
-                    description: "You choose to hand over some of your wealth, and the pirates leave satisfied. Although you lost some gold coins, you kept the ship intact, which might be a wise decision.\n【Gold - 400】",
+                    description: "You choose to hand over some of your wealth, and the pirates leave satisfied.\n Although you lost some gold coins, you kept the ship intact, which might be a wise decision.\n【Gold - 400】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: -400,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "You decide not to submit to the pirates! After an intense sea battle, you successfully repelled the pirates, but the ship was severely damaged and needs repairs. There were some valuable items in the loot.\n【HP - 20, Gold + 300, Pollution + 300】",
+                    description: "You decide not to submit to the pirates! After an intense sea battle, you successfully repelled the pirates, but the ship was severely damaged and needs repairs.\n There were some valuable items in the loot.\n【HP - 20, Gold + 300, Pollution + 300】",
                     outcomeType: "damage",
                     healthChange: -20,
                     goldChange: 300,
@@ -307,19 +307,19 @@ class RandomEventUI {
                 // Ecological protection event
                 type: 10,
                 title: "Ocean Garbage Patch",
-                description: "Your ship has entered an area with a large amount of floating plastic waste. Marine life is trapped in the garbage, a heartbreaking sight.",
+                description: "Your ship has entered an area with a large amount of floating plastic waste.\n Marine life is trapped in the garbage, a heartbreaking sight.",
                 choicePrompt: "How will you deal with this garbage?",
                 acceptText: "Spend time cleaning up the garbage",
                 declineText: "Navigate around the garbage patch and continue sailing",
                 acceptResult: {
-                    description: "You decide to stop and clean up the garbage. This good deed not only helped marine life but also unexpectedly led to the discovery of some valuable items in the garbage!\n【HP + 5, Gold + 150, Pollution - 200】",
+                    description: "You decide to stop and clean up the garbage.\n This good deed not only helped marine life but also unexpectedly led to the discovery of some valuable items in the garbage!\n【HP + 5, Gold + 150, Pollution - 200】",
                     outcomeType: "reward",
                     healthChange: 5,
                     goldChange: 150,
                     pollutionChange: -200
                 },
                 declineResult: {
-                    description: "You choose to continue sailing, having no time to deal with these issues. As the ship passes through the garbage patch, some plastic gets tangled in the propeller, forcing you to stop and clean it, ultimately wasting more time and resources.\n【Pollution + 300】",
+                    description: "You choose to continue sailing, having no time to deal with these issues.\n As the ship passes through the garbage patch, some plastic gets tangled in the propeller, forcing you to stop and clean it, ultimately wasting more time and resources.\n【Pollution + 300】",
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
@@ -333,19 +333,19 @@ class RandomEventUI {
                 // Shipwreck event
                 type: 11,
                 title: "Ancient Shipwreck",
-                description: "Your detector discovers an ancient shipwreck on the seabed. Based on preliminary assessment, this might be a merchant ship that sank centuries ago, possibly hiding treasures inside.",
+                description: "Your detector discovers an ancient shipwreck on the seabed.\n Based on preliminary assessment, this might be a merchant ship that sank centuries ago, possibly hiding treasures inside.",
                 choicePrompt: "Do you want to dive and explore the shipwreck?",
                 acceptText: "Organize a diving expedition (HP - 15)",
                 declineText: "Continue sailing",
                 acceptResult: {
-                    description: "You organize a diving operation. In the shipwreck, you discover some ancient gold coins and jewelry! But an underwater current almost caused an accident, and you suffered minor injuries.\n【HP - 15, Gold + 300】",
+                    description: "You organize a diving operation. \nIn the shipwreck, you discover some ancient gold coins and jewelry!\n But an underwater current almost caused an accident, and you suffered minor injuries.\n【HP - 15, Gold + 300】",
                     outcomeType: "reward",
                     healthChange: -15,
                     goldChange: 300,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "You decide not to take the risk and continue sailing. After all, many treasure hunters have perished at sea due to greed. Safety is the primary consideration.\n【No change】",
+                    description: "You decide not to take the risk and continue sailing.\n After all, many treasure hunters have perished at sea due to greed.\n Safety is the primary consideration.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -359,19 +359,19 @@ class RandomEventUI {
                 // Lost direction event
                 type: 12,
                 title: "Compass Malfunction",
-                description: "Your ship has entered a strange area where the ship's compass begins to spin wildly and navigation systems fail. You have completely lost your sense of direction.",
+                description: "Your ship has entered a strange area where the ship's compass begins to spin wildly and navigation systems fail.\n You have completely lost your sense of direction.",
                 choicePrompt: "In this situation, what will you do?",
                 acceptText: "Trust your intuition, choose a direction to proceed",
                 declineText: "Stop and wait until you can determine your position",
                 acceptResult: {
-                    description: "You decide to trust a sailor's intuition and choose a direction to move forward. Fortunately, your judgment was correct! Not only did you find the right route, but you also accidentally discovered a little-known shortcut!\n【Gold + 200, Pollution - 50】",
+                    description: "You decide to trust a sailor's intuition and choose a direction to move forward.\n Fortunately, your judgment was correct! Not only did you find the right route, but you also accidentally discovered a little-known shortcut!\n【Gold + 200, Pollution - 50】",
                     outcomeType: "reward",
                     healthChange: 0,
                     goldChange: 200,
                     pollutionChange: -50
                 },
                 declineResult: {
-                    description: "You decide to stop and wait. After several days of long waiting, the magnetic anomaly finally disappears, but you consumed extra fuel.\n【Pollution + 200】",
+                    description: "You decide to stop and wait.\n After several days of long waiting, the magnetic anomaly finally disappears, but you consumed extra fuel.\n【Pollution + 200】",
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
