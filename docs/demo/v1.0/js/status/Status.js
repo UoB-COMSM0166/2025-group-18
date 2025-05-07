@@ -36,7 +36,7 @@ class Status {
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.damage = SHIP_MODEL[shipType].damage;
         this.#playerStatus.basicDamage = SHIP_MODEL[shipType].basicDamage;
-        this.#playerStatus.bulletNumber = SHIP_MODEL[shipType].bulletNumber;
+        this.#playerStatus.bulletNumber = 10;//SHIP_MODEL[shipType].bulletNumber;
         this.#playerStatus.pollution = SHIP_MODEL[shipType].pollutionStart;
         this.#playerStatus.pollutionLevel = 1;
         this.#playerStatus.loopCount = 0;

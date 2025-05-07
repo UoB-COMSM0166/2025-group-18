@@ -122,19 +122,8 @@ class Game {
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
 
-
-        const playerBasicStatus = this.#player ? {
-            xSize: this.#player.xSize,
-            ySize: this.#player.ySize,
-            HP: this.#player.HPmax,
-            speed: this.#player.speed,
-            skillCD: this.#player.maxSkillCD,
-            maxSkillCD: this.#player.maxSkillCD
-        } : null;
-
-        if (playerBasicStatus) {
-            this.initPlayer(playerBasicStatus, this.mapType);
-        }
+        this.#player.xCoordinate = info.playerStart.x * logicWidth;
+        this.#player.yCoordinate = info.playerStart.y * logicHeight;
 
         this.initBoss(this.#loopCount);
         this.initEnemies(info.enemy, loopCount);
