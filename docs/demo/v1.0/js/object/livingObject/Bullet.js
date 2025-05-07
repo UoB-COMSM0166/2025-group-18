@@ -24,7 +24,7 @@ class Bullet extends BasicObject {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         if (this.bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
-            this.maxTurnAngle = Math.PI / 36 * 60 / logicFrameRate;
+            this.maxTurnAngle = Math.PI / 36 * 60 / logicFrameRate * this.speed / 20;
         }
         this.toDelete = false;
         this.exploded = false;
