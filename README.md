@@ -109,7 +109,8 @@ Video of Demo - TBD
 <div align="center">
 	<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
 </div>
-#### Epic
+
+#### 2.2 Epic
 
 | Bot                      | User Story                                                                                                                                                 | Acceptance Criteria                                                                                                                                                                                               |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -119,7 +120,7 @@ Video of Demo - TBD
 | Game Auditor              | As a game auditor, I want the game to have a wider audience, so I need to minimize graphic violence. | 1. The game avoids excessive graphic violence, including bloody or gory scenes. <br> 2. Combat effects can be represented through non-lethal means. <br> 3. The game’s content complies with age classification standards. <br> 4. The game avoids using vulgar language or visual effects. <br> 5. If necessary, the game provides adjustable violence levels. |
 | Colorblind Player          | As a colorblind player, I often find it difficult to distinguish between characters, items, etc., in fast-paced action games. I hope the game features elements with clear visual effects, such as different colored outlines. | 1. Each character, item, enemy, and other elements have clearly distinguishable marks (colored borders). <br> 2. The game offers colorblind modes or customizable color options. <br> 3. UI elements are designed with colorblind players in mind. <br> 4. Environmental and combat elements are differentiated through shapes, textures, and other features. <br> 5. The game offers visual effect options to adjust markers. |
 
-#### 2.2 Early stages design
+#### 2.3 Early stages design
 
 ![frame](docs/labprocess/week04/frame01.png)
 
@@ -150,7 +151,7 @@ Video of Demo - TBD
   3. **Attribute/Buff Enhancements:** Random or tier-based system (weak buffs early, strong buffs later)
   4. **Random Events:** Many types (like ambushes or discoveries); no back-to-back repeats; some events only happen after certain things are done
 
-#### 2.3 The process of development and ideation
+#### 2.4 The process of development and ideation
 
 - At first, we planned to make a roguelike dungeon game, inspired by classics like *The Binding of Isaac* and *Soul Knight*. Based on that, we designed the main parts of the game and made early sketches to show the structure and art style (see below).
 
@@ -249,10 +250,13 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
    **Solution:**
     We developed a hybrid procedural generation system that combines pre-designed map segments with random layouts. The game creates maps by connecting these pre-designed sections, adjusting enemy placements, obstacles, and resource locations based on pollution levels and difficulty settings. We also added a validation system to ensure the maps are passable and balanced.
 
-4. We encountered several issues during project development, such as global scaling and lag:
-
-   1. We wanted the game to automatically adapt to various window sizes. To achieve this, we changed many basic settings, including virtual canvas design and logical mouse handling, allowing the game screen to adjust to different window sizes.
-   2. Since we designed animated effects with at least 3 frames for each entity, this caused lag and frame drops, especially with a frame rate of 60. We explored several solutions, optimized the entity update logic, and improved the image loading process. Additionally, we added caching during refreshes, which greatly improved the game's smoothness.
+4. We encountered several issues during project development, such as **global scaling and lag**:
+   **Description:** 
+   1. We wanted the game to automatically adapt to various window sizes. 
+   2. Since we designed animated effects with at least 3 frames for each entity, this caused lag and frame drops, especially with a frame rate of 60.
+   **Solution:**
+   1. To achieve this, we changed many basic settings, including virtual canvas design and logical mouse handling, allowing the game screen to adjust to different window sizes.
+   2. We explored several solutions, optimized the entity update logic, and improved the image loading process. Additionally, we added caching during refreshes, which greatly improved the game's smoothness.
 
 ---
 
