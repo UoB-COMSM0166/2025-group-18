@@ -26,7 +26,7 @@ class GameOverUI {
     }
 
     createButton() {
-        const btnWidth = 200;
+        const btnWidth = 250;
         const btnHeight = 60;
         this.button = {
             x: logicWidth / 2 - btnWidth / 2,
@@ -87,7 +87,7 @@ class GameOverUI {
         textSize(150);
         for (let i = 0; i < 10; i++) {
             fill(100, 0, 0, this.textOpacity * 100);
-            text("die", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
+            text("Die !", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
         }
 
         fill(255, 0, 0, this.textOpacity * 255);
@@ -95,7 +95,7 @@ class GameOverUI {
         const offsetX = random(-shakeAmount, shakeAmount);
         const offsetY = random(-shakeAmount, shakeAmount);
 
-        text("die", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
+        text("Die !", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
 
         // Cause of Death Text
         textSize(30);
