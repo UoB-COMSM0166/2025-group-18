@@ -10,7 +10,7 @@ class MapUI {
 
         this.centerRadius = Math.min(logicWidth, logicHeight) * 0.06;  // Center circle radius
         this.outerRadius = Math.min(logicWidth, logicHeight) * 0.4;    // Outer compass radius
-        this.buttonSize = Math.min(logicWidth, logicHeight) * 0.035;
+        this.buttonSize = Math.min(logicWidth, logicHeight) * 0.05;
 
         this.mapCoorX = logicWidth;
         this.mapCoorY = logicHeight / 4 * 6;

@@ -469,7 +469,21 @@ class Game {
             this.updateEnemyBuffs(this.curTime);
         }
 
-        // add
+        // add rubbish
+        if (Math.random() < this.#pollution.getPollutionLevel() / 60
+            && this.#buildings.length < 100) {
+            let newRubbishX = Math.floor(Math.random() * logicWidth);
+            let newRubbishY = Math.floor(Math.random() * logicHeight);
+            let newRubbish = new Building(
+                newRubbishX,
+                newRubbishY,
+                BUILDING_MODEL_RUBBISH_TYPE,
+                (x, y, harm, attackBit, explodeType, explodeSize) =>
+                    this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
+            );
+            this.#buildings.push(newRubbish);
+        }
+
     }
 
     addPet() {
