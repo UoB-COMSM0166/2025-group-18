@@ -470,18 +470,36 @@ class Game {
         }
 
         // add rubbish
-        if (Math.random() < this.#pollution.getPollutionLevel() / 60
-            && this.#buildings.length < 100) {
+        let rubbishCount = 0;
+        for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_RUBBISH_TYPE) {
+                rubbishCount++;
+            }
+        }
+        if (this.#pollution.getPollutionLevel() > 3
+            && rubbishCount < 20
+            && Math.random() < this.#pollution.getPollutionLevel() / 60) {
             let newRubbishX = Math.floor(Math.random() * logicWidth);
             let newRubbishY = Math.floor(Math.random() * logicHeight);
-            let newRubbish = new Building(
-                newRubbishX,
-                newRubbishY,
-                BUILDING_MODEL_RUBBISH_TYPE,
-                (x, y, harm, attackBit, explodeType, explodeSize) =>
-                    this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
+
+            let rubbishCollide = this.checkPointInRect(
+                newRubbishX, newRubbishY,
+                this.#player.xCoordinate, this.#player.yCoordinate,
+                this.#player.xSize + 35, this.#player.ySize + 35,
+                0
             );
-            this.#buildings.push(newRubbish);
+            // console.log("pollution: ", this.#pollution.pollution);
+            // console.log("rubbishCollide: ", rubbishCollide);
+            if (!rubbishCollide) {
+                let newRubbish = new Building(
+                    newRubbishX,
+                    newRubbishY,
+                    BUILDING_MODEL_RUBBISH_TYPE,
+                    (x, y, harm, attackBit, explodeType, explodeSize) =>
+                        this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
+                );
+                this.#buildings.push(newRubbish);
+            }
         }
 
     }
