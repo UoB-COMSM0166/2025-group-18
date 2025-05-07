@@ -2,12 +2,12 @@ class TeamUI {
     constructor(backToMainCallBack) {
         this.backToMainCallBack = backToMainCallBack;
         this.teamMembers = [
-            "Liu Yutong",
-            "Xiao Jinglong",
+            "Yutong Liu",
+            "Jinglong Xiao",
             "Tianyu Qi",
-            "Liang Likun",
-            "Xia Zihao",
-            "Xia Guanglong"
+            "Likun Liang",
+            "Zihao Xia",
+            "Guanglong Xia"
         ];
 
         this.messages = {
@@ -15,8 +15,8 @@ class TeamUI {
             "Jinglong Xiao": "Lucky vibes to everyone reading this",
             "Tianyu Qi": "Two sentances to say.\nInclude the previous one.:)",
             "Likun Liang": "Not changing anything.",
-            "Zihao Xia": "You can add any message here.",
-            "Guanglong Xia": "Never compromise.\nNot even in the face of armageddon."
+            "Zihao Xia": "Thank you for playing.",
+            "Guanglong Xia": "Love you, Mom.\nI dedicate my very first game to you."
         };
 
         this.rotation = 0;
@@ -81,8 +81,8 @@ class TeamUI {
         const circleRadius = Math.min(logicWidth, logicHeight) * 0.3;
         
         fill(220, 220, 220);
-        textSize(22);
-        text("Our Team Members have messages for you, try clicking on their names", logicWidth / 2, centerY + circleRadius + 150);
+        textSize(25);
+        text("Looks like our team members have something to say. Give their names a click!", logicWidth / 2, centerY + circleRadius + 150);
 
         // Check and play music
         if (teamThemeMusic && !teamThemeMusic.isPlaying()) {
