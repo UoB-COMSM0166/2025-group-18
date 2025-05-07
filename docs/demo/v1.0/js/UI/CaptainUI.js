@@ -141,7 +141,7 @@ class CaptainUI {
         );
 
         if (btn.isHovered) {
-            this.targetBorderSize = 80;
+            this.targetBorderSize = 200;
             this.borderColor = color(100, 255, 218, 102);
         }
     }
@@ -152,14 +152,11 @@ class CaptainUI {
         const leftSectionWidth = logicWidth / 3;
         const leftMargin = 30;
         const topMargin = 50;
+        const fadeStart = 80;
 
         fill(0, 180);
         noStroke();
         rect(0, 0, leftSectionWidth, logicHeight);
-        fill(255, 215, 0);
-        textSize(24);
-        textAlign(CENTER, TOP);
-        text("O Captain! My Captain!", leftSectionWidth / 2, topMargin);
 
         fill(255);
         textSize(18);
@@ -188,6 +185,20 @@ class CaptainUI {
             this.poemY = logicHeight;
         }
         pop();
+
+        drawingContext.save();
+        let g = drawingContext.createLinearGradient(0, 0, 0, fadeStart);
+        g.addColorStop(0, 'rgba(0,0,0,1)');
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        drawingContext.fillStyle = g;
+        rect(0, 0, logicWidth, fadeStart);   
+        drawingContext.restore();
+        
+        fill(255, 215, 0);
+        textSize(24);
+        textAlign(CENTER, TOP);
+        text("O Captain! My Captain!", leftSectionWidth / 2, topMargin);
+
     }
 
     // Draw video and description text
