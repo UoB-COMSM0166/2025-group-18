@@ -99,6 +99,7 @@ class Main {
                 this.mapAlertMessage = "WARNING: Engine failure! Ship cannot move! Prepare to defend against enemy attack!";
                 this.showMapAlert = true;
             } else {
+                this.showMapAlert = false;
                 this.alertInGame = true;
                 this.mapOverflowMessage = "WARNING: Pollution Overflow!";
             }
