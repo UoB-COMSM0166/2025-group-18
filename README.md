@@ -87,7 +87,7 @@ Video of Demo - TBD
 
 ## Project Report
 
-### Introduction
+### 1. Introduction
 
 - Game background
   - In the early 22nd century, tech changes and science made pollution worse. Climate change caused sea levels to rise, and land became very little. Lack of resources and bad environment made problems worse. Humans had to fight pollution monsters and look for survival resources in ocean storms.
@@ -102,9 +102,9 @@ Video of Demo - TBD
 
 ---
 
-### Requirements
+### 2. Requirements
 
-#### Identifying Stakeholders
+#### 2.1 Identifying Stakeholders
 
 <div align="center">
 	<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
@@ -119,7 +119,7 @@ Video of Demo - TBD
 | Game Auditor              | As a game auditor, I want the game to have a wider audience, so I need to minimize graphic violence. | 1. The game avoids excessive graphic violence, including bloody or gory scenes. <br> 2. Combat effects can be represented through non-lethal means. <br> 3. The game’s content complies with age classification standards. <br> 4. The game avoids using vulgar language or visual effects. <br> 5. If necessary, the game provides adjustable violence levels. |
 | Colorblind Player          | As a colorblind player, I often find it difficult to distinguish between characters, items, etc., in fast-paced action games. I hope the game features elements with clear visual effects, such as different colored outlines. | 1. Each character, item, enemy, and other elements have clearly distinguishable marks (colored borders). <br> 2. The game offers colorblind modes or customizable color options. <br> 3. UI elements are designed with colorblind players in mind. <br> 4. Environmental and combat elements are differentiated through shapes, textures, and other features. <br> 5. The game offers visual effect options to adjust markers. |
 
-#### Early stages design
+#### 2.2 Early stages design
 
 ![frame](docs/labprocess/week04/frame01.png)
 
@@ -150,7 +150,7 @@ Video of Demo - TBD
   3. **Attribute/Buff Enhancements:** Random or tier-based system (weak buffs early, strong buffs later)
   4. **Random Events:** Many types (like ambushes or discoveries); no back-to-back repeats; some events only happen after certain things are done
 
-#### The process of development and ideation
+#### 2.3 The process of development and ideation
 
 - At first, we planned to make a roguelike dungeon game, inspired by classics like *The Binding of Isaac* and *Soul Knight*. Based on that, we designed the main parts of the game and made early sketches to show the structure and art style (see below).
 
@@ -190,7 +190,7 @@ Video of Demo - TBD
 
 ---
 
-### Design
+### 3. Design
 
 - 15% ~750 words 
 - System architecture. Class diagrams, behavioural diagrams. 
@@ -199,16 +199,16 @@ Video of Demo - TBD
 >
 > system architecture ? 
 
-#### Class Diagram
+#### 3.1 Class Diagram
 
-[<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
+[<img src="docs/labprocess/week05/ClassDiagram.png" width="1000"/>](docs/labprocess/week05/ClassDiagram.png)
 
-#### Sequence Diagram
-[<img src="docs/labprocess/week05/SequenceDiagram.png" width="1200"/>](docs/labprocess/week05/SequenceDiagram.png)
+#### 3.2 Sequence Diagram
+[<img src="docs/labprocess/week05/SequenceDiagram.png" width="1000"/>](docs/labprocess/week05/SequenceDiagram.png)
 
 ---
 
-### Implementation
+### 4. Implementation
 
 - 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
 
@@ -216,7 +216,7 @@ Video of Demo - TBD
 >
 > **Challenge** 全局缩放? 延迟卡顿? (这个我放在第四点了, 你们看看前三条和这个)
 
-#### Our implementation
+#### 4.1 Our implementation
 
 Our system is mainly divided into five parts: PlayerControl, Status, Object, Buffs, and UI.
 
@@ -226,7 +226,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 - **Buffs** manages the creation, application, and removal of all buffs in the game.
 - **UI** part builds the entire visual layout, including StartUI, MapUI, InGameUI, and 16 other UI designs.
 
-#### Challenge
+#### 4.2 Challenge
 
 1. **Dynamic Pollution System**
     **Description:**
@@ -256,7 +256,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 ---
 
-### Evaluation
+### 5. Evaluation
 
 > [!WARNING]
 >
@@ -265,7 +265,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 - 15% ~750 words[One qualitative evaluation (your choice) /One quantitative evaluation (of your choice)/Description of how code was tested.]
 
-#### Heuristic Evaluation:  *Sink or Pollute*
+#### 5.1 Heuristic Evaluation:  *Sink or Pollute*
 
 | Interface | Issue | Heuristic(s) | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
 |-----------|------|-------------|-----------------|-------------|----------------|------------------|
@@ -278,7 +278,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 ---
 
-### Process
+### 6. Process
 
 - 15% ~750 words
 
@@ -286,7 +286,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 Teamwork was essential to our game development process. Our team consisted of six members, each responsible for specific tasks to make the work more efficient and organized.
 
-#### Team Roles and Responsibilities:
+#### 6.1 Team Roles and Responsibilities:
 
 We divided the roles based on each member’s skills and interests.
 
@@ -297,7 +297,7 @@ We divided the roles based on each member’s skills and interests.
 - **UI Design**: Two members worked on the game’s interface, designing screens like StartUI, MapUI, and InGameUI. They made sure the UI was consistent and visually appealing.
 - **Animation Design**: One member was responsible for designing and creating animated sprites for the game’s various entities. This added life and dynamic visual effects to the characters and objects in the game.
 
-#### Tools and Collaboration:
+#### 6.2 Tools and Collaboration:
 
 We used several tools to make our work easier and to collaborate effectively.
 
@@ -306,7 +306,7 @@ We used several tools to make our work easier and to collaborate effectively.
 - **Game Engine & Development Tools**: We used P5.JS as our game engine and VS Code for coding. These tools made it easier for us to implement the game’s features.
 - **Photoshop**: Photoshop was used for designing and creating game assets like character sprites, backgrounds, and other graphical elements. This allowed us to have high-quality visuals in the game.
 
-#### Working Together:
+#### 6.3 Working Together:
 
 Working as a team was key to overcoming challenges. We regularly held meetings to talk about our progress, solve problems, and share ideas. Whenever an issue came up, like optimizing the pollution system or fixing performance problems, we worked together to find the best solution.
 
@@ -314,13 +314,13 @@ For example, we faced lag and frame drops due to the animated effects we used fo
 
 ---
 
-### Sustainability, ethics and accessibility
+### 7. Sustainability, ethics and accessibility
 
 - 10% ~750 words
 
 - Evidence of the impact of your game across the environment and two of the other areas: **Environmental** + 2 of the following : *Scoial, Economic, Technical, Individual*
 
-#### Environmental Impact:
+#### 7.1 Environmental Impact:
 
 As game developers, we recognize that our work has an environmental impact, even if it's not as obvious as physical products. Games contribute to energy consumption, e-waste, and carbon emissions. To minimize these effects, we implemented several strategies in the development of our game.
 
@@ -331,7 +331,7 @@ As game developers, we recognize that our work has an environmental impact, even
 3. **Environmental Awareness in Gameplay:**
     The game’s theme focuses on pollution and environmental challenges. The dynamic pollution system in the game serves as a reflection of real-world environmental issues. By including these themes, we hope to raise awareness and encourage players to think about pollution and resource conservation in real life.
 
-#### Social Impact:
+#### 7.2 Social Impact:
 
 Games can influence society in many ways, both positively and negatively. Our goal was to make a game that promotes positive social interactions and reflects a variety of perspectives.
 
@@ -342,7 +342,7 @@ Games can influence society in many ways, both positively and negatively. Our go
 3. **Mental Health Awareness:**
     We incorporated gameplay elements that subtly touch on mental health issues. For example, certain in-game challenges can affect the character's mental state, prompting players to reflect on their own well-being. By including these themes, we hope to raise awareness about the importance of mental health and self-care.
 
-#### Technical Impact:
+#### 7.3 Technical Impact:
 
 Technology plays a big role in how we create and experience games. We focused on making our game both technically innovative and accessible to a wide audience.
 
@@ -355,7 +355,7 @@ Technology plays a big role in how we create and experience games. We focused on
 
 ---
 
-### Conclusion
+### 8. Conclusion
 
 - 10% ~500 words
 
@@ -363,19 +363,19 @@ Technology plays a big role in how we create and experience games. We focused on
 
 Looking back on our project, it has been a rewarding experience. We started with basic ideas and turned them into a real game. Throughout the process, we faced challenges, learned valuable lessons, and worked as a team to make the game better.
 
-#### Lessons Learned:
+#### 8.1 Lessons Learned:
 
 The most important lesson we learned was the power of teamwork and clear communication. At the beginning, we struggled with dividing tasks and organizing work. Once we assigned specific roles to each team member, the project moved much more smoothly. Each person could focus on their area of expertise, which helped us stay on track. We also learned how important it is to test and get feedback from others. Early in the process, we had many ideas, but we had to refine them after testing to make sure the game was fun and balanced. Feedback helped us improve the gameplay, and we learned to adjust things like difficulty and game mechanics.
 
 Another key lesson was the importance of working in small steps and improving over time. Instead of trying to create everything at once, we took small actions, tested them, and made changes as needed. This approach allowed us to improve the game gradually.
 
-#### Challenges Faced:
+#### 8.2 Challenges Faced:
 
 One of the biggest challenges was improving game performance, especially when many animated entities were on screen. This caused the game to lag and have frame drops. To solve this, we optimized the way the game loaded and rendered entities. We introduced caching and improved how entities were updated. This helped make the game run more smoothly.
 
 Another challenge was managing the dynamic pollution system. We wanted it to update in real-time without causing slowdowns. We created a grid-based system to track pollution and used triggers to make gameplay changes when pollution levels reached certain points. It took a lot of testing to make sure this system worked well without affecting performance.
 
-#### Future Work:
+#### 8.3 Future Work:
 
 There is still a lot to do. One of our main goals is to add a multi-player mode. Right now, the game is single-player, but adding multiplayer will bring new challenges and make the game more fun and interactive. Players will be able to work together, share resources, and face challenges as a team.
 
@@ -387,7 +387,7 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 ---
 
-### Contribution Statement
+### 9. Contribution Statement
 
 - Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
 
