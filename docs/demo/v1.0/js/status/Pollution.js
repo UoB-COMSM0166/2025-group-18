@@ -51,4 +51,8 @@ class Pollution {
         return this.pollutionEffects[this.pollutionLevel] ||
             { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, playerDeath: false };
     }
+    
+    getPollutionLevel() {
+        return this.pollutionLevel;
+    }
 }

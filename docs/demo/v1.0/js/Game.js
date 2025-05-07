@@ -317,7 +317,7 @@ class Game {
     updateObjectStatus() {
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
-    
+
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
             bullet.updateStatus();
@@ -449,7 +449,7 @@ class Game {
             }
         }
         if (this.#enemies.length == 0) {
-            if (this.#bossCount == 0 ) {
+            if (this.#bossCount == 0) {
                 this.initEnemies(this.#loopCount);
             } else {
                 if (this.#pollution.getEffect().secondBoss) {
@@ -469,7 +469,22 @@ class Game {
             this.updateEnemyBuffs(this.curTime);
         }
 
+        // add rubbish
+        if (Math.random() < this.#pollution.getPollutionLevel() / 60
+            && this.#buildings.length < 100) {
+            let newRubbishX = Math.floor(Math.random() * logicWidth);
+            let newRubbishY = Math.floor(Math.random() * logicHeight);
+            let newRubbish = new Building(
+                newRubbishX,
+                newRubbishY,
+                BUILDING_MODEL_RUBBISH_TYPE,
+                (x, y, harm, attackBit, explodeType, explodeSize) =>
+                    this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
+            );
+            this.#buildings.push(newRubbish);
         }
+
+    }
 
     addPet() {
         // Random
