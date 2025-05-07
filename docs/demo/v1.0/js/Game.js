@@ -317,7 +317,7 @@ class Game {
     updateObjectStatus() {
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
-    
+
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
             bullet.updateStatus();
@@ -449,7 +449,7 @@ class Game {
             }
         }
         if (this.#enemies.length == 0) {
-            if (this.#bossCount == 0 ) {
+            if (this.#bossCount == 0) {
                 this.initEnemies(this.#loopCount);
             } else {
                 if (this.#pollution.getEffect().secondBoss) {
@@ -469,7 +469,8 @@ class Game {
             this.updateEnemyBuffs(this.curTime);
         }
 
-        }
+        // add
+    }
 
     addPet() {
         // Random
