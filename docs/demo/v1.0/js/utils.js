@@ -592,7 +592,7 @@ const BUFF_MODEL = [
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
         name: "bullet number up!",
-        type: BuffTypes.BULLET_NUMBER_UP,
+        type: BuffTypes.BULLET_NUMBER_CHANGE,
         rarity: RarityLevel.COMMON,
         value: 1,
         stillTime: 0,

@@ -412,9 +412,9 @@ class Main {
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
             this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-Money! Lots of money! Reward for clearing a small level
             this.#gameReward.buff = [
-                BUFF_MODEL[round(random(1, 5))],
-                BUFF_MODEL[round(random(1, 5))],
-                BUFF_MODEL[round(random(1, 5))]
+                BUFF_MODEL[Math.floor(Math.random() * 6) + 1],
+                BUFF_MODEL[Math.floor(Math.random() * 6) + 1],
+                BUFF_MODEL[Math.floor(Math.random() * 6) + 1]
             ];
         }
     }
