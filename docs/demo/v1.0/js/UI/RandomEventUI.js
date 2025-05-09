@@ -22,7 +22,7 @@ class RandomEventUI {
         this.declineImage = null;
         this.imageLoadError = false;
 
-        this.MAX_EVENT_TYPES = 12;
+        this.MAX_EVENT_TYPES = 15;
         this.DEFAULT_EVENT_MODEL = [
             {
                 type: 0,
