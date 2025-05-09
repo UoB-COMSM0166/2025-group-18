@@ -1,15 +1,19 @@
 let buttonText = [
     {
-        label: 'easy',
-        text: 'futural weapon\nfriendly environment\nBaby enemies'
+        label: 'Easy',
+        shipName: 'The Breezy Gull',
+        text: 'Futural weapon\nfriendly environment\nBaby enemies'
     }, {
-        label: 'hard',
-        text: 'reliable cannon\nfragile environment\nstronger enemies'
+        label: 'Hard',
+        shipName: 'The Iron Tide',
+        text: 'Reliable cannon\nfragile environment\nstronger enemies'
     }, {
-        label: 'hell',
+        label: 'Hell',
+        shipName: 'The Reaper Fang',
         text: 'Way to HELL\nAnger of nature\nPlease do not try'
     }
 ];
+
 class ChooseShipUI {
     constructor(onShipSelect) {
         this.buttons = [];
@@ -26,6 +30,7 @@ class ChooseShipUI {
             this.w = w;
             this.h = h;
             this.label = buttonText[shipType - 1].label;
+            this.shipName = buttonText[shipType - 1].shipName;
             this.text = buttonText[shipType - 1].text;
             this.shipType = shipType;
             this.isHovered = false;
@@ -45,6 +50,22 @@ class ChooseShipUI {
             translate(this.x, this.y);
             scale(currentScale);
             
+            // Ship name colors based on difficulty
+            let shipNameColor;
+            if (this.shipType == SHIP_MODEL_1_TYPE) {
+                shipNameColor = color(50, 255, 50);
+            } else if (this.shipType === SHIP_MODEL_2_TYPE) {
+                shipNameColor = color(255, 215, 0);
+            } else {
+                shipNameColor = color(255, 50, 50);
+            }
+            
+            fill(shipNameColor);
+            noStroke();
+            textSize(28);
+            textAlign(CENTER, BOTTOM);
+            text(this.shipName, this.w * 0.5, -15);
+            
             drawingContext.shadowColor = mainColor;
             drawingContext.shadowBlur = this.isHovered ? 40 : 20;
             fill(bgColor);
@@ -54,11 +75,13 @@ class ChooseShipUI {
             
             fill(textColor);
             noStroke();
-            textSize(30);
-            textAlign(CENTER, CENTER);
-            text(this.label, this.w * 0.5, this.h * 0.3);
+            textSize(28);
+            textAlign(CENTER, TOP);
+            text(this.label, this.w * 0.5, this.h * 0.1);
+            
+            // Draw description text
             textSize(20);
-            text(this.text, this.w * 0.5, this.h * 0.6);
+            text(this.text, this.w * 0.5, this.h * 0.35);
     
             drawingContext.restore();
         }
@@ -81,7 +104,6 @@ class ChooseShipUI {
         
         release() { 
             this.scale = 1;
-            // ...
             return this.isHovered;
         }
     }
@@ -95,12 +117,12 @@ class ChooseShipUI {
     createButtons() {
         this.buttons = [];
         
-        const btnWidth = 200;
-        const btnHeight = 300;
-        const spacing = 50;
+        const btnWidth = 220;
+        const btnHeight = 280;
+        const spacing = 100; // Increased spacing between buttons
         const totalWidth = 3 * btnWidth + 2 * spacing;
         const startX = (logicWidth - totalWidth) / 2;
-        const y = logicHeight / 2 - btnHeight / 2;
+        const y = logicHeight / 2 - btnHeight / 2 + 20; // Moved down slightly to make room for ship names
     
         this.buttons.push(
             new this.LevelButton(startX, y, btnWidth, btnHeight, SHIP_MODEL_1_TYPE),
@@ -112,11 +134,16 @@ class ChooseShipUI {
     draw() {
         background(0);
         
+        // Add title text
+        fill(255);
+        textSize(40);
+        textAlign(CENTER, TOP);
+        text("Choose Your Vessel", logicWidth / 2, logicHeight * 0.1);
+        
         this.buttons.forEach(btn => {
             btn.checkHover(this);
             btn.draw();
         });
-        
     }
   
     handleMousePressed() {
