@@ -42,7 +42,7 @@ class Main {
                 // Ensure pollution doesn't go below 0 or above max due to random events
                 const newPollution = Math.min(Status.MAX_POLLUTION, Math.max(0, currentPollution + pollutionChange));
                 //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                his.#game.setPollution(newPollution);
+                this.#game.setPollution(newPollution);
             } else {
                 const currentPollution = this.#status.getShipStatus().pollution;
                 // Ensure pollution doesn't go below 0 or above max due to random events
