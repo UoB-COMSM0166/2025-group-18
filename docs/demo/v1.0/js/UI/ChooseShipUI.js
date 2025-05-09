@@ -2,15 +2,15 @@ let buttonText = [
     {
         label: 'Easy',
         shipName: 'The Breezy Gull',
-        text: 'Futural weapon\nfriendly environment\nBaby enemies'
+        text: 'Futural weapon\nFriendly environment\nBaby enemies\nEnjoy the sunshine\nNo pressure at all'
+    }, {
+        label: 'Medium',
+        shipName: 'The Iron Tide',
+        text: 'Reliable cannon\nFragile environment\nStronger enemies\nWatch your steps\nSurvival not guaranteed'
     }, {
         label: 'Hard',
-        shipName: 'The Iron Tide',
-        text: 'Reliable cannon\nfragile environment\nstronger enemies'
-    }, {
-        label: 'Hell',
         shipName: 'The Reaper Fang',
-        text: 'Way to HELL\nAnger of nature\nPlease do not try'
+        text: 'Way to HELL\nAnger of nature\nPlease do not try\nDarkness surrounds\nOnly pain awaits'
     }
 ];
 
