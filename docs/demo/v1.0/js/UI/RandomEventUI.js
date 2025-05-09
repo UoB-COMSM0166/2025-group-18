@@ -211,7 +211,7 @@ class RandomEventUI {
                     description: "You decide to buy some oranges.\n The oranges are really sweet, and they also supplement vitamin C, avoiding the risk of scurvy. \nYour mental and health conditions have improved!\n【HP + 10, Gold - 200】",
                     outcomeType: "continue",
                     healthChange: 10,
-                    goldChange: 200,
+                    goldChange: -200,
                     pollutionChange: 0
                 },
                 declineResult: {
@@ -472,11 +472,11 @@ class RandomEventUI {
     // Update player status information
     updatePlayerStatus(status) {
         if (status) {
-            this.playerStatus.HP = status.HP || 0;
-            this.playerStatus.HPmax = status.HPmax || 0;
-            this.playerStatus.gold = status.gold || 0;
-            this.playerStatus.pollution = status.pollution || 0;
-            this.playerStatus.pollutionLevel = status.pollutionLevel || 0;
+            this.playerStatus.HP = Math.floor(status.HP || 0);
+            this.playerStatus.HPmax = Math.floor(status.HPmax || 0);
+            this.playerStatus.gold = Math.floor(status.gold || 0);
+            this.playerStatus.pollution = Math.floor(status.pollution || 0);
+            this.playerStatus.pollutionLevel = Math.floor(status.pollutionLevel || 0);
             
             if (this.#isInit && !this.#showingResult && !this.buttonsCreated) {
                 this.createChoiceButtons();
@@ -484,6 +484,7 @@ class RandomEventUI {
             }
         }
     }
+    
 
     // Internal button class
     EventButton = class {

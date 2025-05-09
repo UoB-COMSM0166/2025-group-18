@@ -93,11 +93,6 @@ class GameWinBossUI {
         this.createButtons();
     }
 
-    // Set the player status
-    setPlayerStats(stats) {
-        this.playerStats = stats;
-    }
-
     // Creating a Button
     createButtons() {
         this.buttons = [];
