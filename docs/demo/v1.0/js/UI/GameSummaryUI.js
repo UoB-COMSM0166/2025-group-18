@@ -44,6 +44,7 @@ class GameSummaryUI {
     // Setting player statistics
     setPlayerStats(stats) {
         this.playerStats = stats;
+        this.playerStats.HP = Math.floor(this.playerStats.HP);
     }
 
     // Draw the button
