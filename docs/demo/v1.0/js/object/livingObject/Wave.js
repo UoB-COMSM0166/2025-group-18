@@ -8,7 +8,7 @@ class Wave {
         this.direction = direction;
 
         this.speed = Math.sqrt(vx * vx + vy * vy);
-        this.pushForce = (this.type == "big") ? 1 : 0.5;
+        this.pushForce = (this.type == "big") ? 2 : 1;
 
         if (Math.abs(vx) > Math.abs(vy)) {
             this.xSize = (this.type == "big") ? 100 : 66;
