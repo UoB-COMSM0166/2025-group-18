@@ -96,7 +96,7 @@ class Main {
         if (this.#game == null) {
             this.initNewGame();
             if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
-                this.mapAlertMessage = "WARNING: Engine failure! Ship cannot move! Prepare to defend against enemy attack!";
+                this.mapAlertMessage = "WARNING: Engine failure! Ship cannot move! Prepare to defend!";
                 this.showMapAlert = true;
             } else {
                 this.showMapAlert = false;
