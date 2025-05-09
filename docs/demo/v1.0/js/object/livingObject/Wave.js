@@ -144,6 +144,11 @@ class WaveManager {
         this.lastWaveTime = 0;
         this.interval = 300;//Generation frequency
         this.direction;
+        this.pollutionLevel = 1;
+    }
+
+    setPollutionLevel(level) {
+        this.pollutionLevel = level;
     }
 
     update(islands, player, enemies) {
@@ -226,7 +231,8 @@ class WaveManager {
         }
 
         
-        let type = random() < 0.2 ? "big" : "normal";
+        //let type = random() < 0.2 ? "big" : "normal";
+        let type = this.pollutionLevel >= 5 ? "big" : "normal";
         let wave = new Wave(x, y, vx, vy, type, this.direction);
 
         // wave.setAnimation(this.direction); // Calling setAnimation on the instance

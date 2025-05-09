@@ -315,6 +315,7 @@ class Game {
     }
 
     updateObjectStatus() {
+        this.#waveManager.setPollutionLevel(this.#pollution.getPollutionLevel());
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
 
