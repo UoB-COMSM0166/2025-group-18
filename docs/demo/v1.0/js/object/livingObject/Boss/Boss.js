@@ -141,7 +141,7 @@ class Boss extends BasicObject {
             if (this.baseHP > this.originalBaseHP) {
                 const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
                 fill(255, 215, 0);
-                text(`轮回: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
             }
         }
     }
