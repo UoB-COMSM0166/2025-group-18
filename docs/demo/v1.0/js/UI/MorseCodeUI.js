@@ -14,7 +14,7 @@ class MorseCodeUI {
     // Creating a Button
     createButtons() {
         // "Morse Code" button
-        const btnWidth = 200;
+        const btnWidth = 250;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.7;
@@ -64,7 +64,7 @@ class MorseCodeUI {
             y: btnY - 80,
             w: btnWidth,
             h: btnHeight,
-            label: "decoding",
+            label: "Decoding",
             isHovered: false,
             scale: 1,
             onClick: () => {

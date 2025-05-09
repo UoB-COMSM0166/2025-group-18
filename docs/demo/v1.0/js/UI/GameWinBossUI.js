@@ -97,7 +97,7 @@ class GameWinBossUI {
     createButtons() {
         this.buttons = [];
 
-        const btnWidth = 200;
+        const btnWidth = 250;
         const btnHeight = 80;
         const y = logicHeight * 0.75;
 
@@ -187,11 +187,11 @@ class GameWinBossUI {
 
         textSize(18);
         fill(200);
-        text(`• Get${this.bossReward}coins`, logicWidth * 0.25, topY + lineHeight);
+        text(`• Get ${this.bossReward} coins`, logicWidth * 0.25, topY + lineHeight);
         text("• Health fully restored", logicWidth * 0.25, topY + lineHeight * 2);
 
         fill(255, 215, 0);
-        text(`•Number of reincarnations+1 (The enemy will become stronger)`, logicWidth * 0.25, topY + lineHeight * 3);
+        text(`•Number of reincarnations +1 (The enemy will become stronger)`, logicWidth * 0.25, topY + lineHeight * 3);
 
         fill(200);
         text("• Challenge more deep-sea dangers", logicWidth * 0.25, topY + lineHeight * 4);
