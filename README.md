@@ -12,9 +12,8 @@ Video of Demo - TBD
     <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
 </div>
 
-
 >  [!IMPORTANT] 
->
+> 
 > Our team previously developed and modified code in this [📦 GitHub repository](https://github.com/qtyohh/Plan-Roguelike-Knight)
 
 ## 👥 Our Group
@@ -25,13 +24,13 @@ Video of Demo - TBD
 
 <div align="center">
 
-| 🙋‍♂️ Name | 📧 Email | 💻 GithubID | 🛠️ Role | ✅ Completed Work |
-| :-: | :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | TBD | TBD |
+| 🙋‍♂️ Name    | 📧 Email              | 💻 GithubID   | 🛠️ Role | ✅ Completed Work |
+|:-------------:|:---------------------:|:-------------:|:--------:|:----------------:|
+| Tianyu Qi     | yn24649@bristol.ac.uk | qtyohh        | TBD      | TBD              |
+| Likun Liang   | oy24839@bristol.ac.uk | lycorisadiata | TBD      | TBD              |
+| Yutong Liu    | xm24685@bristol.ac.uk | WILLOW579     | TBD      | TBD              |
+| Zihao Xia     | qh24613@bristol.ac.uk | WeirdDruid    | TBD      | TBD              |
+| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore    | TBD      | TBD              |
 
 </div>
 
@@ -56,13 +55,12 @@ Video of Demo - TBD
 
 1. [🎥 Paper Prototype](docs/labprocess/week03/idea2.mp4)
    
-    <div style="text-align: center;">
+   <div style="text-align: center;">
       <video src="https://github.com/user-attachments/assets/f10a8343-5c8b-4841-b726-3268efc43926" controls width="600"></video>
     </div>
-    
-    
-    
+
 2. <a href="docs/labprocess/week03/DigitalWireframe.gif" target="_blank">🎞️ Digital wireframe</a>
+
 3. [📜 Additional requirements](docs/labprocess/week03/AdditionalRequirements.md)
 
 ### Week 04
@@ -72,6 +70,7 @@ Video of Demo - TBD
 3. [🧩 Onion Model of Stakeholders](docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png)
 
 ### Week 05
+
 1. [🧩 Class Diagram](docs/labprocess/week05/ClassDiagram.png)
 2. [🧩 Sequence Diagram](docs/labprocess/week05/SequenceDiagram.png)
 
@@ -82,6 +81,7 @@ Video of Demo - TBD
 1. [📊 Heuristic Evaluation](docs/labprocess/week07/heuristic-evaluation.md)
 
 ### Week 08
+
 1. [📜 Three Challenges](docs/labprocess/week08/three-challenges.md)
 2. [📊 User Evaluations (SUS & NASA-TLX)](docs/labprocess/week08/user-evaluations.md)
 
@@ -90,12 +90,16 @@ Video of Demo - TBD
 ### Introduction
 
 - Game background
-  - In the early 22nd century, tech changes and science made pollution worse. Climate change caused sea levels to rise, and land became very little. Lack of resources and bad environment made problems worse. Humans had to fight pollution monsters and look for survival resources in ocean storms.
   
+  - In the early 22nd century, tech changes and science made pollution worse. Climate change caused sea levels to rise, and land became very little. Lack of resources and bad environment made problems worse. Humans had to fight pollution monsters and look for survival resources in ocean storms.
+
 - Game  mechanics
+  
   - This game has a highly replayable roguelike core loop. Every run gives new strategy choices. Key features include randomly generated levels, many random events, weapon and skill combos, growing difficulty, and a reward-punishment system. Each run brings new challenges and chances.
   - Players go through a loop of "start - explore - fight - choose - die/win - move on/restart." They get stronger, unlock new stuff, and explore more strategies. The game aims to give intense battles and make players feel fun and achievement through trying and growing.
+
 - Game innovation:
+  
   - A roguelike shooting survival game where every play is different. Players fight, survive, and plan in random environments. The game offers many weapon, skill, and pet combos, plus resource collecting and upgrades to grow stronger in tough battles.
   - A dynamic weather system changes the gameplay. Big storms can change your route, ocean currents affect your speed, and strange sea events bring new threats. Players must adapt to harsh weather and change tactics to survive and fight well.
   - A pollution system changes with player and enemy actions. It affects the ecosystem, resources, and enemy power. High pollution can cause mutant creatures, lower resources, and speed up ocean decay. Lowering pollution can unlock tech upgrades and ally support. Players can clean the environment for long-term gains or use the chaos from pollution as a tactic.
@@ -107,17 +111,17 @@ Video of Demo - TBD
 #### Identifying Stakeholders
 
 <div align="center">
-	<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
+    <img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
 </div>
 #### Epic
 
-| Bot                      | User Story                                                                                                                                                 | Acceptance Criteria                                                                                                                                                                                               |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Action Shooter Enthusiast  | As an action shooter game enthusiast, I have a lot of time recently, but most action shooters are too repetitive. I want to play a game that includes more randomness. | 1. Enemies, weapons, and battlefields are randomly generated in each session. <br> 2. The difficulty of the game and the types of enemies dynamically adjust based on player progress. <br> 3. The game has multiple random event triggers. <br> 4. Players experience a different gameplay process each time. <br> 5. There is a random mode where players can choose different challenges. |
-| Rogue-like Enthusiast      | As a roguelike game enthusiast, I've played many roguelike games, but few of them incorporate battlefield changes as part of the strategy. I want to play a roguelike game that includes battlefield changes as part of the strategy. | 1. The battlefield changes dynamically based on game progress or player choices. <br> 2. The battlefield changes affect player’s tactical decisions. <br> 3. Players can alter the battlefield with specific skills or items. <br> 4. Changing the battlefield requires players to weigh strategy and resource management. <br> 5. Impact of battlefield changes is clearly communicated in the game. |
-| Casual Gamer              | As a casual gamer, I’ve always wanted to try roguelike games, but the learning curve of games like *The Binding of Isaac* and *Slay the Spire* is too steep for me. I want the ability to customize the game difficulty so I can choose based on my gaming level. | 1. The game offers multiple difficulty settings. <br> 2. The game includes tutorials to help new players understand the basic gameplay. <br> 3. The game provides progressively unlocked difficulty options. <br> 4. At lower difficulties, enemy attack strength and numbers are reduced. <br> 5. The game provides clear progress tracking and feedback. |
-| Game Auditor              | As a game auditor, I want the game to have a wider audience, so I need to minimize graphic violence. | 1. The game avoids excessive graphic violence, including bloody or gory scenes. <br> 2. Combat effects can be represented through non-lethal means. <br> 3. The game’s content complies with age classification standards. <br> 4. The game avoids using vulgar language or visual effects. <br> 5. If necessary, the game provides adjustable violence levels. |
-| Colorblind Player          | As a colorblind player, I often find it difficult to distinguish between characters, items, etc., in fast-paced action games. I hope the game features elements with clear visual effects, such as different colored outlines. | 1. Each character, item, enemy, and other elements have clearly distinguishable marks (colored borders). <br> 2. The game offers colorblind modes or customizable color options. <br> 3. UI elements are designed with colorblind players in mind. <br> 4. Environmental and combat elements are differentiated through shapes, textures, and other features. <br> 5. The game offers visual effect options to adjust markers. |
+| Bot                       | User Story                                                                                                                                                                                                                                                        | Acceptance Criteria                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Action Shooter Enthusiast | As an action shooter game enthusiast, I have a lot of time recently, but most action shooters are too repetitive. I want to play a game that includes more randomness.                                                                                            | 1. Enemies, weapons, and battlefields are randomly generated in each session. <br> 2. The difficulty of the game and the types of enemies dynamically adjust based on player progress. <br> 3. The game has multiple random event triggers. <br> 4. Players experience a different gameplay process each time. <br> 5. There is a random mode where players can choose different challenges.                                   |
+| Rogue-like Enthusiast     | As a roguelike game enthusiast, I've played many roguelike games, but few of them incorporate battlefield changes as part of the strategy. I want to play a roguelike game that includes battlefield changes as part of the strategy.                             | 1. The battlefield changes dynamically based on game progress or player choices. <br> 2. The battlefield changes affect player’s tactical decisions. <br> 3. Players can alter the battlefield with specific skills or items. <br> 4. Changing the battlefield requires players to weigh strategy and resource management. <br> 5. Impact of battlefield changes is clearly communicated in the game.                          |
+| Casual Gamer              | As a casual gamer, I’ve always wanted to try roguelike games, but the learning curve of games like *The Binding of Isaac* and *Slay the Spire* is too steep for me. I want the ability to customize the game difficulty so I can choose based on my gaming level. | 1. The game offers multiple difficulty settings. <br> 2. The game includes tutorials to help new players understand the basic gameplay. <br> 3. The game provides progressively unlocked difficulty options. <br> 4. At lower difficulties, enemy attack strength and numbers are reduced. <br> 5. The game provides clear progress tracking and feedback.                                                                     |
+| Game Auditor              | As a game auditor, I want the game to have a wider audience, so I need to minimize graphic violence.                                                                                                                                                              | 1. The game avoids excessive graphic violence, including bloody or gory scenes. <br> 2. Combat effects can be represented through non-lethal means. <br> 3. The game’s content complies with age classification standards. <br> 4. The game avoids using vulgar language or visual effects. <br> 5. If necessary, the game provides adjustable violence levels.                                                                |
+| Colorblind Player         | As a colorblind player, I often find it difficult to distinguish between characters, items, etc., in fast-paced action games. I hope the game features elements with clear visual effects, such as different colored outlines.                                    | 1. Each character, item, enemy, and other elements have clearly distinguishable marks (colored borders). <br> 2. The game offers colorblind modes or customizable color options. <br> 3. UI elements are designed with colorblind players in mind. <br> 4. Environmental and combat elements are differentiated through shapes, textures, and other features. <br> 5. The game offers visual effect options to adjust markers. |
 
 #### Early stages design
 
@@ -157,13 +161,13 @@ Video of Demo - TBD
 ![process-01](docs/labprocess/week04/process-01.jpg)
 
 - But later, through team talks and trying things out, we found our game wasn’t new or fun enough. So we had several discussions to find ways to improve it, and finally chose to change the game’s setting and mechanics. After thinking it through, we moved the game to the open sea, letting players go on an ocean adventure in unknown waters.
-
+  
   With this new idea, we updated the game’s early design, including ship models from different angles, concept art for the environment, and new gameplay systems (see below). This change gave our game a more unique theme and more creative space to build on.
 
 <p align="center"><b>Player-Ship Design</b></p>
 
-| **Vessel**                                                   | **Terrain**                                                  | **Multi-view**                                               |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Vessel**                                                    | **Terrain**                                                        | **Multi-view**                                                |
+| ------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------- |
 | <img src="docs/labprocess/week04/vessel-01.png" width="1200"> | <img src="docs/labprocess/week04/Environment-01.png" width="1000"> | <img src="docs/labprocess/week04/multi-view.gif" width="250"> |
 
 <p align="center"><b>Environment Design</b></p>
@@ -174,17 +178,17 @@ Video of Demo - TBD
 
 <div align="center">
 
-| Name | Preview | Type | Description |
-|------|------|------|--------|
-| Boss1 | <img src="docs/images/docs/gif/BOSS1.gif" width="80"/> | boss | boss1 |
-| Boss2 | <img src="docs/images/docs/gif/BOSS2.gif" width="80"/> | boss | boss2 |
-| Enemy1 | <img src="docs/images/docs/gif/enemy1.gif" width="80"/> | enemy | enemy1 |
-| Enemy2 | <img src="docs/images/docs/gif/enemy2.gif" width="80"/> | enemy | enemy2 |
-| Enemy3 | <img src="docs/images/docs/gif/enemy3.gif" width="80"/> | enemy | enemy3 |
-| Enemy4 | <img src="docs/images/docs/gif/enemy4.gif" width="80"/> | enemy | enemy4 |
-| Bird | <img src="docs/images/docs/gif/pet.gif" width="80"/> | orbiter | orbiter |
-| Pollute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pollution |
-| Tnt | <img src="docs/images/docs/gif/TNT.gif" width="80"/> | building | tnt |
+| Name           | Preview                                                         | Type     | Description |
+| -------------- | --------------------------------------------------------------- | -------- | ----------- |
+| Boss1          | <img src="docs/images/docs/gif/BOSS1.gif" width="80"/>          | boss     | boss1       |
+| Boss2          | <img src="docs/images/docs/gif/BOSS2.gif" width="80"/>          | boss     | boss2       |
+| Enemy1         | <img src="docs/images/docs/gif/enemy1.gif" width="80"/>         | enemy    | enemy1      |
+| Enemy2         | <img src="docs/images/docs/gif/enemy2.gif" width="80"/>         | enemy    | enemy2      |
+| Enemy3         | <img src="docs/images/docs/gif/enemy3.gif" width="80"/>         | enemy    | enemy3      |
+| Enemy4         | <img src="docs/images/docs/gif/enemy4.gif" width="80"/>         | enemy    | enemy4      |
+| Bird           | <img src="docs/images/docs/gif/pet.gif" width="80"/>            | orbiter  | orbiter     |
+| Pollute-bucket | <img src="docs/images/docs/gif/PULLUTE-BUCKET.gif" width="80"/> | building | pollution   |
+| Tnt            | <img src="docs/images/docs/gif/TNT.gif" width="80"/>            | building | tnt         |
 
 </div>
 
@@ -196,7 +200,7 @@ Video of Demo - TBD
 - System architecture. Class diagrams, behavioural diagrams. 
 
 > [!WARNING]
->
+> 
 > system architecture ? 
 
 #### Class Diagram
@@ -204,6 +208,7 @@ Video of Demo - TBD
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
 
 #### Sequence Diagram
+
 [<img src="docs/labprocess/week05/SequenceDiagram.png" width="1200"/>](docs/labprocess/week05/SequenceDiagram.png)
 
 ---
@@ -213,7 +218,7 @@ Video of Demo - TBD
 - 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
 
 > [!IMPORTANT]
->
+> 
 > **Challenge** 全局缩放? 延迟卡顿? (这个我放在第四点了, 你们看看前三条和这个)
 
 #### Our implementation
@@ -231,26 +236,26 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 1. **Dynamic Pollution System**
     **Description:**
     A key mechanic in our game is the pollution system, which affects enemy strength, available resources, and environmental interactions. Pollution levels change based on player actions, like defeating enemies, using certain weapons, or completing missions. This system needs real-time updates that affect gameplay without causing performance problems.
-
+   
    **Solution:**
     To manage these real-time updates, we created an optimized pollution tracking system that continuously monitors changes and recalculates environmental effects in a way that doesn’t block performance. Pollution data is stored in a lightweight, grid-based structure for fast access and changes. We also added threshold-based triggers, which activate game-play effects (like enemy mutations or resource shortages) only when major pollution changes happen.
 
 2. **Advanced Enemy AI**
     **Description:**
     Traditional roguelike games often rely on predictable enemy behaviors, like simple patrols or directly chasing players. Our goal is to create enemies with adaptive behaviors that react to player actions, increasing the challenge while keeping gameplay fair.
-
+   
    **Solution:**
     We used a behavior tree-based AI system, allowing enemies to switch between different states, such as patrolling, searching, attacking, and retreating. Enemies change their behaviors based on pollution levels, terrain, and the player's combat tactics. We also added group coordination, so enemies communicate and adjust their strategies based on nearby threats.
 
 3. **Procedural Map Generation**
     **Description:**
     As our game follows the roguelike tradition, we wanted each playthrough to feel unique, preventing players from memorizing the best routes. Manually creating many maps would be time-consuming and hard to scale, so we chose procedural generation.
-
+   
    **Solution:**
     We developed a hybrid procedural generation system that combines pre-designed map segments with random layouts. The game creates maps by connecting these pre-designed sections, adjusting enemy placements, obstacles, and resource locations based on pollution levels and difficulty settings. We also added a validation system to ensure the maps are passable and balanced.
 
 4. We encountered several issues during project development, such as global scaling and lag:
-
+   
    1. We wanted the game to automatically adapt to various window sizes. To achieve this, we changed many basic settings, including virtual canvas design and logical mouse handling, allowing the game screen to adjust to different window sizes.
    2. Since we designed animated effects with at least 3 frames for each entity, this caused lag and frame drops, especially with a frame rate of 60. We explored several solutions, optimized the entity update logic, and improved the image loading process. Additionally, we added caching during refreshes, which greatly improved the game's smoothness.
 
@@ -259,7 +264,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 ### Evaluation
 
 > [!WARNING]
->
+> 
 > 定量:性能测试, 运行时间, 资源消耗...
 > 代码测试描述: 自动化测试, 人工测试, 边界条件...
 
@@ -267,14 +272,14 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 #### Heuristic Evaluation:  *Sink or Pollute*
 
-| Interface | Issue | Heuristic(s) | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
-|-----------|------|-------------|-----------------|-------------|----------------|------------------|
-| **Gameplay** | No pause option, leading to player fatigue in long sessions | User Control and Freedom | 4 | 2 | 4 | 3.33 |
-| **Enemy AI** | Enemies freeze when out of player vision, making combat less engaging | Consistency and Standards | 3 | 4 | 3 | 3.33 |
-| **Level Design** | Lack of path choices reduces exploration, which is essential in roguelike games | Flexibility and Efficiency of Use | 4 | 2 | 4 | 3.33 |
-| **Visual Feedback** | Character, enemy, and bullet sizes lack clear contrast, making it difficult for players to track action | Visibility of System Status | 3 | 4 | 4 | 3.67 |
-| **UI/UX** | No skill cooldown feedback, making ability timing difficult | Visibility of System Status | 3 | 3 | 3 | 3.00 |
-| **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints | Error Prevention | 3 | 4 | 4 | 3.67 |
+| Interface               | Issue                                                                                                   | Heuristic(s)                      | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | --------------- | ------------ | ----------------- | ------------------ |
+| **Gameplay**            | No pause option, leading to player fatigue in long sessions                                             | User Control and Freedom          | 4               | 2            | 4                 | 3.33               |
+| **Enemy AI**            | Enemies freeze when out of player vision, making combat less engaging                                   | Consistency and Standards         | 3               | 4            | 3                 | 3.33               |
+| **Level Design**        | Lack of path choices reduces exploration, which is essential in roguelike games                         | Flexibility and Efficiency of Use | 4               | 2            | 4                 | 3.33               |
+| **Visual Feedback**     | Character, enemy, and bullet sizes lack clear contrast, making it difficult for players to track action | Visibility of System Status       | 3               | 4            | 4                 | 3.67               |
+| **UI/UX**               | No skill cooldown feedback, making ability timing difficult                                             | Visibility of System Status       | 3               | 3            | 3                 | 3.00               |
+| **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints                   | Error Prevention                  | 3               | 4            | 4                 | 3.67               |
 
 ---
 
@@ -371,9 +376,13 @@ Another key lesson was the importance of working in small steps and improving ov
 
 #### Challenges Faced:
 
-One of the biggest challenges was improving game performance, especially when many animated entities were on screen. This caused the game to lag and have frame drops. To solve this, we optimized the way the game loaded and rendered entities. We introduced caching and improved how entities were updated. This helped make the game run more smoothly.
+##### 2. Frame Rate Drop
 
-Another challenge was managing the dynamic pollution system. We wanted it to update in real-time without causing slowdowns. We created a grid-based system to track pollution and used triggers to make gameplay changes when pollution levels reached certain points. It took a lot of testing to make sure this system worked well without affecting performance.
+To improve gameplay experience, some maps in our game originally had many objects including numerous islands, buildings, enemies, and bullets. This caused serious  frame rate drop. We used Chrome browser's built-in DevTools to systematically analyze the issue. By observing the Flame Chart, we found that the image calling function had the biggest negative impact on performance. We specifically optimized how textures were called, which eliminated the lagging problem.
+
+##### 3. Automatic Full-Window Size Adaptation
+
+To provide consistent gameplay experience for players using different display devices, we wanted our game to automatically adjust its display size according to the window dimensions. In the initial version, our game would read the window size, change pixel sizes of in-game objects accordingly, and map mouse coordinates to the adjusted dimensions. However, this approach required scaling calculations for object sizes and attributes like movement speeds of enemies, players, and bullets. This greatly increased development difficulty and caused many bugs. To solve this, we added a fixed-size logical canvas. First, all game elements are drawn onto this logical canvas, then the canvas is scaled proportionally to fit the browser window size.
 
 #### Future Work:
 
@@ -393,12 +402,12 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 <div align="center">
 
-| 🙋‍♂️ Name | 📧 Email | 🛠️ Role | ✅ Contribution |
-| :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | TBD | TBD |
+| 🙋‍♂️ Name    | 📧 Email              | 🛠️ Role | ✅ Contribution |
+|:-------------:|:---------------------:|:--------:|:--------------:|
+| Tianyu Qi     | yn24649@bristol.ac.uk | TBD      | TBD            |
+| Likun Liang   | oy24839@bristol.ac.uk | TBD      | TBD            |
+| Yutong Liu    | xm24685@bristol.ac.uk | TBD      | TBD            |
+| Zihao Xia     | qh24613@bristol.ac.uk | TBD      | TBD            |
+| Guanglong Xia | iu24606@bristol.ac.uk | TBD      | TBD            |
 
 </div>
