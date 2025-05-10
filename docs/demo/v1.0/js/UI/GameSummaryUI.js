@@ -20,7 +20,7 @@ class GameSummaryUI {
 
     // Creating a Button
     initButtons() {
-        const btnWidth = 200;
+        const btnWidth = 350;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.8;
