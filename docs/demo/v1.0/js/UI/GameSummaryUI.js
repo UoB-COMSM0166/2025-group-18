@@ -130,11 +130,11 @@ class GameSummaryUI {
 
         let shipTypeName = "unknown";
         if (this.playerStats.shipType == SHIP_MODEL_1_TYPE) {
-            shipTypeName = "Light cruiser";
+            shipTypeName = "The Breezy Gull";
         } else if (this.playerStats.shipType == SHIP_MODEL_2_TYPE) {
-            shipTypeName = "Battleship";
+            shipTypeName = "The Iron Tide";
         } else if (this.playerStats.shipType == SHIP_MODEL_3_TYPE) {
-            shipTypeName = "Destroyer";
+            shipTypeName = "The Reaper Fang";
         }
 
         fill(100, 255, 218);

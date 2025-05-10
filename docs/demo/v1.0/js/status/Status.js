@@ -27,6 +27,7 @@ class Status {
         this.setShipBasicStatus(shipType);
     }
     setShipBasicStatus(shipType) {
+        this.#playerStatus.shipType = shipType;
         this.#playerStatus.xSize = SHIP_MODEL[shipType].xSize;
         this.#playerStatus.ySize = SHIP_MODEL[shipType].ySize;
         this.#playerStatus.HPmax = SHIP_MODEL[shipType].HPmax;
