@@ -397,6 +397,15 @@ class Main {
             this.#UI.initMap();
         }
 
+        if (stepChangeType == MAIN_STEP_MORSE_CODE && this.#step == MAIN_STEP_WIN_BOSS) {
+            const loopCount = this.#status.getLoopCount();
+            console.log("Returning to pier with loop count:", loopCount);
+            if (loopCount < 2) {
+                console.log("Loop count < 2, skipping Morse Code UI and going directly to Game Summary");
+                stepChangeType = MAIN_STEP_GAME_SUMMARY;
+            }
+        }
+
         if (stepChangeType == MAIN_STEP_WIN_BOSS) {
             console.log("Entering Boss victory screen, setting loop count");
             this.#UI.setGameWinBossStats(this.#status.getShipStatus(), this.#status.getLoopCount());

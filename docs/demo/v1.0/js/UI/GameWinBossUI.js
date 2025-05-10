@@ -124,6 +124,11 @@ class GameWinBossUI {
         textSize(30);
         fill(255);
         text("You have defeated the powerful beings of the deep, but the dangers in the ocean are far from over!", logicWidth / 2, logicHeight * 0.2);
+
+        // Display current loop count
+        textSize(26);
+        fill(100, 255, 218);
+        text(`Current number of reincarnations: ${this.loopCount}`, logicWidth / 2, logicHeight * 0.25);
         pop();
 
         this.drawPlayerStats();
@@ -191,7 +196,7 @@ class GameWinBossUI {
         text("• Health fully restored", logicWidth * 0.25, topY + lineHeight * 2);
 
         fill(255, 215, 0);
-        text(`•Number of reincarnations +1 (The enemy will become stronger)`, logicWidth * 0.25, topY + lineHeight * 3);
+        text(`• Number of reincarnations +1 (The enemy will become stronger)`, logicWidth * 0.25, topY + lineHeight * 3);
 
         fill(200);
         text("• Challenge more deep-sea dangers", logicWidth * 0.25, topY + lineHeight * 4);
@@ -202,9 +207,16 @@ class GameWinBossUI {
 
         textSize(18);
         fill(200);
-        text("• Decoding the mysterious signal", logicWidth * 0.75, topY + lineHeight);
-        text("• Complete this adventure", logicWidth * 0.75, topY + lineHeight * 2);
-        text("• View your sailing results", logicWidth * 0.75, topY + lineHeight * 3);
+        if (this.loopCount < 2) {
+            text("• Directly view your sailing results", logicWidth * 0.75, topY + lineHeight);
+            text("• Complete this adventure", logicWidth * 0.75, topY + lineHeight * 2);
+            fill(255, 100, 100);
+            text("• Skip the Morse Code decoding", logicWidth * 0.75, topY + lineHeight * 3);
+        } else {
+            text("• Decoding the mysterious signal", logicWidth * 0.75, topY + lineHeight);
+            text("• Complete this adventure", logicWidth * 0.75, topY + lineHeight * 2);
+            text("• View your sailing results", logicWidth * 0.75, topY + lineHeight * 3);
+        }
         pop();
     }
 
