@@ -14,7 +14,7 @@ class TeamUI {
             "Yutong Liu": "I don't know what to say.\nWhat should I do.",
             "Jinglong Xiao": "Lucky vibes to everyone reading this",
             "Tianyu Qi": "Two sentances to say.\nInclude the previous one.:)",
-            "Likun Liang": "Not changing anything.",
+            "Likun Liang": "Whatever can happen, will happen.",
             "Zihao Xia": "Thank you for playing.",
             "Guanglong Xia": "Love you, Mom.\nI dedicate my very first game to you."
         };
