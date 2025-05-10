@@ -228,12 +228,12 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 #### Challenge
 
-1. **Dynamic Pollution System**
+1. **Loop and Randomness**
     **Description:**
-    A key mechanic in our game is the pollution system, which affects enemy strength, available resources, and environmental interactions. Pollution levels change based on player actions, like defeating enemies, using certain weapons, or completing missions. This system needs real-time updates that affect gameplay without causing performance problems.
+   In order to deepen our game’s layers and enhance the player experience, we have the map reset on every run and our algorithm permanently increases all enemies’ health and speed; at the same time, procedurally generated maps, events, and buffs ensure that each new loop is more challenging and exciting. This poses two challenges for our looping randomness.
 
    **Solution:**
-    To manage these real-time updates, we created an optimized pollution tracking system that continuously monitors changes and recalculates environmental effects in a way that doesn’t block performance. Pollution data is stored in a lightweight, grid-based structure for fast access and changes. We also added threshold-based triggers, which activate game-play effects (like enemy mutations or resource shortages) only when major pollution changes happen.
+    Each loop resets the map and permanently buffs all enemies—intensifying both the challenge and the thrill—while nine procedural map templates, each with dynamic layouts and unique enemy placements, keep exploration unpredictable. On top of that, fifteen route-triggered events—from blaring sirens to noxious pollution—force you into high-risk, high-reward decisions that can make or break your quest. To help you adapt, you can also pick up buffs from shops, combat victories, and event rewards, ensuring every run feels fresh, strategic, and exhilarating.
 
 2. **Frame Rate Drop**
     **Description:**
