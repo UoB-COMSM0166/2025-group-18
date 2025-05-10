@@ -490,7 +490,7 @@ class MapUI {
                 logicCanvas.fill(255);
                 logicCanvas.textSize(this.buttonSize);
                 logicCanvas.textAlign(CENTER, CENTER);
-                const labels = ["N", "E", "S", "W"];
+                const labels = ["E", "S", "W", "N"];
                 logicCanvas.text(labels[i / 2],
                     cos(angle) * this.outerRadius * 1.15,
                     sin(angle) * this.outerRadius * 1.15);
