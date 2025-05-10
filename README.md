@@ -387,12 +387,11 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 <div align="center">
 
-| 🙋‍♂️ Name | 📧 Email | 🛠️ Role | ✅ Contribution |
-| :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | TBD | TBD |
-
+| Name | Contribution | Weight |
+| :--- | :--- | :---: |
+| Tianyu Qi | TBD | TBD |
+| Likun Liang | TBD | TBD |
+| Yutong Liu | TBD | TBD |
+| Zihao Xia | TBD | TBD |
+| Guanglong Xia | TBD | TBD |
 </div>
