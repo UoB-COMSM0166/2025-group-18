@@ -59,13 +59,13 @@ class CaptainUI {
         const btnHeight = 40;
         const margin = 20;
 
-        // Back Button
+        // Back Button (moved to top right corner)
         this.backButton = {
-            x: logicWidth * 2 / 3 + margin,
+            x: logicWidth - btnWidth - margin,
             y: margin,
             w: btnWidth,
             h: btnHeight,
-            label: "return",
+            label: "Return",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -79,13 +79,17 @@ class CaptainUI {
             }
         };
 
-        // Add a Play/Pause Button
+        // Play/Pause Button (moved to below the video, positioned further right and down)
+        const videoWidth = (logicWidth * 2 / 3 - margin * 2) - margin * 2;
+        const videoHeight = videoWidth * 9 / 16;
+        const videoY = margin * 3;
+
         this.playPauseButton = {
-            x: logicWidth * 2 / 3 + margin,
-            y: margin + btnHeight + 10,
+            x: logicWidth / 3 + videoWidth - btnWidth - margin,
+            y: videoY + videoHeight + 40,
             w: btnWidth,
             h: btnHeight,
-            label: "Play",
+            label: "Play Video",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -93,11 +97,11 @@ class CaptainUI {
                     if (this.isPlaying) {
                         this.videoElement.pause();
                         this.isPlaying = false;
-                        this.playPauseButton.label = "Play";
+                        this.playPauseButton.label = "Play Video";
                     } else {
                         this.videoElement.play();
                         this.isPlaying = true;
-                        this.playPauseButton.label = "pause";
+                        this.playPauseButton.label = "Pause";
                     }
                 }
             }
@@ -152,15 +156,13 @@ class CaptainUI {
         const leftSectionWidth = logicWidth / 3;
         const leftMargin = 30;
         const topMargin = 50;
-        const fadeStart = 80;
-
+        
         fill(0, 180);
         noStroke();
         rect(0, 0, leftSectionWidth, logicHeight);
 
         fill(255);
         textSize(18);
-        textAlign(LEFT, TOP);
 
         let poemLines = this.poemText.split('\n');
         const lineHeight = 30;
@@ -168,15 +170,12 @@ class CaptainUI {
         let yPos = this.poemY;
         for (let i = 0; i < poemLines.length; i++) {
             const lineY = yPos + i * lineHeight;
-            if (lineY >= 0 && lineY < logicHeight) {
+            // Only draw lines that are below the title position
+            if (lineY >= topMargin + 30 && lineY < logicHeight) {
                 let line = poemLines[i];
-                if (line.startsWith(' ')) {
-                    textAlign(CENTER, TOP);
-                    text(line.trim(), leftSectionWidth / 2, lineY);
-                } else {
-                    textAlign(LEFT, TOP);
-                    text(line, leftMargin, lineY);
-                }
+                // Center align all text in the left section
+                textAlign(CENTER, TOP);
+                text(line, leftSectionWidth / 2, lineY);
             }
         }
 
@@ -185,20 +184,11 @@ class CaptainUI {
             this.poemY = logicHeight;
         }
         pop();
-
-        drawingContext.save();
-        let g = drawingContext.createLinearGradient(0, 0, 0, fadeStart);
-        g.addColorStop(0, 'rgba(0,0,0,1)');
-        g.addColorStop(1, 'rgba(0,0,0,0)');
-        drawingContext.fillStyle = g;
-        rect(0, 0, logicWidth, fadeStart);   
-        drawingContext.restore();
         
         fill(255, 215, 0);
         textSize(24);
         textAlign(CENTER, TOP);
         text("O Captain! My Captain!", leftSectionWidth / 2, topMargin);
-
     }
 
     // Draw video and description text
@@ -227,34 +217,24 @@ class CaptainUI {
             text("Public Domain Mark 1.0 Universal, Copyright legality", rightSectionX + rightSectionWidth / 2, videoY + videoHeight + 10);
 
             // Description text area
-            const textY = videoY + videoHeight + 40;
+            const textY = videoY + videoHeight + 70; // Adjusted Y position to account for the play button
             const textWidth = videoWidth;
             textAlign(LEFT, TOP);
             fill(255, 215, 0);
             textSize(20);
             text("Mysterious Code Decoded: O Captain! my Captain!", videoX, textY);
-            fill(255);
+            
+            fill(255, 215, 0);
             textSize(16);
-            const explanationText =
-                "We don't read and write poetry because it's cute. We read and write poetry because we are members of the human race. " +
-                "And the human race is filled with passion. Medicine, law, business, engineering, these are noble pursuits and necessary to sustain life. " +
-                "But poetry... beauty, romance, love... these are what we stay alive for. " +
-                "To quote from Whitman, \"O me, O life, of the questions of these recurring, of the endless trains of the faithless, " +
-                "of cities filled with the foolish, what good amid these, O me, O life?\" " +
-                "Answer. That you are here, that life exists and identity, that the powerful play goes on and you may contribute a verse. " +
-                "That the powerful play goes on and you may contribute a verse.";
-
             const invitationText =
                 "Come on! Just when you think you know something, you have to look at it in another way. Even though it may seem silly or wrong, you must try! " +
                 "Now, when you read, don't just consider what the author thinks. Consider what you think. " +
                 "Boys, you must strive to find your own voice. Because the longer you wait to begin, the less likely you are to find it at all. " +
                 "Thoreau said, \"Most men lead lives of quiet desperation.\" Don't be resigned to that. Break out! " +
-                "Don't just walk off the edge like lemmings. Look around you.";
+                "Don't just walk off the edge like lemmings. Look around you.\n\n" +
+                "As one of the game's creators, I've put a lot of heart into this game. Thank you for playing this far. Thank you — Guanglong Xia";
 
-            this.drawWrappedText(explanationText, videoX, textY + 40, textWidth);
-
-            fill(255, 215, 0);
-            this.drawWrappedText(invitationText, videoX, textY + 200, textWidth);
+            this.drawWrappedText(invitationText, videoX, textY + 40, textWidth);
         } else {
             fill(255);
             textSize(24);
