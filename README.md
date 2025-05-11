@@ -446,7 +446,7 @@ Another key lesson was the importance of working in small steps and improving ov
 
 One of the biggest challenge was improving game performance, especially when many animated entities were on screen. This caused the game to lag and have frame rate drops. To solve this, we optimized the way the game loaded and rendered entities. We introduced caching and improved how entities were updated. This helped make the game run more smoothly.
 
-Another challenge was managing the dynamic pollution system. We wanted it to update in real-time without causing slowdowns. We created a grid-based system to track pollution and used triggers to make gameplay changes when pollution levels reached certain points. It took a lot of testing to make sure this system worked well without affecting performance.
+Another challenge was implementing dynamic window scaling. We wanted the game to adapt seamlessly to different display sizes without compromising visual fidelity. Initially, we attempted direct pixel-based resizing of game elements and mouse coordinate mapping, but this led to complex scaling calculations and frequent bugs. We solved this by introducing a fixed logical canvas where all elements are first rendered, then proportionally scaled to fit the browser window. This approach eliminated per-frame size calculations while maintaining consistent gameplay proportions.
 
 #### 8.3 Future Work:
 
