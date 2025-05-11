@@ -17,7 +17,7 @@ let frames = {
     },
     boss: {
         boss_octopus: [],
-        boss_bird: [],
+        boss_Toxicore: [],
     },
     aoeSkill: {
         boss_1_skill_1: [],
@@ -169,15 +169,15 @@ function preload() {
     frames.aoeSkill.boss_1_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
 
     // ------------------------ BOSS 2 ------------------------
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/01.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/02.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/03.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/04.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/05.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/06.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/07.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/01.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/02.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/03.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/04.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/05.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/06.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/07.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
 
     // ------------------------ BOSS 2 Skill 2 ------------------------
     frames.aoeSkill.boss_2_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_2_skill_1/1.png'));

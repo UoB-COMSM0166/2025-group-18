@@ -286,7 +286,7 @@ const BOSS_MODEL = [
         attackRange: 2000,
         seeRange: 2000,
     }, {
-        name: "boss_bird",
+        name: "boss_Toxicore",
         type: BOSS_MODEL_BIRD_TYPE,
         xSize: 200,
         ySize: 200,
