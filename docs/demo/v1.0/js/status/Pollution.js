@@ -6,9 +6,9 @@ class Pollution {
         this.pollutionSources = {
             bullet: 1,
             skill: 10,
-            bomb: 300,
+            bomb: 30,
             TNT: 20,
-            chemical_box: 100,
+            chemical_box: 50,
             rubbish: -50,
             enemy_kill: "relevance_maxHP",
             boss_kill: "relevance_maxHP"
