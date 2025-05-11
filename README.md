@@ -220,19 +220,19 @@ This class diagram serves as the blueprint for game development, using intuitive
 
 #### 3.2 Behavioural Diagram
 
-The `Main` class is the Game-Controller that controls all initializations and status(such as `MainUI`, `Game`, `PlayerControl`, `status`). This part is the brain of our game to ensure the accuracy of the process.
+The `Main` class works as the game controller. It handles all the initial setups and manages the main parts of the game, such as `MainUI`, `Game`, `PlayerControl`, and `Status`. You can think of it as the brain of the game that keeps everything running correctly.
 
-After the initializations, `MainUI` will initialise all UI-parts and put them into `#UI` for players. This stage would also make `StartUI` ready to start game. Then `ChooseShipUI` is set to select difficulty and map. This step sets up the `status` of your role.
+After the game starts, `MainUI` sets up all the user interface (UI) parts and puts them into the UI system for players to use. At this point, `StartUI` becomes ready, and the game can begin. Then, `ChooseShipUI` lets players pick a difficulty level and map. This also sets the ship(`Player`) starting stats and conditions.
 
-`MapUI` creates many buttons and lines betweens them, which can help players to select button(node) to join a battle or a event. Meanwhile `ShopUI` is on the map too, you can improve your HP or increase bullet numbers or sth. like that.
+Once the map is ready, `MapUI` shows several buttons and lines connecting them. Players can click a button (called a node) to start a battle or `trigger` an event. `ShopUI` also appears on the map. In the shop, players can `recover` HP, `increase` more bullets, or buy other useful items.
 
-In `InGameUI` part, you will control your ship to fight(`shoot`, `skill` and `move` and avoid collision with any other objects) with all enemy and avoid disruption(`Building` like chemistry box and `Wave` can also effect your movement). Please note, `boss`(one type of `Enemy`) will also appear. Your attention should be put on the pollution level and your `HP`. All of this will be controlled by `updateStatus`.
+During the battle, `InGameUI` takes control. Players can `move` their ship, `shoot` bullets, use `skills`, and dodge enemies or obstacles. Some objects like `Building`s or `Wave`s may also block your `Movement`. `Enemies` will come, and sometimes a `boss` (a stronger enemy) appears. Players need to keep an eye on their HP and the pollution level. These values are updated in real time by a function called `updateStatus`.
 
-End of each round, you will get a gift(`Buff`) which can modify`bullet` speed or numbers or `Explode` damage. If you are lucky, `Pollution` effect is a better choice. The back to `MapUI` to continue.
+At the end of each round, players get a `Buff` as a reward. This Buff might increase bullet speed, add extra bullets, boost damage, or lower pollution. After choosing a Buff, players return to `MapUI` and continue exploring.
 
-After challenging the `boss`, the outcome of the battle tells us whether we died or winned. Then we call `update_status()` to update the `Status`. Victorious `Player` can go on to face the next loop, whose enemies are even stronger (or trigger a `scenario`). If they die, the `Status` is reset and the player restarts the `Game`.
+When players fight the boss, the result decides what happens next. If the player wins, the game moves on to the next `loop` with harder enemies or a new event. If the player dies, the `Status` resets and the game restarts.
 
-This updating and looping process is managed by a method in the `Game` class, which handles the switching of `Status`. Different Statuses are integrated through methods of a class, updating the game's interface and units to ensure consistency and coherence throughout the game-play.
+The whole process of updating status and switching between levels is managed by the `Game` class. It keeps everything in sync and makes sure the game looks and feels consistent every time a change happens.
 
 [<img src="docs/labprocess/week05/SequenceDiagram.png" width="1000"/>](docs/labprocess/week05/SequenceDiagram.png)
 
