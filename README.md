@@ -16,7 +16,7 @@
 <div align="center">
     <p> <strong>Full Game Video</strong> </p>
     <a href="" title="Game Video">
-        <img src="doc/images/docs/gif/button.gif" alt="Game Video" width="600">
+        <img src="docs/images/docs/gif/button.gif" alt="Game Video" width="500">
     </a>
 </div>
 
