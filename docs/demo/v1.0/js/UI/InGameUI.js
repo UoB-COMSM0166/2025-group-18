@@ -111,7 +111,7 @@ class InGameUI {
 
         fill(255, 215, 0);
         textAlign(LEFT);
-        text(`GOLD: ${this.gold}`, 125, 15);
+        text(`  GOLD: ${this.gold}`, 125, 15);
         pop();
     }
     
