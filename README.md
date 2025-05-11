@@ -4,14 +4,23 @@
 
 ## 🚢🌊♻️ - Sink or Pollute
 
-[🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
-
-Video of Demo - TBD
-
-<div style="text-align: center;">
-    <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
+<div align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-18/" style="font-size: 25px; font-weight: bold;">🖱️ Game Demo</a>
 </div>
 
+
+
+<p align="center"><b>Live Demo</b></p>
+<div style="text-align: center;">
+    <video src="https://github.com/user-attachments/assets/87385110-d520-4592-b841-c3bcf2562638" controls width="600"></video>
+</div>
+
+<div align="center">
+    <p> <strong>Full Game Video</strong> </p>
+    <a href="" title="Game Video">
+        <img src="docs/images/docs/gif/button.gif" alt="Game Video" width="500">
+    </a>
+</div>
 
 >  [!IMPORTANT] 
 >
@@ -21,17 +30,18 @@ Video of Demo - TBD
 
 ![Qphoto](docs/labprocess/week01/group.jpg)
 
-![photo](docs/labprocess/week01/ourphoto.jpeg)
+![photo](docs/labprocess/week01/ourphoto.png)
 
 <div align="center">
 
 | 🙋‍♂️ Name | 📧 Email | 💻 GithubID | 🛠️ Role | ✅ Completed Work |
 | :-: | :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | TBD | TBD |
+| Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | Game Designer | Scrum Master / System Design / Game & Balance Design |
+| Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | Developer | UIs / Pet / Equipment / Enemy / QA |
+| Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | Animation Designer | Character & Motion & Narrative Design |
+| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | Developer | enemyAI / Boss / MapUI / Bullet / QA |
+| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Project Manager | [Click here](docs/labprocess/last/xgl-contribution.docx) |
+| Jinglong Xiao | qo24236@bristol.ac.uk | yusheng2077 | Developer | Buff / Translation / Video |
 
 </div>
 
@@ -193,13 +203,6 @@ Video of Demo - TBD
 
 ### 3. Design
 
-- 15% ~750 words 
-- System architecture. Class diagrams, behavioural diagrams. 
-
-> [!WARNING]
->
-> system architecture ? 
-
 Our game system comprises multiple modules:
 
 | Module        | Class                                                                                                                        | Responsibilities                                                                                                                                                                                                                                                                   |
@@ -240,12 +243,6 @@ The whole process of updating status and switching between levels is managed by 
 
 ### 4. Implementation
 
-- 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
-
-> [!IMPORTANT]
->
-> **Challenge** 全局缩放? 延迟卡顿? (这个我放在第四点了, 你们看看前三条和这个)
-
 #### 4.1 Our implementation
 
 Our system is mainly divided into five parts: PlayerControl, Status, Object, Buffs, and UI.
@@ -278,13 +275,14 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
    **Solution:**
     To solve this, we added a fixed-size logical canvas. First, all game elements are drawn onto this logical canvas, then the canvas is scaled proportionally to fit the browser window size.
+
 ---
 
 ### 5. Evaluation
 
 #### 5.1 Heuristic Evaluation:  *Sink or Pollute*
 
-##### Data Table
+##### 5.1.1 Data Table
 | Interface | Issue | Heuristic(s) | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
 |-----------|------|-------------|-----------------|-------------|----------------|------------------|
 | **Game play** | No pause option, leading to player fatigue in long sessions | User Control and Freedom | 4 | 2 | 4 | 3.33 |
@@ -294,7 +292,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 | **UI/UX** | No skill cooldown feedback, making ability timing difficult | Visibility of System Status | 3 | 3 | 3 | 3.00 |
 | **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints | Error Prevention | 3 | 4 | 4 | 3.67 |
 
-##### Solutions
+##### 5.1.2 Solutions
 - **Game play** (implemented) – Although in-level pausing is still unavailable, we shortened each combat encounter and lengthened the overall tower climb. This keeps battles punchy while preserving total playtime and challenge.
 - **Enemy AI** (implemented) – Enemies now have a vision system. When the player is off-screen they wander with light randomness; once the player is detected, melee and ranged units use distinct pursuit behaviours to maintain pressure.
 - **Visual Feedback** (implemented) – Player, enemy, and map elements use high-contrast palettes that stand out sharply against the background, making threats instantly readable.
@@ -325,12 +323,13 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 Test used
 Because each of the 10 participants provided paired NASA-TLX scores for both conditions, the non-parametric **Wilcoxon signed-rank test** (two-tailed) was applied to compare Easy vs. Hard modes.
 
-Statistic	Value
-n (pairs)	10
-Exact p-value	0.00195 << 0.05
-Median (Easy)	27.9
-Median (Hard)	71.7
-Rank-biserial effect size r	0.89 (large)
+| Statistic |	Value |
+| --- | --- |
+| n (pairs) | 10 |
+| Exact p-value | 0.00195 << 0.05 |
+| Median (Easy) | 27.9 |
+| Median (Hard) | 71.7 |
+| Rank-biserial effect size r | 0.89 (large) |
 
 **Interpretation**
 - The Wilcoxon signed-rank test revealed a significant increase in perceived workload from Easy mode to Hard mode, **p = 0.002**. 
@@ -351,11 +350,9 @@ Rank-biserial effect size r	0.89 (large)
 - The branch is pushed only after these ad-hoc play-throughs confirm that the new mechanic coexists peacefully with the existing systems. 
 - When a branch finally merges into main, we know that whole team play-testing has signed off, so the trunk stays deployable and bug-free sprint after sprint.
 
+---
+
 ### 6. Process
-
-- 15% ~750 words
-
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together. 
 
 Teamwork was essential to our game development process. Our team consisted of six members, each responsible for specific tasks to make the work more efficient and organized.
 
@@ -388,10 +385,6 @@ For example, we faced lag and frame drops due to the animated effects we used fo
 ---
 
 ### 7. Sustainability, ethics and accessibility
-
-- 10% ~750 words
-
-- Evidence of the impact of your game across the environment and two of the other areas: **Environmental** + 2 of the following : *Scoial, Economic, Technical, Individual*
 
 #### 7.1 Environmental Impact:
 
@@ -430,10 +423,6 @@ Technology plays a big role in how we create and experience games. We focused on
 
 ### 8. Conclusion
 
-- 10% ~500 words
-
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work. 
-
 Looking back on our project, it has been a rewarding experience. We started with basic ideas and turned them into a real game. Throughout the process, we faced challenges, learned valuable lessons, and worked as a team to make the game better.
 
 #### 8.1 Lessons Learned:
@@ -462,16 +451,15 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 ### 9. Contribution Statement
 
-- Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
-
 <div align="center">
 
 | Name | Contribution | Weight |
 |:-----|:-------------|:------:|
-| Tianyu Qi | TBD | 1 |
-| Likun Liang | TBD | 1 |
-| Yutong Liu | TBD | 1 |
-| Zihao Xia | TBD | 1 |
-| Guanglong Xia | TBD | 1 |
+| Tianyu Qi | System & Game & Balance Design | 1 |
+| Likun Liang | UI & Develop & QA | 1 |
+| Yutong Liu | Animation Design | 1 |
+| Zihao Xia | UI & Develop & QA | 1 |
+| Guanglong Xia | [Click here](docs/labprocess/last/xgl-contribution.docx) | 1 |
+| Jinglong Xiao | Buff & Translation & Video | 1 |
 
 </div>
