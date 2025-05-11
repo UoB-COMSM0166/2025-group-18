@@ -263,14 +263,14 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
    **Solution:**
     To solve this, we added a fixed-size logical canvas. First, all game elements are drawn onto this logical canvas, then the canvas is scaled proportionally to fit the browser window size.
-    
+
 ---
 
 ### 5. Evaluation
 
 #### 5.1 Heuristic Evaluation:  *Sink or Pollute*
 
-##### Data Table
+##### 5.1.1 Data Table
 | Interface | Issue | Heuristic(s) | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
 |-----------|------|-------------|-----------------|-------------|----------------|------------------|
 | **Game play** | No pause option, leading to player fatigue in long sessions | User Control and Freedom | 4 | 2 | 4 | 3.33 |
@@ -280,7 +280,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 | **UI/UX** | No skill cooldown feedback, making ability timing difficult | Visibility of System Status | 3 | 3 | 3 | 3.00 |
 | **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints | Error Prevention | 3 | 4 | 4 | 3.67 |
 
-##### Solutions
+##### 5.1.2 Solutions
 - **Game play** (implemented) – Although in-level pausing is still unavailable, we shortened each combat encounter and lengthened the overall tower climb. This keeps battles punchy while preserving total playtime and challenge.
 - **Enemy AI** (implemented) – Enemies now have a vision system. When the player is off-screen they wander with light randomness; once the player is detected, melee and ranged units use distinct pursuit behaviours to maintain pressure.
 - **Visual Feedback** (implemented) – Player, enemy, and map elements use high-contrast palettes that stand out sharply against the background, making threats instantly readable.
@@ -311,12 +311,13 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 Test used
 Because each of the 10 participants provided paired NASA-TLX scores for both conditions, the non-parametric **Wilcoxon signed-rank test** (two-tailed) was applied to compare Easy vs. Hard modes.
 
-Statistic	Value
-n (pairs)	10
-Exact p-value	0.00195 << 0.05
-Median (Easy)	27.9
-Median (Hard)	71.7
-Rank-biserial effect size r	0.89 (large)
+| Statistic |	Value |
+| --- | --- |
+| n (pairs) | 10 |
+| Exact p-value | 0.00195 << 0.05 |
+| Median (Easy) | 27.9 |
+| Median (Hard) | 71.7 |
+| Rank-biserial effect size r | 0.89 (large) |
 
 **Interpretation**
 - The Wilcoxon signed-rank test revealed a significant increase in perceived workload from Easy mode to Hard mode, **p = 0.002**. 
