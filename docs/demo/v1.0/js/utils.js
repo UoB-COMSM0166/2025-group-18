@@ -85,39 +85,39 @@ const SHIP_MODEL = [
         type: SHIP_MODEL_1_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 60,
+        HPmax: 100,
         speed: 10,
         skillCD: 5,
         damage: 2,
         basicDamage: 1,
         bulletNumber: 1,
         pollutionStart: 400,
-        gold: 100000
+        gold: 1000
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 50,
+        HPmax: 60,
         speed: 6,
-        skillCD: 5,
+        skillCD: 4,
         damage: 1.5,
         basicDamage: 1,
         bulletNumber: 1,
         pollutionStart: 550,
-        gold: 150
+        gold: 300
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
         xSize: 10,
         ySize: 10,
         HPmax: 40,
-        speed: 6,
-        skillCD: 10,
+        speed: 5,
+        skillCD: 8,
         damage: 1.5,
         basicDamage: 1.5,
         bulletNumber: 1,
-        pollutionStart: 700,
+        pollutionStart: 600,
         gold: 200
     }
 ];
