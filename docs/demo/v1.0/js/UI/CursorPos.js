@@ -8,6 +8,7 @@ class CursorPos {
     }
 
     show() {
+        // logicCanvas.resetMatrix();
         // Mouse location
         this.x = lerp(this.x, logicX, 0.5);
         this.y = lerp(this.y, logicY, 0.5);

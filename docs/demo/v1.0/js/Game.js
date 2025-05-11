@@ -48,7 +48,7 @@ class Game {
 
     initPlayer(playerBasicStatus, mapType = 1) {
         const mapModel = getMapModel(mapType);
-
+        console.log(playerBasicStatus);
         this.#player = new Player(
             "Player",
             mapModel.playerStart.x * logicWidth,
@@ -57,6 +57,9 @@ class Game {
             playerBasicStatus.ySize,
             playerBasicStatus.HP,
             playerBasicStatus.speed,
+            playerBasicStatus.damage,
+            playerBasicStatus.basicDamage,
+            playerBasicStatus.bulletNumber,
             playerBasicStatus.skillCD,
             playerBasicStatus.maxSkillCD
         );
@@ -79,40 +82,32 @@ class Game {
 
         this.#orbiter = new Orbiter(
             this.#player,
-            70,  // 轨道半径
-            2,   // 轨道速度
-            5,   // 攻击力
+            70,  // Orbit radius
+            2,   // Orbit speed
+            5,   // Attack power
             (x, y, harm, attackBit, explodeType, explodeSize) =>
                 this.addExplode(x, y, harm, attackBit, explodeType, explodeSize),
         );
     }
 
     initRandomMap(loopCount = 0) {
-        // 随机选择背景图片
+        normalFightMusic.setVolume(0.5);
+        bossFightMusic.setVolume(0);
+        playSound(normalFightMusic);
+        // Randomly select background image
         const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
         frames.currentBackground = frames.background[randomBackgroundIndex];
 
 
-        // 如果你找到了这里，那么恭喜你，不用坐牢了，Type 2最简单，方便测试用。——Theodore  这种中文注释谁写的谁记得删哦（把我这半行一起删了）。--QTY
+        // If you found this, congratulations, you're free from jail. Type 2 is the easiest, convenient for testing.—Theodore  Whoever wrote this kind of Chinese comment, remember to delete it (delete this half line too).--QTY
         // this.mapType = MAP_MODEL_9_TYPE;
         this.mapType = (Math.floor(Date.now() * Math.random())) % 9 + 1;
         let info = getMapModel(this.mapType);
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
 
-
-        const playerBasicStatus = this.#player ? {
-            xSize: this.#player.xSize,
-            ySize: this.#player.ySize,
-            HP: this.#player.HPmax,
-            speed: this.#player.speed,
-            skillCD: this.#player.maxSkillCD,
-            maxSkillCD: this.#player.maxSkillCD
-        } : null;
-
-        if (playerBasicStatus) {
-            this.initPlayer(playerBasicStatus, this.mapType);
-        }
+        this.#player.xCoordinate = info.playerStart.x * logicWidth;
+        this.#player.yCoordinate = info.playerStart.y * logicHeight;
 
         this.initEnemies(info.enemy, loopCount);
         this.initIslands(info.island);
@@ -120,7 +115,10 @@ class Game {
     }
 
     initRandomBossMap(loopCount = 0) {
-        // 随机选择背景图片
+        normalFightMusic.setVolume(0);
+        bossFightMusic.setVolume(0.5);
+        playSound(bossFightMusic);
+        // Randomly select background image
         const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
         frames.currentBackground = frames.background[randomBackgroundIndex];
 
@@ -130,19 +128,8 @@ class Game {
         this.#allEnemies = info.enemy;
         this.#loopCount = loopCount;
 
-
-        const playerBasicStatus = this.#player ? {
-            xSize: this.#player.xSize,
-            ySize: this.#player.ySize,
-            HP: this.#player.HPmax,
-            speed: this.#player.speed,
-            skillCD: this.#player.maxSkillCD,
-            maxSkillCD: this.#player.maxSkillCD
-        } : null;
-
-        if (playerBasicStatus) {
-            this.initPlayer(playerBasicStatus, this.mapType);
-        }
+        this.#player.xCoordinate = info.playerStart.x * logicWidth;
+        this.#player.yCoordinate = info.playerStart.y * logicHeight;
 
         this.initBoss(this.#loopCount);
         this.initEnemies(info.enemy, loopCount);
@@ -151,7 +138,7 @@ class Game {
     }
 
 
-    initEnemies(loopCount = 0) {
+    initEnemies(enemyInfo, loopCount = 0) {
         if (this.#enemyWave >= this.#allEnemies.length) {
             return;
         }
@@ -177,11 +164,11 @@ class Game {
                 this.#pollution
             );
 
-            // 根据轮回次数增强敌人能力
+            // Enhance enemy abilities based on loop count
             if (loopCount > 0) {
-                // 每轮回增加20%血量和20%攻击力
-                const hpMultiplier = 1 + (loopCount * 0.2);
-                const attackMultiplier = 1 + (loopCount * 0.2);
+                // Each loop adds 50% health and 50% attack power
+                const hpMultiplier = 1 + (loopCount * 0.5);
+                const attackMultiplier = 1 + (loopCount * 0.5);
 
                 newEnemy.baseHP = Math.floor(newEnemy.originalBaseHP * hpMultiplier);
                 newEnemy.maxHP = Math.floor(newEnemy.baseHP * this.#pollution.getEffect().healthMul);
@@ -189,8 +176,8 @@ class Game {
 
                 newEnemy.baseAttack = Math.floor(newEnemy.originalBaseAttack * attackMultiplier);
                 newEnemy.attackPower = Math.floor(newEnemy.baseAttack * this.#pollution.getEffect().damageMul);
-                // 测试用
-                console.log(`轮回加成：敌人类型=${enemy.type}, 基础血量=${newEnemy.originalBaseHP}→${newEnemy.baseHP}, 最大血量=${newEnemy.maxHP}, 攻击力=${newEnemy.attackPower}`);
+                // For testing
+                console.log(`Loop bonus: Enemy type=${enemy.type}, Base HP=${newEnemy.originalBaseHP}→${newEnemy.baseHP}, Max HP=${newEnemy.maxHP}, Attack power=${newEnemy.attackPower}`);
             }
 
             this.#enemies.push(newEnemy);
@@ -249,19 +236,19 @@ class Game {
             );
             this.#bossCount = 0;
         }
-        // 根据轮回次数增强Boss能力
+        // Enhance Boss abilities based on loop count
         if (loopCount > 0) {
-            // 每轮回增加30%血量和25%攻击力
-            const hpMultiplier = 1 + (loopCount * 0.3);
-            const attackMultiplier = 1 + (loopCount * 0.25);
+            // Each loop adds 50% health and 50% attack power
+            const hpMultiplier = 1 + (loopCount * 0.5);
+            const attackMultiplier = 1 + (loopCount * 0.5);
             boss.baseHP = Math.floor(boss.originalBaseHP * hpMultiplier);
             boss.maxHP = Math.floor(boss.baseHP * this.#pollution.getEffect().healthMul);
             boss.HP = boss.maxHP;
             boss.baseAttack = Math.floor(boss.originalBaseAttack * attackMultiplier);
             boss.attackPower = Math.floor(boss.baseAttack * this.#pollution.getEffect().damageMul);
 
-            // 测试用
-            console.log(`轮回加成：Boss类型=${boss.modelType}, 基础血量=${boss.originalBaseHP}→${boss.baseHP}, 最大血量=${boss.maxHP}, 攻击力=${boss.attackPower}`);
+            // For testing
+            console.log(`Loop bonus: Boss type=${boss.modelType}, Base HP=${boss.originalBaseHP}→${boss.baseHP}, Max HP=${boss.maxHP}, Attack power=${boss.attackPower}`);
         }
 
         this.#enemies.push(boss);
@@ -334,9 +321,10 @@ class Game {
     }
 
     updateObjectStatus() {
+        this.#waveManager.setPollutionLevel(this.#pollution.getPollutionLevel());
         this.#waveManager.update(this.#islands, this.#player, this.#enemies);
         this.#waveManager.show();
-    
+
         for (let i = 0; i < this.#bullets.length; i++) {
             let bullet = this.#bullets[i];
             bullet.updateStatus();
@@ -434,13 +422,17 @@ class Game {
 
 
         if (this.#player.HP <= 0) {
+            bossFightMusic.setVolume(0);
+            normalFightMusic.setVolume(0);
             this.#gameOver = true;
             this.deathReason = "hp";
             console.log("Game Over! HP depleted");
         }
 
-        let pollutionEffect = this.#pollution.getEffect();
-        this.#player.updateHP(-1 * pollutionEffect.poisonFog);
+        if (this.#player.HP > 1) {
+            let pollutionEffect = this.#pollution.getEffect();
+            this.#player.updateHP(-10 / logicFrameRate * pollutionEffect.poisonFog);
+        }
 
         for (let island of this.#islands) {
             island.show();
@@ -455,7 +447,7 @@ class Game {
                 let enemy = this.#enemies[i];
                 if (!enemy.isAlive) {
                     if (enemy instanceof Boss) {
-                        this.#pollution.increasePollution("boss_kill", 0.5 * enemy.maxHP);
+                        this.#pollution.increasePollution("boss_kill", 0.05 * enemy.maxHP);
                     } else {
                         this.#pollution.increasePollution("enemy_kill", enemy.maxHP);
                     }
@@ -468,8 +460,8 @@ class Game {
             }
         }
         if (this.#enemies.length == 0) {
-            if (this.#bossCount == 0 ) {
-                this.initEnemies(this.#loopCount);
+            if (this.#bossCount == 0) {
+                this.initEnemies(this.#allEnemies[this.#enemyWave], this.#loopCount);
             } else {
                 if (this.#pollution.getEffect().secondBoss) {
                     this.initBoss(this.#loopCount);
@@ -478,6 +470,8 @@ class Game {
         }
 
         if (this.#enemies.length == 0) {
+            bossFightMusic.setVolume(0);
+            normalFightMusic.setVolume(0.5);
             this.#gameWin = true;
         }
 
@@ -488,10 +482,43 @@ class Game {
             this.updateEnemyBuffs(this.curTime);
         }
 
+        // add rubbish
+        let rubbishCount = 0;
+        for (let building of this.#buildings) {
+            if (building.modelType == BUILDING_MODEL_RUBBISH_TYPE) {
+                rubbishCount++;
+            }
+        }
+        if (this.#pollution.getPollutionLevel() > 2
+            && rubbishCount < 20
+            && Math.random() < this.#pollution.getPollutionLevel() / 60) {
+            let newRubbishX = Math.floor(Math.random() * logicWidth);
+            let newRubbishY = Math.floor(Math.random() * logicHeight);
+
+            let rubbishCollide = this.checkPointInRect(
+                newRubbishX, newRubbishY,
+                this.#player.xCoordinate, this.#player.yCoordinate,
+                this.#player.xSize + 35, this.#player.ySize + 35,
+                0
+            );
+            // console.log("pollution: ", this.#pollution.pollution);
+            // console.log("rubbishCollide: ", rubbishCollide);
+            if (!rubbishCollide) {
+                let newRubbish = new Building(
+                    newRubbishX,
+                    newRubbishY,
+                    BUILDING_MODEL_RUBBISH_TYPE,
+                    (x, y, harm, attackBit, explodeType, explodeSize) =>
+                        this.addExplode(x, y, harm, attackBit, explodeType, explodeSize)
+                );
+                this.#buildings.push(newRubbish);
+            }
         }
 
+    }
+
     addPet() {
-        // 随机
+        // Random
         const randomNum = Math.floor(Math.random() * 2);
         if (randomNum == 0) {
             this.addLaserPet();
@@ -551,7 +578,7 @@ class Game {
 
                 if (enemy == mainTarget) {
                     mainTargetHit = true;
-                    // 主目标受到全额伤害
+                    // Main target takes full damage
                     enemy.updateHP(-damage);
 
                     this.addExplode(
@@ -595,32 +622,32 @@ class Game {
         const dx = x2 - x1;
         const dy = y2 - y1;
 
-        // 1 到圆心距离
+        // Distance from x1,y1 to circle center
         const pCx = cx - x1;
         const pCy = cy - y1;
 
         const lengthSquared = dx * dx + dy * dy;
 
-        // 点积
+        // Dot product
         const dot = pCx * dx + pCy * dy;
 
-        // 圆心对线段投影
+        // Circle center projection onto the line
         const projX = x1 + (dot * dx) / lengthSquared;
         const projY = y1 + (dot * dy) / lengthSquared;
 
-        // 投影点是否在线段上
+        // Check if projection point is on the line segment
         const onSegment =
             (projX >= Math.min(x1, x2) && projX <= Math.max(x1, x2)) &&
             (projY >= Math.min(y1, y2) && projY <= Math.max(y1, y2));
 
-        // 端点检查
+        // Endpoint check
         if (!onSegment) {
             const dist1 = Math.sqrt((cx - x1) * (cx - x1) + (cy - y1) * (cy - y1));
             const dist2 = Math.sqrt((cx - x2) * (cx - x2) + (cy - y2) * (cy - y2));
             return dist1 <= r || dist2 <= r;
         }
 
-        // 圆心到投影点的距离
+        // Distance from circle center to projection point
         const distToLine = Math.sqrt(
             Math.pow(cx - projX, 2) + Math.pow(cy - projY, 2)
         );
@@ -684,7 +711,7 @@ class Game {
         }
         for (let enemy of this.#enemies) {
             if (myCollide(location, enemy)) {
-                // Theodore-特殊处理Boss的碰撞
+                // Theodore-Special handling for Boss collision
                 if (enemy instanceof Boss1) {
                     return true;
                 }
@@ -728,7 +755,7 @@ class Game {
                 return true;
             }
         }
-        // Theodore-敌人之间的碰撞检测
+        // Theodore-Enemy collision detection between each other
         for (let otherEnemy of this.#enemies) {
             if (otherEnemy == enemy) continue;
             if (myCollide(location, otherEnemy)) {
@@ -847,33 +874,42 @@ class Game {
         let bulletYSize = 0;
         let bulletSpeed = 0;
         if (bulletType == PLAYER_BULLET_TYPE) {
+            attackPower = this.#player.damage;
+            let baseAttackPower = this.#player.basicDamage;// keep it same as the player's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             this.#pollution.increasePollution("bullet");
             xCoordinate = this.#player.xCoordinate;
             yCoordinate = this.#player.yCoordinate;
-            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize;
-            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize;
-            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize;
+            explosionSize = this.#player.equipment.getCurrentWeapon().explosionSize * scale;
+            bulletXSize = this.#player.equipment.getCurrentWeapon().bulletXSize * scale;
+            bulletYSize = this.#player.equipment.getCurrentWeapon().bulletYSize * scale;
             bulletSpeed = this.#player.equipment.getCurrentWeapon().bulletSpeed;
         } else if (bulletType == ENEMY_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the enemy's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 20;
-            bulletXSize = 15;
-            bulletYSize = 15;
+            explosionSize = 20 * scale;
+            bulletXSize = 15 * scale;
+            bulletYSize = 15 * scale;
             bulletSpeed = 180 / logicFrameRate;
         } else if (bulletType == BOSS_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the boss's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 105;
-            bulletXSize = 100;
-            bulletYSize = 100;
+            explosionSize = 105 * scale;
+            bulletXSize = 100 * scale;
+            bulletYSize = 100 * scale;
             bulletSpeed = 300 / logicFrameRate;
         } else if (bulletType == PET_BULLET_TYPE) {
+            let baseAttackPower = 1;// keep it same as the pet's attack power
+            let scale = Math.pow(1.1, (attackPower - baseAttackPower) / baseAttackPower);
             xCoordinate = enemy.xCoordinate;
             yCoordinate = enemy.yCoordinate;
-            explosionSize = 20;
-            bulletXSize = 15;
-            bulletYSize = 15;
+            explosionSize = 20 * scale;
+            bulletXSize = 15 * scale;
+            bulletYSize = 15 * scale;
             bulletSpeed = 180 / logicFrameRate;
         }
         const bullet = new Bullet(
@@ -952,7 +988,7 @@ class Game {
             return;
         }
 
-        // 原地召唤
+        // Summon at player's position
         const petX = this.#player.xCoordinate;
         const petY = this.#player.yCoordinate;
 

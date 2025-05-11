@@ -45,27 +45,28 @@ class CaptainUI {
             this.videoElement.loop();
             this.videoElement.pause();
             this.videoElement.hide();
+            this.videoElement.volume(1);
             this.videoLoaded = true;
             this.isPlaying = false;
         } catch (error) {
-            console.error("加载视频时出错:", error);
+            console.error("Error loading video:", error);
             this.videoLoaded = false;
         }
     }
 
-    // 创建按钮
+    // Creating a Button
     createButtons() {
         const btnWidth = 100;
         const btnHeight = 40;
         const margin = 20;
 
-        // 返回按钮
+        // Back Button (moved to top right corner)
         this.backButton = {
-            x: logicWidth * 2 / 3 + margin,
+            x: logicWidth - btnWidth - margin,
             y: margin,
             w: btnWidth,
             h: btnHeight,
-            label: "返回",
+            label: "Return",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -79,13 +80,17 @@ class CaptainUI {
             }
         };
 
-        // 添加播放/暂停按钮
+        // Play/Pause Button (moved to below the video, positioned further right and down)
+        const videoWidth = (logicWidth * 2 / 3 - margin * 2) - margin * 2;
+        const videoHeight = videoWidth * 9 / 16;
+        const videoY = margin * 3;
+
         this.playPauseButton = {
-            x: logicWidth * 2 / 3 + margin,
-            y: margin + btnHeight + 10,
+            x: logicWidth / 3 + videoWidth - btnWidth - margin,
+            y: videoY + videoHeight + 40,
             w: btnWidth,
             h: btnHeight,
-            label: "播放",
+            label: "Play Video",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -93,18 +98,18 @@ class CaptainUI {
                     if (this.isPlaying) {
                         this.videoElement.pause();
                         this.isPlaying = false;
-                        this.playPauseButton.label = "播放";
+                        this.playPauseButton.label = "Play Video";
                     } else {
                         this.videoElement.play();
                         this.isPlaying = true;
-                        this.playPauseButton.label = "暂停";
+                        this.playPauseButton.label = "Pause";
                     }
                 }
             }
         };
     }
 
-    // 绘制按钮
+    // Draw the button
     drawButton(btn) {
         push();
         const mainColor = color(100, 255, 218);
@@ -141,29 +146,24 @@ class CaptainUI {
         );
 
         if (btn.isHovered) {
-            this.targetBorderSize = 80;
+            this.targetBorderSize = 200;
             this.borderColor = color(100, 255, 218, 102);
         }
     }
 
-    // 绘制滚动的诗文
+    // Draw scrolling poems
     drawPoemText() {
         push();
         const leftSectionWidth = logicWidth / 3;
         const leftMargin = 30;
         const topMargin = 50;
-
+        
         fill(0, 180);
         noStroke();
         rect(0, 0, leftSectionWidth, logicHeight);
-        fill(255, 215, 0);
-        textSize(24);
-        textAlign(CENTER, TOP);
-        text("O Captain! My Captain!", leftSectionWidth / 2, topMargin);
 
         fill(255);
         textSize(18);
-        textAlign(LEFT, TOP);
 
         let poemLines = this.poemText.split('\n');
         const lineHeight = 30;
@@ -171,15 +171,12 @@ class CaptainUI {
         let yPos = this.poemY;
         for (let i = 0; i < poemLines.length; i++) {
             const lineY = yPos + i * lineHeight;
-            if (lineY >= 0 && lineY < logicHeight) {
+            // Only draw lines that are below the title position
+            if (lineY >= topMargin + 30 && lineY < logicHeight) {
                 let line = poemLines[i];
-                if (line.startsWith(' ')) {
-                    textAlign(CENTER, TOP);
-                    text(line.trim(), leftSectionWidth / 2, lineY);
-                } else {
-                    textAlign(LEFT, TOP);
-                    text(line, leftMargin, lineY);
-                }
+                // Center align all text in the left section
+                textAlign(CENTER, TOP);
+                text(line, leftSectionWidth / 2, lineY);
             }
         }
 
@@ -188,16 +185,21 @@ class CaptainUI {
             this.poemY = logicHeight;
         }
         pop();
+        
+        fill(255, 215, 0);
+        textSize(24);
+        textAlign(CENTER, TOP);
+        text("O Captain! My Captain!", leftSectionWidth / 2, topMargin);
     }
 
-    // 绘制视频和说明文本
+    // Draw video and description text
     drawVideoAndText() {
         push();
         const rightSectionX = logicWidth / 3;
         const rightSectionWidth = logicWidth * 2 / 3;
         const margin = 30;
 
-        // 视频部分
+        // Video Section
         if (this.videoLoaded && this.videoElement) {
             const videoWidth = rightSectionWidth - margin * 2;
             const videoHeight = videoWidth * 9 / 16;
@@ -209,51 +211,41 @@ class CaptainUI {
             ellipse(videoX + videoWidth - 15, videoY + 15, 10, 10);
             image(this.videoElement, videoX + videoWidth / 2, videoY + videoHeight / 2, videoWidth, videoHeight);
 
-            // 版权声明
+            // Copyright Notice
             fill(150);
             textSize(12);
             textAlign(CENTER, TOP);
-            text("Public Domain Mark 1.0 Universal, 版权合法", rightSectionX + rightSectionWidth / 2, videoY + videoHeight + 10);
+            text("Public Domain Mark 1.0 Universal, Copyright legality", rightSectionX + rightSectionWidth / 2, videoY + videoHeight + 10);
 
-            // 说明文本区域
-            const textY = videoY + videoHeight + 40;
+            // Description text area
+            const textY = videoY + videoHeight + 70; // Adjusted Y position to account for the play button
             const textWidth = videoWidth;
             textAlign(LEFT, TOP);
             fill(255, 215, 0);
             textSize(20);
-            text("神秘代码解码: O Captain! my Captain!", videoX, textY);
-            fill(255);
+            text("Mysterious Code Decoded: O Captain! my Captain!", videoX, textY);
+            
+            fill(255, 215, 0);
             textSize(16);
-            const explanationText =
-                "We don't read and write poetry because it's cute. We read and write poetry because we are members of the human race. " +
-                "And the human race is filled with passion. Medicine, law, business, engineering, these are noble pursuits and necessary to sustain life. " +
-                "But poetry... beauty, romance, love... these are what we stay alive for. " +
-                "To quote from Whitman, \"O me, O life, of the questions of these recurring, of the endless trains of the faithless, " +
-                "of cities filled with the foolish, what good amid these, O me, O life?\" " +
-                "Answer. That you are here, that life exists and identity, that the powerful play goes on and you may contribute a verse. " +
-                "That the powerful play goes on and you may contribute a verse.";
-
             const invitationText =
                 "Come on! Just when you think you know something, you have to look at it in another way. Even though it may seem silly or wrong, you must try! " +
                 "Now, when you read, don't just consider what the author thinks. Consider what you think. " +
                 "Boys, you must strive to find your own voice. Because the longer you wait to begin, the less likely you are to find it at all. " +
                 "Thoreau said, \"Most men lead lives of quiet desperation.\" Don't be resigned to that. Break out! " +
-                "Don't just walk off the edge like lemmings. Look around you.";
+                "Don't just walk off the edge like lemmings. Look around you.\n\n" +
+                "As one of the game's creators, I've put a lot of heart into this game. Thank you for playing this far. Thank you — Guanglong Xia";
 
-            this.drawWrappedText(explanationText, videoX, textY + 40, textWidth);
-
-            fill(255, 215, 0);
-            this.drawWrappedText(invitationText, videoX, textY + 200, textWidth);
+            this.drawWrappedText(invitationText, videoX, textY + 40, textWidth);
         } else {
             fill(255);
             textSize(24);
             textAlign(CENTER, CENTER);
-            text("正在加载视频...", rightSectionX + rightSectionWidth / 2, logicHeight / 2);
+            text("Loading video...", rightSectionX + rightSectionWidth / 2, logicHeight / 2);
         }
         pop();
     }
 
-    // 用于绘制带有换行的文本
+    // Used to draw text with line breaks
     drawWrappedText(messageText, x, y, maxWidth) {
         const words = messageText.split(' ');
         let currentLine = '';
@@ -277,7 +269,7 @@ class CaptainUI {
         text(currentLine, x, y + yOffset);
     }
 
-    // 主绘制函数
+    // Main drawing function
     draw() {
         background(0);
         this.drawPoemText();
@@ -288,7 +280,7 @@ class CaptainUI {
         this.drawButton(this.playPauseButton);
     }
 
-    // 处理鼠标按下
+    // Handling Mouse Clicks
     handleMousePressed() {
         if (this.backButton.isHovered) {
             this.backButton.scale = 0.95;
@@ -298,7 +290,7 @@ class CaptainUI {
         }
     }
 
-    // 处理鼠标释放
+    // Handling Mouse Release
     handleMouseReleased() {
         if (this.backButton.isHovered && this.backButton.scale < 1) {
             playSound(frames.soundEffect.hover);
@@ -313,7 +305,7 @@ class CaptainUI {
         this.playPauseButton.scale = 1;
     }
 
-    // 处理窗口大小变化
+    // Handling window size changes
     handleWindowResized() {
         this.createButtons();
     }

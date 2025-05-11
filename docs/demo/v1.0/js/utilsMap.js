@@ -22,7 +22,7 @@ const MAP_MODEL = [
         building: [],
         enemy: []
     }, {
-        modelType: MAP_MODEL_1_TYPE,//战斗坐牢图-TNT图(测试通过)
+        modelType: MAP_MODEL_1_TYPE,//Battle prison map-TNT map(test passed)
         playerStart: { x: 0.1, y: 0.5 },
         island: [
             { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
@@ -31,7 +31,7 @@ const MAP_MODEL = [
             { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
         ],
         building: [
-            // ===== 左侧T：水平线 (x=0.30->0.40, 步=0.005, y=0.30) =====
+            // ===== Left T: Horizontal line (x=0.30->0.40, step=0.005, y=0.30) =====
             { x: 0.300, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.310, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.320, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
@@ -44,7 +44,7 @@ const MAP_MODEL = [
             { x: 0.390, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.400, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
 
-            // ===== 左侧T：竖线 (x=0.35, y=0.30->0.50, 步=0.01) =====
+            // ===== Left T: Vertical line (x=0.35, y=0.30->0.50, step=0.01) =====
             { x: 0.350, y: 0.310, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.350, y: 0.330, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.350, y: 0.350, type: BUILDING_MODEL_TNT_TYPE },
@@ -56,7 +56,7 @@ const MAP_MODEL = [
             { x: 0.350, y: 0.470, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.350, y: 0.490, type: BUILDING_MODEL_TNT_TYPE },
 
-            // ===== 中间N：左竖 (x=0.45, y=0.30->0.50, 步=0.01) =====
+            // ===== Middle N: Left vertical (x=0.45, y=0.30->0.50, step=0.01) =====
             { x: 0.450, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.450, y: 0.320, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.450, y: 0.340, type: BUILDING_MODEL_TNT_TYPE },
@@ -69,7 +69,7 @@ const MAP_MODEL = [
             { x: 0.450, y: 0.480, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.450, y: 0.500, type: BUILDING_MODEL_TNT_TYPE },
 
-            // ===== 中间N：斜线 (0.45,0.30 -> 0.55,0.50 分 20 段) =====
+            // ===== Middle N: Diagonal line (0.45,0.30 -> 0.55,0.50 in 20 segments) =====
             { x: 0.460, y: 0.320, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.470, y: 0.340, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.480, y: 0.360, type: BUILDING_MODEL_TNT_TYPE },
@@ -81,7 +81,7 @@ const MAP_MODEL = [
             { x: 0.540, y: 0.480, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.550, y: 0.500, type: BUILDING_MODEL_TNT_TYPE },
 
-            // ===== 中间N：右竖 (x=0.55, y=0.30->0.50, 步=0.01) =====
+            // ===== Middle N: Right vertical (x=0.55, y=0.30->0.50, step=0.01) =====
             { x: 0.550, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.550, y: 0.320, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.550, y: 0.340, type: BUILDING_MODEL_TNT_TYPE },
@@ -93,7 +93,7 @@ const MAP_MODEL = [
             { x: 0.550, y: 0.460, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.550, y: 0.480, type: BUILDING_MODEL_TNT_TYPE },
 
-            // ===== 右侧T：水平线 (x=0.60->0.70, 步=0.005, y=0.30) =====
+            // ===== Right T: Horizontal line (x=0.60->0.70, step=0.005, y=0.30) =====
             { x: 0.600, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.610, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.620, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
@@ -106,7 +106,7 @@ const MAP_MODEL = [
             { x: 0.690, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.700, y: 0.300, type: BUILDING_MODEL_TNT_TYPE },
 
-            // ===== 右侧T：竖线 (x=0.65, y=0.30->0.50, 步=0.01) =====
+            // ===== Right T: Vertical line (x=0.65, y=0.30->0.50, step=0.01) =====
             { x: 0.650, y: 0.310, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.650, y: 0.330, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.650, y: 0.350, type: BUILDING_MODEL_TNT_TYPE },
@@ -137,44 +137,44 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_2_TYPE,//战斗图-骷髅(测试通过)
+        modelType: MAP_MODEL_2_TYPE,//Battle map-Skull(test passed)
         playerStart: { x: 0.1, y: 0.5 },
         island: [
-            // =============== “额头”或“顶部” ===============
+            // =============== "Forehead" or "Top" ===============
             { x: 0.40, y: 0.12, type: ISLAND_MODEL_3_TYPE },
             { x: 0.45, y: 0.12, type: ISLAND_MODEL_3_TYPE },
             { x: 0.50, y: 0.12, type: ISLAND_MODEL_3_TYPE },
             { x: 0.55, y: 0.12, type: ISLAND_MODEL_3_TYPE },
             { x: 0.60, y: 0.12, type: ISLAND_MODEL_3_TYPE },
 
-            // =============== “鼻子”区域 ===============
-            // 用小岛模拟鼻子
+            // =============== "Nose" area ===============
+            // Use small islands to simulate the nose
             { x: 0.49, y: 0.42, type: ISLAND_MODEL_5_TYPE },
             { x: 0.51, y: 0.42, type: ISLAND_MODEL_5_TYPE },
 
-            // =============== “颧骨”/“脸颊”区域 ===============
-            // 左脸颊
+            // =============== "Cheekbones"/"Cheeks" area ===============
+            // Left cheek
             { x: 0.37, y: 0.20, type: ISLAND_MODEL_4_TYPE },
             { x: 0.37, y: 0.35, type: ISLAND_MODEL_4_TYPE },
             { x: 0.42, y: 0.40, type: ISLAND_MODEL_3_TYPE },
-            // 右脸颊
+            // Right cheek
             { x: 0.63, y: 0.20, type: ISLAND_MODEL_4_TYPE },
             { x: 0.63, y: 0.35, type: ISLAND_MODEL_4_TYPE },
             { x: 0.58, y: 0.40, type: ISLAND_MODEL_3_TYPE },
 
-            // =============== “牙齿”/“下巴”区域 ===============
-            // 用多个小岛模拟一排“牙齿”
+            // =============== "Teeth"/"Jaw" area ===============
+            // Use multiple small islands to simulate a row of "teeth"
             { x: 0.47, y: 0.55, type: ISLAND_MODEL_5_TYPE },
             { x: 0.50, y: 0.55, type: ISLAND_MODEL_5_TYPE },
             { x: 0.53, y: 0.55, type: ISLAND_MODEL_5_TYPE },
 
-            // =============== “下巴”或 “外围” ===============
-            // 左下巴(竖向岛)
+            // =============== "Jaw" or "Outer edge" ===============
+            // Left jaw (vertical island)
             { x: 0.44, y: 0.50, type: ISLAND_MODEL_4_TYPE },
-            // 右下巴(竖向岛)
+            // Right jaw (vertical island)
             { x: 0.56, y: 0.50, type: ISLAND_MODEL_4_TYPE },
 
-            // 骨头A：从(0.40, 0.80)往右上方排到(0.575, 0.975)，共8块
+            // Bone A: From (0.40, 0.80) going up-right to (0.575, 0.975), 8 pieces in total
             { x: 0.40, y: 0.60, type: ISLAND_MODEL_5_TYPE },
             { x: 0.425, y: 0.625, type: ISLAND_MODEL_5_TYPE },
             { x: 0.45, y: 0.65, type: ISLAND_MODEL_5_TYPE },
@@ -184,7 +184,7 @@ const MAP_MODEL = [
             { x: 0.55, y: 0.75, type: ISLAND_MODEL_5_TYPE },
             { x: 0.575, y: 0.775, type: ISLAND_MODEL_5_TYPE },
 
-            // 骨头B：从(0.60, 0.80)往左上方排到(0.425, 0.975)，共8块
+            // Bone B: From (0.60, 0.80) going up-left to (0.425, 0.975), 8 pieces in total
             { x: 0.60, y: 0.60, type: ISLAND_MODEL_5_TYPE },
             { x: 0.575, y: 0.625, type: ISLAND_MODEL_5_TYPE },
             { x: 0.55, y: 0.65, type: ISLAND_MODEL_5_TYPE },
@@ -209,28 +209,28 @@ const MAP_MODEL = [
                 { x: 0.9, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.9, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
 
-                // =============== “眼睛”区域 ===============
-                // 左眼（中型岛）
+                // =============== "Eyes" area ===============
+                // Left eye (medium island)
                 { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
-                // 右眼（中型岛）
+                // Right eye (medium island)
                 { x: 0.55, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
             ]
-            //我不想坐牢，一波敌人让我速通吧——Theodore
+            //I don't want to go to prison, let me speed through with just one wave of enemies—Theodore
             //     ,[
             //         { x: 0.9, y: 0.7, type: EASY_ENEMY_MODEL_2_TYPE },
             //         { x: 0.9, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
             //         { x: 0.9, y: 0.80, type: EASY_ENEMY_MODEL_2_TYPE },
             //         { x: 0.9, y: 0.85, type: EASY_ENEMY_MODEL_2_TYPE },
 
-            //         // =============== “眼睛”区域 ===============
-            //         // 左眼（中型岛）
+            //         // =============== "Eyes" area ===============
+            //         // Left eye (medium island)
             //         { x: 0.45, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
-            //         // 右眼（中型岛）
+            //         // Right eye (medium island)
             //         { x: 0.55, y: 0.28, type: EASY_ENEMY_MODEL_3_TYPE },
             //     ]
         ]
     }, {
-        modelType: MAP_MODEL_3_TYPE,//战斗图-化学桶十字(化学桶竖直间距0.6，水平间距0.4时不触发连爆，且能阻挡玩家)
+        modelType: MAP_MODEL_3_TYPE,//Battle map-Chemical barrel cross (chemical barrels with vertical spacing of 0.6 and horizontal spacing of 0.4 don't trigger chain explosions and can block players)
         playerStart: { x: 0.5, y: 0.5 },
         island: [
             { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
@@ -239,7 +239,7 @@ const MAP_MODEL = [
             { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
         ],
         building: [
-            // 竖直方向的化学桶 - 间隔调整为0.6
+            // Vertical chemical barrels - spacing adjusted to 0.6
             { x: 0.5, y: 0, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.06, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.12, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -249,7 +249,7 @@ const MAP_MODEL = [
             { x: 0.5, y: 0.36, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.42, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             //{ x: 0.5, y: 0.48, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.5, y: 0.54, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE }, // 中心位置留出间隔
+            //{ x: 0.5, y: 0.54, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE }, // Leave gap at the center position
             { x: 0.5, y: 0.60, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.66, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.72, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -258,7 +258,7 @@ const MAP_MODEL = [
             { x: 0.5, y: 0.90, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.96, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
                     
-            // 水平方向的化学桶 - 间隔调整为0.4
+            // Horizontal chemical barrels - spacing adjusted to 0.4
             { x: 0, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.04, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.08, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -272,7 +272,7 @@ const MAP_MODEL = [
             { x: 0.40, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.44, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             //{ x: 0.48, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
-            //{ x: 0.52, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE }, // 中心位置留出间隔
+            //{ x: 0.52, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE }, // Leave gap at the center position
             { x: 0.56, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.60, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.64, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -288,22 +288,22 @@ const MAP_MODEL = [
         ],
         enemy: [
             [
-                // 第一波敌人
+                // First wave of enemies
                 { x: 0.25, y: 0.25, type: EASY_ENEMY_MODEL_3_TYPE },
             ], [
-                // 第二波敌人
+                // Second wave of enemies
                 { x: 0.625, y: 0.125, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.875, y: 0.125, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.625, y: 0.375, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.875, y: 0.375, type: EASY_ENEMY_MODEL_1_TYPE },
             ], [
-                // 第三波敌人
+                // Third wave of enemies
                 { x: 0.625, y: 0.625, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.875, y: 0.625, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.625, y: 0.875, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.875, y: 0.875, type: EASY_ENEMY_MODEL_2_TYPE },
             ], [
-                // 第四波敌人 
+                // Fourth wave of enemies 
                 { x: 0.125, y: 0.625, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.375, y: 0.625, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.125, y: 0.875, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -311,11 +311,11 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_4_TYPE,//梗图-Bristol(好不容易拼出来的，还是不想删，保留吧)
+        modelType: MAP_MODEL_4_TYPE,//Meme map-Bristol(put together with great effort, don't want to delete it, so keeping it)
         playerStart: { x: 0.03, y: 0.5 },
         island: [],
         building: [
-            // 字母 B
+            // Letter B
             { x: 0.10, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.10, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.10, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
@@ -338,13 +338,7 @@ const MAP_MODEL = [
             { x: 0.14, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.12, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 字母 R
-            { x: 0.23, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.23, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.23, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.23, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.23, y: 0.50, type: BUILDING_MODEL_CHEST_TYPE },
-            { x: 0.23, y: 0.55, type: BUILDING_MODEL_CHEST_TYPE },
+            // Letter R
             { x: 0.23, y: 0.60, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.23, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.23, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
@@ -360,7 +354,7 @@ const MAP_MODEL = [
             { x: 0.28, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.29, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 字母 I
+            // Letter I
             { x: 0.38, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.38, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.38, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
@@ -375,7 +369,7 @@ const MAP_MODEL = [
             { x: 0.36, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.40, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 字母 S
+            // Letter S
             { x: 0.47, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.49, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.51, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
@@ -395,7 +389,7 @@ const MAP_MODEL = [
             { x: 0.51, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.53, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 字母 T
+            // Letter T
             { x: 0.60, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.62, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.64, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
@@ -409,7 +403,7 @@ const MAP_MODEL = [
             { x: 0.63, y: 0.65, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.63, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 字母 O
+            // Letter O
             { x: 0.73, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.73, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.73, y: 0.45, type: BUILDING_MODEL_CHEST_TYPE },
@@ -429,7 +423,7 @@ const MAP_MODEL = [
             { x: 0.75, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.77, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 字母 L
+            // Letter L
             { x: 0.86, y: 0.30, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.86, y: 0.35, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.86, y: 0.40, type: BUILDING_MODEL_CHEST_TYPE },
@@ -444,7 +438,7 @@ const MAP_MODEL = [
             { x: 0.92, y: 0.70, type: BUILDING_MODEL_CHEST_TYPE },
         ],
         enemy: [
-            // 第一波敌人
+            // First wave of enemies
             [
                 { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
@@ -453,7 +447,7 @@ const MAP_MODEL = [
                 { x: 0.50, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.50, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE }
             ],
-            // 第二波敌人
+            // Second wave of enemies
             [
                 { x: 0.10, y: 0.10, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.90, y: 0.10, type: EASY_ENEMY_MODEL_2_TYPE },
@@ -464,7 +458,7 @@ const MAP_MODEL = [
                 { x: 0.25, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.75, y: 0.95, type: EASY_ENEMY_MODEL_3_TYPE }
             ],
-            // 第三波敌人
+            // Third wave of enemies
             [
                 { x: 0.95, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.05, y: 0.90, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -475,7 +469,7 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_5_TYPE,//战斗图-化学四角(设计思路同Map3 你可以选择绕路花时间击破化学箱，也可以选择避免击破)
+        modelType: MAP_MODEL_5_TYPE,//Battle map-Chemical four corners (design concept same as Map3, you can choose to take time to destroy chemical boxes by going around, or avoid destroying them)
         playerStart: { x: 0.1, y: 0.5 },
         island: [
             { x: 0.15, y: 0.20, type: ISLAND_MODEL_2_TYPE },
@@ -485,7 +479,7 @@ const MAP_MODEL = [
             { x: 0.5, y: 0.5, type: ISLAND_MODEL_1_TYPE },
         ],
         building: [
-            // 右上化学桶
+            // Upper right chemical barrels
             { x: 0.8, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.76, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.72, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -497,7 +491,7 @@ const MAP_MODEL = [
             { x: 0.56, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.56, y: 0.38, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
     
-            // 右下的
+            // Lower right
             { x: 0.8, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.76, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.72, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -509,7 +503,7 @@ const MAP_MODEL = [
             { x: 0.56, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.56, y: 0.62, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
     
-            // 左上
+            // Upper left
             { x: 0.2, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.24, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.28, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -521,7 +515,7 @@ const MAP_MODEL = [
             { x: 0.44, y: 0.32, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.44, y: 0.38, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
     
-            // 左下
+            // Lower left
             { x: 0.2, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.24, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.28, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -533,28 +527,28 @@ const MAP_MODEL = [
             { x: 0.44, y: 0.68, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.44, y: 0.62, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
     
-            // 中间四个化学箱
+            // Four chemical boxes in the middle
             { x: 0.45, y: 0.45, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE},
             { x: 0.55, y: 0.45, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.45, y: 0.55, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.55, y: 0.55, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
         ],
         enemy: [
-            // 第一步
+            // First step
             [
                 { x: 0.75, y: 0.5, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.25, y: 0.5, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.5, y: 0.75, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.5, y: 0.25, type: EASY_ENEMY_MODEL_1_TYPE },
             ],
-            // 第二波
+            // Second wave
             [
                 { x: 0.8, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.8, y: 0.65, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.2, y: 0.35, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.2, y: 0.65, type: EASY_ENEMY_MODEL_2_TYPE },
             ],
-            // 第三波
+            // Third wave
             [
                 { x: 0.5, y: 0.4, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.5, y: 0.6, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -567,14 +561,14 @@ const MAP_MODEL = [
     },
 
     {
-        //(现在tnt是会连爆的，图中共16个海洋垃圾（每个减少50点污染值），60个TNT(每个增加20点污染值)，如果肆无忌惮的攻击也只增加400点污染值)
-        modelType: MAP_MODEL_6_TYPE,// 战斗图-五角星连线
+        //(Now TNT can chain explode, this map has 16 ocean garbage (each reduces pollution by 50 points) and 60 TNT (each increases pollution by 20 points), so even if you attack recklessly, it only increases pollution by 400 points)
+        modelType: MAP_MODEL_6_TYPE,// Battle map-Pentagram connection
         playerStart: { x: 0.5, y: 0.7 },
         island: [
             { x: 0.5, y: 0.5, type: ISLAND_MODEL_2_TYPE },
         ],
         building: [
-            // 顶线-垃圾线
+            // Top line-Garbage line
             { x: 0.5, y: 0.46, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.44, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.42, type: BUILDING_MODEL_RUBBISH_TYPE },
@@ -591,10 +585,10 @@ const MAP_MODEL = [
             { x: 0.5, y: 0.20, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.18, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.5, y: 0.16, type: BUILDING_MODEL_RUBBISH_TYPE },
-            // 顶部宝箱
+            // Top chest
             { x: 0.5, y: 0.13, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 右上角点-TNT连线
+            // Upper right corner point-TNT connection
             { x: 0.54, y: 0.46, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.56, y: 0.44, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.58, y: 0.42, type: BUILDING_MODEL_TNT_TYPE },
@@ -610,10 +604,10 @@ const MAP_MODEL = [
             { x: 0.78, y: 0.22, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.80, y: 0.20, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.82, y: 0.18, type: BUILDING_MODEL_TNT_TYPE },
-            // 右上角宝箱
+            // Upper right corner chest
             { x: 0.84, y: 0.16, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 右下角点-TNT连线
+            // Lower right corner point-TNT connection
             { x: 0.54, y: 0.54, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.56, y: 0.56, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.58, y: 0.58, type: BUILDING_MODEL_TNT_TYPE },
@@ -629,10 +623,10 @@ const MAP_MODEL = [
             { x: 0.78, y: 0.78, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.80, y: 0.80, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.82, y: 0.82, type: BUILDING_MODEL_TNT_TYPE },
-            // 右下角宝箱
+            // Lower right corner chest
             { x: 0.84, y: 0.84, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 左下角点-TNT
+            // Lower left corner point-TNT
             { x: 0.46, y: 0.54, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.44, y: 0.56, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.42, y: 0.58, type: BUILDING_MODEL_TNT_TYPE },
@@ -648,10 +642,10 @@ const MAP_MODEL = [
             { x: 0.22, y: 0.78, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.20, y: 0.80, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.18, y: 0.82, type: BUILDING_MODEL_TNT_TYPE },
-            // 左下角宝箱
+            // Lower left corner chest
             { x: 0.16, y: 0.84, type: BUILDING_MODEL_CHEST_TYPE },
 
-            // 左上角点-TNT
+            // Left top corner point-TNT
             { x: 0.46, y: 0.46, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.44, y: 0.44, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.42, y: 0.42, type: BUILDING_MODEL_TNT_TYPE },
@@ -667,11 +661,11 @@ const MAP_MODEL = [
             { x: 0.22, y: 0.22, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.20, y: 0.20, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.18, y: 0.18, type: BUILDING_MODEL_TNT_TYPE },
-            // 左上角宝箱
+            // Left top corner chest
             { x: 0.16, y: 0.16, type: BUILDING_MODEL_CHEST_TYPE },
         ],
         enemy: [
-            // 第一波
+            // First wave
             [
                 { x: 0.5, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.8, y: 0.4, type: EASY_ENEMY_MODEL_1_TYPE },
@@ -679,14 +673,14 @@ const MAP_MODEL = [
                 { x: 0.35, y: 0.75, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.2, y: 0.4, type: EASY_ENEMY_MODEL_1_TYPE },
             ],
-            // 第二波
+            // Second wave
             [
                 { x: 0.5, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.7, y: 0.5, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.5, y: 0.7, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.3, y: 0.5, type: EASY_ENEMY_MODEL_2_TYPE },
             ],
-            // 第三波
+            // Third wave
             [
                 { x: 0.45, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.55, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
@@ -701,7 +695,7 @@ const MAP_MODEL = [
             ],
         ]
     }, {
-        modelType: MAP_MODEL_7_TYPE,//战斗图-化学桶多多(屏幕实体尚且可控，属于限制玩家肆无忌惮的攻击)
+        modelType: MAP_MODEL_7_TYPE,//Battle map-Many chemical barrels(screen entities are still controllable, limiting players from reckless attacks)
         playerStart: { x: 0.05, y: 0.05 },
         island: [
             { x: 0.15, y: 0.15, type: ISLAND_MODEL_2_TYPE },
@@ -750,21 +744,21 @@ const MAP_MODEL = [
             { x: 0.85, y: 0.15, type: BUILDING_MODEL_CHEST_TYPE },
         ],
         enemy: [
-            // 第一波
+            // First wave
             [
                 { x: 0.4, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.6, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.4, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.6, y: 0.7, type: EASY_ENEMY_MODEL_1_TYPE },
             ],
-            // 第二波
+            // Second wave
             [
                 { x: 0.2, y: 0.2, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.8, y: 0.2, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.2, y: 0.8, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.8, y: 0.8, type: EASY_ENEMY_MODEL_2_TYPE },
             ],
-            // 第三波
+            // Third wave
             [
                 { x: 0.4, y: 0.4, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.6, y: 0.4, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -773,26 +767,26 @@ const MAP_MODEL = [
             ]
         ]
     }, {
-        modelType: MAP_MODEL_8_TYPE,//拼多多图，什么都有一点
+        modelType: MAP_MODEL_8_TYPE,//Pinduoduo map, a little bit of everything
         playerStart: { x: 0.1, y: 0.5 },
         island: [
-            // 中心交叉形态
+            // Center cross formation
             { x: 0.5, y: 0.5, type: ISLAND_MODEL_2_TYPE },
             
-            // 角落岛屿
+            // Corner islands
             { x: 0.2, y: 0.2, type: ISLAND_MODEL_1_TYPE },
             { x: 0.8, y: 0.2, type: ISLAND_MODEL_1_TYPE },
             { x: 0.2, y: 0.8, type: ISLAND_MODEL_1_TYPE },
             { x: 0.8, y: 0.8, type: ISLAND_MODEL_1_TYPE },
             
-            // 小小岛
+            // Small islands
             { x: 0.35, y: 0.35, type: ISLAND_MODEL_5_TYPE },
             { x: 0.65, y: 0.35, type: ISLAND_MODEL_5_TYPE },
             { x: 0.35, y: 0.65, type: ISLAND_MODEL_5_TYPE },
             { x: 0.65, y: 0.65, type: ISLAND_MODEL_5_TYPE },
         ],
         building: [
-            // 上方炸弹
+            // Top bombs
             { x: 0.30, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.35, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.40, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
@@ -802,7 +796,7 @@ const MAP_MODEL = [
             { x: 0.65, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.70, y: 0.15, type: BUILDING_MODEL_TNT_TYPE },
             
-            // 下方炸弹
+            // Bottom bombs
             { x: 0.30, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.35, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.40, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
@@ -812,7 +806,7 @@ const MAP_MODEL = [
             { x: 0.65, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.70, y: 0.85, type: BUILDING_MODEL_TNT_TYPE },
             
-            // 左侧炸弹
+            // Left side bombs
             { x: 0.15, y: 0.30, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.15, y: 0.35, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.15, y: 0.40, type: BUILDING_MODEL_TNT_TYPE },
@@ -822,7 +816,7 @@ const MAP_MODEL = [
             { x: 0.15, y: 0.65, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.15, y: 0.70, type: BUILDING_MODEL_TNT_TYPE },
             
-            // 右侧炸弹
+            // Right side bombs
             { x: 0.85, y: 0.30, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.85, y: 0.35, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.85, y: 0.40, type: BUILDING_MODEL_TNT_TYPE },
@@ -832,26 +826,26 @@ const MAP_MODEL = [
             { x: 0.85, y: 0.65, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.85, y: 0.70, type: BUILDING_MODEL_TNT_TYPE },
             
-            // 化学桶
+            // Chemical barrels
             { x: 0.4, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.6, y: 0.5, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.5, y: 0.6, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             
-            // 垃圾
+            // Rubbish
             { x: 0.25, y: 0.25, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.75, y: 0.25, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.25, y: 0.75, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.75, y: 0.75, type: BUILDING_MODEL_RUBBISH_TYPE },
             
-            // 宝箱
+            // Chests
             { x: 0.5, y: 0.2, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.5, y: 0.8, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.2, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.8, y: 0.5, type: BUILDING_MODEL_CHEST_TYPE },
         ],
         enemy: [
-            // 第一波 - 周边敌人
+            // First wave - Surrounding enemies
             [
                 { x: 0.3, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.7, y: 0.3, type: EASY_ENEMY_MODEL_1_TYPE },
@@ -860,7 +854,7 @@ const MAP_MODEL = [
                 { x: 0.5, y: 0.3, type: EASY_ENEMY_MODEL_2_TYPE },
             ],
             
-            // 第二波 - 角落伏击
+            // Second wave - Corner ambush
             [
                 { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_2_TYPE },
                 { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_2_TYPE },
@@ -869,7 +863,7 @@ const MAP_MODEL = [
                 { x: 0.5, y: 0.7, type: EASY_ENEMY_MODEL_3_TYPE },
             ],
             
-            // 第三波 - 更强的敌人
+            // Third wave - Stronger enemies
             [
                 { x: 0.4, y: 0.2, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.6, y: 0.2, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -877,7 +871,7 @@ const MAP_MODEL = [
                 { x: 0.6, y: 0.8, type: EASY_ENEMY_MODEL_3_TYPE },
             ],
             
-            // 第四波 - 最终挑战
+            // Fourth wave - Final challenge
             [
                 { x: 0.3, y: 0.5, type: EASY_ENEMY_MODEL_3_TYPE },
                 { x: 0.7, y: 0.5, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -889,20 +883,20 @@ const MAP_MODEL = [
         ]
     },
     {
-        modelType: MAP_MODEL_9_TYPE,//困境图——我是真牛逼，全新玩法更新了！
+        modelType: MAP_MODEL_9_TYPE,//Predicament map—I'm really awesome, brand new gameplay update!
         playerStart: { x: 0.5, y: 0.5 },
         island: [
-            // 玩家脚下的小岛，将玩家卡在原地
+            // Small island under the player, trapping the player in place
             // { x: 0.5, y: 0.5, type: ISLAND_MODEL_5_TYPE },
             
-            // 边缘岛屿作为装饰和边界
+            // Edge islands as decoration and boundaries
             { x: 0.1, y: 0.1, type: ISLAND_MODEL_1_TYPE },
             { x: 0.9, y: 0.1, type: ISLAND_MODEL_1_TYPE },
             { x: 0.1, y: 0.9, type: ISLAND_MODEL_1_TYPE },
             { x: 0.9, y: 0.9, type: ISLAND_MODEL_1_TYPE },
         ],
         building: [
-            // 上边缘的化学箱和垃圾
+            // Top edge chemical boxes and rubbish
             { x: 0.2, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.3, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.4, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -911,7 +905,7 @@ const MAP_MODEL = [
             { x: 0.7, y: 0.1, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.8, y: 0.1, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             
-            // 右边缘的化学箱和TNT
+            // Right edge chemical boxes and TNT
             { x: 0.9, y: 0.2, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.9, y: 0.3, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.9, y: 0.4, type: BUILDING_MODEL_TNT_TYPE },
@@ -920,7 +914,7 @@ const MAP_MODEL = [
             { x: 0.9, y: 0.7, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.9, y: 0.8, type: BUILDING_MODEL_TNT_TYPE },
             
-            // 下边缘的垃圾和化学箱
+            // Bottom edge rubbish and chemical boxes
             { x: 0.2, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
             { x: 0.3, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.4, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
@@ -929,7 +923,7 @@ const MAP_MODEL = [
             { x: 0.7, y: 0.9, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.8, y: 0.9, type: BUILDING_MODEL_RUBBISH_TYPE },
             
-            // 左边缘的TNT和化学箱
+            // Left edge TNT and chemical boxes
             { x: 0.1, y: 0.2, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             { x: 0.1, y: 0.3, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.1, y: 0.4, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
@@ -938,21 +932,21 @@ const MAP_MODEL = [
             { x: 0.1, y: 0.7, type: BUILDING_MODEL_TNT_TYPE },
             { x: 0.1, y: 0.8, type: BUILDING_MODEL_CHEMICAL_BOX_TYPE },
             
-            // 宝箱
+            // Chests
             { x: 0.3, y: 0.3, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.7, y: 0.3, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.3, y: 0.7, type: BUILDING_MODEL_CHEST_TYPE },
             { x: 0.7, y: 0.7, type: BUILDING_MODEL_CHEST_TYPE },
         ],
-        enemy: [//不要问我为什么不用近战敌人用远程敌人，因为我们该死的碰撞逻辑，我用最省事的方法限制小船移动的代价就是近战敌人咬不到玩家！！！！
-            // 第一波
+        enemy: [//Don't ask me why I'm not using melee enemies but ranged enemies, because of our damn collision logic, the cost of me using the simplest method to restrict the boat's movement is that melee enemies can't bite the player!!!!
+            // First wave
             [
                 { x: 0.20, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.80, y: 0.20, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE }, 
             ],
             
-            // 第二波
+            // Second wave
             [
                 { x: 0.20, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
                 { x: 0.80, y: 0.80, type: EASY_ENEMY_MODEL_1_TYPE },
@@ -960,7 +954,7 @@ const MAP_MODEL = [
                 { x: 0.80, y: 0.50, type: EASY_ENEMY_MODEL_1_TYPE },
             ],
             
-            // 第三波
+            // Third wave
             [
                 { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE }, 
                 { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_1_TYPE },
@@ -971,9 +965,9 @@ const MAP_MODEL = [
             
         ]
     }
-    //现在木箱多多图变更为测试地图，移除极限测试和小岛多多图
+    //Now the many wooden boxes map is changed to a test map, extreme test and many small islands maps are removed
     // {
-    //     modelType: MAP_MODEL_???_TYPE,//木箱多多图(Theodore-元气骑士里有相似的图，就是木箱堆满房间，但目前我觉得效果不好)
+    //     modelType: MAP_MODEL_???_TYPE,//Many wooden boxes map(Theodore-There's a similar map in Soul Knight, with wooden boxes filling the room, but I don't think the effect is good right now)
     //     playerStart: { x: 0.1, y: 0.5 },
     //     island: [],
     //     building: [
@@ -1173,7 +1167,7 @@ const MAP_MODEL = [
     //         { x: 0.80, y: 0.80, type: BUILDING_MODEL_CHEST_TYPE },
     //     ],
     //     enemy: [
-    //         // 第一波
+    //         // First wave
     //         [
     //             { x: 0.10, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
     //             { x: 0.30, y: 0.05, type: EASY_ENEMY_MODEL_1_TYPE },
@@ -1197,7 +1191,7 @@ const MAP_MODEL = [
     //             { x: 0.95, y: 0.90, type: EASY_ENEMY_MODEL_1_TYPE },
     //         ],
 
-    //         // 第二波
+    //         // Second wave
     //         [
     //             { x: 0.05, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
     //             { x: 0.95, y: 0.05, type: EASY_ENEMY_MODEL_2_TYPE },
@@ -1213,7 +1207,7 @@ const MAP_MODEL = [
     //             { x: 0.95, y: 0.75, type: EASY_ENEMY_MODEL_2_TYPE },
     //         ],
 
-    //         // 第三波
+    //         // Third wave
     //         [
     //             { x: 0.10, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
     //             { x: 0.90, y: 0.10, type: EASY_ENEMY_MODEL_3_TYPE },
@@ -1229,7 +1223,7 @@ const MAP_MODEL = [
     //             { x: 0.60, y: 0.95, type: EASY_ENEMY_MODEL_2_TYPE },
     //         ],
 
-    //         // 第四波
+    //         // Fourth wave
     //         [
     //             { x: 0.15, y: 0.15, type: EASY_ENEMY_MODEL_4_TYPE },
     //             { x: 0.85, y: 0.15, type: EASY_ENEMY_MODEL_4_TYPE },
@@ -1274,7 +1268,7 @@ const MAP_MODEL = [
 ];
 
 function getMapModel(mapType) {
-    console.log("地图编号是 " + mapType);
+    console.log("Map number is " + mapType);
     if (mapType >= MAP_MODEL_MAX_TYPE || mapType < 0) {
         console.log("getMapModel : mapType error.");
         return MAP_MODEL[MAP_MODEL_ERROR_TYPE];

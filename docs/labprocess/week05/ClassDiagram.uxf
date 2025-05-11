@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><element><id>UMLClass</id><coordinates><x>700</x><y>7</y><w>147</w><h>133</h></coordinates><panel_attributes>*Main*
+<diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><element><id>UMLClass</id><coordinates><x>518</x><y>21</y><w>147</w><h>133</h></coordinates><panel_attributes>*Main*
 --
 - status: Status
 - UI: MainUI
@@ -8,7 +8,7 @@
 + initNewGame()
 + updateAll()
 + continueGame()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>616</y><w>147</w><h>154</h></coordinates><panel_attributes>*Player*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>98</x><y>651</y><w>147</w><h>154</h></coordinates><panel_attributes>*Player*
 --
 - playerType : string
 - equipment : Equipment
@@ -17,7 +17,7 @@
 + move(...)
 + putOnBuff()
 + attack()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>952</x><y>189</y><w>147</w><h>161</h></coordinates><panel_attributes>*UIManager*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>224</y><w>147</w><h>161</h></coordinates><panel_attributes>*UIManager*
 --
 - startUI: StartUI
 - chooseShipUI: ChooseShipUI
@@ -32,7 +32,7 @@
 + showInGameUI(playerStatus)
 + showGameOverUI()
 + showGameWinBossUI()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>700</x><y>189</y><w>147</w><h>126</h></coordinates><panel_attributes>*Game*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>518</x><y>224</y><w>147</w><h>126</h></coordinates><panel_attributes>*Game*
 --
 - objects: List&lt;BasicObject&gt; 
 - pollution: Pollution
@@ -42,17 +42,7 @@
 + getPlayerStatus()
 + addBullet(...)
 + addExplode(...)
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>952</x><y>392</y><w>147</w><h>154</h></coordinates><panel_attributes>*Pollution*
---
-- pollution: int
-- pollutionLevel: int
-- pollutionSources: Map&lt;...&gt;
---
-+ changePollution(...)
-+ updatePollutionLevel()
-+ getEffect()
-+ getCurrentPollution()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>448</x><y>616</y><w>147</w><h>154</h></coordinates><panel_attributes>*Wave*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>266</x><y>651</y><w>147</w><h>154</h></coordinates><panel_attributes>*Wave*
 --
 - waveType : string
 - speed: float
@@ -66,7 +56,7 @@
 + show()
 + generateWave()
 + checkWaveCollisions()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>700</x><y>392</y><w>147</w><h>161</h></coordinates><panel_attributes>*BasicObject*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>518</x><y>427</y><w>147</w><h>161</h></coordinates><panel_attributes>*BasicObject*
 --
 - name : string
 - objectType : string
@@ -81,7 +71,7 @@
 + show()
 + updateHP()
 + move(...)
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1113</x><y>616</y><w>147</w><h>154</h></coordinates><panel_attributes>*Building*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>931</x><y>651</y><w>147</w><h>154</h></coordinates><panel_attributes>*Building*
 --
 buildingType : string
 --
@@ -91,7 +81,7 @@ buildingType : string
 + drawRubbish()
 + drawChest()
 + drawChbox()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>616</x><y>616</y><w>147</w><h>154</h></coordinates><panel_attributes>*Enemy*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>434</x><y>651</y><w>147</w><h>154</h></coordinates><panel_attributes>*Enemy*
 --
 - enemyType : string
 - attackPower : number
@@ -103,7 +93,7 @@ buildingType : string
 + enemyMove(…)
 + enemyAttack(…)
 + show()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>448</x><y>392</y><w>147</w><h>147</h></coordinates><panel_attributes>*Buff*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>266</x><y>427</y><w>147</w><h>147</h></coordinates><panel_attributes>*Buff*
 --
 - effectType: string
 - currentValue: float
@@ -115,7 +105,7 @@ buildingType : string
 + isExpired()
 + tryAddStack():
 + currentEffectValue()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>448</x><y>189</y><w>147</w><h>147</h></coordinates><panel_attributes>*Status*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>266</x><y>224</y><w>147</w><h>154</h></coordinates><panel_attributes>*Status*
 --
 - HP: int
 - maxHP: int
@@ -129,14 +119,13 @@ buildingType : string
 + updateSkillCD(value)
 + applyBuff()
 + applyPollutionEffect()
-
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>679</x><y>546</y><w>98</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>546</y><w>385</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>530;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>616</x><y>798</y><w>147</w><h>70</h></coordinates><panel_attributes>*Boss*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>434</x><y>840</y><w>147</w><h>70</h></coordinates><panel_attributes>*Boss*
 --
 - bossType : string
 --
 + bossAttack(…)
 + phaseChange()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>679</x><y>763</y><w>21</w><h>49</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>763</x><y>308</y><w>21</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>511</x><y>133</y><w>217</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>290;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>763</x><y>133</y><w>21</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>826</x><y>133</y><w>210</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;280;80</additional_attributes></element><element><id>Relation</id><coordinates><x>511</x><y>329</y><w>273</w><h>77</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;370;90</additional_attributes></element><element><id>Relation</id><coordinates><x>553</x><y>329</y><w>490</w><h>77</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;680;90</additional_attributes></element><element><id>Relation</id><coordinates><x>511</x><y>329</y><w>21</w><h>77</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>588</x><y>672</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>518</x><y>546</y><w>238</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>320;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>777</x><y>616</y><w>147</w><h>154</h></coordinates><panel_attributes>*Bullet*
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>497</x><y>798</y><w>21</w><h>56</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>581</x><y>343</y><w>21</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>329</x><y>371</y><w>21</w><h>70</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>406</x><y>707</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>595</x><y>651</y><w>147</w><h>154</h></coordinates><panel_attributes>*Bullet*
 --
 - bulletType : string
 - bulletMoveType : string
@@ -149,7 +138,7 @@ buildingType : string
 + checkCollision(...): boolean
 + show()
 ……
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>819</x><y>546</y><w>378</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;520;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>945</x><y>616</y><w>147</w><h>154</h></coordinates><panel_attributes>*Explode*
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>763</x><y>651</y><w>147</w><h>154</h></coordinates><panel_attributes>*Explode*
 --
 - explodeType : string
 - harm : number
@@ -158,4 +147,22 @@ buildingType : string
 --
 + affectTargets(...)
 + show()
-……</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>798</x><y>546</y><w>231</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;310;100</additional_attributes></element><element><id>Relation</id><coordinates><x>805</x><y>308</y><w>238</w><h>98</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;320;120</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>672</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>546</y><w>91</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;100</additional_attributes></element><element><id>Relation</id><coordinates><x>917</x><y>672</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1085</x><y>672</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;40;10</additional_attributes></element></diagram>
+……</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>238</x><y>707</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>735</x><y>707</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>903</x><y>707</y><w>42</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>329</x><y>147</y><w>224</w><h>91</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>300;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>581</x><y>147</y><w>21</w><h>91</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>644</x><y>147</y><w>210</w><h>91</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;280;110</additional_attributes></element><element><id>Relation</id><coordinates><x>161</x><y>581</y><w>371</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>10;100;510;10</additional_attributes></element><element><id>Relation</id><coordinates><x>329</x><y>581</y><w>245</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=2
+m2=1
+</panel_attributes><additional_attributes>10;100;330;10</additional_attributes></element><element><id>Relation</id><coordinates><x>497</x><y>581</y><w>91</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=4
+m2=1
+</panel_attributes><additional_attributes>10;100;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>588</x><y>581</y><w>91</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>110;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>609</x><y>581</y><w>238</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>320;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>658</x><y>581</y><w>357</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=6
+m2=1
+</panel_attributes><additional_attributes>490;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>406</x><y>294</y><w>126</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;160;10</additional_attributes></element></diagram>

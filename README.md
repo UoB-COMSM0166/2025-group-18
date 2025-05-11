@@ -200,11 +200,40 @@ Video of Demo - TBD
 >
 > system architecture ? 
 
+Our game system comprises multiple modules:
+
+| Module        | Class                                                                                                                        | Responsibilities                                                                                                                                                                                                                                                                   |
+|---------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Main          | Main                                                                                                                         | Serves as the core game controller. <br>Initializes the game environment; <br>drives the main game loop and coordinates subsystems.                                                                                                                                                |
+| Status        | Status<br>Equipment<br>Pollution                                                                                             | Centralizes management of dynamic player attributes (HP/attack power/speed, etc.); <br>tracks pollution values and environmental impact parameters; <br>provides APIs for the Buff system to modify attributes; <br>implements attribute persistence storage.                      |
+| Object        | BasicObject<br>Building<br>Island<br>LivingObject<br>Player<br>Enemy<br>Boss<br>Bullet<br>Pet<br>Wave<br>AoeSkill<br>Explode | Defines base class (BasicObject) for all game entities; <br>LivingObject implements shared traits (HP/size/speed, etc); <br>Player/Enemy/Boss implement specific behavior trees; <br>Bullet manages projectile trajectories; <br>AoeSkill and Explode implement area-effect logic. |
+| Game          | Game                                                                                                                         | Manages the lifecycle of a single level (start/in-progress/end); <br>loads level configurations; <br>controls enemy wave generation; <br>evaluates win/loss conditions; <br>maintains level-specific object pools.                                                                 |
+| PlayerControl | PlayerControl                                                                                                                | Captures input events (keyboard/mouse); <br>parses commands (movement/attack/skills); <br>handles targeting logic for attacks; <br>manages skill cooldowns and attack cooldown.                                                                                                    |
+| Buffs         | Buff<br>BuffController                                                                                                       | Implements buff management systems; dynamically modifies player attributes (e.g., attack power).                                                                                                                                                                                   |
+
+
 #### 3.1 Class Diagram
 
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1000"/>](docs/labprocess/week05/ClassDiagram.png)
 
-#### 3.2 Sequence Diagram
+This class diagram serves as the blueprint for game development, using intuitive visuals to showcase core functional modules and their interconnections. It functions as a shared technical roadmap for the team, enabling developers to quickly grasp system operations, identify counterproductive dependencies between modules, and guide logical code organization through clear interface specifications. This structural framework makes future feature upgrades and content expansions as flexible and modular as building with interlocking blocks.
+
+#### 3.2 Behavioural Diagram
+
+The `Main` class works as the game controller. It handles all the initial setups and manages the main parts of the game, such as `MainUI`, `Game`, `PlayerControl`, and `Status`. You can think of it as the brain of the game that keeps everything running correctly.
+
+After the game starts, `MainUI` sets up all the user interface (UI) parts and puts them into the UI system for players to use. At this point, `StartUI` becomes ready, and the game can begin. Then, `ChooseShipUI` lets players pick a difficulty level and map. This also sets the ship(`Player`) starting stats and conditions.
+
+Once the map is ready, `MapUI` shows several buttons and lines connecting them. Players can click a button (called a node) to start a battle or `trigger` an event. `ShopUI` also appears on the map. In the shop, players can `recover` HP, `increase` more bullets, or buy other useful items.
+
+During the battle, `InGameUI` takes control. Players can `move` their ship, `shoot` bullets, use `skills`, and dodge enemies or obstacles. Some objects like `Building`s or `Wave`s may also block your `Movement`. `Enemies` will come, and sometimes a `boss` (a stronger enemy) appears. Players need to keep an eye on their HP and the pollution level. These values are updated in real time by a function called `updateStatus`.
+
+At the end of each round, players get a `Buff` as a reward. This Buff might increase bullet speed, add extra bullets, boost damage, or lower pollution. After choosing a Buff, players return to `MapUI` and continue exploring.
+
+When players fight the boss, the result decides what happens next. If the player wins, the game moves on to the next `loop` with harder enemies or a new event. If the player dies, the `Status` resets and the game restarts.
+
+The whole process of updating status and switching between levels is managed by the `Game` class. It keeps everything in sync and makes sure the game looks and feels consistent every time a change happens.
+
 [<img src="docs/labprocess/week05/SequenceDiagram.png" width="1000"/>](docs/labprocess/week05/SequenceDiagram.png)
 
 ---
@@ -229,35 +258,26 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 #### 4.2 Challenge
 
-1. **Dynamic Pollution System**
+1. **Loop and Randomness**
     **Description:**
-    A key mechanic in our game is the pollution system, which affects enemy strength, available resources, and environmental interactions. Pollution levels change based on player actions, like defeating enemies, using certain weapons, or completing missions. This system needs real-time updates that affect gameplay without causing performance problems.
+   In order to deepen our game's laybners and enhance the player experience, we have the map reset on every run and our algorithm permanently increases all enemies' health and speed; at the same time, procedurally generated maps, events, and buffs ensure that each new loop is more challenging and exciting. This poses two challenges for our looping randomness.
 
    **Solution:**
-    To manage these real-time updates, we created an optimized pollution tracking system that continuously monitors changes and recalculates environmental effects in a way that doesn’t block performance. Pollution data is stored in a lightweight, grid-based structure for fast access and changes. We also added threshold-based triggers, which activate game-play effects (like enemy mutations or resource shortages) only when major pollution changes happen.
+    Each loop resets the map and permanently buffs all enemies—intensifying both the challenge and the thrill—while nine procedural map templates, each with dynamic layouts and unique enemy placements, keep exploration unpredictable. On top of that, fifteen route-triggered events—from blaring sirens to noxious pollution—force you into high-risk, high-reward decisions that can make or break your quest. To help you adapt, you can also pick up buffs from shops, combat victories, and event rewards, ensuring every run feels fresh, strategic, and exhilarating.
 
-2. **Advanced Enemy AI**
+2. **Game Performance Optimization**
     **Description:**
-    Traditional roguelike games often rely on predictable enemy behaviors, like simple patrols or directly chasing players. Our goal is to create enemies with adaptive behaviors that react to player actions, increasing the challenge while keeping gameplay fair.
+    To improve gameplay experience, some maps in our game originally had many objects including numerous islands, buildings, enemies, and bullets. This caused serious frame rate drop. 
 
    **Solution:**
-    We used a behavior tree-based AI system, allowing enemies to switch between different states, such as patrolling, searching, attacking, and retreating. Enemies change their behaviors based on pollution levels, terrain, and the player's combat tactics. We also added group coordination, so enemies communicate and adjust their strategies based on nearby threats.
+    We used Chrome browser's built-in DevTools to systematically analyze the issue. By observing the Flame Chart, we found that the image calling function had the biggest negative impact on performance. We specifically optimized how textures were called, which eliminated the lagging problem.
 
-3. **Procedural Map Generation**
+3. **Automatic Full-Window Size Adaptation**
     **Description:**
-    As our game follows the roguelike tradition, we wanted each playthrough to feel unique, preventing players from memorizing the best routes. Manually creating many maps would be time-consuming and hard to scale, so we chose procedural generation.
+    To provide consistent gameplay experience for players using different display devices, we wanted our game to automatically adjust its display size according to the window dimensions. In the initial version, our game would read the window size, change pixel sizes of in-game objects accordingly, and map mouse coordinates to the adjusted dimensions. However, this approach required scaling calculations for object sizes and attributes like movement speeds of enemies, players, and bullets. This greatly increased development difficulty and caused many bugs.
 
    **Solution:**
-    We developed a hybrid procedural generation system that combines pre-designed map segments with random layouts. The game creates maps by connecting these pre-designed sections, adjusting enemy placements, obstacles, and resource locations based on pollution levels and difficulty settings. We also added a validation system to ensure the maps are passable and balanced.
-
-4. We encountered several issues during project development, such as **global scaling and lag**:
-   **Description:** 
-   1. We wanted the game to automatically adapt to various window sizes. 
-   2. Since we designed animated effects with at least 3 frames for each entity, this caused lag and frame drops, especially with a frame rate of 60.
-   **Solution:**
-   1. To achieve this, we changed many basic settings, including virtual canvas design and logical mouse handling, allowing the game screen to adjust to different window sizes.
-   2. We explored several solutions, optimized the entity update logic, and improved the image loading process. Additionally, we added caching during refreshes, which greatly improved the game's smoothness.
-
+    To solve this, we added a fixed-size logical canvas. First, all game elements are drawn onto this logical canvas, then the canvas is scaled proportionally to fit the browser window size.
 ---
 
 ### 5. Evaluation
@@ -424,7 +444,7 @@ Another key lesson was the importance of working in small steps and improving ov
 
 #### 8.2 Challenges Faced:
 
-One of the biggest challenges was improving game performance, especially when many animated entities were on screen. This caused the game to lag and have frame drops. To solve this, we optimized the way the game loaded and rendered entities. We introduced caching and improved how entities were updated. This helped make the game run more smoothly.
+One of the biggest challenge was improving game performance, especially when many animated entities were on screen. This caused the game to lag and have frame rate drops. To solve this, we optimized the way the game loaded and rendered entities. We introduced caching and improved how entities were updated. This helped make the game run more smoothly.
 
 Another challenge was managing the dynamic pollution system. We wanted it to update in real-time without causing slowdowns. We created a grid-based system to track pollution and used triggers to make gameplay changes when pollution levels reached certain points. It took a lot of testing to make sure this system worked well without affecting performance.
 
@@ -446,12 +466,12 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 <div align="center">
 
-| 🙋‍♂️ Name | 📧 Email | 🛠️ Role | ✅ Contribution |
-| :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | TBD | TBD |
+| Name | Contribution | Weight |
+|:-----|:-------------|:------:|
+| Tianyu Qi | TBD | 1 |
+| Likun Liang | TBD | 1 |
+| Yutong Liu | TBD | 1 |
+| Zihao Xia | TBD | 1 |
+| Guanglong Xia | TBD | 1 |
 
 </div>

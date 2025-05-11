@@ -5,13 +5,12 @@ class StoryUI {
         this.totalPages = 6;
         this.storyImages = [];
         this.storyTexts = [
-            "海洋吞噬了一切，家园已经不复存在。",
-            "我只能被迫踏上旅程。\n可前方，究竟有什么在等待着我？",
-            "是挚友亡魂的助力？",
-            "还是无尽的风暴？",
-            "亦或愈演愈烈的污染？",
-            "又或者——是这一切的罪魁祸首!"
-
+            "The ocean has devoured everything, home no longer exists.",
+            "I'm forced to embark on a journey.\nBut what lies ahead, waiting for me?",
+            "Is it the help of departed friends?",
+            "Or endless storms?",
+            "Or worsening pollution?",
+            "Or perhaps—the culprit behind it all!"
         ];
         this.nextButton = null;
         this.prevButton = null;
@@ -23,7 +22,7 @@ class StoryUI {
         this.fadeValue = 0;
     }
 
-    // 按钮类
+    // Button class
     StoryButton = class {
         constructor(x, y, w, h, label, onClick) {
             this.x = x;
@@ -84,14 +83,14 @@ class StoryUI {
         }
     };
 
-    // 加载图片
+    // Load images
     loadImages() {
         for (let i = 1; i <= this.totalPages; i++) {
             this.storyImages[i - 1] = loadImage(`images/docs/img/png/Story/Story_${i}.webp`);
         }
     }
 
-    // 创建按钮
+    // Create buttons
     createButtons() {
         const btnWidth = 150;
         const btnHeight = 50;
@@ -102,7 +101,7 @@ class StoryUI {
             btnY,
             btnWidth,
             btnHeight,
-            "上一页",
+            "Previous",
             () => {
                 if (this.currentPage > 0) {
                     this.fadeIn = true;
@@ -117,7 +116,7 @@ class StoryUI {
             btnY,
             btnWidth,
             btnHeight,
-            "跳过",
+            "Skip",
             () => {
                 if (this.storyCompleteCallback) {
                     this.storyCompleteCallback();
@@ -130,7 +129,7 @@ class StoryUI {
             btnY,
             btnWidth,
             btnHeight,
-            "下一页",
+            "Next",
             () => {
                 if (this.currentPage < this.totalPages - 1) {
                     this.fadeIn = true;
@@ -156,7 +155,7 @@ class StoryUI {
             }
         }
 
-        // 绘制图片
+        // Draw image
         if (this.storyImages[this.currentPage]) {
             push();
             imageMode(CENTER);
@@ -191,7 +190,7 @@ class StoryUI {
         text(this.storyTexts[this.currentPage], logicWidth / 2, textY);
         pop();
 
-        // 进度指示器
+        // Progress indicator
         const dotSize = 12;
         const dotSpacing = 25;
         const dotsWidth = (this.totalPages * dotSpacing) - dotSpacing;
@@ -215,9 +214,9 @@ class StoryUI {
         }
 
         if (this.currentPage == this.totalPages - 1) {
-            this.nextButton.label = "开始教程";
+            this.nextButton.label = "Start Tutorial";
         } else {
-            this.nextButton.label = "下一页";
+            this.nextButton.label = "Next";
         }
 
         this.nextButton.draw();

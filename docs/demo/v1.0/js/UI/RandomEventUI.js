@@ -22,23 +22,23 @@ class RandomEventUI {
         this.declineImage = null;
         this.imageLoadError = false;
 
-        this.MAX_EVENT_TYPES = 12;
+        this.MAX_EVENT_TYPES = 15;
         this.DEFAULT_EVENT_MODEL = [
             {
                 type: 0,
                 title: "ERROR",
-                description: "随机事件加载错误",
-                choicePrompt: "是否继续?",
-                acceptText: "接受",
-                declineText: "拒绝",
+                description: "Random event loading error",
+                choicePrompt: "Do you want to continue?",
+                acceptText: "accept",
+                declineText: "reject",
                 acceptResult: {
-                    description: "发生了错误，但你决定继续前进。",
+                    description: "Mistakes happen, but you decide to keep going.",
                     outcomeType: "continue",
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你拒绝了这个错误事件。",
+                    description: "You rejected this error event.",
                     outcomeType: "continue",
                     goldChange: 0,
                     pollutionChange: 0
@@ -48,22 +48,32 @@ class RandomEventUI {
                 declineImagePath: null
             },
             {
-                // 美人鱼事件
+                // Mermaid Incident
                 type: 1,
-                title: "海妖的歌声",
-                description: "在航行途中，你听到了远处传来的美妙歌声。水面上隐约可见美丽的身影，那是传说中的美人鱼，她们向你招手示意。",
-                choicePrompt: "是否靠近这些美丽的生物?",
-                acceptText: "靠近(你依稀记得好像有人警告过你要远离美人鱼)",
-                declineText: "远离",
+                title: "The Siren's Song",
+                description: 
+                    "During the voyage, you heard beautiful singing from afar. " +
+                    "\nBeautiful figures were vaguely visible on the water. " +
+                    "\nThey were the legendary mermaids, waving to you.",
+                choicePrompt: "Get close to these beautiful creatures?",
+                acceptText: "Come closer",
+                declineText: "Keep away",
                 acceptResult: {
-                    description: "你被歌声迷惑，驾船靠近。当你距离足够近时，美人鱼们露出了可怕的真面目！她们锋利的爪子攻击了你的船只，造成了严重伤害，你勉强逃脱。\n【HP - 30】",
+                    description: 
+                        "You are mesmerized by the singing and sail closer. " +
+                        "\nWhen you get close enough, the mermaids reveal their terrifying true colors! " +
+                        "\nTheir sharp claws attack your boat, causing severe damage, and you barely escape. " +
+                        "\n【HP - 30】",
                     outcomeType: "damage",
                     healthChange: -30,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你保持警惕，选择远离那些诱人的歌声。明智的选择，美丽往往暗藏危机。\n【没有变化】",
+                    description: 
+                        "You stay alert and choose to stay away from those seductive songs. " +
+                        "A wise choice, beauty often hides danger. " +
+                        "\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -74,22 +84,28 @@ class RandomEventUI {
                 declineImagePath: 'images/docs/img/png/RandomEvent/1_3.webp'
             },
             {
-                // 宝藏事件
+                // Treasure Event
                 type: 2,
-                title: "漂流的宝箱",
-                description: "你发现一个漂浮在海面上的古老宝箱，看起来已经在海上漂流了很久。",
-                choicePrompt: "要打开这个神秘的箱子吗?",
-                acceptText: "打开宝箱",
-                declineText: "不理会",
+                title: "Drifting Treasure Chest",
+                description: 
+                    "You find an ancient treasure chest floating on the sea, " +
+                    "\nwhich looks like it has been drifting on the sea for a long time.",
+                choicePrompt: "Do you want to open this mysterious box?",
+                acceptText: "Open the treasure chest",
+                declineText: "Ignore",
                 acceptResult: {
-                    description: "你小心地打开了宝箱，里面装满了闪闪发光的金币和一些古老的航海用品！这是一笔意外之财！\n【Gold + 300】",
+                    description: 
+                        "You carefully opened the treasure chest, " +
+                        "\nwhich was filled with glittering gold coins and some ancient sailing supplies! " +
+                        "\nThis is a windfall! " +
+                        "\n【Gold + 300】",
                     outcomeType: "reward",
                     healthChange: 0,
                     goldChange: 300,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你决定不冒险，继续你的航程。谁知道那箱子里有什么呢？\n【没有变化】",
+                    description: "You decide not to take any risks and continue your voyage. Who knows what's in that box? \n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -100,22 +116,25 @@ class RandomEventUI {
                 declineImagePath: 'images/docs/img/png/RandomEvent/2_3.webp'
             },
             {
-                // 风暴事件
+                // Storm Events
                 type: 3,
-                title: "突如其来的风暴",
-                description: "天空突然变得阴沉，海面开始翻腾，一场猛烈的风暴正向你袭来！",
-                choicePrompt: "要冒险穿越风暴还是绕道而行?",
-                acceptText: "穿越风暴(HP - 15)",
-                declineText: "绕道而行(Pollution + 200)",
+                title: "Sudden storm",
+                description: "The sky suddenly turns gloomy, the sea begins to churn, and a violent storm is heading towards you!",
+                choicePrompt: "Should we risk flying through the storm or take a detour?",
+                acceptText: "Through the Storm (HP - 15)",
+                declineText: "Detour (Pollution + 200)",
                 acceptResult: {
-                    description: "你勇敢地驾驶船只直面风暴。船体受到了一些损伤。\n【HP - 15】",
+                    description: "You bravely steered the ship into the storm. The hull suffered some damage. \n【HP - 15】",
                     outcomeType: "damage",
                     healthChange: -15,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你选择安全第一，绕道航行。产生了很多额外的污染，但至少保全了船只。\n【Pollution + 200】",
+                    description: 
+                        "You chose safety first and took a detour. " +
+                        "\nThis caused a lot of extra pollution, but at least the ship was saved. " +
+                        "\n【Pollution + 200】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -126,22 +145,25 @@ class RandomEventUI {
                 declineImagePath: 'images/docs/img/png/RandomEvent/3_2.webp'
             },
             {
-                // 海豚事件
+                // Dolphin incident
                 type: 4,
-                title: "友好的海豚",
-                description: "一群活泼的海豚在你的船只周围嬉戏，它们似乎想引导你前往某个方向。",
-                choicePrompt: "要跟随海豚的指引吗?",
-                acceptText: "跟随海豚",
-                declineText: "继续原定航线",
+                title: "Friendly dolphins",
+                description: "A pod of lively dolphins play around your boat, seemingly trying to guide you in a certain direction.",
+                choicePrompt: "Want to follow the dolphins' lead?",
+                acceptText: "Follow the Dolphins",
+                declineText: "Continue on original route",
                 acceptResult: {
-                    description: "海豚带领你找到了一处隐藏的航道，帮你避开了危险区域，发现了宝藏，还节省了燃料并减少了污染！\n【Gold + 100, Pollution - 300】",
+                    description: 
+                        "Dolphins lead you to a hidden channel, " +
+                        "\nhelping you avoid dangerous areas, discover treasure, save fuel and reduce pollution! " +
+                        "\n【Gold + 100, Pollution - 300】",
                     outcomeType: "reward",
                     healthChange: 0,
                     goldChange: 50,
                     pollutionChange: -300
                 },
                 declineResult: {
-                    description: "你坚持自己的航线，海豚们失望地游走了。也许你错过了什么？\n【没有变化】",
+                    description: "You stick to your route, and the dolphins swim away in disappointment.\n Maybe you missed something? \n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
@@ -152,212 +174,212 @@ class RandomEventUI {
                 declineImagePath: 'images/docs/img/png/RandomEvent/4_3.webp'
             },
             {
-                // 游戏评价事件
+                // Game evaluation event
                 type: 5,
-                title: "游戏体验调查",
-                description: "一封神秘的信从天而降，上面写着【来自开发者的调查：你觉得这个游戏怎么样？请诚实回答。】",
-                choicePrompt: "你会如何评价这个游戏?",
-                acceptText: "很棒！我喜欢！(HP + 30)",
-                declineText: "做得不好，有待改进(HP - 10)",
+                title: "Game Experience Survey",
+                description: "A mysterious letter falls from the sky, with the words.\n【Survey from the developer: How do you feel about this game? Please answer honestly.】",
+                choicePrompt: "How would you rate this game?",
+                acceptText: "Great! I like it! (HP + 30)",
+                declineText: "Not good, needs improvement (HP - 10)",
                 acceptResult: {
-                    description: "信纸上浮现出字迹：【感谢你的肯定！作为奖励，你的生命值得到了恢复！】\n一道温暖的光芒笼罩了你的船只，你感到精力充沛。\n【HP + 30】",
+                    description: "Text appears on the letter: \n【Thank you for your positive feedback! \nAs a reward, your health has been restored!】\nA warm light envelops your ship, and you feel energized.\n【HP + 30】",
                     outcomeType: "reward",
                     healthChange: 30,
                     goldChange: 0,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "信纸上浮现出字迹：【诚实，但伤人。我们会继续努力的！】小心眼的开发者用神秘力量击中了你的船只，造成了一些损伤。\n【HP - 10】",
+                    description: "Text appears on the letter: \n【Honest, but hurtful. We'll keep working hard!】\nThe petty developer uses mysterious forces to hit your ship, causing some damage.\n【HP - 10】",
                     outcomeType: "damage",
                     healthChange: -10,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'//改文件名丢对应文件夹就能适配
+                imagePath: 'images/docs/img/png/RandomEvent/5_1.webp',//Change the filename and put it in the corresponding folder to adapt
+                acceptImagePath: 'images/docs/img/png/RandomEvent/5_2.webp',//Change the filename and put it in the corresponding folder to adapt
+                declineImagePath: 'images/docs/img/png/RandomEvent/5_3.webp'//Change the filename and put it in the corresponding folder to adapt
             },
             {
-                // 橘子贩子事件
+                // Orange seller event
                 type: 6,
-                title: "海上水果商人",
-                description: "你遇到了一艘小型商船，船上的商人正在兜售新鲜的橘子。【航海长途，小心坏血病！每箱橘子只要500金币！】商人热情地向你推销。",
-                choicePrompt: "要购买橘子预防坏血病吗?",
-                acceptText: "购买橘子 (Gold - 500)",
-                declineText: "拒绝购买",
+                title: "Maritime Fruit Merchant",
+                description: "You encounter a small merchant ship with a trader selling fresh oranges.\n【Long sea voyage, beware of scurvy! Only 200 gold per crate of oranges!】\nThe merchant enthusiastically promotes to you.",
+                choicePrompt: "Do you want to buy oranges to prevent scurvy?",
+                acceptText: "Buy oranges (Gold - 200)",
+                declineText: "Refuse to buy",
                 acceptResult: {
-                    description: "你决定购买一些橘子。橘子真的好甜，顺带也补充了维生素C，避免了坏血病的风险。精神和健康状况都有所提升！\n【HP + 10, Gold - 500】",
+                    description: "You decide to buy some oranges.\n The oranges are really sweet, and they also supplement vitamin C, avoiding the risk of scurvy. \nYour mental and health conditions have improved!\n【HP + 10, Gold - 200】",
                     outcomeType: "continue",
                     healthChange: 10,
-                    goldChange: -500,
+                    goldChange: -200,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你拒绝了商人的橘子。几天后，你开始出现坏血病的早期症状：牙龈出血、疲劳无力。你不得不消耗更多资源来治疗这些症状。\n【HP - 15】",
+                    description: "You refuse the merchant's oranges. A few days later, you begin to show early symptoms of scurvy: bleeding gums, fatigue. You have to consume more resources to treat these symptoms.\n【HP - 15】",
                     outcomeType: "damage",
                     healthChange: -15,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//改文件名丢对应文件夹就能适配
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'//改文件名丢对应文件夹就能适配
+                imagePath: 'images/docs/img/png/RandomEvent/6_1.webp',//Change the filename and put it in the corresponding folder to adapt
+                acceptImagePath: 'images/docs/img/png/RandomEvent/6_2.webp',//Change the filename and put it in the corresponding folder to adapt
+                declineImagePath: 'images/docs/img/png/RandomEvent/6_3.webp'//Change the filename and put it in the corresponding folder to adapt
             },
             {
-                // 作者帮助事件
+                // Developer help event
                 type: 7,
-                title: "来自开发者的消息",
-                description: "【喂喂！我是游戏开发者！看你在这片海域晃悠半天了，进度也太慢了吧！要不要来点开发者特权帮你快速通关啊？】",
-                choicePrompt: "要接受开发者的帮助吗?",
-                acceptText: "接受帮助（HP + 50，Gold + 1000，Pollution - 100）",
-                declineText: "依靠自己的实力",
+                title: "Message from the Developer",
+                description: "【Hey! I'm the game developer! I've been watching you wander around this sea area for a while now, and your progress is way too slow! Want some developer privileges to help you pass the level quickly?】",
+                choicePrompt: "Do you want to accept the developer's help?",
+                acceptText: "Accept help (HP + 50, Gold + 1000, Pollution - 100)",
+                declineText: "Rely on your own abilities",
                 acceptResult: {
-                    description: "【继续勇往直前吧，勇士！】\n你收到了一些额外的资源和装备，确实对接下来的航程有所帮助，但总感觉有点像作弊...\n【HP + 100，Gold + 1000，Pollution - 1000】",
+                    description: "【Keep moving forward, warrior!】\nYou received some extra resources and equipment, which will indeed help with the upcoming journey, but it feels a bit like cheating...\n【HP + 100, Gold + 1000, Pollution - 1000】",
                     outcomeType: "reward",
                     healthChange: 100,
                     goldChange: 1000,
                     pollutionChange: -1000
                 },
                 declineResult: {
-                    description: "【哦？居然不需要帮助？有骨气！我欣赏你这种靠自己实力通关的玩家！】\n开发者看起来很欣赏你的决定，对你的坚持表示了敬意。\n【没有变化】",
+                    description: "【Oh? You don't need help? That's gutsy! I admire players like you who rely on their own abilities to complete the game!】\nThe developer seems to appreciate your decision and respects your persistence.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/7_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/7_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/7_3.webp'
             },
             {
-                // 神秘岛屿事件
+                // Mysterious island event
                 type: 8,
-                title: "云雾中的岛屿",
-                description: "航行中，你发现前方的浓雾中若隐若现一座小岛。据传说，那里可能藏有古代文明的遗迹，但也有可能暗藏危机。",
-                choicePrompt: "是否驶向这座神秘的岛屿?",
-                acceptText: "冒险登岛(HP - 15)",
-                declineText: "保持航线",
+                title: "Island in the Clouds",
+                description: "During your voyage, you discover a small island faintly visible in the thick fog ahead.\n Legend has it that ancient civilization ruins might be hidden there, but dangers may also lurk.",
+                choicePrompt: "Do you want to sail toward this mysterious island?",
+                acceptText: "Adventure to the island (HP - 15)",
+                declineText: "Maintain course",
                 acceptResult: {
-                    description: "你勇敢地驶入迷雾，找到了岛屿。岛上果然有古老的遗迹！你发现了一些值钱的古董，但也消耗了不少补给。\n【HP - 15, Gold + 200】",
+                    description: "You bravely sail into the mist and find the island.\n There are indeed ancient ruins on the island! You discover some valuable antiques, but also consume quite a few supplies.\n【HP - 15, Gold + 200】",
                     outcomeType: "reward",
                     healthChange: -15,
                     goldChange: 200,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你选择不冒险，继续原定航线。也许那只是海市蜃楼，也许确实错过了什么，但至少你避开了可能的危险。\n【没有变化】",
+                    description: "You choose not to take risks and continue on your planned route.\n Perhaps it was just a mirage, or perhaps you missed something, but at least you avoided potential dangers.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/8_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/8_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/8_3.webp'
             },
             {
-                // 海盗袭击事件
+                // Pirate attack event
                 type: 9,
-                title: "黑帆来袭",
-                description: "远处出现了一艘黑色帆船，帆上画着骷髅标志。海盗船正快速向你驶来，看来是盯上了你的货物！",
-                choicePrompt: "面对海盗，你会怎么做?",
-                acceptText: "缴纳过路费(Gold - 400)",
-                declineText: "迎战海盗",
+                title: "Black Sail Approaching",
+                description: "A black sailing ship appears in the distance with a skull flag.\n The pirate ship is rapidly approaching you, apparently targeting your cargo!",
+                choicePrompt: "Facing pirates, what will you do?",
+                acceptText: "Pay the toll (Gold - 400)",
+                declineText: "Fight the pirates",
                 acceptResult: {
-                    description: "你选择交出一部分财物，海盗满意地离开了。虽然损失了一些金币，但保全了船只，或许这是明智之举。\n【Gold - 400】",
+                    description: "You choose to hand over some of your wealth, and the pirates leave satisfied.\n Although you lost some gold coins, you kept the ship intact, which might be a wise decision.\n【Gold - 400】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: -400,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你决定不向海盗屈服！经过一番激烈的海战，你成功击退了海盗，但船只受损严重，需要修理。战利品中有些值钱的东西。\n【HP - 20, Gold + 300, Pollution + 300】",
+                    description: "You decide not to submit to the pirates! After an intense sea battle, you successfully repelled the pirates, but the ship was severely damaged and needs repairs.\n There were some valuable items in the loot.\n【HP - 20, Gold + 300, Pollution + 300】",
                     outcomeType: "damage",
                     healthChange: -20,
                     goldChange: 300,
                     pollutionChange: 300
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/9_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/9_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/9_3.webp'
             },
             {
-                // 生态保护事件
+                // Ecological protection event
                 type: 10,
-                title: "海洋垃圾带",
-                description: "你的船只驶入了一片漂浮着大量塑料垃圾的海域。海洋生物被困在垃圾中，情景令人心痛。",
-                choicePrompt: "你会怎么处理这些垃圾?",
-                acceptText: "花时间清理垃圾",
-                declineText: "绕过垃圾带继续航行",
+                title: "Ocean Garbage Patch",
+                description: "Your ship has entered an area with a large amount of floating plastic waste.\n Marine life is trapped in the garbage, a heartbreaking sight.",
+                choicePrompt: "How will you deal with this garbage?",
+                acceptText: "Spend time cleaning up the garbage",
+                declineText: "Navigate around the garbage patch and continue sailing",
                 acceptResult: {
-                    description: "你决定停下来清理垃圾。这个善举不仅帮助了海洋生物，还意外地在垃圾中发现了一些有价值的物品！\n【HP + 5, Gold + 150, Pollution - 200】",
+                    description: "You decide to stop and clean up the garbage.\n This good deed not only helped marine life but also unexpectedly led to the discovery of some valuable items in the garbage!\n【HP + 5, Gold + 150, Pollution - 200】",
                     outcomeType: "reward",
                     healthChange: 5,
                     goldChange: 150,
                     pollutionChange: -200
                 },
                 declineResult: {
-                    description: "你选择继续航行，没有时间处理这些问题。船只穿过垃圾带时，一些塑料缠住了螺旋桨，不得不停下来清理，反而浪费了更多时间和资源。\n【Pollution + 300】",
+                    description: "You choose to continue sailing, having no time to deal with these issues.\n As the ship passes through the garbage patch, some plastic gets tangled in the propeller, forcing you to stop and clean it, ultimately wasting more time and resources.\n【Pollution + 300】",
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 300
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/10_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/10_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/10_3.webp'
             },
             {
-                // 沉船遗迹事件
+                // Shipwreck event
                 type: 11,
-                title: "古老的沉船",
-                description: "你的探测器发现海底有一艘古老的沉船。根据初步判断，这可能是几个世纪前沉没的商船，里面可能藏有宝藏。",
-                choicePrompt: "要下潜探索沉船吗?",
-                acceptText: "组织潜水探索(HP - 15)",
-                declineText: "继续航行",
+                title: "Ancient Shipwreck",
+                description: "Your detector discovers an ancient shipwreck on the seabed.\n Based on preliminary assessment, this might be a merchant ship that sank centuries ago, possibly hiding treasures inside.",
+                choicePrompt: "Do you want to dive and explore the shipwreck?",
+                acceptText: "Organize a diving expedition (HP - 15)",
+                declineText: "Continue sailing",
                 acceptResult: {
-                    description: "你组织了一次潜水行动。在沉船中，你发现了一些古老的金币和珠宝！但海底暗流险些造成事故，你受了轻伤。\n【HP - 15, Gold + 300】",
+                    description: "You organize a diving operation. \nIn the shipwreck, you discover some ancient gold coins and jewelry!\n But an underwater current almost caused an accident, and you suffered minor injuries.\n【HP - 15, Gold + 300】",
                     outcomeType: "reward",
                     healthChange: -15,
                     goldChange: 300,
                     pollutionChange: 0
                 },
                 declineResult: {
-                    description: "你决定不冒险，继续航行。毕竟，许多寻宝者因为贪婪而葬身海底。安全才是首要考虑。\n【没有变化】",
+                    description: "You decide not to take the risk and continue sailing.\n After all, many treasure hunters have perished at sea due to greed.\n Safety is the primary consideration.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/11_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/11_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/11_3.webp'
             },
             {
-                // 迷失方向事件
+                // Lost direction event
                 type: 12,
-                title: "罗盘失灵",
-                description: "你的船只驶入了一片奇怪的海域，船上的罗盘开始疯狂旋转，导航系统也失灵了。你完全失去了方向感。",
-                choicePrompt: "在这种情况下，你会怎么做?",
-                acceptText: "相信直觉，选择一个方向前进",
-                declineText: "停船等待，直到确定方位",
+                title: "Compass Malfunction",
+                description: "Your ship has entered a strange area where the ship's compass begins to spin wildly and navigation systems fail.\n You have completely lost your sense of direction.",
+                choicePrompt: "In this situation, what will you do?",
+                acceptText: "Trust your intuition, choose a direction to proceed",
+                declineText: "Stop and wait until you can determine your position",
                 acceptResult: {
-                    description: "你决定相信航海者的直觉，选择了一个方向前进。幸运的是，你的判断是正确的！不仅找到了正确航线，还意外发现了一条少有人知的捷径！\n【Gold + 200, Pollution - 50】",
+                    description: "You decide to trust a sailor's intuition and choose a direction to move forward.\n Fortunately, your judgment was correct! Not only did you find the right route, but you also accidentally discovered a little-known shortcut!\n【Gold + 200, Pollution - 50】",
                     outcomeType: "reward",
                     healthChange: 0,
                     goldChange: 200,
                     pollutionChange: -50
                 },
                 declineResult: {
-                    description: "你决定停船等待。经过数日的漫长等待，磁场异常终于消失，但你消耗了额外的燃料。\n【Pollution + 200】",
+                    description: "You decide to stop and wait.\n After several days of long waiting, the magnetic anomaly finally disappears, but you consumed extra fuel.\n【Pollution + 200】",
                     outcomeType: "damage",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 200
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/12_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/12_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/12_3.webp'
             },
             {
                 // 
@@ -387,56 +409,56 @@ class RandomEventUI {
                 declineImagePath: 'images/docs/img/png/RandomEvent/13.webp'
             },
             {
-                // 船只升级事件
+                // Ship upgrade event
                 type: 14,
-                title: "临时船坞",
-                description: "航行途中，你发现一个隐蔽的临时船坞，那里的工匠正在为路过的船只提供维修和升级服务。他们的技术看起来相当不错。",
-                choicePrompt: "要为船只进行高级维修和升级吗?",
-                acceptText: "进行升级 (Gold - 400)",
-                declineText: "继续航行",
+                title: "Temporary Shipyard",
+                description: "During your journey, you discover a hidden temporary shipyard where craftsmen are providing repair and upgrade services for passing ships. Their techniques look quite impressive.",
+                choicePrompt: "Do you want to have your ship undergo advanced repairs and upgrades?",
+                acceptText: "Upgrade the ship (Gold - 400)",
+                declineText: "Continue sailing",
                 acceptResult: {
-                    description: "你决定投资升级船只。工匠们彻夜工作，加固了船体并改进了动力系统。你的船变得更加坚固且航行更为高效了！\n【HP + 40, Gold - 400, Pollution - 500】",
+                    description: "You decide to invest in upgrading your ship. The craftsmen work through the night, reinforcing the hull and improving the power system. Your ship has become more robust and sails more efficiently!\n【HP + 40, Gold - 400, Pollution - 500】",
                     outcomeType: "reward",
                     healthChange: 40,
                     goldChange: -400,
                     pollutionChange: -500
                 },
                 declineResult: {
-                    description: "你认为目前的船只状态足够应付航程，婉拒了工匠们的服务。看到你离开，他们耸耸肩继续等待下一位客户。\n【没有变化】",
+                    description: "You believe your ship's current condition is sufficient for the journey and politely decline the craftsmen's services. Seeing you leave, they shrug and continue waiting for their next customer.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/14.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/14.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/14.webp'
             },
             {
-                // 神秘商人事件
+                // Mysterious merchant event
                 type: 15,
-                title: "海上黑市",
-                description: "在一个隐蔽的海湾中，你偶然发现了一个海上黑市。一位眼神闪烁不定的商人向你推销一种闪着异样光芒的<奇迹燃料>，声称可以大大增强船只性能，但价格极其昂贵。",
-                choicePrompt: "是否购买这种昂贵的<奇迹燃料>?",
-                acceptText: "购买燃料 (Gold - 300)",
-                declineText: "不相信商人",
+                title: "Maritime Black Market",
+                description: "In a hidden bay, you accidentally discover a maritime black market. A merchant with flickering eyes tries to sell you a strange glowing <Miracle Fuel>, claiming it can greatly enhance ship performance, but the price is extremely expensive.",
+                choicePrompt: "Do you want to purchase this expensive <Miracle Fuel>?",
+                acceptText: "Buy the fuel (Gold - 300)",
+                declineText: "Don't trust the merchant",
                 acceptResult: {
-                    description: "你支付了一大笔金币，商人露出奸诈的笑容迅速消失在暗巷中。使用这种燃料后，你的引擎开始发出诡异的噪音，有毒气体在甲板上蔓延！这是一场骗局，这种燃料实际上是有毒废料！\n【HP - 25, Gold - 300, Pollution + 400】",
+                    description: "You pay a large sum of gold, and the merchant disappears quickly into the alley with a cunning smile. After using this fuel, your engine begins to make strange noises, and toxic gas spreads across the deck! It was a scam, this fuel is actually toxic waste!\n【HP - 25, Gold - 300, Pollution + 400】",
                     outcomeType: "damage",
                     healthChange: -25,
                     goldChange: -300,
                     pollutionChange: 400
                 },
                 declineResult: {
-                    description: "你警惕地观察商人，注意到他眼神中的不诚实。拒绝交易时，他显得异常恼怒。离开时，你听到有人警告说这个商人以卖有毒废料冒充燃料而臭名昭著。你庆幸自己做出了明智的选择。\n【没有变化】",
+                    description: "You cautiously observe the merchant and notice the dishonesty in his eyes. When you refuse the deal, he appears unusually annoyed. As you leave, you hear someone warning that this merchant is notorious for selling toxic waste disguised as fuel. You're glad you made a wise choice.\n【No change】",
                     outcomeType: "continue",
                     healthChange: 0,
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/15.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/15.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/15.webp'
             }
         ];
     }
@@ -447,14 +469,14 @@ class RandomEventUI {
     #eventModel = null;
     #selectedChoice = null;
 
-    // 更新玩家状态信息
+    // Update player status information
     updatePlayerStatus(status) {
         if (status) {
-            this.playerStatus.HP = status.HP || 0;
-            this.playerStatus.HPmax = status.HPmax || 0;
-            this.playerStatus.gold = status.gold || 0;
-            this.playerStatus.pollution = status.pollution || 0;
-            this.playerStatus.pollutionLevel = status.pollutionLevel || 0;
+            this.playerStatus.HP = Math.floor(status.HP || 0);
+            this.playerStatus.HPmax = Math.floor(status.HPmax || 0);
+            this.playerStatus.gold = Math.floor(status.gold || 0);
+            this.playerStatus.pollution = Math.floor(status.pollution || 0);
+            this.playerStatus.pollutionLevel = Math.floor(status.pollutionLevel || 0);
             
             if (this.#isInit && !this.#showingResult && !this.buttonsCreated) {
                 this.createChoiceButtons();
@@ -462,8 +484,9 @@ class RandomEventUI {
             }
         }
     }
+    
 
-    // 内部按钮类
+    // Internal button class
     EventButton = class {
         constructor(x, y, w, h, label, onClick, isEnabled = true) {
             this.x = x;
@@ -484,26 +507,26 @@ class RandomEventUI {
             const hoverColor = this.isEnabled ? color(100, 255, 218, 153) : color(100, 100, 100, 80);
             const textColor = (this.isHovered && this.isEnabled) ? color(0) : mainColor;
             const bgColor = (this.isHovered && this.isEnabled) ? hoverColor : color(0, 0);
-            // 按钮缩放动画
+            // Button scale animation
             const currentScale = lerp(this.scale, 1, 0.2);
             translate(this.x + this.w / 2, this.y + this.h / 2);
             scale(currentScale);
 
-            // 阴影
+            // Shadow
             drawingContext.shadowColor = mainColor;
             drawingContext.shadowBlur = this.isHovered ? 40 : 20;
 
-            // 绘制矩形按钮
+            // Draw rectangle button
             fill(bgColor);
             stroke(mainColor);
             strokeWeight(1);
             rectMode(CENTER);
             rect(0, 0, this.w, this.h, 5);
 
-            // 绘制文字
+            // Draw text
             fill(textColor);
             noStroke();
-            textSize(22);//按钮文字
+            textSize(22);//button text
             textAlign(CENTER, CENTER);
             text(this.label, 0, 0);
 
@@ -532,7 +555,7 @@ class RandomEventUI {
         }
     };
 
-    //随机事件指定测试处，上传时改回null则为随机——Theodore
+    //Random event specific test point, change back to null for random when uploading——Theodore
     init(eventType = null) {
         if (eventType == null) {
             eventType = Math.floor(Math.random() * (this.MAX_EVENT_TYPES - 1)) + 1;
@@ -541,11 +564,11 @@ class RandomEventUI {
         try {
             this.#eventModel = this.DEFAULT_EVENT_MODEL[eventType];
             if (!this.#eventModel) {
-                console.error("找不到事件类型:", eventType);
+                console.error("Event type not found:", eventType);
                 this.#eventModel = this.DEFAULT_EVENT_MODEL[0];
             }
         } catch (e) {
-            console.error("加载事件模型失败:", e);
+            console.error("Failed to load event model:", e);
             this.#eventModel = this.DEFAULT_EVENT_MODEL[0];
         }
     
@@ -563,17 +586,17 @@ class RandomEventUI {
             try {
                 this.eventImage = loadImage(this.#eventModel.imagePath,
                     () => {
-                        console.log("事件图片加载成功:", this.#eventModel.imagePath);
+                        console.log("Event image loaded successfully:", this.#eventModel.imagePath);
                         this.imageLoadError = false;
                     },
                     () => {
-                        console.error("事件图片加载失败:", this.#eventModel.imagePath);
+                        console.error("Event image loading failed:", this.#eventModel.imagePath);
                         this.imageLoadError = true;
                         this.eventImage = null;
                     }
                 );
             } catch (e) {
-                console.error("图片加载错误:", e);
+                console.error("Image loading error:", e);
                 this.imageLoadError = true;
                 this.eventImage = null;
             }
@@ -583,7 +606,7 @@ class RandomEventUI {
             try {
                 this.acceptImage = loadImage(this.#eventModel.acceptImagePath);
             } catch (e) {
-                console.error("接受选项图片加载错误:", e);
+                console.error("Accept option image loading error:", e);
                 this.acceptImage = null;
             }
         }
@@ -592,7 +615,7 @@ class RandomEventUI {
             try {
                 this.declineImage = loadImage(this.#eventModel.declineImagePath);
             } catch (e) {
-                console.error("拒绝选项图片加载错误:", e);
+                console.error("Decline option image loading error:", e);
                 this.declineImage = null;
             }
         }
@@ -640,14 +663,14 @@ class RandomEventUI {
 
     createChoiceButtons() {
         this.buttons = [];
-        const acceptText = this.#eventModel.acceptText || '接受';
-        const declineText = this.#eventModel.declineText || '拒绝';
+        const acceptText = this.#eventModel.acceptText || 'Accept';
+        const declineText = this.#eventModel.declineText || 'Decline';
 
-        // 检查金币条件
+        // Check gold conditions
         const acceptRequiresGold = this.#eventModel.acceptResult && this.#eventModel.acceptResult.goldChange < 0;
         const declineRequiresGold = this.#eventModel.declineResult && this.#eventModel.declineResult.goldChange < 0;
 
-        // 判断是否有足够金币
+        // Determine if there's enough gold
         const canAffordAccept = !acceptRequiresGold ||
             (this.playerStatus.gold >= Math.abs(this.#eventModel.acceptResult.goldChange));
         const canAffordDecline = !declineRequiresGold ||
@@ -694,7 +717,7 @@ class RandomEventUI {
         );
     }
 
-    // 创建结果页面的按钮
+    // Create result page buttons
     createResultButtons() {
         this.buttons = [];
 
@@ -708,7 +731,7 @@ class RandomEventUI {
                 startY,
                 btnWidth,
                 btnHeight,
-                "继续",
+                "Continue",
                 () => {
                     this.handleOutcome();
                 }
@@ -716,7 +739,7 @@ class RandomEventUI {
         );
     }
 
-    // 修改 showResultPage() 方法
+    // Modify showResultPage() method
     showResultPage() {
         this.#showingResult = true;
         this.buttonsCreated = false;
@@ -754,12 +777,12 @@ class RandomEventUI {
             }
         }
 
-        // 创建"继续"按钮，现在仅用于返回地图
+        // Create "Continue" button, now only used to return to the map
         this.createResultButtons();
     }
 
     handleOutcome() {
-        // 检查玩家血量是否为0
+        // Check if player's health is 0
         if (this.playerStatus.HP <= 0) {
             if (this.#eventCallbackFunction) {
                 this.#eventCallbackFunction({
@@ -778,47 +801,47 @@ class RandomEventUI {
             }
         }
     
-        // 重置UI状态
+        // Reset UI state
         this.#isInit = false;
     }
 
-    // 绘制界面
+    // Draw interface
     draw() {
         if (!this.#isInit) return;
 
         background(0);
 
-        // 绘制标题
+        // Draw title
         textAlign(CENTER, TOP);
         textSize(28);
         fill(255, 215, 0);
         text(this.#eventModel.title, logicWidth / 2, logicHeight * 0.1);
 
-        // 图片区域配置
+        // Image area configuration
         const imgWidth = logicWidth * 0.75;
         const imgHeight = logicHeight * 0.55;
         const imgX = logicWidth / 2 - imgWidth / 2;
         const imgY = logicHeight * 0.1;
 
-        // 如果正在显示结果页面
+        // If showing result page
         if (this.#showingResult) {
-            // 根据选择显示不同的结果图片
+            // Display different result image based on choice
             const resultImage = this.#selectedChoice == 'accept' ? this.acceptImage : this.declineImage;
 
-            // 绘制相应的结果图片
+            // Draw the appropriate result image
             this.drawImageOrPlaceholder(
                 resultImage,
                 imgX, imgY,
                 imgWidth, imgHeight,
-                this.#selectedChoice == 'accept' ? "接受结果" : "拒绝结果"
+                this.#selectedChoice == 'accept' ? "Accept Result" : "Decline Result"
             );
 
-            // 绘制结果描述文本
+            // Draw result description text
             const resultText = (this.#selectedChoice == 'accept')
                 ? this.#eventModel.acceptResult.description
                 : this.#eventModel.declineResult.description;
 
-            // 绘制结果文本
+            // Draw result text
             const descriptionY = imgY + imgHeight;
             this.drawWrappedText(
                 resultText,
@@ -828,12 +851,12 @@ class RandomEventUI {
             );
         }
         else {
-            // 绘制主事件图片
+            // Draw main event image
             this.drawImageOrPlaceholder(
                 this.eventImage,
                 imgX, imgY,
                 imgWidth, imgHeight,
-                "事件示意图"
+                "Event Illustration"
             );
 
             const descriptionY = imgY + imgHeight;
@@ -849,14 +872,14 @@ class RandomEventUI {
         textAlign(CENTER, CENTER);
         textSize(24);
         fill(255);
-        text("当前状态", logicWidth / 2, statusTitleY);
+        text("Current Status", logicWidth / 2, statusTitleY);
 
-        // 玩家状态信息
+        // Player status information
         const statusY = statusTitleY + 30;
         textAlign(CENTER, CENTER);
         textSize(20);
 
-        // 生命值
+        // Health
         const hpPercent = this.playerStatus.HP / (this.playerStatus.HPmax || 1);
         if (hpPercent < 0.3) {
             fill(255, 50, 50);
@@ -867,18 +890,18 @@ class RandomEventUI {
         }
         text(`HP: ${this.playerStatus.HP}/${this.playerStatus.HPmax}`, logicWidth * 0.3, statusY);
 
-        // 金币
+        // Gold
         fill(255, 215, 0);
         text(`Gold: ${this.playerStatus.gold}`, logicWidth * 0.5, statusY);
 
-        // 污染
+        // Pollution
         const pollutionColor = this.playerStatus.pollutionLevel <= 2 ? color(100, 255, 100) :
             this.playerStatus.pollutionLevel <= 4 ? color(255, 215, 0) :
                 color(255, 50, 50);
         fill(pollutionColor);
         text(`Pollution: ${this.playerStatus.pollution}/${Status.MAX_POLLUTION}`, logicWidth * 0.7, statusY);
 
-        // 疑问句
+        // Question prompt
         if (!this.#showingResult) {
             const promptY = statusY + 50;
             textAlign(CENTER, CENTER);
@@ -894,7 +917,7 @@ class RandomEventUI {
     }
 
 
-    // 文本换行辅助函数
+    // Text wrapping helper function
     drawWrappedText(textContent, x, y, maxWidth) {
         const words = textContent.split(' ');
         let line = '';
@@ -904,7 +927,7 @@ class RandomEventUI {
         let currentLineCount = 0;
 
         textAlign(CENTER, TOP);
-        textSize(22);//story文本大小
+        textSize(22);//story text size
 
         for (let i = 0; i < words.length; i++) {
             if (words[i].includes('\n')) {
@@ -954,7 +977,7 @@ class RandomEventUI {
         }
     }
 
-    // 窗口大小改变时根据需要重新布局
+    // Relayout when window size changes if needed
     handleWindowResized() {
         if (!this.#isInit) return;
         if (this.#showingResult) {
@@ -964,7 +987,7 @@ class RandomEventUI {
         }
     }
 
-    // 鼠标按下
+    // Mouse pressed
     handleMousePressed() {
         if (!this.#isInit) return;
         for (const btn of this.buttons) {
@@ -974,7 +997,7 @@ class RandomEventUI {
         }
     }
 
-    // 鼠标松开
+    // Mouse released
     handleMouseReleased() {
         if (!this.#isInit) return;
         for (const btn of this.buttons) {
@@ -985,7 +1008,7 @@ class RandomEventUI {
         }
     }
 
-    // 清除所有资源，特别是图片
+    // Clear all resources, especially images
     cleanup() {
         this.eventImage = null;
         this.acceptImage = null;

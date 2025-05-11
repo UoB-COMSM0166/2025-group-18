@@ -67,13 +67,35 @@ class PlayerControl {
         this.shootKey = false;
     }
 
-    shoot(xSpeed, ySpeed) {
+    shoot(xSpeed, ySpeed, bulletMoveType, attackMultiple, bulletNum) {
         //console.log("Shooting!");
-        this.shootCallBack(
-            xSpeed, ySpeed,
-            PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,
-            this.#player.equipment.getCurrentWeapon().attackPower,
-        );
+        if (bulletNum == 1) {
+            this.shootCallBack(
+                xSpeed, ySpeed,
+                PLAYER_BULLET_TYPE, bulletMoveType,
+                this.#player.equipment.getCurrentWeapon().attackPower,
+            );
+        } else if (bulletNum > 1) {
+            let totalAngle;
+            if (bulletMoveType == BULLET_MOVE_TYPE_HOMING) {
+                totalAngle = Math.PI / 12 * bulletNum;
+            } else {
+                totalAngle = Math.PI / 48 * bulletNum;
+            }
+            let angleStep = totalAngle / (bulletNum - 1);
+            let baseAngle = Math.atan2(ySpeed, xSpeed);
+
+            for (let i = 0; i < bulletNum; i++) {
+                let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
+                let targetXSpeed = Math.cos(offsetAngle);
+                let targetYSpeed = Math.sin(offsetAngle);
+                this.shootCallBack(
+                    targetXSpeed, targetYSpeed,
+                    PLAYER_BULLET_TYPE, bulletMoveType,
+                    this.#player.equipment.getCurrentWeapon().attackPower,
+                );
+            }
+        }
 
         if (typeof playerShootSound != 'undefined') {
             playerShootSound.play();
@@ -98,60 +120,59 @@ class PlayerControl {
         }
         if (xMove > 0 && yMove == 0) {
 
-            this.#player.setAnimation('D');//调用向右移动帧
+            this.#player.setAnimation('D');//Call to move frames right
         }
 
         if (xMove < 0 && yMove == 0) {
 
-            this.#player.setAnimation('A');//调用向右移动帧
+            this.#player.setAnimation('A');//Call to move frames right
         }
 
         if (yMove > 0 && xMove == 0) {
 
-            this.#player.setAnimation('S');//调用向右移动帧
+            this.#player.setAnimation('S');//Call to move frames right
         }
 
         if (yMove < 0 && xMove == 0) {
 
-            this.#player.setAnimation('W');//调用向右移动帧
+            this.#player.setAnimation('W');//Call to move frames right
         }
 
         if (xMove > 0 && yMove > 0) {
 
-            this.#player.setAnimation('DS');//调用向右移动帧
+            this.#player.setAnimation('DS');//Call to move frames right
         }
 
         if (xMove > 0 && yMove < 0) {
 
-            this.#player.setAnimation('DW');//调用向右移动帧
+            this.#player.setAnimation('DW');//Call to move frames right
         }
 
         if (xMove < 0 && yMove < 0) {
 
-            this.#player.setAnimation('AW');//调用向右移动帧
+            this.#player.setAnimation('AW');//Call to move frames right
         }
 
         if (xMove < 0 && yMove > 0) {
 
-            this.#player.setAnimation('AS');//调用向右移动帧
+            this.#player.setAnimation('AS');//Call to move frames right
         }
 
         if (xMove == 0 && yMove == 0) {
 
-            this.#player.setAnimation('idleD');//调用向右移动         
+            this.#player.setAnimation('idleD');//Call to move frames right         
         }
         this.playerMoveCallBack(xMove, yMove);
     }
 
     updateShoot() {
         if (this.shootKey && millis() - this.lastShootTime >= this.shootCD * 1000) {
-            // let logicX = map(mouseX, 0, width, 0, logicWidth);
-            // let logicY = map(mouseY, 0, height, 0, logicHeight);
-            // console.log("1 logicX: ", logicX, "; logicY: ", logicY);
             let distance = dist(this.#player.xCoordinate, this.#player.yCoordinate, logicX, logicY);
             let shootX = (logicX - this.#player.xCoordinate) / distance;
             let shootY = (logicY - this.#player.yCoordinate) / distance;
-            this.shoot(shootX, shootY);
+            this.shoot(shootX, shootY, BULLET_MOVE_TYPE_NORMAL,
+                this.#player.equipment.getCurrentWeapon().attackPower,
+                this.#player.bulletNum);
             //console.log("updateShoot()");
         }
     }
@@ -197,20 +218,24 @@ class PlayerControl {
         let target = this.targetCallBack(this.#player);
         let dx = this.#player.xCoordinate - target.xCoordinate;
         let dy = this.#player.yCoordinate - target.yCoordinate;
-        let baseAngle = Math.atan2(dy, dx);
-        let totalAngle = Math.PI / 3 * 2;
-        let angleStep = totalAngle / 7;
 
-        for (let i = 0; i < 8; i++) {
-            let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
-            let targetXSpeed = Math.cos(offsetAngle);
-            let targetYSpeed = Math.sin(offsetAngle);
-            this.shootCallBack(
-                targetXSpeed, targetYSpeed,
-                PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
-                2 * this.#player.equipment.getCurrentWeapon().attackPower,
-            );
-        }
+        this.shoot(dx, dy, BULLET_MOVE_TYPE_HOMING,
+            2 * this.#player.equipment.getCurrentWeapon().attackPower,
+            8);
+        // let baseAngle = Math.atan2(dy, dx);
+        // let totalAngle = Math.PI / 3 * 2;
+        // let angleStep = totalAngle / 7;
+
+        // for (let i = 0; i < 8; i++) {
+        //     let offsetAngle = baseAngle - totalAngle / 2 + i * angleStep;
+        //     let targetXSpeed = Math.cos(offsetAngle);
+        //     let targetYSpeed = Math.sin(offsetAngle);
+        //     this.shootCallBack(
+        //         targetXSpeed, targetYSpeed,
+        //         PLAYER_BULLET_TYPE, BULLET_MOVE_TYPE_HOMING,
+        //         2 * this.#player.equipment.getCurrentWeapon().attackPower,
+        //     );
+        // }
 
         this.#player.skillCD = this.#player.maxSkillCD;
     }

@@ -42,7 +42,7 @@ class Enemy extends BasicObject {
         this.frameCount = 0;
         // this.frames = this.getFrames();
 
-        // 受击闪烁效果属性
+        // Hit flash effect properties
         this.isFlashing = false;
         this.flashDuration = 150;
         this.flashStartTime = 0;
@@ -61,21 +61,21 @@ class Enemy extends BasicObject {
         this.speed = this.baseSpeed * pollutionEffect.enemySpeedMul;
         this.attackPower = this.baseAttack * pollutionEffect.damageMul;
 
-        // maxHP基于当前的baseHP计算
+        // maxHP is calculated based on the current baseHP
         let newMaxHP = this.baseHP * pollutionEffect.healthMul;
-        // 保持HP百分比不变
+        // Keep HP percentage unchanged
         if (this.maxHP != newMaxHP && this.maxHP > 0) {
             this.HP = (this.HP / this.maxHP) * newMaxHP;
         }
         this.maxHP = newMaxHP;
 
-        // 更新受击闪烁
+        // Updated hit flash
         if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
             this.isFlashing = false;
         }
     }
 
-    // 开始受击闪烁
+    // Start flashing when hit
     startFlash() {
         this.isFlashing = true;
         this.flashStartTime = millis();
@@ -89,10 +89,10 @@ class Enemy extends BasicObject {
 
         imageMode(CENTER);
 
-        // 如果正在闪烁，应用红色染色效果
+        // If flashing, apply a red tint effect
         if (this.isFlashing) {
             push();
-            tint(255, 0, 0); // 应用红色染色
+            tint(255, 0, 0); // Apply red stain
             image(frames.enemy[this.modelType][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 2, this.ySize * 2);
@@ -110,10 +110,10 @@ class Enemy extends BasicObject {
             fill(100, 100, 100, 150);
             rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
-            //敌人图像
+            //Enemy Images
             this.drawEnemy();
 
-            //血条出现在贴图上方
+            //The health bar appears above the texture
             let imageTopY = this.yCoordinate - this.ySize;
             let hpBar = this.xSize * (this.HP / this.maxHP);
 
@@ -124,20 +124,20 @@ class Enemy extends BasicObject {
             fill(255, 0, 0);
             rect(this.xCoordinate - this.xSize / 2, imageTopY - 10, hpBar, 5);
 
-            // 测试用文本
+            // Test text
             fill(255);
             textSize(12);
             textAlign(CENTER, CENTER);
             let textBaseY = this.yCoordinate + this.ySize;
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+            // text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            // text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
+            // text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
 
-            // 轮回加成信息
+            // Reincarnation bonus information
             if (this.baseHP > this.originalBaseHP) {
                 const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
                 fill(255, 215, 0);
-                text(`轮回: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 15);
             }
         }
     }
@@ -164,7 +164,7 @@ class Enemy extends BasicObject {
         if (this.isAlive) {
             let distance = dist(this.xCoordinate, this.yCoordinate, playerX, playerY);
             if (distance > this.seeRange) {
-                let xSpeed = cos(millis() / 1000);
+                let xSpeed = cos(millis() / 1000) + Math.random();
                 let ySpeed = sin(millis() / 1000);
                 this.enemyMove(xSpeed, ySpeed, enemy);
             } else if (distance > this.attackRange && distance <= this.seeRange) {
@@ -184,7 +184,7 @@ class Enemy extends BasicObject {
     }
 
     enemyAttack(xSpeed, ySpeed) {
-        //console.log("enemy attack");——Theodore，整个控制台全部是打印的子弹
+        //console.log("enemy attack");——Theodore，The entire console is filled with printed bullets
         this.enemyAttackCallBack(
             xSpeed, ySpeed,
             ENEMY_BULLET_TYPE, BULLET_MOVE_TYPE_NORMAL,

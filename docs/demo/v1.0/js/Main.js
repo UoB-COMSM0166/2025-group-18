@@ -39,13 +39,13 @@ class Main {
         if (pollutionChange && pollutionChange !== 0) {
             if (this.#game) {
                 const currentPollution = this.#game.getPlayerStatus().pollution;
-                //确保不会因为随机事件降至0以下，最大值以上
+                // Ensure pollution doesn't go below 0 or above max due to random events
                 const newPollution = Math.min(Status.MAX_POLLUTION, Math.max(0, currentPollution + pollutionChange));
                 //console.log(`Updating pollution in game: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
-                his.#game.setPollution(newPollution);
+                this.#game.setPollution(newPollution);
             } else {
                 const currentPollution = this.#status.getShipStatus().pollution;
-                //确保不会因为随机事件降至0以下，最大值以上
+                // Ensure pollution doesn't go below 0 or above max due to random events
                 const newPollution = Math.min(Status.MAX_POLLUTION, Math.max(0, currentPollution + pollutionChange));
                 //console.log(`Updating pollution in status: ${currentPollution} ${pollutionChange > 0 ? '+' : ''}${pollutionChange}`);
                 this.#status.updatePollution(newPollution, null);
@@ -66,13 +66,13 @@ class Main {
         );
 
         this.#game.initPlayer(playerBasicStatus);
-        this.#game.setPollution(this.#status.getShipStatus().pollution);
+        this.#game.setPollution(playerBasicStatus.pollution);
         this.initInGameMap();
     }
 
     incrementLoopCount() {
         this.#status.incrementLoopCount();
-        console.log("轮回计数已增加，当前轮回次数:", this.#status.getLoopCount());
+        console.log("Loop count increased, current loop count:", this.#status.getLoopCount());
     }
 
     getLoopCount() {
@@ -86,9 +86,9 @@ class Main {
             this.#game.initRandomBossMap(loopCount);
         }
         else if (this.#nextGameType == GAME_TYPE_NORMAL_ENEMY) {
-            //Theodore-预期冲突处，保留我的，我要传递循环计数
+            //Theodore-Expected conflict area, keep mine, I need to pass the loop count
             this.#game.initRandomMap(loopCount);
-            // this.#game.initRandomBossMap(loopCount);// 测试boss用
+            // this.#game.initRandomBossMap(loopCount);// For boss testing
         }
     }
 
@@ -96,9 +96,10 @@ class Main {
         if (this.#game == null) {
             this.initNewGame();
             if (this.#game.getMapType() == MAP_MODEL_9_TYPE) {
-                this.mapAlertMessage = "警告: 引擎故障！船只无法移动！准备抵御敌人进攻！";
+                this.mapAlertMessage = "WARNING: Engine failure! Ship cannot move! Prepare to defend!";
                 this.showMapAlert = true;
             } else {
+                this.showMapAlert = false;
                 this.alertInGame = true;
                 this.mapOverflowMessage = "WARNING: Pollution Overflow!";
             }
@@ -125,30 +126,42 @@ class Main {
     }
 
     updateAll() {
+        // push();
+        // logicCanvas.push();
+        playSound(normalFightMusic);
         switch (this.#step) {
             case MAIN_STEP_CAPTAIN_UI: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showCaptainUI();
                 break;
             }
             case MAIN_STEP_START_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showStartUI();
                 break;
             }
             case MAIN_STEP_STORY_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showStoryUI();
                 break;
             }
             case MAIN_STEP_TUTORIAL_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showTutorialUI();
                 break;
             }
             case MAIN_STEP_CHOOSE_SHIP_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showChooseShipUI();
                 this.#UI.initMap();
                 break;
             }
             case MAIN_STEP_MAP_UI: {
+                normalFightMusic.setVolume(0.5);
+                logicCanvas.push();
+                logicCanvas.translate(- logicWidth / 2, - logicHeight / 2);
                 this.#UI.showMapUI();
+                logicCanvas.pop();
                 this.#UI.showShopinMapUI();
                 break;
             }
@@ -163,17 +176,19 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
+                normalFightMusic.setVolume(0.5);
                 this.gameReward();
                 break;
             }
             case MAIN_STEP_SHOP: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showShopUI(this.#status.getShipStatus().gold);
                 break;
             }
             case MAIN_STEP_RANDOM_EVENT: {
-                // 先获取玩家状态
+                // First get player status
                 const playerStatus = this.#status.getShipStatus();
-                // 然后传递给 UI
+                // Then pass to UI
                 this.#UI.showRandomEventUI(playerStatus);
                 break;
             }
@@ -183,14 +198,17 @@ class Main {
                 break;
             }
             case MAIN_STEP_WIN_BOSS: {
+
                 this.#UI.showGameWinBossUI();
                 break;
             }
             case MAIN_STEP_START_UI_TEAM: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showTeamUI();
                 break;
             }
             case MAIN_STEP_MORSE_CODE: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showMorseCodeUI();
                 break;
             }
@@ -199,6 +217,8 @@ class Main {
                 break;
             }
         }
+        // logicCanvas.pop();
+        // pop();
 
         this.#cursorPos.show();
     }
@@ -279,6 +299,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
+                this.#UI.getShopUI().init();
                 this.#UI.gameOverMousePressed();
                 break;
             }
@@ -382,20 +403,29 @@ class Main {
         }
 
         if (stepChangeType == MAIN_STEP_MAP_UI && this.#step == MAIN_STEP_WIN_BOSS) {
-            console.log("从Boss胜利界面返回，保留玩家状态");
+            console.log("Returning from Boss victory screen, preserving player status");
             this.#status.recoverToMaxHP();
             const currentStatus = this.#status.getShipStatus();
-            console.log("Boss胜利恢复生命值至:", currentStatus.HP, "/", currentStatus.HPmax);
+            console.log("Boss victory health recovery to:", currentStatus.HP, "/", currentStatus.HPmax);
             this.#UI.initMap();
         }
 
+        if (stepChangeType == MAIN_STEP_MORSE_CODE && this.#step == MAIN_STEP_WIN_BOSS) {
+            const loopCount = this.#status.getLoopCount();
+            console.log("Returning to pier with loop count:", loopCount);
+            if (loopCount < 2) {//Egg loop
+                console.log("Loop count < 2, skipping Morse Code UI and going directly to Game Summary");
+                stepChangeType = MAIN_STEP_GAME_SUMMARY;
+            }
+        }
+
         if (stepChangeType == MAIN_STEP_WIN_BOSS) {
-            console.log("进入Boss胜利界面，设置轮回次数");
+            console.log("Entering Boss victory screen, setting loop count");
             this.#UI.setGameWinBossStats(this.#status.getShipStatus(), this.#status.getLoopCount());
         }
 
         if (stepChangeType == MAIN_STEP_GAME_SUMMARY) {
-            console.log("进入游戏结算界面，传递玩家状态");
+            console.log("Entering game summary screen, passing player status");
             this.#UI.setGameSummaryStats(this.#status.getShipStatus());
         }
 
@@ -403,16 +433,16 @@ class Main {
         this.#UI.changeCurrentStep(stepChangeType);
 
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
-            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-钱！多多的钱！小关通关后获得奖励
+            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-Money! Lots of money! Reward for clearing a small level
             this.#gameReward.buff = [
-                BUFF_MODEL[round(random(1, 5))],
-                BUFF_MODEL[round(random(1, 5))],
-                BUFF_MODEL[round(random(1, 5))]
+                BUFF_MODEL[Math.floor(Math.random() * 6) + 1],
+                BUFF_MODEL[Math.floor(Math.random() * 6) + 1],
+                BUFF_MODEL[Math.floor(Math.random() * 6) + 1]
             ];
         }
     }
 
-    //show 放Main里确实很不规范，但这个判断确实区别于其他的，放着似乎还是合适的——Theodore
+    //It's not really standard to put show in Main, but this judgment is indeed different from others, so it seems appropriate to put it here—Theodore
     showMapTypeAlert(message) {
         const alertDuration = 5000;
         const currentTime = Date.now();
@@ -430,13 +460,13 @@ class Main {
         alpha = 255 * (1 - (elapsedTime - (alertDuration - 1000)) / 1000);
 
         push();
-        // 绘制提示框
+        // Draw alert box
         const boxWidth = logicWidth * 0.6;
         const boxHeight = 80;
         const boxX = (logicWidth - boxWidth) / 2;
         const boxY = logicHeight * 0.2;
 
-        // 警告框背景
+        // Warning box background
         fill(0, 0, 0, alpha * 0.8);
         stroke(255, 50, 50, alpha);
         strokeWeight(3);
@@ -461,12 +491,13 @@ class Main {
     gameReward() {
         this.#UI.showGameRewardUI(this.#gameReward.gold, this.#gameReward.buff);
 
-        // 避免重复添加金币(Theodore)
+        // Avoid adding gold repeatedly (Theodore)
         // this.#status.updateGold(this.#gameReward.gold);
     }
 
     chooseBuff(buffType) {
-        //console.log(buffType);
+        console.log(buffType);
+        this.#status.addBuff(buffType);
     }
 
     chooseGameMap(gameType) {

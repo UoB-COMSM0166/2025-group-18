@@ -18,9 +18,9 @@ class GameSummaryUI {
         this.initButtons();
     }
 
-    // 创建按钮
+    // Creating a Button
     initButtons() {
-        const btnWidth = 200;
+        const btnWidth = 350;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.8;
@@ -30,7 +30,7 @@ class GameSummaryUI {
             y: btnY,
             w: btnWidth,
             h: btnHeight,
-            label: "查看制作团队",
+            label: "View the production team",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -41,12 +41,13 @@ class GameSummaryUI {
         };
     }
 
-    // 设置玩家统计数据
+    // Setting player statistics
     setPlayerStats(stats) {
         this.playerStats = stats;
+        this.playerStats.HP = Math.floor(this.playerStats.HP);
     }
 
-    // 绘制按钮
+    // Draw the button
     drawButton(btn) {
         push();
         const mainColor = color(100, 255, 218);
@@ -75,7 +76,7 @@ class GameSummaryUI {
         pop();
     }
 
-    // 检查鼠标悬停
+    // Check Mouse Hover
     checkButtonHover(btn) {
         btn.isHovered = (
             logicX > btn.x &&
@@ -96,14 +97,14 @@ class GameSummaryUI {
         fill(255, 215, 0);
         textSize(40);
         textAlign(CENTER, TOP);
-        text("航行总结", logicWidth / 2, logicHeight * 0.1);
+        text("Voyage Summary", logicWidth / 2, logicHeight * 0.1);
 
         this.drawStats();
         this.checkButtonHover(this.continueButton);
         this.drawButton(this.continueButton);
     }
 
-    // 绘制统计信息
+    // Plotting Statistics
     drawStats() {
         const leftMargin = logicWidth * 0.3;
         const rightMargin = logicWidth * 0.7;
@@ -114,32 +115,32 @@ class GameSummaryUI {
         textSize(24);
 
         fill(255);
-        text("船只类型:", leftMargin, topMargin);
-        text("生命值:", leftMargin, topMargin + rowHeight);
-        text("速度:", leftMargin, topMargin + rowHeight * 2);
-        text("攻击力:", leftMargin, topMargin + rowHeight * 3);
-        text("金币:", leftMargin, topMargin + rowHeight * 4);
-        text("污染值:", leftMargin, topMargin + rowHeight * 5);
-        text("污染等级:", leftMargin, topMargin + rowHeight * 6);
+        text("Vessel Type:", leftMargin, topMargin);
+        text("Health:", leftMargin, topMargin + rowHeight);
+        text("speed:", leftMargin, topMargin + rowHeight * 2);
+        text("Attack Damage:", leftMargin, topMargin + rowHeight * 3);
+        text("gold:", leftMargin, topMargin + rowHeight * 4);
+        text("Pollution value:", leftMargin, topMargin + rowHeight * 5);
+        text("Pollution degree:", leftMargin, topMargin + rowHeight * 6);
         fill(100, 255, 218);
-        text("轮回次数:", leftMargin, topMargin + rowHeight * 7);
+        text("Number of reincarnations:", leftMargin, topMargin + rowHeight * 7);
 
-        // 数值
+        // Numeric
         textAlign(RIGHT, CENTER);
 
-        let shipTypeName = "未知";
+        let shipTypeName = "unknown";
         if (this.playerStats.shipType == SHIP_MODEL_1_TYPE) {
-            shipTypeName = "轻型巡洋舰";
+            shipTypeName = "The Breezy Gull";
         } else if (this.playerStats.shipType == SHIP_MODEL_2_TYPE) {
-            shipTypeName = "战列舰";
+            shipTypeName = "The Iron Tide";
         } else if (this.playerStats.shipType == SHIP_MODEL_3_TYPE) {
-            shipTypeName = "驱逐舰";
+            shipTypeName = "The Reaper Fang";
         }
 
         fill(100, 255, 218);
         text(shipTypeName, rightMargin, topMargin);
 
-        // 生命值
+        // Health
         const hpPercent = this.playerStats.HP / this.playerStats.HPmax;
         if (hpPercent < 0.3) {
             fill(255, 50, 50);
@@ -150,22 +151,22 @@ class GameSummaryUI {
         }
         text(`${this.playerStats.HP} / ${this.playerStats.HPmax}`, rightMargin, topMargin + rowHeight);
 
-        // 其他属性
+        // Other properties
         fill(100, 255, 218);
         text(this.playerStats.speed, rightMargin, topMargin + rowHeight * 2);
         text(this.playerStats.attackPower || "1", rightMargin, topMargin + rowHeight * 3);
 
-        // 金币
+        // gold
         fill(255, 215, 0);
         text(this.playerStats.gold, rightMargin, topMargin + rowHeight * 4);
 
-        // 污染和污染等级
+        // Pollution and pollution levels
         const pollutionColor = this.getPollutionColor(this.playerStats.pollutionLevel);
         fill(pollutionColor);
         text(`${this.playerStats.pollution} / ${Status.MAX_POLLUTION}`, rightMargin, topMargin + rowHeight * 5);
         text(`${this.playerStats.pollutionLevel} / ${Status.POLLUTION_MAX_LEVEL}`, rightMargin, topMargin + rowHeight * 6);
 
-        // 轮回次数
+        // Number of reincarnations
         fill(255, 100, 100);
         text(this.playerStats.loopCount, rightMargin, topMargin + rowHeight * 7);
 
@@ -173,12 +174,12 @@ class GameSummaryUI {
         textSize(20);
         fill(200);
 
-        // 根据玩家状态生成不同的总结文本
+        // Generate different summary texts based on player status
         let summaryText = this.generateSummaryText();
         this.drawWrappedText(summaryText, logicWidth / 2, topMargin + rowHeight * 9, logicWidth * 0.8);
     }
 
-    // 绘制换行文本
+    // Draw wrapped text
     drawWrappedText(messageText, x, y, maxWidth) {
         const words = messageText.split(' ');
         let currentLine = '';
@@ -204,7 +205,7 @@ class GameSummaryUI {
         pop();
     }
 
-    // 根据污染等级获取颜色
+    // Get color according to pollution level
     getPollutionColor(level) {
         if (level <= 2) {
             return color(100, 255, 100);
@@ -215,44 +216,44 @@ class GameSummaryUI {
         }
     }
 
-    // 根据玩家状态生成总结文本
+    // Generate summary text based on player status
     generateSummaryText() {
         const hpPercent = this.playerStats.HP / this.playerStats.HPmax;
         const pollutionPercent = this.playerStats.pollution / Status.MAX_POLLUTION;
 
-        let message = "你成功解码了信息并完成了这次航行。";
+        let message = "You successfully decoded the message and completed the voyage.";
 
         if (hpPercent < 0.3) {
-            message += "你的船只几乎无法承受这次考验。";
+            message += "Your ship can hardly withstand the test.";
         } else if (hpPercent > 0.8) {
-            message += "你的熟练航行技巧使船只保持了极佳的状态。";
+            message += "Your skilled sailing skills keep the vessel in excellent condition.";
         }
 
         if (this.playerStats.pollutionLevel <= 2) {
-            message += "你是一位环保意识极强的船长！";
+            message += "You are an environmentally conscious captain!";
         } else if (this.playerStats.pollutionLevel <= 4) {
-            message += "你的航行对海洋环境造成了一些影响。";
+            message += "Your voyages have had some impact on the marine environment.";
         } else {
-            message += "海洋承受了你破坏性航行的伤痕。";
+            message += "The ocean bears the scars of your destructive voyages.";
         }
 
         if (this.playerStats.loopCount > 0) {
-            message += `经过${this.playerStats.loopCount}次轮回，你已经看到了这片海域的真实面貌。`;
+            message += `After${this.playerStats.loopCount}cycles, you have seen the true appearance of this sea.`;
         } else {
-            message += "如果继续航行，或许还能发现更多的秘密。";
+            message += "If we continue sailing, perhaps we can discover more secrets.";
         }
 
         return message;
     }
 
-    // 处理鼠标按下
+    // Handling Mouse Clicks
     handleMousePressed() {
         if (this.continueButton.isHovered) {
             this.continueButton.scale = 0.95;
         }
     }
 
-    // 处理鼠标释放
+    // Handling Mouse Release
     handleMouseReleased() {
         if (this.continueButton.isHovered) {
             playSound(frames.soundEffect.hover);
@@ -261,7 +262,7 @@ class GameSummaryUI {
         }
     }
 
-    // 处理窗口大小变化
+    // Handling window size changes
     handleWindowResized() {
         this.initButtons();
     }
