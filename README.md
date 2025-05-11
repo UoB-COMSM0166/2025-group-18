@@ -230,7 +230,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
 1. **Loop and Randomness**
     **Description:**
-   In order to deepen our game’s layers and enhance the player experience, we have the map reset on every run and our algorithm permanently increases all enemies’ health and speed; at the same time, procedurally generated maps, events, and buffs ensure that each new loop is more challenging and exciting. This poses two challenges for our looping randomness.
+   In order to deepen our game's layers and enhance the player experience, we have the map reset on every run and our algorithm permanently increases all enemies' health and speed; at the same time, procedurally generated maps, events, and buffs ensure that each new loop is more challenging and exciting. This poses two challenges for our looping randomness.
 
    **Solution:**
     Each loop resets the map and permanently buffs all enemies—intensifying both the challenge and the thrill—while nine procedural map templates, each with dynamic layouts and unique enemy placements, keep exploration unpredictable. On top of that, fifteen route-triggered events—from blaring sirens to noxious pollution—force you into high-risk, high-reward decisions that can make or break your quest. To help you adapt, you can also pick up buffs from shops, combat victories, and event rewards, ensuring every run feels fresh, strategic, and exhilarating.
