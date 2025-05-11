@@ -310,6 +310,14 @@ function preload() {
     playerSkillSound = loadSound('./MusicPack/player/skill/skill-01.ogg');
     playerSkillSound.setVolume(0.5);
 
+    // Shop music audio
+    shopThemeMusic = loadSound('./MusicPack/InGameMusic/ShopMusic.ogg');
+    shopThemeMusic.setVolume(0.5);
+
+    // Death music audio
+    deathThemeMusic = loadSound('./MusicPack/InGameMusic/Deadmusic.ogg');
+    deathThemeMusic.setVolume(0.5);
+
     // soundEffect audio
     frames.soundEffect.correct = loadSound('./MusicPack/SoundEffects/Correct.ogg');
     frames.soundEffect.correct.setVolume(0.5);
@@ -383,7 +391,7 @@ function draw() {
 
     logicX = map(mouseX, marginX, marginX + logicWidth * scaleRatio, 0, logicWidth);
     logicY = map(mouseY, marginY, marginY + logicHeight * scaleRatio, 0, logicHeight);
-    
+
     push();
     resetMatrix();
     translate(marginX, marginY);
@@ -393,7 +401,7 @@ function draw() {
     beginClip();
     rect(0, 0, logicWidth, logicHeight);
     endClip();
-    
+
     // rectMode(CORNER);
     imageMode(CENTER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);

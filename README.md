@@ -381,17 +381,16 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 ---
 
-### Contribution Statement
-
-- Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
+### Team Contribution Table
 
 <div align="center">
 
-| Name | Contribution | Weight |
-| :--- | :--- | :---: |
-| Tianyu Qi | TBD | TBD |
-| Likun Liang | TBD | TBD |
-| Yutong Liu | TBD | TBD |
-| Zihao Xia | TBD | TBD |
-| Guanglong Xia | TBD | TBD |
+| Name | Game - Internal battle | Game - External part | Report | Video | Weight |
+|:-----|:----------------------|:---------------------|:-------|:------|:------:|
+| Tianyu Qi | TBD | TBD | TBD | TBD | TBD |
+| Likun Liang | TBD | TBD | TBD | TBD | TBD |
+| Yutong Liu | TBD | TBD | TBD | TBD | TBD |
+| Zihao Xia | TBD | TBD | TBD | TBD | TBD |
+| Guanglong Xia | TBD | TBD | TBD | TBD | TBD |
+
 </div>
