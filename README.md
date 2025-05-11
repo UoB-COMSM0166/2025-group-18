@@ -4,10 +4,20 @@
 
 ## 🚢🌊♻️ - Sink or Pollute
 
-[🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
+<p style="text-align: center;">
+  <a href="https://uob-comsm0166.github.io/2025-group-18/">🖱️ Game Demo</a>
+</p>
 
+<p align="center"><b>Live Demo</b></p>
 <div style="text-align: center;">
-    <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
+    <video src="https://github.com/user-attachments/assets/87385110-d520-4592-b841-c3bcf2562638" controls width="600"></video>
+</div>
+
+<div align="center">
+    <p> <strong>Full Game Video</strong> </p>
+    <a href="" title="Game Video">
+        <img src="doc/images/docs/gif/button.gif" alt="Game Video" width="600">
+    </a>
 </div>
 
 >  [!IMPORTANT] 
@@ -29,7 +39,7 @@
 | Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | Animation Designer | Character & Motion & Narrative Design |
 | Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | Developer | enemyAI / Boss / MapUI / Bullet / QA |
 | Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Project Manager | [Click here](docs/labprocess/last/xgl-contribution.docx) |
-| Jinglong Xiao | @bristol.ac.uk | yusheng2077 | Developer | TBD |
+| Jinglong Xiao | qo24236@bristol.ac.uk | yusheng2077 | Developer | Buff / Translation / Video |
 
 </div>
 
@@ -448,6 +458,6 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 | Yutong Liu | Animation Design | 1 |
 | Zihao Xia | UI & Develop & QA | 1 |
 | Guanglong Xia | System & UI & QA | 1 |
-| Jinglong Xiao | TBD | 1 |
+| Jinglong Xiao | Buff & Translation & Video | 1 |
 
 </div>
