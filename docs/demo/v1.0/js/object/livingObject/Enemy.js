@@ -129,15 +129,15 @@ class Enemy extends BasicObject {
             textSize(12);
             textAlign(CENTER, CENTER);
             let textBaseY = this.yCoordinate + this.ySize;
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+            // text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            // text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
+            // text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
 
             // Reincarnation bonus information
             if (this.baseHP > this.originalBaseHP) {
                 const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
                 fill(255, 215, 0);
-                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 15);
             }
         }
     }
