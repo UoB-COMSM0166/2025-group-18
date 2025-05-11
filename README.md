@@ -200,9 +200,23 @@ Video of Demo - TBD
 >
 > system architecture ? 
 
+Our game system comprises multiple components:
+
+| Module        | Class                                                                                                                        | Responsibilities                                                                                                                                                                                                                                                                   |
+|---------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Main          | Main                                                                                                                         | Serves as the core game controller. <br>Initializes the game environment; <br>drives the main game loop and coordinates subsystems.                                                                                                                                                |
+| Status        | Status<br>Equipment<br>Pollution                                                                                             | Centralizes management of dynamic player attributes (HP/attack power/speed, etc.); <br>tracks pollution values and environmental impact parameters; <br>provides APIs for the Buff system to modify attributes; <br>implements attribute persistence storage.                      |
+| Object        | BasicObject<br>Building<br>Island<br>LivingObject<br>Player<br>Enemy<br>Boss<br>Bullet<br>Pet<br>Wave<br>AoeSkill<br>Explode | Defines base class (BasicObject) for all game entities; <br>LivingObject implements shared traits (HP/size/speed, etc); <br>Player/Enemy/Boss implement specific behavior trees; <br>Bullet manages projectile trajectories; <br>AoeSkill and Explode implement area-effect logic. |
+| Game          | Game                                                                                                                         | Manages the lifecycle of a single level (start/in-progress/end); <br>loads level configurations; <br>controls enemy wave generation; <br>evaluates win/loss conditions; <br>maintains level-specific object pools.                                                                 |
+| PlayerControl | PlayerControl                                                                                                                | Captures input events (keyboard/mouse); <br>parses commands (movement/attack/skills); <br>handles targeting logic for attacks; <br>manages skill cooldowns and attack cooldown.                                                                                                    |
+| Buffs         | Buff<br>BuffController                                                                                                       | Implements buff management systems; dynamically modifies player attributes (e.g., attack power).                                                                                                                                                                                   |
+
+
 #### 3.1 Class Diagram
 
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1000"/>](docs/labprocess/week05/ClassDiagram.png)
+
+This class diagram serves as the blueprint for game development, using intuitive visuals to showcase core functional modules and their interconnections. It functions as a shared technical roadmap for the team, enabling developers to quickly grasp system operations, identify counterproductive dependencies between modules, and guide logical code organization through clear interface specifications. This structural framework makes future feature upgrades and content expansions as flexible and modular as building with interlocking blocks.
 
 #### 3.2 Behavioural Diagram
 
