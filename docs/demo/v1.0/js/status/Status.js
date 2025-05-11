@@ -9,7 +9,10 @@ class Status {
         HP: 0,
         speed: 0,
         shipType: 0,
-        gold: 999,
+        gold: 99,
+        damage: 0,
+        basicDamage: 0,
+        bulletNumber: 0,
         skillCD: 0,
         maxSkillCD: 0,
         pollution: 0,
@@ -24,6 +27,7 @@ class Status {
         this.setShipBasicStatus(shipType);
     }
     setShipBasicStatus(shipType) {
+        this.#playerStatus.shipType = shipType;
         this.#playerStatus.xSize = SHIP_MODEL[shipType].xSize;
         this.#playerStatus.ySize = SHIP_MODEL[shipType].ySize;
         this.#playerStatus.HPmax = SHIP_MODEL[shipType].HPmax;
@@ -31,6 +35,9 @@ class Status {
         this.#playerStatus.speed = SHIP_MODEL[shipType].speed;
         this.#playerStatus.skillCD = SHIP_MODEL[shipType].skillCD;
         this.#playerStatus.maxSkillCD = SHIP_MODEL[shipType].skillCD;
+        this.#playerStatus.damage = SHIP_MODEL[shipType].damage;
+        this.#playerStatus.basicDamage = SHIP_MODEL[shipType].basicDamage;
+        this.#playerStatus.bulletNumber = SHIP_MODEL[shipType].bulletNumber;
         this.#playerStatus.pollution = SHIP_MODEL[shipType].pollutionStart;
         this.#playerStatus.pollutionLevel = 1;
         this.#playerStatus.loopCount = 0;
@@ -50,6 +57,35 @@ class Status {
 
     getPollutionMaxLeverl() {
         return Status.POLLUTION_MAX_LEVEL;
+    }
+
+    addBuff(buffType) {
+        if (buffType == null || buffType == undefined) {
+            return;
+        }
+        switch (buffType) {
+            case BuffTypes.SPEED_CHANGE:
+                this.#playerStatus.speed += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.DAMAGE_CHANGE:
+                this.#playerStatus.damage += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.BULLET_NUMBER_CHANGE:
+                this.#playerStatus.bulletNumber += BUFF_MODEL[buffType].value;
+                break;
+            case BuffTypes.MAX_HEALTH_CHANGE:
+                this.#playerStatus.HPmax += BUFF_MODEL[buffType].value;
+                this.updateHP(this.#playerStatus.HP + BUFF_MODEL[buffType].value);
+                break;
+            case BuffTypes.HEALTH_CHANGE:
+                this.updateHP(this.#playerStatus.HP + BUFF_MODEL[buffType].value);
+                break;
+            case BuffTypes.POLLUTION_EFFECT:
+                this.#playerStatus.pollution += BUFF_MODEL[buffType].value;
+                break;
+            default:
+                console.log("Unknown buff type: " + buffType);
+        }
     }
 
     updateHP(HP) {
@@ -83,18 +119,30 @@ class Status {
         this.#playerStatus.gold = Math.max(0, newGold);
     }
 
-    // 增加轮回次数
+    // Increase the number of reincarnations
     incrementLoopCount() {
         this.#playerStatus.loopCount++;
-        console.log(`轮回次数增加至: ${this.#playerStatus.loopCount}`);
+        console.log(`Increase the number of turns to: ${this.#playerStatus.loopCount}`);
     }
     
-    // 获取轮回次数
+    // Get the number of reincarnations
     getLoopCount() {
         return this.#playerStatus.loopCount;
     }
 
     getPlayerPollution() {
         return this.#playerStatus.pollution;
+    }
+
+    getPlayerDamage() {
+        return this.#playerStatus.damage;
+    }
+
+    getPlayerBasicDamage() {
+        return this.#playerStatus.basicDamage;
+    }
+
+    getPlayerBulletNumber() {
+        return this.#playerStatus.bulletNumber;
     }
 }

@@ -1,75 +1,77 @@
 class ShopUI {
-    // 私有字段，用于回调和状态控制
+    // Private fields for callbacks and state control
     #handleShoppingSelection;
     #handleShopExitSelection;
     #isInit;
   
     constructor(handleShoppingSelection, handleShopExitSelection) {
-        this.#handleShoppingSelection = handleShoppingSelection;  // 购买回调
-        this.#handleShopExitSelection = handleShopExitSelection;  // 退出回调
+        this.#handleShoppingSelection = handleShoppingSelection;  // Purchase callback
+        this.#handleShopExitSelection = handleShopExitSelection;  // Exit callback
         this.#isInit = false;
     
-        this.buttons = [];       // 存放交易按钮
-        this.exitButton = null;  // 存放退出按钮
+        this.buttons = [];       // Stores transaction buttons
+        this.exitButton = null;  // Stores exit button
         this.borderSize = 50;    
         this.targetBorderSize = 50;
         this.borderColor = null; 
-        this.currentGold = 0;    // 存放当前玩家金币（由 draw(gold) 动态赋值）
+        this.currentGold = 0;    // Stores current player gold (dynamically assigned by draw(gold))
+
+        this.isMusicPlaying = false;
     }
   
-    // 用于创建内部按钮类（与 GameRewardUI 中的 ChooseBuffButton 类似）
+    // Used to create internal button class (similar to ChooseBuffButton class in GameRewardUI)
     ShopButton = class {
         constructor(x, y, w, h, label, price, effct, times, priceIncrease, isExit = false) {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
-            this.label = label;       // 商品名称
-            this.price = price;       // 商品价格
+            this.label = label;       // Product name
+            this.price = price;       // Product price
             this.times = times;
-            this.type = effct;      // 商品效果
-            this.priceIncrease = priceIncrease; // 商品价格增量
-            this.isExit = isExit;     // 用于区分是否是退出按钮
+            this.type = effct;      // Product effect
+            this.priceIncrease = priceIncrease; // Product price increment
+            this.isExit = isExit;     // Used to distinguish if it's an exit button
             this.isHovered = false;
             this.isPressed = false;
             this.scale = 1;
         }
 
-        // 绘制按钮
+        // Draw button
         draw(gold) {
             drawingContext.save();
 
-            // 根据是否金币足够来决定文本/背景颜色
+            // Determine text/background color based on whether player has enough gold
             const canAfford = gold >= this.price || this.isExit;
             const mainColor = canAfford ? color(100, 255, 218) : color(128, 128, 128);
             const hoverColor = canAfford ? color(100, 255, 218, 153) : color(128, 128, 128, 153);
             const textColor = this.isHovered ? color(0) : mainColor;
             const bgColor = this.isHovered ? hoverColor : color(0, 0);
 
-            // 按钮缩放动画
+            // Button scaling animation
             const currentScale = lerp(this.scale, 1, 0.2);
             translate(this.x + this.w / 2, this.y + this.h / 2);
             scale(currentScale);
 
-            // 按钮阴影
+            // Button shadow
             drawingContext.shadowColor = mainColor;
             drawingContext.shadowBlur = this.isHovered ? 40 : 20;
 
-            // 绘制按钮背景与边框
+            // Draw button background and border
             fill(bgColor);
             stroke(mainColor);
             strokeWeight(1);
             rectMode(CENTER);
             rect(0, 0, this.w, this.h, 5);
 
-            // 绘制文本（商品名称 + 价格），退出按钮除外
+            // Draw text (product name + price), except for exit button
             fill(textColor);
             noStroke();
             textSize(18);
             textAlign(CENTER, CENTER);
 
             if (!this.isExit) {
-                // 多行文字显示：商品名称 和 价格
+                // Multi-line text display: product name and price
                 text(`${this.label}\n$${this.price}`, 0, 0);
             } else {
                 text(this.label, 0, 0);
@@ -78,7 +80,7 @@ class ShopUI {
             drawingContext.restore();
         }
 
-        // 检测鼠标是否悬浮在按钮上
+        // Check if mouse is hovering over the button
         checkHover(shopUI) {
             this.isHovered =
                 logicX > this.x &&
@@ -86,7 +88,7 @@ class ShopUI {
                 logicY > this.y &&
                 logicY < this.y + this.h;
 
-            // 悬浮时，让 ShopUI 的边框产生动画
+            // When hovering, animate the ShopUI border
             if (this.isHovered) {
                 shopUI.targetBorderSize = 80;
                 shopUI.borderColor = color(100, 255, 218, 102);
@@ -99,39 +101,55 @@ class ShopUI {
 
         release() {
         this.scale = 1;
-                // 如果按钮被松开时依然在悬浮态，说明点击了该按钮
+                // If the button is still in hover state when released, it means the button was clicked
                 return this.isHovered;
         }
     };
+
+    playShopMusic() {
+        if (shopThemeMusic && !shopThemeMusic.isPlaying()) {
+            shopThemeMusic.loop();
+            this.isMusicPlaying = true;
+        }
+    }
     
-    // 初始化商店 UI
+    stopShopMusic() {
+        if (shopThemeMusic && shopThemeMusic.isPlaying()) {
+            shopThemeMusic.stop();
+            this.isMusicPlaying = false;
+        }
+    }
+    
+    // Initialize the shop UI
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
+        console.log(BUFF_MODEL);
         let items = [
-            { label: 'Item A', price: 100, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'Item B', price: 25, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'HP+20', price: 60, effect: 'HP+20', times: -1, priceIncrease: 30},
-            { label: 'Item D', price: 99, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'ONE PIECE', price: 20000, effect: 'Increase Speed', times: 1, priceIncrease: 0 },
-            { label: 'Pollution-100', price: 50, effect: 'decrease pollution', times: -1, priceIncrease: 25 },
+            { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: -1, priceIncrease: 100 },
+            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 25, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: -1, priceIncrease: 25 },
+            { label: 'HP +20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 60},
+            { label: BUFF_MODEL[BuffTypes.SPEED_CHANGE].name, price: 99, effect: BuffTypes.SPEED_CHANGE, times: -1, priceIncrease: 99 },
+            { label: 'ONE PIECE', price: 500, effect: BuffTypes.HEALTH_FULL_RECOVER, times: -1, priceIncrease: 500 },
+            { label: 'Pollution -100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 50 },
         ];
         this.#isInit = true;
         textFont('Helvetica');
         noStroke();
         this.createButtons(items);
+        this.playShopMusic();
     }
 
-    // 是否初始化
+    // Whether initialized
     isInit() {
         return this.#isInit;
     }
   
-    // 创建交易按钮 + 退出按钮
+    // Create transaction buttons + exit button
     createButtons(items) {
         this.buttons = [];
     
-        // 两排按钮的排布
-        // 若有 6 个商品按钮，每排 3 个
+        // Two-row button layout
+        // If there are 6 product buttons, 3 per row
         const rows = 2;
         const cols = Math.ceil(items.length / rows);
         const btnWidth = 200;
@@ -139,7 +157,7 @@ class ShopUI {
         const spacingX = 50;
         const spacingY = 30;
     
-        // 计算总宽度与高度，用于居中
+        // Calculate total width and height for centering
         const totalWidth = cols * btnWidth + (cols - 1) * spacingX;
         const totalHeight = rows * btnHeight + (rows - 1) * spacingY;
         const startX = (logicWidth - totalWidth) / 2;
@@ -152,7 +170,7 @@ class ShopUI {
                 const x = startX + c * (btnWidth + spacingX);
                 const y = startY + r * (btnHeight + spacingY);
         
-                // 注意，这里将价格与其他信息分开传入
+                // Note: price and other information are passed separately
                 const { label, price, effect, times, priceIncrease } = items[index];
         
                 const button = new this.ShopButton(
@@ -171,7 +189,7 @@ class ShopUI {
             }
         }
     
-        // 创建退出按钮（右上角）
+        // Create exit button (top right)
         const exitBtnWidth = 120;
         const exitBtnHeight = 50;
         const exitMargin = 20;
@@ -181,13 +199,13 @@ class ShopUI {
             exitBtnWidth,
             exitBtnHeight,
             'Exit Shop',
-            0,        // 退出按钮价格为 0
+            0,        // Exit button price is 0
             null,
-            true      // 标记为退出按钮
+            true      // Mark as exit button
         );
     }
   
-    // 在主 UI 的 draw() 函数里调用该方法，并传入当前金币
+    // Call this method in the main UI's draw() function and pass the current gold
     draw(gold) {
         if (!this.#isInit) return;
     
@@ -195,17 +213,17 @@ class ShopUI {
     
         background(0);
     
-        // 标题文本
+        // Title text
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(32);
         text('Trading Platform', logicWidth / 2, logicHeight / 8);
     
-        // 显示玩家当前金币
+        // Display player's current gold
         textSize(20);
         text(`Your Gold: ${gold}`, logicWidth / 2, logicHeight / 8 + 40);
     
-        // 绘制边框特效
+        // Draw border effects
         this.borderSize = lerp(this.borderSize, this.targetBorderSize, 0.1);
         if (this.borderColor) {
             stroke(this.borderColor);
@@ -215,18 +233,18 @@ class ShopUI {
             rect(logicWidth / 2, logicHeight / 2, this.borderSize * 10, this.borderSize * 5);
         }
     
-        // 绘制所有交易按钮
+        // Draw all transaction buttons
         for (const btn of this.buttons) {
             btn.checkHover(this);
             btn.draw(gold);
         }
     
-        // 绘制退出按钮
+        // Draw exit button
         this.exitButton.checkHover(this);
         this.exitButton.draw(gold);
     }
   
-    // 鼠标按下
+    // Mouse pressed
     handleMousePressed() {
         if (!this.#isInit) return;
         for (const btn of this.buttons) {
@@ -235,40 +253,43 @@ class ShopUI {
         if (this.exitButton.isHovered) this.exitButton.press();
     }
   
-    // 鼠标松开
+    // Mouse released
     handleMouseReleased() {
         if (!this.#isInit) return;
     
-        // 检查商品按钮
+        // Check product buttons
         for (let i = this.buttons.length - 1; i >= 0; i--) {
             const btn = this.buttons[i];
             if (btn.release() && btn.isHovered) {
-                // 如果金币不够，无法购买
+                // If not enough gold, cannot purchase
                 if (this.currentGold < btn.price) {
                     console.log('Not enough gold to purchase:', btn.label);
                 } else {
-                    // 执行回调（外部可根据 itemData 处理金币扣除、道具增加等逻辑）
+                    // Execute callback (external can handle gold deduction, item addition logic based on itemData)
                     if (this.#handleShoppingSelection) {
                         this.#handleShoppingSelection(btn.type, btn.price * -1);
                     }
                     
-                    this.buttons[i].times--;
-                    if (this.buttons[i].times == 0) {
-                        this.buttons.splice(i, 1);
-                    } else {
-                        this.buttons[i].price += this.buttons[i].priceIncrease;
+                    // Don't remove items after purchase, just double the price
+                    if (btn.times != -1) {
+                        btn.times--;
+                        if (btn.times == 0) {
+                            this.buttons.splice(i, 1);
+                        }
                     }
-        
+                    
+                    // Increase price by 100% (double the price)
+                    btn.price += btn.priceIncrease;
                 }
                 playSound(frames.soundEffect.hover);
             }
         }
     
-        // 检查退出按钮
+        // Check exit button
         if (this.exitButton.release() && this.exitButton.isHovered) {
-            // this.#isInit = false; // 退出商店时，设置为未初始化状态
-            // this.buttons = [];    // 清空按钮列表
-            // this.exitButton = null; // 清空退出按钮
+            // this.#isInit = false; // When exiting the shop, set to uninitialized state
+            // this.buttons = [];    // Clear button list
+            // this.exitButton = null; // Clear exit button
             if (this.#handleShopExitSelection) {
                 this.#handleShopExitSelection();
             }
@@ -276,7 +297,7 @@ class ShopUI {
         }
     }
   
-    // 窗口尺寸改变时可重新布局
+    // Relayout when window size changes
     handleWindowResized(items) {
         if (!this.#isInit) return;
         this.createButtons(items);

@@ -11,10 +11,10 @@ class MorseCodeUI {
         this.onSwitchToCaptainUI = null;
     }
 
-    // 创建按钮
+    // Creating a Button
     createButtons() {
-        // "摩斯电码"按钮
-        const btnWidth = 200;
+        // "Morse Code" button
+        const btnWidth = 250;
         const btnHeight = 60;
         const btnX = (logicWidth - btnWidth) / 2;
         const btnY = logicHeight * 0.7;
@@ -24,30 +24,27 @@ class MorseCodeUI {
             y: btnY,
             w: btnWidth,
             h: btnHeight,
-            label: "收听信号",
+            label: "Listening to the signal",
             isHovered: false,
             scale: 1,
             onClick: () => {
                 if (!this.isPlayingSound) {
                     this.isPlayingSound = true;
-                    this.soundEffects.playNoise();
+                    this.soundEffects.playEgg();
                     setTimeout(() => {
-                        this.soundEffects.playEgg();
-                        setTimeout(() => {
-                            this.isPlayingSound = false;
-                        }, 11000);
-                    }, 3000);
+                        this.isPlayingSound = false;
+                    }, 11000);
                 }
             }
         };
 
-        // "继续"按钮
+        // "Continue" button
         this.continueButton = {
             x: btnX,
             y: btnY + 80,
             w: btnWidth,
             h: btnHeight,
-            label: "查看结果",
+            label: "View Results",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -58,13 +55,13 @@ class MorseCodeUI {
             }
         };
 
-        // "解码"按钮
+        // "Decode" button
         this.decodeButton = {
             x: btnX,
             y: btnY - 80,
             w: btnWidth,
             h: btnHeight,
-            label: "解码",
+            label: "Decoding",
             isHovered: false,
             scale: 1,
             onClick: () => {
@@ -76,12 +73,12 @@ class MorseCodeUI {
         };
     }
 
-    // 设置切换到CaptainUI的回调
+    // Set the callback to switch to CaptainUI
     setOnSwitchToCaptainUI(callback) {
         this.onSwitchToCaptainUI = callback;
     }
 
-    // 绘制电码
+    // Draw the code
     drawMorseCode(x, y) {
         push();
         textAlign(CENTER, CENTER);
@@ -194,7 +191,7 @@ class MorseCodeUI {
         pop();
     }
 
-    // 绘制按钮
+    // Draw the button
     drawButton(btn) {
         push();
         const mainColor = color(100, 255, 218);
@@ -237,35 +234,35 @@ class MorseCodeUI {
         }
     }
 
-    // 绘制界面
+    // Drawing interface
     draw() {
         background(0);
 
         fill(255);
         textSize(36);
         textAlign(CENTER, TOP);
-        text("深海信号", logicWidth / 2, logicHeight * 0.1);
+        text("Deep sea signal", logicWidth / 2, logicHeight * 0.1);
 
         this.drawMorseCode(logicWidth * 0.5, logicHeight * 0.4);
 
         textAlign(CENTER, CENTER);
         textSize(24);
         fill(255);
-        text("这片海域似乎隐藏着一段神秘信息...", logicWidth * 0.5, logicHeight * 0.2);
+        text("This sea area seems to hide a mysterious message...", logicWidth * 0.5, logicHeight * 0.2);
 
         textSize(20);
         fill(200);
-        text("你听到了吗？一串等待被破译的摩斯电码。", logicWidth * 0.5, logicHeight * 0.5);
+        text("Do you hear that? A string of Morse code waiting to be deciphered.", logicWidth * 0.5, logicHeight * 0.5);
         if (this.isPlayingSound) {
             const pulseAlpha = 127 + 128 * sin(frameCount * 0.1);
             fill(255, 100, 100, pulseAlpha);
-            text("▶ 正在接收信号...", logicWidth * 0.5, logicHeight * 0.55);
+            text("▶ Receiving signal...", logicWidth * 0.5, logicHeight * 0.55);
         } else {
             fill(200);
-            text('点击"收听信号"来听取这段神秘消息。', logicWidth * 0.5, logicHeight * 0.55);
+            text('Click "Listen to the Signal" to hear this mysterious message.', logicWidth * 0.5, logicHeight * 0.55);
         }
 
-        text("深海的秘密在等待认真倾听的人。", logicWidth * 0.5, logicHeight * 0.6);
+        text("The secrets of the deep sea await those who listen carefully.", logicWidth * 0.5, logicHeight * 0.6);
 
         this.checkButtonHover(this.listenButton);
         this.checkButtonHover(this.continueButton);
@@ -276,7 +273,7 @@ class MorseCodeUI {
         this.drawButton(this.decodeButton);
     }
 
-    // 处理鼠标按下
+    // Handling Mouse Clicks
     handleMousePressed() {
         if (this.listenButton.isHovered) {
             this.listenButton.scale = 0.95;
@@ -289,7 +286,7 @@ class MorseCodeUI {
         }
     }
 
-    // 处理鼠标释放
+    // Handling Mouse Release
     handleMouseReleased() {
         if (this.listenButton.isHovered || this.continueButton.isHovered || this.decodeButton.isHovered) {
             playSound(frames.soundEffect.hover);
@@ -308,7 +305,7 @@ class MorseCodeUI {
         }
     }
 
-    // 处理窗口大小变化
+    // Handling window size changes
     handleWindowResized() {
         this.createButtons();
     }

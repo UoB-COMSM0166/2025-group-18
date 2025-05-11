@@ -17,15 +17,16 @@ class Equipment {
     addDefaultWeapon() {
         const defaultWeapon = {
             name: "Default Weapon",
-            attackPower: 1,
+            attackPower: 20,
             pollutionValue: 0,
             bulletXSize: 15, 
             bulletYSize: 15,
-            bulletSpeed: 600 / logicFrameRate, 
+            bulletSpeed: 1200 / logicFrameRate, 
             explosionSize: 20, 
             partAttributes: null
         };
         this.addWeapon(defaultWeapon);
+        //this.weapons[0].attackPower = 10;
         this.currentWeapon = defaultWeapon;
     }
 

@@ -86,7 +86,8 @@ class Building extends BasicObject {
                     this.yCoordinate,
                     TNT_EXPLODE_HARM,
                     EXPLODE_ATTACK_BIT,
-                    EXPLODE_MODEL_TNT_TYPE
+                    EXPLODE_MODEL_TNT_TYPE,
+                    100
                 );
                 if (Building.#pollution) {
                     Building.#pollution.increasePollution("TNT");

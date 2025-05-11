@@ -53,13 +53,13 @@ class Pet extends BasicObject {
     }
 
     updateStatus() {
-        // 更新受击闪烁
+        // Updated hit flash
         if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
             this.isFlashing = false;
         }
     }
 
-    // 开始受击闪烁
+    // Start flashing when hit
     startFlash() {
         this.isFlashing = true;
         this.flashStartTime = millis();
@@ -73,10 +73,10 @@ class Pet extends BasicObject {
 
         imageMode(CENTER);
         
-        // 如果正在闪烁，应用红色染色效果
+        // If flashing, apply a red tint effect
         if (this.isFlashing) {
             push();
-            tint(255, 0, 0); // 应用红色染色
+            tint(255, 0, 0); //Apply red stain
             image(frames.pets[this.name][this.currentFrame], 
                   this.xCoordinate, this.yCoordinate, 
                   this.xSize * 2, this.ySize * 2);
@@ -94,10 +94,10 @@ class Pet extends BasicObject {
             // fill(100, 100, 100, 150);
             // rect(this.xCoordinate, this.yCoordinate, this.xSize, this.ySize);
 
-            // pet图像
+            // pet images
             this.drawPet();
             
-            //血条出现在贴图上方
+            //The health bar appears above the texture
             let imageTopY = this.yCoordinate - this.ySize;
             let hpBar = this.xSize * (this.HP / this.maxHP);
     
@@ -108,22 +108,22 @@ class Pet extends BasicObject {
             fill(255, 0, 0);
             rect(this.xCoordinate - this.xSize/2, imageTopY - 10, hpBar, 5);
             
-            // 测试用文本
-            fill(255);
-            textSize(12);
-            textAlign(CENTER, CENTER);
-            let textBaseY = this.yCoordinate + this.ySize;
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
-            text('name: ' + this.name, this.xCoordinate, textBaseY + 60);
+            // // Test text
+            // fill(255);
+            // textSize(12);
+            // textAlign(CENTER, CENTER);
+            // let textBaseY = this.yCoordinate + this.ySize;
+            // text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            // text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
+            // text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+            // text('name: ' + this.name, this.xCoordinate, textBaseY + 60);
         }
     }
 
     updateHP(change) {
         super.updateHP(change);
         
-        // 如果受到伤害，触发受伤效果
+        // If you take damage, the damage effect is triggered
         if (change < 0) {
             this.startFlash();
         }

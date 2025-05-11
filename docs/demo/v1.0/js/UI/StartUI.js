@@ -6,7 +6,7 @@ class StartUI {
         this.targetBorderSize = 50;
         this.borderColor = null;
         this.cursorPos = { x: 0, y: 0 };
-        this.onButtonClick = onButtonClick; // 回调
+        this.onButtonClick = onButtonClick; // Callbacks
         this.bgImg = loadImage('images/docs/img/png/background/startUI.png');
     }
 
@@ -35,7 +35,7 @@ class StartUI {
 
             // Button-size change
             const currentScale = lerp(this.scale, 1, 0.2);
-            // console.log("范围:", this.scale)
+            // console.log("scope:", this.scale)
             translate(this.x + this.w / 2, this.y + this.h / 2);
             scale(currentScale);
 
@@ -74,7 +74,7 @@ class StartUI {
         press() { this.scale = 0.98; }
         release() {
             this.scale = 1;
-            //console.log("点击了按钮:", this.label);
+            //console.log("Clicked the button:", this.label);
             // ...
             if (this.isHovered) {
                 return true;

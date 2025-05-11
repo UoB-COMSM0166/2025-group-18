@@ -46,14 +46,14 @@ class LaserPet extends Pet {
         if (this.isAlive) {
             if (this.laserActive) {
                 this.updateLaser();
-                // 激光是否结束
+                // Is the laser off?
                 if (millis() - this.laserStartTime > this.laserDuration) {
                     this.laserActive = false;
                 }
                 return;
             }
             
-            // 冷却时间到，寻找目标
+            // Cooling time is up, looking for the target
             if (millis() - this.lastAttackTime > this.attackCD * 1000) {
                 this.targetEnemy = this.findClosestEnemy(enemies);
                 
@@ -158,13 +158,13 @@ class LaserPet extends Pet {
         else if (millis() - this.lastAttackTime > this.attackCD * 800) {
             push();
             
-            // 瞄准线
+            // Line of sight
             stroke(255, 50, 50, 100);
             strokeWeight(1);
             
             const potentialTarget = this.findClosestEnemy(window.currentEnemies);
             if (potentialTarget) {
-                // 瞄准线
+                // Line of sight
                 line(this.xCoordinate, this.yCoordinate, 
                      potentialTarget.xCoordinate, potentialTarget.yCoordinate);
                      

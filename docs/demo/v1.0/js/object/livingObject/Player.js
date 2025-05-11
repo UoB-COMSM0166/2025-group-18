@@ -1,5 +1,17 @@
 class Player extends BasicObject {
-    constructor(name, xCoordinate, yCoordinate, xSize, ySize, HP, speed, skillCD, maxSkillCD) {
+    constructor(
+        name, 
+        xCoordinate, 
+        yCoordinate, 
+        xSize, 
+        ySize, 
+        HP, 
+        speed, 
+        damage,
+        basicDamage,
+        bulletNumber,
+        skillCD, 
+        maxSkillCD) {
         super(
             name,
             PLAYER_TYPE,
@@ -9,13 +21,16 @@ class Player extends BasicObject {
             ySize,
             NO_HARM_ATTACK_BIT,
             HP,
-            speed,
+            speed
             // speed * 60 / logicFrameRate,
         );
         this.HPmax = HP;
         this.skillCD = skillCD;
         this.maxSkillCD = maxSkillCD;
+        this.damage = damage;
+        this.basicDamage = basicDamage;
         this.equipment = new Equipment(name, 0, 0, 0, 0, 0, {});
+        this.bulletNum = bulletNumber; // bulletNum
         this.wavePushX = 0;
         this.wavePushY = 0;
         this.currentFrames = [];
@@ -28,9 +43,9 @@ class Player extends BasicObject {
         this.hasAttackedByAoe = false;
         this.lastAttackByAoeTime = 0;
 
-        // 受击变红效果的属性
+        // The properties of the red effect when hit
         this.isFlashing = false;
-        this.flashDuration = 150; // 闪烁持续时间(毫秒)
+        this.flashDuration = 150; // Blink duration (milliseconds)
         this.flashStartTime = 0;
     }
 
@@ -39,13 +54,13 @@ class Player extends BasicObject {
             this.frameIndex = (this.frameIndex + 1) % this.currentFrames.length;
             this.lastFrameTime = millis();
         }
-        // 更新受击闪烁
+        // Updated hit flash
         if (this.isFlashing && (millis() - this.flashStartTime > this.flashDuration)) {
             this.isFlashing = false;
         }
     }
 
-    // 开始受击闪烁
+    // Start flashing when hit
     startFlash() {
         this.isFlashing = true;
         this.flashStartTime = millis();
@@ -92,15 +107,16 @@ class Player extends BasicObject {
     drawmainboat(){ 
         imageMode(CENTER);
         
-        // 受击打应用红色染色效果
+        // Apply red dye effect to hit
         if (this.isFlashing) {
             push();
-            tint(255, 0, 0); // 应用红色染色
+            tint(255, 0, 0); // Apply red stain
             image(this.currentFrames[this.frameIndex], 
                   this.xCoordinate, this.yCoordinate, 
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
             pop();
         } else {
+            //console.log(this.frameIndex);
             image(this.currentFrames[this.frameIndex], 
                   this.xCoordinate, this.yCoordinate, 
                   this.currentFrames[this.frameIndex].width/5, this.currentFrames[this.frameIndex].height/5);
@@ -118,7 +134,7 @@ class Player extends BasicObject {
     updateHP(change) {
         super.updateHP(change);
 
-        // 如果受到伤害，触发受伤效果
+        // If you take damage, the damage effect is triggered
         if (change < 0) {
             this.startFlash();
         }
@@ -140,47 +156,47 @@ class Player extends BasicObject {
 
         /* if(xSpeed > 0 && ySpeed == 0){
 
-            this.setAnimation('D');//调用向右移动帧
+            this.setAnimation('D');//Call to move frames right
         }
 
         if(xSpeed < 0 && ySpeed == 0){
 
-            this.setAnimation('A');//调用向右移动帧
+            this.setAnimation('A');//Call to move frames right
         }
 
         if(ySpeed > 0 && xSpeed == 0){
 
-            this.setAnimation('S');//调用向右移动帧
+            this.setAnimation('S');//Call to move frames right
         }
 
         if(ySpeed < 0 && xSpeed == 0){
 
-            this.setAnimation('W');//调用向右移动帧
+            this.setAnimation('W');//Call to move frames right
         }
 
         if(xSpeed > 0  && ySpeed > 0){
 
-            this.setAnimation('DS');//调用向右移动帧
+            this.setAnimation('DS');//Call to move frames right
         }
 
         if(xSpeed > 0  && ySpeed < 0){
 
-            this.setAnimation('DW');//调用向右移动帧
+            this.setAnimation('DW');//Call to move frames right
         }
 
         if(xSpeed < 0  && ySpeed < 0){
 
-            this.setAnimation('AW');//调用向右移动帧
+            this.setAnimation('AW');//Call to move frames right
         }
 
         if(xSpeed < 0  && ySpeed > 0){
 
-            this.setAnimation('AS');//调用向右移动帧
+            this.setAnimation('AS');//Call to move frames right
         }
 
         if(xSpeed == 0  && ySpeed == 0  ){
 
-            this.setAnimation('idleD');//调用向右移动         
+            this.setAnimation('idleD');//Call to move frames right         
         } */
 
     }

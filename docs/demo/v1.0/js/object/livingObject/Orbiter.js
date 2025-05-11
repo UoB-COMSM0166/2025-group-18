@@ -31,7 +31,7 @@ class Orbiter extends BasicObject {
         this.currentFrame = 0;
         this.frameRate = round(logicFrameRate / 4);
         this.frameCount = 0;
-        // 图片预留
+        // Picture reservation
         // this.frames = frames.bullet;
         // this.frames = this.getFrames();
         
@@ -112,14 +112,14 @@ class Orbiter extends BasicObject {
             if (dist < 10) {
                 this.returnToOrbit = false;
             } else {
-                // 回
+                // Back
                 const speed = 8;
                 this.xCoordinate += (dx / dist) * speed;
                 this.yCoordinate += (dy / dist) * speed;
             }
         }
         else {
-            // 默认轨道
+            // Default Track
             this.orbitAngle += this.orbitSpeed * (deltaTime / 1000);
             this.xCoordinate = this.player.xCoordinate + this.orbitRadius * Math.cos(this.orbitAngle);
             this.yCoordinate = this.player.yCoordinate + this.orbitRadius * Math.sin(this.orbitAngle);

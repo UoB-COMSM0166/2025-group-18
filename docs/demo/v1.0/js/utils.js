@@ -75,34 +75,46 @@ const SHIP_MODEL = [
         ySize: 0,
         HPmax: 0,
         speed: 0,
-        skillCD: 0
+        skillCD: 0,
+        damage: 0,
+        basicDamage: 0,
+        bulletNumber: 0,
     }, {
         name: "ship1",
         type: SHIP_MODEL_1_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 50,
+        HPmax: 60,
         speed: 10,
-        skillCD: 3,
-        pollutionStart: 500
+        skillCD: 5,
+        damage: 2,
+        basicDamage: 1,
+        bulletNumber: 1,
+        pollutionStart: 400
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
         xSize: 10,
         ySize: 10,
-        HPmax: 40,
+        HPmax: 50,
         speed: 6,
         skillCD: 5,
-        pollutionStart: 700
+        damage: 1.5,
+        basicDamage: 1,
+        bulletNumber: 1,
+        pollutionStart: 550
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
-        xSize: 8,
-        ySize: 8,
-        HPmax: 30,
+        xSize: 10,
+        ySize: 10,
+        HPmax: 40,
         speed: 6,
-        skillCD: 15,
-        pollutionStart: 900
+        skillCD: 10,
+        damage: 1.5,
+        basicDamage: 1.5,
+        bulletNumber: 1,
+        pollutionStart: 700
     }
 ];
 
@@ -267,18 +279,18 @@ const BOSS_MODEL = [
         type: BOSS_MODEL_OCTOPUS_TYPE,
         xSize: 200,
         ySize: 200,
-        HP: 50,
+        HP: 500,
         speed: 0,
         attackPower: 1.5,
         attackCD: 1,
         attackRange: 2000,
         seeRange: 2000,
     }, {
-        name: "boss_bird",
+        name: "boss_Toxicore",
         type: BOSS_MODEL_BIRD_TYPE,
         xSize: 200,
         ySize: 200,
-        HP: 50,
+        HP: 1000,
         speed: 10,
         attackPower: 1.5,
         attackCD: 1,
@@ -527,15 +539,17 @@ const BUFF_MODEL_MAX_TYPE = 10;
 
 const BuffTypes = {
     ERROR_TYPE: 0,           // Error
+    /*SHIELD_ADD: 1,
+    PLUNDER_GOLD: 2,
+    SPEED_UP_HITTED: 3,
+    DRINKING_BLOOD: 4,
+    ATTACK_UP_BY_KILLing: 5,*/
     DAMAGE_CHANGE: 1,        // Damage change
-    EXPLODE_CHANGE: 2,       // Explode change
+    BULLET_NUMBER_CHANGE: 2,
     SPEED_CHANGE: 3,         // Speed change
-    HEALTH_FULL_RECOVER: 4,  // HP recover
-    FIGHT_STRONG_CHANGE: 5,  // Stronger
-    HEALTH_CHANGE: 6,        // HP change
-    SHIELD_ADD: 7,           // Shield add
-    POLLUTION_EFFECT: 8,     // Pollution effect
-    GOLD_BONUS: 9            // Gold add
+    MAX_HEALTH_CHANGE: 4,  // HP map change
+    HEALTH_CHANGE: 5,        // HP change
+    POLLUTION_EFFECT: 6,     // Pollution effect
 };
 
 const TriggerConditions = {
@@ -577,15 +591,15 @@ const BUFF_MODEL = [
         maxStackCount: 3,
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
-        name: "Bullet explode up!",
-        type: BuffTypes.EXPLODE_CHANGE,
-        rarity: RarityLevel.RARE,
+        name: "Bullet number up!",
+        type: BuffTypes.BULLET_NUMBER_CHANGE,
+        rarity: RarityLevel.COMMON,
         value: 1,
         stillTime: 0,
-        canStack: true,
-        maxStackCount: 3,
+        canStack: false,
+        maxStackCount: 1,
         triggerCondition: TriggerConditions.GET_ITEM
-    }, {
+    },  {
         name: "Speed up!",
         type: BuffTypes.SPEED_CHANGE,
         rarity: RarityLevel.COMMON,
@@ -595,59 +609,32 @@ const BUFF_MODEL = [
         maxStackCount: 1,
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
-        name: "A fully rest",
-        type: BuffTypes.HEALTH_FULL_RECOVER,
+        name: "Max HP +5!",
+        type: BuffTypes.MAX_HEALTH_CHANGE,
         rarity: RarityLevel.RARE,
-        value: 999,
+        value: 5,
         stillTime: 0,
         canStack: false,
         maxStackCount: 1,
         triggerCondition: TriggerConditions.WIN_AND_CLEAR
     }, {
-        name: "Stronger with every fight",
-        type: BuffTypes.FIGHT_STRONG_CHANGE,
-        rarity: RarityLevel.EPIC,
-        value: 0.3,
-        stillTime: 0,
-        canStack: true,
-        maxStackCount: 5,
-        triggerCondition: TriggerConditions.KILL_FIVE_ENEMY
-    }, {
-        name: "Health change",
+        name: "Health +20!",
         type: BuffTypes.HEALTH_CHANGE,
         rarity: RarityLevel.RARE,
-        value: 1,
+        value: 20,
         stillTime: 0,
         canStack: true,
         maxStackCount: 5,
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
-        name: "Shield add",
-        type: BuffTypes.SHIELD_ADD,
-        rarity: RarityLevel.RARE,
-        value: 10,
-        stillTime: 10,
-        canStack: true,
-        maxStackCount: 3,
-        triggerCondition: TriggerConditions.GET_ITEM
-    }, {
-        name: "Pollution effect",
+        name: "Pollution -100!",
         type: BuffTypes.POLLUTION_EFFECT,
         rarity: RarityLevel.COMMON,
-        value: 3,
+        value: -100,
         stillTime: 20,
         canStack: false,
         maxStackCount: 1,
         triggerCondition: TriggerConditions.POLLUTION_HIGH
-    }, {
-        name: "Gold bonus",
-        type: BuffTypes.GOLD_BONUS,
-        rarity: RarityLevel.RARE,
-        value: 30,
-        stillTime: 0,
-        canStack: true,
-        maxStackCount: 10,
-        triggerCondition: TriggerConditions.GET_ITEM
     }
 ];
 

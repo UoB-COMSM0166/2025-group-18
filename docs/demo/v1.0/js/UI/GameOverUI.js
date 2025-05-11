@@ -15,25 +15,41 @@ class GameOverUI {
         this.buttonHovered = false;
         this.createButton();
         
-        // 用于存储特殊死亡原因的信息
+        // Used to store information about specific causes of death
         this.specialDeathMessages = {
-            "hp": "你血量耗尽，海洋吞噬了你的船...",
-            "pollution": "污染值过高，毒害的环境反噬了你...",
-            //"mermaid": "不是，哥们儿，你这真的敢去啊！",大哥说不要就不要吧
-            "generic": "海上的危险终结了你的冒险...",
-            "Choose": "失误的选择，海洋显然没有打算给你后悔的余地。"
+            "hp": "You run out of HP and the ocean swallows your ship...",
+            "pollution": "Pollution is too high, and the toxic environment is biting you back...",
+            //"mermaid": "No, buddy, you really dare to go!", If the elder brother says no, then don't go.
+            "generic": "Danger at sea puts an end to your adventure...",
+            "Choose": "Wrong choice, the ocean obviously doesn't intend to give you room for regret."
         };
+
+        this.isMusicPlaying = false;
+    }
+
+    playDeathMusic() {
+        if (deathThemeMusic && !deathThemeMusic.isPlaying()) {
+            deathThemeMusic.loop();
+            this.isMusicPlaying = true;
+        }
+    }
+    
+    stopDeathMusic() {
+        if (deathThemeMusic && deathThemeMusic.isPlaying()) {
+            deathThemeMusic.stop();
+            this.isMusicPlaying = false;
+        }
     }
 
     createButton() {
-        const btnWidth = 200;
+        const btnWidth = 250;
         const btnHeight = 60;
         this.button = {
             x: logicWidth / 2 - btnWidth / 2,
             y: logicHeight * 0.7,
             width: btnWidth,
             height: btnHeight,
-            label: "返回主菜单"
+            label: "Return to main menu"
         };
     }
 
@@ -61,6 +77,10 @@ class GameOverUI {
     }
 
     draw() {
+        if (!this.isMusicPlaying) {
+            this.playDeathMusic();
+        }
+
         this.frameCount++;
         if (this.fadeInOpacity < 0.6) {
             this.fadeInOpacity += this.fadeInSpeed;
@@ -87,7 +107,7 @@ class GameOverUI {
         textSize(150);
         for (let i = 0; i < 10; i++) {
             fill(100, 0, 0, this.textOpacity * 100);
-            text("死", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
+            text("Die !", logicWidth / 2 + i, logicHeight / 2 - 50 + i);
         }
 
         fill(255, 0, 0, this.textOpacity * 255);
@@ -95,9 +115,9 @@ class GameOverUI {
         const offsetX = random(-shakeAmount, shakeAmount);
         const offsetY = random(-shakeAmount, shakeAmount);
 
-        text("死", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
+        text("Die !", logicWidth / 2 + offsetX, logicHeight / 2 - 50 + offsetY);
 
-        // 死亡原因文本
+        // Cause of Death Text
         textSize(30);
         drawingContext.shadowColor = 'rgba(255, 0, 0, 0.7)';
         drawingContext.shadowBlur = 15;
@@ -107,11 +127,11 @@ class GameOverUI {
         fill(255, 255, 255, this.reasonOpacity * 255);
         text(this.deathReason, logicWidth / 2, logicHeight / 2 + 100);
 
-        // 绘制按钮
+        // Draw the button
         if (this.buttonOpacity > 0) {
             rectMode(CORNER);
 
-            // 按钮背景
+            // Button background
             if (this.buttonHovered) {
                 fill(255, 50, 50, this.buttonOpacity * 255);
             } else {
@@ -122,7 +142,7 @@ class GameOverUI {
             strokeWeight(2);
             rect(this.button.x, this.button.y, this.button.width, this.button.height, 5);
 
-            // 按钮文本
+            // Button Text
             noStroke();
             fill(255, this.buttonOpacity * 255);
             textSize(24);
@@ -146,6 +166,7 @@ class GameOverUI {
         }
         if (this.buttonHovered && this.buttonOpacity > 0.5) {
             playSound(frames.soundEffect.hover);
+            this.stopDeathMusic();
             this.gameOverCallBack();
         }
     }

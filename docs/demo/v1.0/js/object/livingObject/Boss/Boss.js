@@ -73,7 +73,7 @@ class Boss extends BasicObject {
         }
     }
 
-    // 开始受击闪烁
+    // Start flashing when hit
     startFlash() {
         this.isFlashing = true;
         this.flashStartTime = millis();
@@ -87,10 +87,10 @@ class Boss extends BasicObject {
 
         imageMode(CENTER);
 
-        // 如果正在闪烁，应用红色染色效果
+        // If flashing, apply a red tint effect
         if (this.isFlashing) {
             push();
-            tint(255, 0, 0); // 应用红色染色
+            tint(255, 0, 0); // Apply red stain
             image(frames.boss[this.name][this.currentFrame],
                 this.xCoordinate, this.yCoordinate,
                 this.xSize * 1.5, this.ySize * 1.5);
@@ -110,8 +110,12 @@ class Boss extends BasicObject {
         let hpBar = xSize * (this.HP / this.maxHP);
 
         let nameStr = this.name.substring(this.name.indexOf('_') + 1);
+        nameStr = nameStr.charAt(0).toUpperCase() + nameStr.slice(1);
         fill(255);
         noStroke();
+        textAlign(CENTER, CENTER);
+        textFont(this.font || 'Arial Black');
+        textSize(70);
         text(nameStr, hpBarX, hpBarY * 0.95);
 
         fill(220);
@@ -127,21 +131,21 @@ class Boss extends BasicObject {
         //}
         this.drawBoss();
         if (this.isAlive) {
-            // 测试用
+            // For testing
             textAlign(CENTER, CENTER);
-            textSize(14);
+            textSize(30);
             let textBaseY = this.yCoordinate + this.ySize;
-            fill(255);
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
-            fill(255);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 35);
-            fill(255);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 55);
-            // 轮回加成信息
+            // fill(255);
+            // text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            // fill(255);
+            // text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 35);
+            // fill(255);
+            // text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 55);
+            // Reincarnation bonus information
             if (this.baseHP > this.originalBaseHP) {
                 const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
                 fill(255, 215, 0);
-                text(`轮回: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 15);
             }
         }
     }
@@ -154,7 +158,7 @@ class Boss extends BasicObject {
     }
 
     updateWavePush() {
-        // Boss不受波浪影响
+        // Boss is not affected by waves
     }
 
     bossAttack(xSpeed, ySpeed) {
@@ -170,7 +174,7 @@ class Boss extends BasicObject {
         this.aoeSkillCallBack(xCoor, yCoor, attackBit, attackPower, aoeSkillType, rotate);
     }
     applyWaveForce(forceX, forceY) {
-        // Boss不受波浪力量影响
+        // Boss is not affected by wave power
     }
 }
 

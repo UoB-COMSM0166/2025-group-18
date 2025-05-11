@@ -2,21 +2,21 @@ class TeamUI {
     constructor(backToMainCallBack) {
         this.backToMainCallBack = backToMainCallBack;
         this.teamMembers = [
-            "柳宇童",
-            "肖璟龙",
+            "Yutong Liu",
+            "Jinglong Xiao",
             "Tianyu Qi",
-            "梁立琨",
-            "夏梓豪",
-            "夏光隆"
+            "Likun Liang",
+            "Zihao Xia",
+            "Guanglong Xia"
         ];
 
         this.messages = {
-            "柳宇童": "我也不知道自己改说些什么。\n怎么办。",
-            "肖璟龙": "我觉得这个作为彩蛋很有创意。\n你也自己改。",
+            "Yutong Liu": "Empty emotion.",
+            "Jinglong Xiao": "Lucky vibes to everyone reading this",
             "Tianyu Qi": "Two sentances to say.\nInclude the previous one.:)",
-            "梁立琨": "就不改。",
-            "夏梓豪": "任何话都可以往里面加。",
-            "夏光隆": "Never compromise.\nNot even in the face of armageddon."
+            "Likun Liang": "Whatever can happen, will happen.",
+            "Zihao Xia": "Thank you for playing.",
+            "Guanglong Xia": "Love you, Mom.\nI dedicate my very first game to you."
         };
 
         this.rotation = 0;
@@ -81,16 +81,16 @@ class TeamUI {
         const circleRadius = Math.min(logicWidth, logicHeight) * 0.3;
         
         fill(220, 220, 220);
-        textSize(22);
-        text("Our Team Members have messages for you, try clicking on their names", logicWidth / 2, centerY + circleRadius + 150);
+        textSize(25);
+        text("Looks like our team members have something to say. Give their names a click!", logicWidth / 2, centerY + circleRadius + 150);
 
-        // 检查并播放音乐
+        // Check and play music
         if (teamThemeMusic && !teamThemeMusic.isPlaying()) {
             teamThemeMusic.loop();
             this.isMusicPlaying = true;
         }
 
-        this.rotation += 0.003; // 旋转速度
+        this.rotation += 0.003; // Rotation speed
         this.updateMemberButtons();
         this.drawMemberNames();
 
@@ -168,7 +168,7 @@ class TeamUI {
         text("Thanks for playing", centerX, centerY);
     }
 
-    // 预留的中心图片
+    // Reserved center image
     drawCenterImage() {
         const centerX = logicWidth / 2;
         const centerY = logicHeight / 2;
@@ -190,7 +190,7 @@ class TeamUI {
         push();
         textAlign(CENTER, CENTER);
         fill(255);
-        textSize(30);//留言信息的大小，尝试多用\n
+        textSize(30);//Size of message, try to use \n more
 
         if (message.includes('\n')) {
             const lines = message.split('\n');
@@ -254,7 +254,7 @@ class TeamUI {
         for (let btn of this.buttons) {
             if (btn.isHovered && btn.isPressed) {
                 if (btn.label == "Back" && this.backToMainCallBack) {
-                    // 退出前停止音乐
+                    // Stop music before exiting
                     if (typeof teamThemeMusic !== 'undefined' && teamThemeMusic && teamThemeMusic.isPlaying()) {
                         teamThemeMusic.stop();
                         this.isMusicPlaying = false;
