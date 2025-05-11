@@ -99,6 +99,10 @@ function preload() {
 
     // ------------------------ BOSS Bullets ------------------------
     frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/1.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/2.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/3.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/4.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/5.png'));
 
     // ------------------------ Ship Movement (Bow facing right) ------------------------
     frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/1.png'));
@@ -300,7 +304,7 @@ function preload() {
     normalFightMusic.setVolume(0.5);
     bossFightMusic = loadSound('./MusicPack/InGameMusic/BossFight.ogg');
     bossFightMusic.setVolume(0.5);
-    
+
     // Theme song audio
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
 
