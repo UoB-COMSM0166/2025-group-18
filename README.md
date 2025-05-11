@@ -1,14 +1,12 @@
 # 2025-group-18
 
-![Qphoto](docs/labprocess/week01/top.png)
-
-## 🚢🌊♻️ - Sink or Pollute
-
 <div align="center">
   <a href="https://uob-comsm0166.github.io/2025-group-18/" style="font-size: 25px; font-weight: bold;">🖱️ Game Demo</a>
 </div>
 
+![Qphoto](docs/labprocess/week01/top.png)
 
+## 🚢🌊♻️ - Sink or Pollute
 
 <p align="center"><b>Live Demo</b></p>
 <div style="text-align: center;">
@@ -17,7 +15,7 @@
 
 <div align="center">
     <p> <strong>Full Game Video</strong> </p>
-    <a href="" title="Game Video">
+    <a href="https://youtu.be/RYHz-hjxi0M" title="Game Video">
         <img src="docs/images/docs/gif/button.gif" alt="Game Video" width="500">
     </a>
 </div>
