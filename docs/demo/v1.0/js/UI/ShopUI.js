@@ -125,12 +125,12 @@ class ShopUI {
     init() {
         console.log(BUFF_MODEL);
         let items = [
-            { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: 1, priceIncrease: 0 },
-            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 25, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: 1, priceIncrease: 0 },
-            { label: 'HP +20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 30},
-            { label: BUFF_MODEL[BuffTypes.SPEED_CHANGE].name, price: 99, effect: BuffTypes.SPEED_CHANGE, times: 1, priceIncrease: 0 },
-            { label: 'ONE PIECE', price: 20000, effect: BuffTypes.HEALTH_FULL_RECOVER, times: 1, priceIncrease: 0 },
-            { label: 'Pollution -100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 25 },
+            { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: -1, priceIncrease: 100 },
+            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 25, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: -1, priceIncrease: 25 },
+            { label: 'HP +20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 60},
+            { label: BUFF_MODEL[BuffTypes.SPEED_CHANGE].name, price: 99, effect: BuffTypes.SPEED_CHANGE, times: -1, priceIncrease: 99 },
+            { label: 'ONE PIECE', price: 500, effect: BuffTypes.HEALTH_FULL_RECOVER, times: -1, priceIncrease: 500 },
+            { label: 'Pollution -100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 50 },
         ];
         this.#isInit = true;
         textFont('Helvetica');
@@ -270,13 +270,16 @@ class ShopUI {
                         this.#handleShoppingSelection(btn.type, btn.price * -1);
                     }
                     
-                    this.buttons[i].times--;
-                    if (this.buttons[i].times == 0) {
-                        this.buttons.splice(i, 1);
-                    } else {
-                        this.buttons[i].price += this.buttons[i].priceIncrease;
+                    // Don't remove items after purchase, just double the price
+                    if (btn.times != -1) {
+                        btn.times--;
+                        if (btn.times == 0) {
+                            this.buttons.splice(i, 1);
+                        }
                     }
-        
+                    
+                    // Increase price by 100% (double the price)
+                    btn.price += btn.priceIncrease;
                 }
                 playSound(frames.soundEffect.hover);
             }
