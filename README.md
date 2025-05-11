@@ -204,7 +204,22 @@ Video of Demo - TBD
 
 [<img src="docs/labprocess/week05/ClassDiagram.png" width="1000"/>](docs/labprocess/week05/ClassDiagram.png)
 
-#### 3.2 Sequence Diagram
+#### 3.2 Behavioural Diagram
+
+The `Main` class is the Game-Controller that controls all initializations and status(such as `MainUI`, `Game`, `PlayerControl`, `status`). This part is the brain of our game to ensure the accuracy of the process.
+
+After the initializations, `MainUI` will initialise all UI-parts and put them into `#UI` for players. This stage would also make `StartUI` ready to start game. Then `ChooseShipUI` is set to select difficulty and map. This step sets up the `status` of your role.
+
+`MapUI` creates many buttons and lines betweens them, which can help players to select button(node) to join a battle or a event. Meanwhile `ShopUI` is on the map too, you can improve your HP or increase bullet numbers or sth. like that.
+
+In `InGameUI` part, you will control your ship to fight(`shoot`, `skill` and `move` and avoid collision with any other objects) with all enemy and avoid disruption(`Building` like chemistry box and `Wave` can also effect your movement). Please note, `boss`(one type of `Enemy`) will also appear. Your attention should be put on the pollution level and your `HP`. All of this will be controlled by `updateStatus`.
+
+End of each round, you will get a gift(`Buff`) which can modify`bullet` speed or numbers or `Explode` damage. If you are lucky, `Pollution` effect is a better choice. The back to `MapUI` to continue.
+
+After challenging the `boss`, the outcome of the battle tells us whether we died or winned. Then we call `update_status()` to update the `Status`. Victorious `Player` can go on to face the next loop, whose enemies are even stronger (or trigger a `scenario`). If they die, the `Status` is reset and the player restarts the `Game`.
+
+This updating and looping process is managed by a method in the `Game` class, which handles the switching of `Status`. Different Statuses are integrated through methods of a class, updating the game's interface and units to ensure consistency and coherence throughout the game-play.
+
 [<img src="docs/labprocess/week05/SequenceDiagram.png" width="1000"/>](docs/labprocess/week05/SequenceDiagram.png)
 
 ---
