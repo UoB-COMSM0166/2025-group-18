@@ -11,7 +11,7 @@ class TeamUI {
         ];
 
         this.messages = {
-            "Yutong Liu": "I don't know what to say.\nWhat should I do.",
+            "Yutong Liu": "Empty emotion.",
             "Jinglong Xiao": "Lucky vibes to everyone reading this",
             "Tianyu Qi": "Two sentances to say.\nInclude the previous one.:)",
             "Likun Liang": "Whatever can happen, will happen.",
