@@ -5,8 +5,10 @@
 ## 🚢🌊♻️ - Sink or Pollute
 
 <div align="center">
-  <a href="https://uob-comsm0166.github.io/2025-group-18/">🖱️ Game Demo</a>
+  <a href="https://uob-comsm0166.github.io/2025-group-18/" style="font-size: 25px; font-weight: bold;">🖱️ Game Demo</a>
 </div>
+
+
 
 <p align="center"><b>Live Demo</b></p>
 <div style="text-align: center;">
@@ -457,7 +459,7 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 | Likun Liang | UI & Develop & QA | 1 |
 | Yutong Liu | Animation Design | 1 |
 | Zihao Xia | UI & Develop & QA | 1 |
-| Guanglong Xia | System & UI & QA | 1 |
+| Guanglong Xia | [Click here](docs/labprocess/last/xgl-contribution.docx) | 1 |
 | Jinglong Xiao | Buff & Translation & Video | 1 |
 
 </div>
