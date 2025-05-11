@@ -235,7 +235,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
    **Solution:**
     Each loop resets the map and permanently buffs all enemies—intensifying both the challenge and the thrill—while nine procedural map templates, each with dynamic layouts and unique enemy placements, keep exploration unpredictable. On top of that, fifteen route-triggered events—from blaring sirens to noxious pollution—force you into high-risk, high-reward decisions that can make or break your quest. To help you adapt, you can also pick up buffs from shops, combat victories, and event rewards, ensuring every run feels fresh, strategic, and exhilarating.
 
-2. **Frame Rate Drop**
+2. **Game Performance Optimization**
     **Description:**
     To improve gameplay experience, some maps in our game originally had many objects including numerous islands, buildings, enemies, and bullets. This caused serious frame rate drop. 
 
@@ -387,12 +387,11 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 <div align="center">
 
-| 🙋‍♂️ Name | 📧 Email | 🛠️ Role | ✅ Contribution |
-| :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | TBD | TBD |
-
+| Name | Contribution | Weight |
+| :--- | :--- | :---: |
+| Tianyu Qi | TBD | TBD |
+| Likun Liang | TBD | TBD |
+| Yutong Liu | TBD | TBD |
+| Zihao Xia | TBD | TBD |
+| Guanglong Xia | TBD | TBD |
 </div>

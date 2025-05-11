@@ -132,7 +132,7 @@ class Game {
     }
 
 
-    initEnemies(loopCount = 0) {
+    initEnemies(enemyInfo, loopCount = 0) {
         if (this.#enemyWave >= this.#allEnemies.length) {
             return;
         }
@@ -160,9 +160,9 @@ class Game {
 
             // Enhance enemy abilities based on loop count
             if (loopCount > 0) {
-                // Each loop adds 20% health and 20% attack power
-                const hpMultiplier = 1 + (loopCount * 0.2);
-                const attackMultiplier = 1 + (loopCount * 0.2);
+                // Each loop adds 50% health and 50% attack power
+                const hpMultiplier = 1 + (loopCount * 0.5);
+                const attackMultiplier = 1 + (loopCount * 0.5);
 
                 newEnemy.baseHP = Math.floor(newEnemy.originalBaseHP * hpMultiplier);
                 newEnemy.maxHP = Math.floor(newEnemy.baseHP * this.#pollution.getEffect().healthMul);
@@ -232,9 +232,9 @@ class Game {
         }
         // Enhance Boss abilities based on loop count
         if (loopCount > 0) {
-            // Each loop adds 30% health and 25% attack power
-            const hpMultiplier = 1 + (loopCount * 0.3);
-            const attackMultiplier = 1 + (loopCount * 0.25);
+            // Each loop adds 50% health and 50% attack power
+            const hpMultiplier = 1 + (loopCount * 0.5);
+            const attackMultiplier = 1 + (loopCount * 0.5);
             boss.baseHP = Math.floor(boss.originalBaseHP * hpMultiplier);
             boss.maxHP = Math.floor(boss.baseHP * this.#pollution.getEffect().healthMul);
             boss.HP = boss.maxHP;
@@ -451,7 +451,7 @@ class Game {
         }
         if (this.#enemies.length == 0) {
             if (this.#bossCount == 0) {
-                this.initEnemies(this.#loopCount);
+                this.initEnemies(this.#allEnemies[this.#enemyWave], this.#loopCount);
             } else {
                 if (this.#pollution.getEffect().secondBoss) {
                     this.initBoss(this.#loopCount);

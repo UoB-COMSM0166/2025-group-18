@@ -30,13 +30,10 @@ class MorseCodeUI {
             onClick: () => {
                 if (!this.isPlayingSound) {
                     this.isPlayingSound = true;
-                    this.soundEffects.playNoise();
+                    this.soundEffects.playEgg();
                     setTimeout(() => {
-                        this.soundEffects.playEgg();
-                        setTimeout(() => {
-                            this.isPlayingSound = false;
-                        }, 11000);
-                    }, 3000);
+                        this.isPlayingSound = false;
+                    }, 11000);
                 }
             }
         };
