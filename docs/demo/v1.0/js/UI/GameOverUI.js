@@ -23,6 +23,22 @@ class GameOverUI {
             "generic": "Danger at sea puts an end to your adventure...",
             "Choose": "Wrong choice, the ocean obviously doesn't intend to give you room for regret."
         };
+
+        this.isMusicPlaying = false;
+    }
+
+    playDeathMusic() {
+        if (deathThemeMusic && !deathThemeMusic.isPlaying()) {
+            deathThemeMusic.loop();
+            this.isMusicPlaying = true;
+        }
+    }
+    
+    stopDeathMusic() {
+        if (deathThemeMusic && deathThemeMusic.isPlaying()) {
+            deathThemeMusic.stop();
+            this.isMusicPlaying = false;
+        }
     }
 
     createButton() {
@@ -61,6 +77,10 @@ class GameOverUI {
     }
 
     draw() {
+        if (!this.isMusicPlaying) {
+            this.playDeathMusic();
+        }
+
         this.frameCount++;
         if (this.fadeInOpacity < 0.6) {
             this.fadeInOpacity += this.fadeInSpeed;
@@ -146,6 +166,7 @@ class GameOverUI {
         }
         if (this.buttonHovered && this.buttonOpacity > 0.5) {
             playSound(frames.soundEffect.hover);
+            this.stopDeathMusic();
             this.gameOverCallBack();
         }
     }

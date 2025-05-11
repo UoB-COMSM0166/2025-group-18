@@ -55,15 +55,17 @@ class InGameUI {
     }
 
     update(playerStatus) {
-        this.targetHP = playerStatus.HP;
-        this.targetHPmax = playerStatus.HPmax;
+        // this.targetHP = playerStatus.HP;
+        // this.targetHPmax = playerStatus.HPmax;
         this.gold = playerStatus.gold;
         this.playerLoopCount = playerStatus.loopCount || 0;
+        this.currentHP = playerStatus.HP;
+        this.currentHPmax = playerStatus.HPmax;
 
-        this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
-        this.currentHPmax = this.targetHPmax > 0 ?
-            lerp(this.currentHPmax, this.targetHPmax, 0.1) : 1;
-        this.currentHP = Math.max(0, Math.min(this.currentHP, this.targetHP));
+        // this.currentHP = lerp(this.currentHP, this.targetHP, 0.1);
+        // this.currentHPmax = this.targetHPmax > 0 ?
+        //     lerp(this.currentHPmax, this.targetHPmax, 0.1) : 1;
+        // this.currentHP = Math.max(0, Math.min(this.currentHP, this.targetHP));
 
         // dynamic scaling
         this.pulse = sin(frameCount * 60 / logicFrameRate * 0.01) * 0.002;

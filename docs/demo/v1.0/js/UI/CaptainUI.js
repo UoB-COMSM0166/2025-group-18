@@ -45,6 +45,7 @@ class CaptainUI {
             this.videoElement.loop();
             this.videoElement.pause();
             this.videoElement.hide();
+            this.videoElement.volume(1);
             this.videoLoaded = true;
             this.isPlaying = false;
         } catch (error) {

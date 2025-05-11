@@ -110,8 +110,11 @@ class Boss extends BasicObject {
         let hpBar = xSize * (this.HP / this.maxHP);
 
         let nameStr = this.name.substring(this.name.indexOf('_') + 1);
+        nameStr = nameStr.charAt(0).toUpperCase() + nameStr.slice(1);
         fill(255);
         noStroke();
+        textAlign(CENTER, CENTER);
+        textSize(70);
         text(nameStr, hpBarX, hpBarY * 0.95);
 
         fill(220);
@@ -129,19 +132,19 @@ class Boss extends BasicObject {
         if (this.isAlive) {
             // For testing
             textAlign(CENTER, CENTER);
-            textSize(14);
+            textSize(30);
             let textBaseY = this.yCoordinate + this.ySize;
-            fill(255);
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
-            fill(255);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 35);
-            fill(255);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 55);
+            // fill(255);
+            // text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            // fill(255);
+            // text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 35);
+            // fill(255);
+            // text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 55);
             // Reincarnation bonus information
             if (this.baseHP > this.originalBaseHP) {
                 const loopBonus = Math.round((this.baseHP / this.originalBaseHP - 1) * 100);
                 fill(255, 215, 0);
-                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 75);
+                text(`Reincarnation: +${loopBonus}%`, this.xCoordinate, textBaseY + 15);
             }
         }
     }

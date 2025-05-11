@@ -128,8 +128,10 @@ class Main {
     updateAll() {
         // push();
         // logicCanvas.push();
+        playSound(normalFightMusic);
         switch (this.#step) {
             case MAIN_STEP_CAPTAIN_UI: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showCaptainUI();
                 break;
             }
@@ -151,6 +153,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_MAP_UI: {
+                normalFightMusic.setVolume(0.5);
                 logicCanvas.push();
                 logicCanvas.translate(- logicWidth / 2, - logicHeight / 2);
                 this.#UI.showMapUI();
@@ -173,6 +176,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_SHOP: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showShopUI(this.#status.getShipStatus().gold);
                 break;
             }
@@ -189,14 +193,17 @@ class Main {
                 break;
             }
             case MAIN_STEP_WIN_BOSS: {
+
                 this.#UI.showGameWinBossUI();
                 break;
             }
             case MAIN_STEP_START_UI_TEAM: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showTeamUI();
                 break;
             }
             case MAIN_STEP_MORSE_CODE: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showMorseCodeUI();
                 break;
             }
@@ -287,6 +294,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
+                this.#UI.getShopUI().init();
                 this.#UI.gameOverMousePressed();
                 break;
             }
@@ -400,7 +408,7 @@ class Main {
         if (stepChangeType == MAIN_STEP_MORSE_CODE && this.#step == MAIN_STEP_WIN_BOSS) {
             const loopCount = this.#status.getLoopCount();
             console.log("Returning to pier with loop count:", loopCount);
-            if (loopCount < 0) {//Egg loop
+            if (loopCount < 2) {//Egg loop
                 console.log("Loop count < 2, skipping Morse Code UI and going directly to Game Summary");
                 stepChangeType = MAIN_STEP_GAME_SUMMARY;
             }

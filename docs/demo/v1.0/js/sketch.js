@@ -17,7 +17,7 @@ let frames = {
     },
     boss: {
         boss_octopus: [],
-        boss_bird: [],
+        boss_Toxicore: [],
     },
     aoeSkill: {
         boss_1_skill_1: [],
@@ -99,6 +99,10 @@ function preload() {
 
     // ------------------------ BOSS Bullets ------------------------
     frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/1.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/2.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/3.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/4.png'));
+    frames.bossBullet.push(loadImage('images/docs/img/png/BOSS_bullet/5.png'));
 
     // ------------------------ Ship Movement (Bow facing right) ------------------------
     frames.shipMove.D.push(loadImage('images/docs/img/png/main_boat/move_right/1.png'));
@@ -169,15 +173,15 @@ function preload() {
     frames.aoeSkill.boss_1_skill_2_2.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_1_skill_2/1.png'));
 
     // ------------------------ BOSS 2 ------------------------
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/01.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/02.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/03.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/04.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/05.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/06.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/07.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
-    frames.boss.boss_bird.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/01.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/02.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/03.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/04.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/05.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/06.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/07.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/08.png'));
+    frames.boss.boss_Toxicore.push(loadImage('images/docs/img/png/BOSS/Boss_2/09.png'));
 
     // ------------------------ BOSS 2 Skill 2 ------------------------
     frames.aoeSkill.boss_2_skill_1.push(loadImage('images/docs/img/png/BOSS_skill/BOSS_2_skill_1/1.png'));
@@ -295,6 +299,12 @@ function preload() {
     frames.mapIcon.mapBG = loadImage('images/docs/img/png/mapIcon/mapBG.webp');
     frames.mapIcon.mapMask = loadImage('images/docs/img/png/mapIcon/mask.webp');
 
+    //  load Music
+    normalFightMusic = loadSound('./MusicPack/InGameMusic/NormalFight.ogg');
+    normalFightMusic.setVolume(0.5);
+    bossFightMusic = loadSound('./MusicPack/InGameMusic/BossFight.ogg');
+    bossFightMusic.setVolume(0.5);
+
     // Theme song audio
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
 
@@ -309,6 +319,14 @@ function preload() {
     // player skill audio
     playerSkillSound = loadSound('./MusicPack/player/skill/skill-01.ogg');
     playerSkillSound.setVolume(0.5);
+
+    // Shop music audio
+    shopThemeMusic = loadSound('./MusicPack/InGameMusic/ShopMusic.ogg');
+    shopThemeMusic.setVolume(0.5);
+
+    // Death music audio
+    deathThemeMusic = loadSound('./MusicPack/InGameMusic/Deadmusic.ogg');
+    deathThemeMusic.setVolume(0.5);
 
     // soundEffect audio
     frames.soundEffect.correct = loadSound('./MusicPack/SoundEffects/Correct.ogg');
@@ -343,7 +361,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 30;
+let logicFrameRate = 40;
 
 function setup() {
     main = new Main();
@@ -383,7 +401,7 @@ function draw() {
 
     logicX = map(mouseX, marginX, marginX + logicWidth * scaleRatio, 0, logicWidth);
     logicY = map(mouseY, marginY, marginY + logicHeight * scaleRatio, 0, logicHeight);
-    
+
     push();
     resetMatrix();
     translate(marginX, marginY);
@@ -393,7 +411,7 @@ function draw() {
     beginClip();
     rect(0, 0, logicWidth, logicHeight);
     endClip();
-    
+
     // rectMode(CORNER);
     imageMode(CENTER);
     image(logicCanvas, logicWidth / 2, logicHeight / 2);

@@ -91,6 +91,9 @@ class Game {
     }
 
     initRandomMap(loopCount = 0) {
+        normalFightMusic.setVolume(0.5);
+        bossFightMusic.setVolume(0);
+        playSound(normalFightMusic);
         // Randomly select background image
         const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
         frames.currentBackground = frames.background[randomBackgroundIndex];
@@ -112,6 +115,9 @@ class Game {
     }
 
     initRandomBossMap(loopCount = 0) {
+        normalFightMusic.setVolume(0);
+        bossFightMusic.setVolume(0.5);
+        playSound(bossFightMusic);
         // Randomly select background image
         const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
         frames.currentBackground = frames.background[randomBackgroundIndex];
@@ -416,13 +422,17 @@ class Game {
 
 
         if (this.#player.HP <= 0) {
+            bossFightMusic.setVolume(0);
+            normalFightMusic.setVolume(0);
             this.#gameOver = true;
             this.deathReason = "hp";
             console.log("Game Over! HP depleted");
         }
 
-        let pollutionEffect = this.#pollution.getEffect();
-        this.#player.updateHP(-1 * pollutionEffect.poisonFog);
+        if (this.#player.HP > 1) {
+            let pollutionEffect = this.#pollution.getEffect();
+            this.#player.updateHP(-10 / logicFrameRate * pollutionEffect.poisonFog);
+        }
 
         for (let island of this.#islands) {
             island.show();
@@ -437,7 +447,7 @@ class Game {
                 let enemy = this.#enemies[i];
                 if (!enemy.isAlive) {
                     if (enemy instanceof Boss) {
-                        this.#pollution.increasePollution("boss_kill", 0.5 * enemy.maxHP);
+                        this.#pollution.increasePollution("boss_kill", 0.05 * enemy.maxHP);
                     } else {
                         this.#pollution.increasePollution("enemy_kill", enemy.maxHP);
                     }
@@ -460,6 +470,8 @@ class Game {
         }
 
         if (this.#enemies.length == 0) {
+            bossFightMusic.setVolume(0);
+            normalFightMusic.setVolume(0.5);
             this.#gameWin = true;
         }
 
@@ -477,7 +489,7 @@ class Game {
                 rubbishCount++;
             }
         }
-        if (this.#pollution.getPollutionLevel() > 3
+        if (this.#pollution.getPollutionLevel() > 2
             && rubbishCount < 20
             && Math.random() < this.#pollution.getPollutionLevel() / 60) {
             let newRubbishX = Math.floor(Math.random() * logicWidth);
