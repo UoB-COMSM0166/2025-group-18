@@ -79,6 +79,7 @@ const SHIP_MODEL = [
         damage: 0,
         basicDamage: 0,
         bulletNumber: 0,
+        gold: 0
     }, {
         name: "ship1",
         type: SHIP_MODEL_1_TYPE,
@@ -90,7 +91,8 @@ const SHIP_MODEL = [
         damage: 2,
         basicDamage: 1,
         bulletNumber: 1,
-        pollutionStart: 400
+        pollutionStart: 400,
+        gold: 100000
     }, {
         name: "ship2",
         type: SHIP_MODEL_2_TYPE,
@@ -102,7 +104,8 @@ const SHIP_MODEL = [
         damage: 1.5,
         basicDamage: 1,
         bulletNumber: 1,
-        pollutionStart: 550
+        pollutionStart: 550,
+        gold: 150
     }, {
         name: "ship3",
         type: SHIP_MODEL_3_TYPE,
@@ -114,7 +117,8 @@ const SHIP_MODEL = [
         damage: 1.5,
         basicDamage: 1.5,
         bulletNumber: 1,
-        pollutionStart: 700
+        pollutionStart: 700,
+        gold: 200
     }
 ];
 
