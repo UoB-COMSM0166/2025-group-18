@@ -343,7 +343,7 @@ let logicX;
 let logicY;
 let scaleRatio;
 
-let logicFrameRate = 30;
+let logicFrameRate = 40;
 
 function setup() {
     main = new Main();
