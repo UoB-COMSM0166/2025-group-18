@@ -114,6 +114,7 @@ class Boss extends BasicObject {
         fill(255);
         noStroke();
         textAlign(CENTER, CENTER);
+        textFont(this.font || 'Arial Black');
         textSize(70);
         text(nameStr, hpBarX, hpBarY * 0.95);
 

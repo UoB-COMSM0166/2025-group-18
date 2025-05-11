@@ -136,18 +136,22 @@ class Main {
                 break;
             }
             case MAIN_STEP_START_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showStartUI();
                 break;
             }
             case MAIN_STEP_STORY_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showStoryUI();
                 break;
             }
             case MAIN_STEP_TUTORIAL_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showTutorialUI();
                 break;
             }
             case MAIN_STEP_CHOOSE_SHIP_UI: {
+                normalFightMusic.setVolume(0.5);
                 this.#UI.showChooseShipUI();
                 this.#UI.initMap();
                 break;
@@ -172,6 +176,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_REWARD: {
+                normalFightMusic.setVolume(0.5);
                 this.gameReward();
                 break;
             }

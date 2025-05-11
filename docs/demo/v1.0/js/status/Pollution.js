@@ -4,7 +4,7 @@ class Pollution {
         this.pollutionLevel = 1;
         this.enemyKillReductionMul = 2;
         this.pollutionSources = {
-            bullet: 5,
+            bullet: 2,
             skill: 10,
             bomb: 30,
             TNT: 20,
