@@ -421,8 +421,10 @@ class Game {
             console.log("Game Over! HP depleted");
         }
 
-        let pollutionEffect = this.#pollution.getEffect();
-        this.#player.updateHP(-1 * pollutionEffect.poisonFog);
+        if (this.#player.HP > 1) {
+            let pollutionEffect = this.#pollution.getEffect();
+            this.#player.updateHP(-10 / logicFrameRate * pollutionEffect.poisonFog);
+        }
 
         for (let island of this.#islands) {
             island.show();
