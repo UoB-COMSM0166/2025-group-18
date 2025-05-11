@@ -15,6 +15,8 @@ class ShopUI {
         this.targetBorderSize = 50;
         this.borderColor = null; 
         this.currentGold = 0;    // Stores current player gold (dynamically assigned by draw(gold))
+
+        this.isMusicPlaying = false;
     }
   
     // Used to create internal button class (similar to ChooseBuffButton class in GameRewardUI)
@@ -103,6 +105,20 @@ class ShopUI {
                 return this.isHovered;
         }
     };
+
+    playShopMusic() {
+        if (shopThemeMusic && !shopThemeMusic.isPlaying()) {
+            shopThemeMusic.loop();
+            this.isMusicPlaying = true;
+        }
+    }
+    
+    stopShopMusic() {
+        if (shopThemeMusic && shopThemeMusic.isPlaying()) {
+            shopThemeMusic.stop();
+            this.isMusicPlaying = false;
+        }
+    }
     
     // Initialize the shop UI
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
@@ -120,6 +136,7 @@ class ShopUI {
         textFont('Helvetica');
         noStroke();
         this.createButtons(items);
+        this.playShopMusic();
     }
 
     // Whether initialized

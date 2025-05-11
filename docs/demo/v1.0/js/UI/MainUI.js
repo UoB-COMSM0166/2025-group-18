@@ -53,6 +53,8 @@ class MainUI {
         this.#morseCodeUI = new MorseCodeUI(this.#handleMorseCodeComplete.bind(this));
         this.#gameSummaryUI = new GameSummaryUI(this.#handleGameSummaryComplete.bind(this));
         this.#storyUI = new StoryUI(this.#handleStoryComplete.bind(this));
+        this.#shopUI = new ShopUI(this.#handleShoppingSelection.bind(this), this.#handleShopExitSeletion.bind(this));
+        this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
     }
 
     showStartUI() {
@@ -191,6 +193,8 @@ class MainUI {
         }
         if (!this.#shopUI.isInit()) {
             this.#shopUI.init();
+        } else {
+            this.#shopUI.playShopMusic();
         }
         this.#shopUI.draw(gold);
     }
@@ -202,11 +206,11 @@ class MainUI {
         if (!this.#randomEventUI.isInit()) {
             this.#randomEventUI.init();
         }
-        
+
         if (playerStatus) {
             this.#randomEventUI.updatePlayerStatus(playerStatus);
         }
-        
+
         this.#randomEventUI.draw();
     }
 
@@ -561,10 +565,13 @@ class MainUI {
     }
 
     #handleShopExitSeletion() {
-        if (this.updateStep) {
-            this.updateStep(MAIN_STEP_MAP_UI);
-        }
+    if (shopThemeMusic && shopThemeMusic.isPlaying()) {
+        shopThemeMusic.stop();
     }
+    if (this.updateStep) {
+        this.updateStep(MAIN_STEP_MAP_UI);
+    }
+}
 
     #handleRandomEventSelection(eventResult) {
         if (eventResult.action == 'gameover') {
@@ -587,6 +594,9 @@ class MainUI {
     }
 
     #handleGameOver() {
+        if (deathThemeMusic && deathThemeMusic.isPlaying()) {
+            deathThemeMusic.stop();
+        }
         this.updateStep(MAIN_STEP_START_UI);
     }
 
@@ -615,6 +625,7 @@ class MainUI {
     }
 
     #handleMorseCodeComplete() {
+        this.stopShopMusic();
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_GAME_SUMMARY);
         }
