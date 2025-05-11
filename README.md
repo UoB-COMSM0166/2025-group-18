@@ -40,7 +40,7 @@
 | Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | Developer | UIs / Pet / Equipment / Enemy / QA |
 | Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | Animation Designer | Character & Motion & Narrative Design |
 | Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | Developer | enemyAI / Boss / MapUI / Bullet / QA |
-| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Project Manager | [Click here](docs/labprocess/last/xgl-contribution.docx) |
+| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Project Manager | [Click here](docs/labprocess/last/DevelopmentContributions.md) |
 | Jinglong Xiao | qo24236@bristol.ac.uk | yusheng2077 | Developer | Buff / Translation / Video |
 
 </div>
@@ -459,7 +459,7 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 | Likun Liang | UI & Develop & QA | 1 |
 | Yutong Liu | Animation Design | 1 |
 | Zihao Xia | UI & Develop & QA | 1 |
-| Guanglong Xia | [Click here](docs/labprocess/last/xgl-contribution.docx) | 1 |
+| Guanglong Xia | [Click here](docs/labprocess/last/DevelopmentContributions.md) | 1 |
 | Jinglong Xiao | Buff & Translation & Video | 1 |
 
 </div>
