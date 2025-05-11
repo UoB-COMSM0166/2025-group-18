@@ -195,9 +195,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//Change the filename and put it in the corresponding folder to adapt
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//Change the filename and put it in the corresponding folder to adapt
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'//Change the filename and put it in the corresponding folder to adapt
+                imagePath: 'images/docs/img/png/RandomEvent/5_1.webp',//Change the filename and put it in the corresponding folder to adapt
+                acceptImagePath: 'images/docs/img/png/RandomEvent/5_2.webp',//Change the filename and put it in the corresponding folder to adapt
+                declineImagePath: 'images/docs/img/png/RandomEvent/5_3.webp'//Change the filename and put it in the corresponding folder to adapt
             },
             {
                 // Orange seller event
@@ -221,9 +221,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//Change the filename and put it in the corresponding folder to adapt
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',//Change the filename and put it in the corresponding folder to adapt
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'//Change the filename and put it in the corresponding folder to adapt
+                imagePath: 'images/docs/img/png/RandomEvent/6_1.webp',//Change the filename and put it in the corresponding folder to adapt
+                acceptImagePath: 'images/docs/img/png/RandomEvent/6_2.webp',//Change the filename and put it in the corresponding folder to adapt
+                declineImagePath: 'images/docs/img/png/RandomEvent/6_3.webp'//Change the filename and put it in the corresponding folder to adapt
             },
             {
                 // Developer help event
@@ -247,9 +247,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/7_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/7_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/7_3.webp'
             },
             {
                 // Mysterious island event
@@ -273,9 +273,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/8_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/8_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/8_3.webp'
             },
             {
                 // Pirate attack event
@@ -299,9 +299,9 @@ class RandomEventUI {
                     goldChange: 300,
                     pollutionChange: 300
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/9_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/9_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/9_3.webp'
             },
             {
                 // Ecological protection event
@@ -325,9 +325,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 300
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/10_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/10_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/10_3.webp'
             },
             {
                 // Shipwreck event
@@ -351,9 +351,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/11_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/11_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/11_3.webp'
             },
             {
                 // Lost direction event
@@ -377,9 +377,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 200
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/12_1.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/12_2.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/12_3.webp'
             },
             {
                 // 
@@ -430,9 +430,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/14.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/14.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/14.webp'
             },
             {
                 // Mysterious merchant event
@@ -456,9 +456,9 @@ class RandomEventUI {
                     goldChange: 0,
                     pollutionChange: 0
                 },
-                imagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                acceptImagePath: 'images/docs/img/png/RandomEvent/1_2.webp',
-                declineImagePath: 'images/docs/img/png/RandomEvent/1_2.webp'
+                imagePath: 'images/docs/img/png/RandomEvent/15.webp',
+                acceptImagePath: 'images/docs/img/png/RandomEvent/15.webp',
+                declineImagePath: 'images/docs/img/png/RandomEvent/15.webp'
             }
         ];
     }
