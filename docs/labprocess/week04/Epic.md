@@ -1,102 +1,77 @@
-## **Epic：实现可重复游玩且高度策略化的roguelike核心循环**
+## **Epic: Build a Replayable and Strategy-Rich Roguelike Core Loop**
 
-### **Epic 描述**
+### **Epic Description**
 
-在游戏中建立一个可重复游玩、并且每次流程都能产生不同策略抉择的roguelike核心循环，包括随机关卡生成、装备与技能的策略搭配、渐进式难度提升以及关卡奖励/惩罚机制。该 Epic 的目标是让玩家能够在不断“开局-探索-战斗-死亡/胜利-再次开局”的循环中，体验到乐趣、挑战与成长。
-
-1. **内部关系人：**
-
-    - **管理者（项目负责人）**
-
-        - **关注点**：把控整体进度与预算，确保roguelike核心循环的开发不会超出项目资源。
-
-        - **目标**：在有限的开发周期内完成“随机关卡”与“可重复游戏”关键功能，为后期内容扩充打好基础。
-
-        - **价值体现**：能够增加游戏的可玩性、延长游戏寿命，从而带动潜在收入与口碑。
-
-    - **代码开发人员**
-
-        - **关注点**：构建可扩展的程序架构，实现高效的随机生成算法、敌人/物品/关卡数据管理以及与前端的交互。
-
-        - **目标**：开发出易维护、可复用的系统，后续增添新模块或平衡性调整时不需要大规模重构。
-
-        - **价值体现**：通过通用化的生成及配置系统，为关卡/数值设计人员提供灵活的接口和工具，减少后期重复工作量。
-
-    - **数值关卡设计人员**
-
-        - **关注点**：在随机性和可控性之间取得平衡，让“roguelike”特性既有乐趣又不会因过度随机而挫败玩家。
-
-        - **目标**：设计敌人、资源、装备的掉落与成长曲线，使玩家在多次循环中能感受到逐步升级与探索乐趣；并且保证难度曲线既有挑战又可被策略克服。
-
-        - **价值体现**：一个合理的关卡与数值框架，可以不断吸引玩家“再来一局”，并且为后续更新（新地图、新Boss、新机制等）提供可持续拓展。
-
-2. **外部关系人：**
-
-    -
-**投资方**
-
-        - **关注点**：项目的市场竞争力与盈利前景；游戏是否具备“长线运营”或“可持续内容更新”的潜力。
-
-        - **目标**：让roguelike核心循环成为游戏的亮点，吸引核心玩家并通过口碑传播扩大受众，实现较为稳健的投资回报。
-
-        - **价值体现**：与传统一次性体验的游戏相比，采用roguelike机制往往能带来更高的玩家游玩时长与重复购入（DLC、付费道具等），在商业上更具吸引力。
-
-    -
-**游戏玩家**
-
-        - **关注点**：玩法是否有足够深度与乐趣、随机性是否带来新鲜感与刺激、以及失败后是否依然能获得成就感（或资源积累）。
-
-        - **目标**：玩家希望能够通过多种策略玩法（武器/装备搭配、角色发展路线、环境/地形利用等）来应对不断变化的关卡。失败后也能学到经验，并对下一轮挑战充满期待。
-
-        - **价值体现**：玩家能持续获得“新东西可玩”的体验，不断提高自己的操作与策略水平，形成良好的游戏循环。
-
-    -
-**游戏审核**
-
-        - **关注点**：游戏内容是否符合政策法规和分级规范（例如暴力、血腥等方面的限制），游戏是否涉及过度赌博机制或不当随机抽卡。
-
-        - **目标**：确保随机要素设计在合理范围内，不影响游戏发行审批；如有敏感元素，要做好分级管理或替换优化。
-
-        - **价值体现**：合规发行可以避免后期被强制整改或下架，也能增加游戏在不同地区上线的成功率。
-
-### **用户故事**
-
-1. bot1 - "动作射击爱好者"
-
-        作为一个动作射击类游戏爱好者，我最近有很多时间，但是大部分动作射击重复性都太高了，我想玩一款包含更多随机性的动作射击游戏。
-
-2. bot2 - "roguelike爱好者"
-
-        作为一名roguelike游戏爱好者，我玩过很多roguelike游戏，但是很少有roguelike游戏把改变战斗场地也作为策略性的一部分，我想玩一款将改变战斗场地也纳入游戏策略的roguelike游戏。
-
-3. bot3 - "游戏小白"
-
-        作为一名游戏小白，我一直想尝试roguelike游戏，但是诸如以撒的结合和杀戮尖塔等等游戏的上手难度太高了，我很难坚持下去。我想要可以个性化游戏难度，这样我就可以根据自己的游戏水平来选择游戏难度。
-
-4. bot4 - "投资方"
-
-        我们希望游戏有足够大的游玩空间和长时间游玩新鲜感，留存足够多的用户。
-
-5. bot5 - “游戏审核”
-
-        作为一名游戏审核，我想要这个游戏的受众更全面，因此我需要尽可能规避血腥暴力的画面。
-
-6. bot6 - “色弱玩家”
-
-        作为一名色弱玩家，在快节奏的动作游戏中经常难以分辨游戏画面中的角色、物品等，我希望游戏中出现的元素都有明显的视觉效果，比如不同颜色的描边，给我更好的视觉体验。
-
-7. bot7 - “游戏开发者”
-
-        作为游戏开发者，想要在我们的游戏中为玩家养成保护环境意识，因此在设计中引入了世界环境等级。每一次攻击都会根据攻击的类型给世界环境带来一定伤害，环境的恶化程度会影响游戏难度，让玩家每一次决策都要考虑到环保因素。
+Create a roguelike core loop that players can enjoy again and again. Each playthrough offers different strategy choices, including random level generation, gear and skill combinations, progressive difficulty, and reward/punishment systems. The goal is to give players fun, challenge, and a sense of growth in the cycle of “start - explore - fight - die/win - restart”.
 
 ---
 
-### **本 Epic 带来的收益与关键价值**
+### **1. Internal Stakeholders**
 
-- **长线可玩性**：roguelike核心循环能为玩家带来一遍又一遍的挑战与乐趣，延长游戏寿命。
+- **Manager (Project Lead)**  
+  - **Focus:** Monitor progress and budget to keep development within project limits.  
+  - **Goal:** Finish key features like random levels and replayability within the schedule, and prepare for future content.  
+  - **Value:** Increases playtime and game lifespan, helping with player retention and possible revenue.
 
-- **可拓展性**：在“基础随机与循环”系统搭建完成后，后续新功能与内容（新关卡、新敌人、新装备）都能快速接入。
+- **Programmers**  
+  - **Focus:** Build scalable systems for random generation, enemy/item/level data handling, and front-end interaction.  
+  - **Goal:** Create systems that are easy to maintain and reuse, allowing future updates without major changes.  
+  - **Value:** A flexible backend helps designers work faster and reduces repeated tasks later.
 
-- **商业潜力**：这类高重复游玩的模式更容易积累玩家口碑，同时也能通过DLC、赛季制或季票等方式运营。
+- **Level & Gameplay Designers**  
+  - **Focus:** Balance fun and fairness in randomness, so it feels challenging but not frustrating.  
+  - **Goal:** Design enemies, drops, and progression that make players feel rewarded over time, with fair and beatable difficulty.  
+  - **Value:** A solid system keeps players coming back and makes future updates easier to add.
 
-- **团队协作明确**：不同的内部角色（管理者、开发人员、设计人员）都能在这一框架下清楚自己负责的模块及验收目标；外部角色（投资方、玩家、审核部门）也能明确预期并提供反
+---
+
+### **2. External Stakeholders**
+
+- **Investors**  
+  - **Focus:** Market potential and long-term profit.  
+  - **Goal:** Make the roguelike loop a key feature to attract core players and grow by word of mouth.  
+  - **Value:** Roguelike design increases play hours and repeat purchases (DLC, items), making it more commercially attractive.
+
+- **Players**  
+  - **Focus:** Is the game fun and deep? Is randomness fresh and exciting? Can failure still feel rewarding?  
+  - **Goal:** Use strategy (gear, builds, terrain) to beat changing levels, and learn from failure for the next run.  
+  - **Value:** Players always feel there’s something new, and improve with each playthrough.
+
+- **Game Review & Approval**  
+  - **Focus:** Follow content rules (violence, blood, etc.) and avoid gambling-like systems.  
+  - **Goal:** Keep random mechanics within safe limits to pass approval, and adjust sensitive content as needed.  
+  - **Value:** Smooth approval avoids delays or removal from stores and helps launch in more regions.
+
+---
+
+### **User Stories**
+
+1. **bot1 – “Action Shooter Fan”**  
+   As a fan of action shooters, I have a lot of time now, but most of them feel too repetitive. I want a game with more randomness.
+
+2. **bot2 – “Roguelike Fan”**  
+   As a roguelike fan, I’ve played many, but few games use battlefield changes as part of the strategy. I want that in a roguelike.
+
+3. **bot3 – “New Player”**  
+   As a beginner, I want to try roguelikes, but games like *Binding of Isaac* and *Slay the Spire* are too hard to get into. I want to adjust the difficulty myself to match my skill.
+
+4. **bot4 – “Investor”**  
+   We want the game to offer enough variety and long-term freshness to keep players.
+
+5. **bot5 – “Game Reviewer”**  
+   As a reviewer, I want the game to fit a wide audience, so I need it to avoid bloody or violent scenes.
+
+6. **bot6 – “Colorblind Player”**  
+   As a colorblind player, I often can’t tell items or characters apart in fast games. I hope the visuals use clear outlines and colors.
+
+7. **bot7 – “Game Developer”**  
+   As a developer, we want to raise environmental awareness. So we added a system where attacks harm the environment, making difficulty rise if it gets worse. Players must think about their actions.
+
+---
+
+### **Benefits and Key Value of This Epic**
+
+- **Long-Term Playability:** The roguelike loop gives players fun and challenge again and again, increasing game lifespan.  
+- **Expandability:** Once the random loop system is built, adding new content like levels, enemies, and gear is easy.  
+- **Business Potential:** High replay value helps build a strong player base and supports DLC, seasons, or passes.  
+- **Clear Team Roles:** Internal roles (managers, developers, designers) know their parts; external roles (investors, players, reviewers) also know what to expect and can give feedback.

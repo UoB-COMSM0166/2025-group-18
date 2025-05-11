@@ -4,14 +4,23 @@
 
 ## 🚢🌊♻️ - Sink or Pollute
 
-[🖱️ Game Demo](https://uob-comsm0166.github.io/2025-group-18/)
-
-Video of Demo - TBD
-
-<div style="text-align: center;">
-    <video src="https://github.com/user-attachments/assets/f20b9884-b72e-4ccb-a19a-69b9ebbc92a4" controls width="600"></video>
+<div align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-18/" style="font-size: 25px; font-weight: bold;">🖱️ Game Demo</a>
 </div>
 
+
+
+<p align="center"><b>Live Demo</b></p>
+<div style="text-align: center;">
+    <video src="https://github.com/user-attachments/assets/87385110-d520-4592-b841-c3bcf2562638" controls width="600"></video>
+</div>
+
+<div align="center">
+    <p> <strong>Full Game Video</strong> </p>
+    <a href="" title="Game Video">
+        <img src="docs/images/docs/gif/button.gif" alt="Game Video" width="500">
+    </a>
+</div>
 
 >  [!IMPORTANT] 
 >
@@ -21,17 +30,18 @@ Video of Demo - TBD
 
 ![Qphoto](docs/labprocess/week01/group.jpg)
 
-![photo](docs/labprocess/week01/ourphoto.jpeg)
+![photo](docs/labprocess/week01/ourphoto.png)
 
 <div align="center">
 
 | 🙋‍♂️ Name | 📧 Email | 💻 GithubID | 🛠️ Role | ✅ Completed Work |
 | :-: | :-: | :-: | :-: | :-: |
-| Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | TBD | TBD |
-| Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | TBD |TBD |
-| Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | TBD | TBD |
-| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | TBD | TBD |
-| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | TBD | TBD |
+| Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | Game Designer | Scrum Master / System Design / Game & Balance Design |
+| Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | Developer | UIs / Pet / Equipment / Enemy / QA |
+| Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | Animation Designer | Character & Motion & Narrative Design |
+| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | Developer | enemyAI / Boss / MapUI / Bullet / QA |
+| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Project Manager | [Click here](docs/labprocess/last/DevelopmentContributions.md) |
+| Jinglong Xiao | qo24236@bristol.ac.uk | yusheng2077 | Developer | Buff / Translation / Video |
 
 </div>
 
@@ -87,7 +97,7 @@ Video of Demo - TBD
 
 ## Project Report
 
-### Introduction
+### 1. Introduction
 
 - Game background
   - In the early 22nd century, tech changes and science made pollution worse. Climate change caused sea levels to rise, and land became very little. Lack of resources and bad environment made problems worse. Humans had to fight pollution monsters and look for survival resources in ocean storms.
@@ -102,14 +112,15 @@ Video of Demo - TBD
 
 ---
 
-### Requirements
+### 2. Requirements
 
-#### Identifying Stakeholders
+#### 2.1 Identifying Stakeholders
 
 <div align="center">
 	<img src="docs/labprocess/week04/Onion%20Model%20of%20Stakeholders.png" width="600"/>
 </div>
-#### Epic
+
+#### 2.2 Epic
 
 | Bot                      | User Story                                                                                                                                                 | Acceptance Criteria                                                                                                                                                                                               |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -119,7 +130,7 @@ Video of Demo - TBD
 | Game Auditor              | As a game auditor, I want the game to have a wider audience, so I need to minimize graphic violence. | 1. The game avoids excessive graphic violence, including bloody or gory scenes. <br> 2. Combat effects can be represented through non-lethal means. <br> 3. The game’s content complies with age classification standards. <br> 4. The game avoids using vulgar language or visual effects. <br> 5. If necessary, the game provides adjustable violence levels. |
 | Colorblind Player          | As a colorblind player, I often find it difficult to distinguish between characters, items, etc., in fast-paced action games. I hope the game features elements with clear visual effects, such as different colored outlines. | 1. Each character, item, enemy, and other elements have clearly distinguishable marks (colored borders). <br> 2. The game offers colorblind modes or customizable color options. <br> 3. UI elements are designed with colorblind players in mind. <br> 4. Environmental and combat elements are differentiated through shapes, textures, and other features. <br> 5. The game offers visual effect options to adjust markers. |
 
-#### Early stages design
+#### 2.3 Early stages design
 
 ![frame](docs/labprocess/week04/frame01.png)
 
@@ -150,7 +161,7 @@ Video of Demo - TBD
   3. **Attribute/Buff Enhancements:** Random or tier-based system (weak buffs early, strong buffs later)
   4. **Random Events:** Many types (like ambushes or discoveries); no back-to-back repeats; some events only happen after certain things are done
 
-#### The process of development and ideation
+#### 2.4 The process of development and ideation
 
 - At first, we planned to make a roguelike dungeon game, inspired by classics like *The Binding of Isaac* and *Soul Knight*. Based on that, we designed the main parts of the game and made early sketches to show the structure and art style (see below).
 
@@ -190,33 +201,49 @@ Video of Demo - TBD
 
 ---
 
-### Design
+### 3. Design
 
-- 15% ~750 words 
-- System architecture. Class diagrams, behavioural diagrams. 
+Our game system comprises multiple modules:
 
-> [!WARNING]
->
-> system architecture ? 
+| Module        | Class                                                                                                                        | Responsibilities                                                                                                                                                                                                                                                                   |
+|---------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Main          | Main                                                                                                                         | Serves as the core game controller. <br>Initializes the game environment; <br>drives the main game loop and coordinates subsystems.                                                                                                                                                |
+| Status        | Status<br>Equipment<br>Pollution                                                                                             | Centralizes management of dynamic player attributes (HP/attack power/speed, etc.); <br>tracks pollution values and environmental impact parameters; <br>provides APIs for the Buff system to modify attributes; <br>implements attribute persistence storage.                      |
+| Object        | BasicObject<br>Building<br>Island<br>LivingObject<br>Player<br>Enemy<br>Boss<br>Bullet<br>Pet<br>Wave<br>AoeSkill<br>Explode | Defines base class (BasicObject) for all game entities; <br>LivingObject implements shared traits (HP/size/speed, etc); <br>Player/Enemy/Boss implement specific behavior trees; <br>Bullet manages projectile trajectories; <br>AoeSkill and Explode implement area-effect logic. |
+| Game          | Game                                                                                                                         | Manages the lifecycle of a single level (start/in-progress/end); <br>loads level configurations; <br>controls enemy wave generation; <br>evaluates win/loss conditions; <br>maintains level-specific object pools.                                                                 |
+| PlayerControl | PlayerControl                                                                                                                | Captures input events (keyboard/mouse); <br>parses commands (movement/attack/skills); <br>handles targeting logic for attacks; <br>manages skill cooldowns and attack cooldown.                                                                                                    |
+| Buffs         | Buff<br>BuffController                                                                                                       | Implements buff management systems; dynamically modifies player attributes (e.g., attack power).                                                                                                                                                                                   |
 
-#### Class Diagram
 
-[<img src="docs/labprocess/week05/ClassDiagram.png" width="1200"/>](docs/labprocess/week05/ClassDiagram.png)
+#### 3.1 Class Diagram
 
-#### Sequence Diagram
-[<img src="docs/labprocess/week05/SequenceDiagram.png" width="1200"/>](docs/labprocess/week05/SequenceDiagram.png)
+[<img src="docs/labprocess/week05/ClassDiagram.png" width="1000"/>](docs/labprocess/week05/ClassDiagram.png)
+
+This class diagram serves as the blueprint for game development, using intuitive visuals to showcase core functional modules and their interconnections. It functions as a shared technical roadmap for the team, enabling developers to quickly grasp system operations, identify counterproductive dependencies between modules, and guide logical code organization through clear interface specifications. This structural framework makes future feature upgrades and content expansions as flexible and modular as building with interlocking blocks.
+
+#### 3.2 Behavioural Diagram
+
+The `Main` class works as the game controller. It handles all the initial setups and manages the main parts of the game, such as `MainUI`, `Game`, `PlayerControl`, and `Status`. You can think of it as the brain of the game that keeps everything running correctly.
+
+After the game starts, `MainUI` sets up all the user interface (UI) parts and puts them into the UI system for players to use. At this point, `StartUI` becomes ready, and the game can begin. Then, `ChooseShipUI` lets players pick a difficulty level and map. This also sets the ship(`Player`) starting stats and conditions.
+
+Once the map is ready, `MapUI` shows several buttons and lines connecting them. Players can click a button (called a node) to start a battle or `trigger` an event. `ShopUI` also appears on the map. In the shop, players can `recover` HP, `increase` more bullets, or buy other useful items.
+
+During the battle, `InGameUI` takes control. Players can `move` their ship, `shoot` bullets, use `skills`, and dodge enemies or obstacles. Some objects like `Building`s or `Wave`s may also block your `Movement`. `Enemies` will come, and sometimes a `boss` (a stronger enemy) appears. Players need to keep an eye on their HP and the pollution level. These values are updated in real time by a function called `updateStatus`.
+
+At the end of each round, players get a `Buff` as a reward. This Buff might increase bullet speed, add extra bullets, boost damage, or lower pollution. After choosing a Buff, players return to `MapUI` and continue exploring.
+
+When players fight the boss, the result decides what happens next. If the player wins, the game moves on to the next `loop` with harder enemies or a new event. If the player dies, the `Status` resets and the game restarts.
+
+The whole process of updating status and switching between levels is managed by the `Game` class. It keeps everything in sync and makes sure the game looks and feels consistent every time a change happens.
+
+[<img src="docs/labprocess/week05/SequenceDiagram.png" width="1000"/>](docs/labprocess/week05/SequenceDiagram.png)
 
 ---
 
-### Implementation
+### 4. Implementation
 
-- 15% ~750 words (Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.)
-
-> [!IMPORTANT]
->
-> **Challenge** 全局缩放? 延迟卡顿? (这个我放在第四点了, 你们看看前三条和这个)
-
-#### Our implementation
+#### 4.1 Our implementation
 
 Our system is mainly divided into five parts: PlayerControl, Status, Object, Buffs, and UI.
 
@@ -226,7 +253,7 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 - **Buffs** manages the creation, application, and removal of all buffs in the game.
 - **UI** part builds the entire visual layout, including StartUI, MapUI, InGameUI, and 16 other UI designs.
 
-#### Challenge
+#### 4.2 Challenge
 
 1. **Loop and Randomness**
     **Description:**
@@ -248,39 +275,88 @@ Our system is mainly divided into five parts: PlayerControl, Status, Object, Buf
 
    **Solution:**
     To solve this, we added a fixed-size logical canvas. First, all game elements are drawn onto this logical canvas, then the canvas is scaled proportionally to fit the browser window size.
+
 ---
 
-### Evaluation
+### 5. Evaluation
 
-> [!WARNING]
->
-> 定量:性能测试, 运行时间, 资源消耗...
-> 代码测试描述: 自动化测试, 人工测试, 边界条件...
+#### 5.1 Heuristic Evaluation:  *Sink or Pollute*
 
-- 15% ~750 words[One qualitative evaluation (your choice) /One quantitative evaluation (of your choice)/Description of how code was tested.]
-
-#### Heuristic Evaluation:  *Sink or Pollute*
-
+##### 5.1.1 Data Table
 | Interface | Issue | Heuristic(s) | Frequency (0-4) | Impact (0-4) | Persistence (0-4) | Severity (F+I+P)/3 |
 |-----------|------|-------------|-----------------|-------------|----------------|------------------|
-| **Gameplay** | No pause option, leading to player fatigue in long sessions | User Control and Freedom | 4 | 2 | 4 | 3.33 |
+| **Game play** | No pause option, leading to player fatigue in long sessions | User Control and Freedom | 4 | 2 | 4 | 3.33 |
 | **Enemy AI** | Enemies freeze when out of player vision, making combat less engaging | Consistency and Standards | 3 | 4 | 3 | 3.33 |
-| **Level Design** | Lack of path choices reduces exploration, which is essential in roguelike games | Flexibility and Efficiency of Use | 4 | 2 | 4 | 3.33 |
+| **Level Design** | Lack of path choices reduces exploration, which is essential in roguelike games | Flexibility and Efficiency of Use | 1 | 1 | 2 | 1.33 |
 | **Visual Feedback** | Character, enemy, and bullet sizes lack clear contrast, making it difficult for players to track action | Visibility of System Status | 3 | 4 | 4 | 3.67 |
 | **UI/UX** | No skill cooldown feedback, making ability timing difficult | Visibility of System Status | 3 | 3 | 3 | 3.00 |
 | **Collision Detection** | Invisible walls near islands and enemies, leading to frustrating movement constraints | Error Prevention | 3 | 4 | 4 | 3.67 |
 
+##### 5.1.2 Solutions
+- **Game play** (implemented) – Although in-level pausing is still unavailable, we shortened each combat encounter and lengthened the overall tower climb. This keeps battles punchy while preserving total playtime and challenge.
+- **Enemy AI** (implemented) – Enemies now have a vision system. When the player is off-screen they wander with light randomness; once the player is detected, melee and ranged units use distinct pursuit behaviours to maintain pressure.
+- **Visual Feedback** (implemented) – Player, enemy, and map elements use high-contrast palettes that stand out sharply against the background, making threats instantly readable.
+- **UI/UX** (implemented) – Skill-cooldown cues are larger and animated, so timing abilities no longer relies on memory.
+- **Collision Detection** (implemented) – Collider shapes were retuned for smoother sliding along terrain, and enemy bodies no longer hard-block the player, virtually eliminating “stuck” moments.
+
+#### 5.2 Usability Evaluation: NASA-TLX
+
+**Data:**
+
+| User    | NASA-TLX Easy Mode | NASA-TLX Hard Mode |
+|---------|------------------|------------------|
+| User 01 | 28.3             | 66.7             |
+| User 02 | 30.0             | 72.5             |
+| User 03 | 25.0             | 65.0             |
+| User 04 | 28.3             | 75.0             |
+| User 05 | 22.5             | 68.3             |
+| User 06 | 32.5             | 80.0             |
+| User 07 | 20.0             | 70.8             |
+| User 08 | 35.0             | 77.5             |
+| User 09 | 27.5             | 66.7             |
+| User 10 | 24.2             | 73.3             |
+
+**NASA-TLX Analysis**
+- **Easy Mode Average Workload**: **27.3**
+- **Hard Mode Average Workload**: **71.6**
+
+Test used
+Because each of the 10 participants provided paired NASA-TLX scores for both conditions, the non-parametric **Wilcoxon signed-rank test** (two-tailed) was applied to compare Easy vs. Hard modes.
+
+| Statistic |	Value |
+| --- | --- |
+| n (pairs) | 10 |
+| Exact p-value | 0.00195 << 0.05 |
+| Median (Easy) | 27.9 |
+| Median (Hard) | 71.7 |
+| Rank-biserial effect size r | 0.89 (large) |
+
+**Interpretation**
+- The Wilcoxon signed-rank test revealed a significant increase in perceived workload from Easy mode to Hard mode, **p = 0.002**. 
+- All ten participants rated Hard mode higher than Easy mode, and the large effect size (r = 0.89) indicates a substantial practical difference. Thus, the Hard mode imposes a markedly greater mental and physical workload on users.
+- Higher NASA-TLX scores indicate greater perceived workload. The **Hard Mode** had significantly higher workload ratings, indicating that users found it more mentally and physically demanding.
+
+#### Testing 
+
+##### Why we choose Black-Box testing rather than White-Box
+- High Setup & Maintenance Overhead
+- Limited Fault Detection Beyond Black-Box Scenarios
+- Redundant Coverage & Diminishing Returns
+
+##### Black-Box testing
+- In our p5.js project, black-box testing is woven directly into the rhythm of our **short Scrum sprints** and **continuous-integration pipeline**. 
+- Each developer works on a personal Git feature branch; while the code is still isolated, they launch the game in a browser and play through the fresh content exactly as a player would, looking for crashes, visual glitches, timing mistakes, or anything that feels wrong. 
+- Other **teammates** also get the chance to play and test and give a feedback.
+- The branch is pushed only after these ad-hoc play-throughs confirm that the new mechanic coexists peacefully with the existing systems. 
+- When a branch finally merges into main, we know that whole team play-testing has signed off, so the trunk stays deployable and bug-free sprint after sprint.
+
 ---
 
-### Process
-
-- 15% ~750 words
-
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together. 
+### 6. Process
 
 Teamwork was essential to our game development process. Our team consisted of six members, each responsible for specific tasks to make the work more efficient and organized.
 
-#### Team Roles and Responsibilities:
+#### 6.1 Team Roles and Responsibilities:
 
 We divided the roles based on each member’s skills and interests.
 
@@ -291,7 +367,7 @@ We divided the roles based on each member’s skills and interests.
 - **UI Design**: Two members worked on the game’s interface, designing screens like StartUI, MapUI, and InGameUI. They made sure the UI was consistent and visually appealing.
 - **Animation Design**: One member was responsible for designing and creating animated sprites for the game’s various entities. This added life and dynamic visual effects to the characters and objects in the game.
 
-#### Tools and Collaboration:
+#### 6.2 Tools and Collaboration:
 
 We used several tools to make our work easier and to collaborate effectively.
 
@@ -300,7 +376,7 @@ We used several tools to make our work easier and to collaborate effectively.
 - **Game Engine & Development Tools**: We used P5.JS as our game engine and VS Code for coding. These tools made it easier for us to implement the game’s features.
 - **Photoshop**: Photoshop was used for designing and creating game assets like character sprites, backgrounds, and other graphical elements. This allowed us to have high-quality visuals in the game.
 
-#### Working Together:
+#### 6.3 Working Together:
 
 Working as a team was key to overcoming challenges. We regularly held meetings to talk about our progress, solve problems, and share ideas. Whenever an issue came up, like optimizing the pollution system or fixing performance problems, we worked together to find the best solution.
 
@@ -308,13 +384,9 @@ For example, we faced lag and frame drops due to the animated effects we used fo
 
 ---
 
-### Sustainability, ethics and accessibility
+### 7. Sustainability, ethics and accessibility
 
-- 10% ~750 words
-
-- Evidence of the impact of your game across the environment and two of the other areas: **Environmental** + 2 of the following : *Scoial, Economic, Technical, Individual*
-
-#### Environmental Impact:
+#### 7.1 Environmental Impact:
 
 As game developers, we recognize that our work has an environmental impact, even if it's not as obvious as physical products. Games contribute to energy consumption, e-waste, and carbon emissions. To minimize these effects, we implemented several strategies in the development of our game.
 
@@ -325,7 +397,7 @@ As game developers, we recognize that our work has an environmental impact, even
 3. **Environmental Awareness in Gameplay:**
     The game’s theme focuses on pollution and environmental challenges. The dynamic pollution system in the game serves as a reflection of real-world environmental issues. By including these themes, we hope to raise awareness and encourage players to think about pollution and resource conservation in real life.
 
-#### Social Impact:
+#### 7.2 Social Impact:
 
 Games can influence society in many ways, both positively and negatively. Our goal was to make a game that promotes positive social interactions and reflects a variety of perspectives.
 
@@ -336,7 +408,7 @@ Games can influence society in many ways, both positively and negatively. Our go
 3. **Mental Health Awareness:**
     We incorporated gameplay elements that subtly touch on mental health issues. For example, certain in-game challenges can affect the character's mental state, prompting players to reflect on their own well-being. By including these themes, we hope to raise awareness about the importance of mental health and self-care.
 
-#### Technical Impact:
+#### 7.3 Technical Impact:
 
 Technology plays a big role in how we create and experience games. We focused on making our game both technically innovative and accessible to a wide audience.
 
@@ -349,27 +421,23 @@ Technology plays a big role in how we create and experience games. We focused on
 
 ---
 
-### Conclusion
-
-- 10% ~500 words
-
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work. 
+### 8. Conclusion
 
 Looking back on our project, it has been a rewarding experience. We started with basic ideas and turned them into a real game. Throughout the process, we faced challenges, learned valuable lessons, and worked as a team to make the game better.
 
-#### Lessons Learned:
+#### 8.1 Lessons Learned:
 
 The most important lesson we learned was the power of teamwork and clear communication. At the beginning, we struggled with dividing tasks and organizing work. Once we assigned specific roles to each team member, the project moved much more smoothly. Each person could focus on their area of expertise, which helped us stay on track. We also learned how important it is to test and get feedback from others. Early in the process, we had many ideas, but we had to refine them after testing to make sure the game was fun and balanced. Feedback helped us improve the gameplay, and we learned to adjust things like difficulty and game mechanics.
 
 Another key lesson was the importance of working in small steps and improving over time. Instead of trying to create everything at once, we took small actions, tested them, and made changes as needed. This approach allowed us to improve the game gradually.
 
-#### Challenges Faced:
+#### 8.2 Challenges Faced:
 
 One of the biggest challenge was improving game performance, especially when many animated entities were on screen. This caused the game to lag and have frame rate drops. To solve this, we optimized the way the game loaded and rendered entities. We introduced caching and improved how entities were updated. This helped make the game run more smoothly.
 
-Another challenge was managing the dynamic pollution system. We wanted it to update in real-time without causing slowdowns. We created a grid-based system to track pollution and used triggers to make gameplay changes when pollution levels reached certain points. It took a lot of testing to make sure this system worked well without affecting performance.
+Another challenge was implementing dynamic window scaling. We wanted the game to adapt seamlessly to different display sizes without compromising visual fidelity. Initially, we attempted direct pixel-based resizing of game elements and mouse coordinate mapping, but this led to complex scaling calculations and frequent bugs. We solved this by introducing a fixed logical canvas where all elements are first rendered, then proportionally scaled to fit the browser window. This approach eliminated per-frame size calculations while maintaining consistent gameplay proportions.
 
-#### Future Work:
+#### 8.3 Future Work:
 
 There is still a lot to do. One of our main goals is to add a multi-player mode. Right now, the game is single-player, but adding multiplayer will bring new challenges and make the game more fun and interactive. Players will be able to work together, share resources, and face challenges as a team.
 
@@ -381,16 +449,17 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 ---
 
-### Team Contribution Table
+### 9. Contribution Statement
 
 <div align="center">
 
-| Name | Game - Internal battle | Game - External part | Report | Video | Weight |
-|:-----|:----------------------|:---------------------|:-------|:------|:------:|
-| Tianyu Qi | TBD | TBD | TBD | TBD | TBD |
-| Likun Liang | TBD | TBD | TBD | TBD | TBD |
-| Yutong Liu | TBD | TBD | TBD | TBD | TBD |
-| Zihao Xia | TBD | TBD | TBD | TBD | TBD |
-| Guanglong Xia | TBD | TBD | TBD | TBD | TBD |
+| Name | Contribution | Weight |
+|:-----|:-------------|:------:|
+| Tianyu Qi | System & Game & Balance Design | 1 |
+| Likun Liang | UI & Develop & QA | 1 |
+| Yutong Liu | Animation Design | 1 |
+| Zihao Xia | UI & Develop & QA | 1 |
+| Guanglong Xia | [Click here](docs/labprocess/last/DevelopmentContributions.md) | 1 |
+| Jinglong Xiao | Buff & Translation & Video | 1 |
 
 </div>

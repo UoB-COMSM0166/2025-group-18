@@ -5,11 +5,11 @@ class Pollution {
         this.enemyKillReductionMul = 2;
         this.pollutionSources = {
             bullet: 2,
-            skill: 10,
+            skill: 30,
             bomb: 30,
             TNT: 20,
-            chemical_box: 50,
-            rubbish: -50,
+            chemical_box: 20,
+            rubbish: -30,
             enemy_kill: "relevance_maxHP",
             boss_kill: "relevance_maxHP"
         };
@@ -17,10 +17,10 @@ class Pollution {
         this.pollutionEffects = {
             1: { enemySpeedMul: 0.7, healthMul: 1.0, damageMul: 0.7, secondBoss: false, poisonFog: -0.02,},
             2: { enemySpeedMul: 1.0, healthMul: 1.0, damageMul: 1.0, secondBoss: false, poisonFog: 0,},
-            3: { enemySpeedMul: 1.5, healthMul: 1.5, damageMul: 2.0, secondBoss: false, poisonFog: 0,},
-            4: { enemySpeedMul: 1.5, healthMul: 1.5, damageMul: 2.0, secondBoss: true, poisonFog: 0,},
-            5: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 2.0, secondBoss: true, poisonFog: 0.05,},
-            6: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 3.0, secondBoss: true, poisonFog: 0.1,},
+            3: { enemySpeedMul: 1.3, healthMul: 1.2, damageMul: 1.5, secondBoss: false, poisonFog: 0,},
+            4: { enemySpeedMul: 1.4, healthMul: 1.3, damageMul: 1.6, secondBoss: true, poisonFog: 0,},
+            5: { enemySpeedMul: 1.5, healthMul: 1.5, damageMul: 1.7, secondBoss: true, poisonFog: 0.02,},
+            6: { enemySpeedMul: 2.0, healthMul: 2.0, damageMul: 2.0, secondBoss: true, poisonFog: 0.06,},
         };
     }
 

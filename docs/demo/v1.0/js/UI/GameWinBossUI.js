@@ -199,7 +199,7 @@ class GameWinBossUI {
         text(`• Number of reincarnations +1 (The enemy will become stronger)`, logicWidth * 0.25, topY + lineHeight * 3);
 
         fill(200);
-        text("• Challenge more deep-sea dangers", logicWidth * 0.25, topY + lineHeight * 4);
+        text("• Seek deeper secrets of the sea", logicWidth * 0.25, topY + lineHeight * 4);
 
         textSize(24);
         fill(255, 215, 0);
@@ -211,9 +211,9 @@ class GameWinBossUI {
             text("• Directly view your sailing results", logicWidth * 0.75, topY + lineHeight);
             text("• Complete this adventure", logicWidth * 0.75, topY + lineHeight * 2);
             fill(255, 100, 100);
-            text("• Skip the Morse Code decoding", logicWidth * 0.75, topY + lineHeight * 3);
+            text("• You might have missed something.", logicWidth * 0.75, topY + lineHeight * 3);
         } else {
-            text("• Decoding the mysterious signal", logicWidth * 0.75, topY + lineHeight);
+            text("• Received a mysterious signal.", logicWidth * 0.75, topY + lineHeight);
             text("• Complete this adventure", logicWidth * 0.75, topY + lineHeight * 2);
             text("• View your sailing results", logicWidth * 0.75, topY + lineHeight * 3);
         }
