@@ -117,9 +117,9 @@ class GameSummaryUI {
         fill(255);
         text("Vessel Type:", leftMargin, topMargin);
         text("Health:", leftMargin, topMargin + rowHeight);
-        text("speed:", leftMargin, topMargin + rowHeight * 2);
+        text("Speed:", leftMargin, topMargin + rowHeight * 2);
         text("Attack Damage:", leftMargin, topMargin + rowHeight * 3);
-        text("gold:", leftMargin, topMargin + rowHeight * 4);
+        text("Gold:", leftMargin, topMargin + rowHeight * 4);
         text("Pollution value:", leftMargin, topMargin + rowHeight * 5);
         text("Pollution degree:", leftMargin, topMargin + rowHeight * 6);
         fill(100, 255, 218);
@@ -221,26 +221,26 @@ class GameSummaryUI {
         const hpPercent = this.playerStats.HP / this.playerStats.HPmax;
         const pollutionPercent = this.playerStats.pollution / Status.MAX_POLLUTION;
 
-        let message = "You successfully decoded the message and completed the voyage.";
+        let message = "You successfully completed the voyage.\n\n";
 
         if (hpPercent < 0.3) {
-            message += "Your ship can hardly withstand the test.";
+            message += "Your ship can hardly withstand the test.\n\n";
         } else if (hpPercent > 0.8) {
-            message += "Your skilled sailing skills keep the vessel in excellent condition.";
+            message += "Your skilled sailing skills keep the vessel in excellent condition.\n\n";
         }
 
         if (this.playerStats.pollutionLevel <= 2) {
-            message += "You are an environmentally conscious captain!";
+            message += "You are an environmentally conscious captain!\n\n";
         } else if (this.playerStats.pollutionLevel <= 4) {
-            message += "Your voyages have had some impact on the marine environment.";
+            message += "Your voyages have had some impact on the marine environment.\n\n";
         } else {
-            message += "The ocean bears the scars of your destructive voyages.";
+            message += "The ocean bears the scars of your destructive voyages.\n\n";
         }
 
-        if (this.playerStats.loopCount > 0) {
-            message += `After${this.playerStats.loopCount}cycles, you have seen the true appearance of this sea.`;
+        if (this.playerStats.loopCount > 1) {
+            message += `After ${this.playerStats.loopCount} cycles, you have seen the true appearance of this sea.\n\n`;
         } else {
-            message += "If we continue sailing, perhaps we can discover more secrets.";
+            message += "If we continue sailing, perhaps we can discover more secrets.\n\n";
         }
 
         return message;

@@ -137,6 +137,8 @@ class Main {
             }
             case MAIN_STEP_START_UI: {
                 normalFightMusic.setVolume(0.5);
+                this.#UI.getShopUI().init();
+                this.#UI.getShopUI().stopShopMusic();
                 this.#UI.showStartUI();
                 break;
             }
@@ -193,6 +195,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
+                this.#UI.getShopUI().init();
                 this.#UI.showGameOverUI();
                 this.initMain();
                 break;
@@ -299,7 +302,6 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
-                this.#UI.getShopUI().init();
                 this.#UI.gameOverMousePressed();
                 break;
             }
@@ -433,7 +435,7 @@ class Main {
         this.#UI.changeCurrentStep(stepChangeType);
 
         if (stepChangeType == MAIN_STEP_GAME_REWARD) {
-            this.#gameReward.gold = 50 + round(random(0, 50)); // Theodore-Money! Lots of money! Reward for clearing a small level
+            this.#gameReward.gold = 120 + round(random(0, 30)); // Theodore-Money! Lots of money! Reward for clearing a small level
             this.#gameReward.buff = [
                 BUFF_MODEL[Math.floor(Math.random() * 6) + 1],
                 BUFF_MODEL[Math.floor(Math.random() * 6) + 1],

@@ -126,10 +126,10 @@ class ShopUI {
         console.log(BUFF_MODEL);
         let items = [
             { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: -1, priceIncrease: 100 },
-            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 25, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: -1, priceIncrease: 25 },
+            { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 250, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: -1, priceIncrease: 250 },
             { label: 'HP +20', price: 60, effect: BuffTypes.HEALTH_CHANGE, times: -1, priceIncrease: 60},
             { label: BUFF_MODEL[BuffTypes.SPEED_CHANGE].name, price: 99, effect: BuffTypes.SPEED_CHANGE, times: -1, priceIncrease: 99 },
-            { label: 'ONE PIECE', price: 500, effect: BuffTypes.HEALTH_FULL_RECOVER, times: -1, priceIncrease: 500 },
+            { label: 'ONE PIECE', price: 0, effect: BuffTypes.HEALTH_FULL_RECOVER, times: -1, priceIncrease: 999 },
             { label: 'Pollution -100', price: 50, effect: BuffTypes.POLLUTION_EFFECT, times: -1, priceIncrease: 50 },
         ];
         this.#isInit = true;
