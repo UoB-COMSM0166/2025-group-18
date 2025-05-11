@@ -591,7 +591,7 @@ const BUFF_MODEL = [
         maxStackCount: 3,
         triggerCondition: TriggerConditions.GET_ITEM
     }, {
-        name: "bullet number up!",
+        name: "Bullet number up!",
         type: BuffTypes.BULLET_NUMBER_CHANGE,
         rarity: RarityLevel.COMMON,
         value: 1,

@@ -57,6 +57,10 @@ class MainUI {
         this.#gameOverUI = new GameOverUI(this.#handleGameOver.bind(this));
     }
 
+    getShopUI() {
+        return this.#shopUI;
+    }
+
     showStartUI() {
         if (!this.#startUI) {
             this.#startUI = new StartUI(this.#handleStartUIButtonClick.bind(this));
@@ -625,7 +629,7 @@ class MainUI {
     }
 
     #handleMorseCodeComplete() {
-        this.stopShopMusic();
+        // this.stopShopMusic();
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_GAME_SUMMARY);
         }
