@@ -27,8 +27,8 @@
 | Tianyu Qi | yn24649@bristol.ac.uk | qtyohh | Game Designer | Scrum Master / System Design / Game & Balance Design |
 | Likun Liang | oy24839@bristol.ac.uk | lycorisadiata | Developer | UIs / Pet / Equipment / Enemy / QA |
 | Yutong Liu | xm24685@bristol.ac.uk | WILLOW579 | Animation Designer | Character & Motion & Narrative Design |
-| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | developer | enemyAI / Boss / MapUI / Bullet / QA |
-| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Developer | [Click here](docs/labprocess/last/xgl-contribution.docx) |
+| Zihao Xia | qh24613@bristol.ac.uk | WeirdDruid | Developer | enemyAI / Boss / MapUI / Bullet / QA |
+| Guanglong Xia | iu24606@bristol.ac.uk | X-Theodore | Project Manager | [Click here](docs/labprocess/last/xgl-contribution.docx) |
 | Jinglong Xiao | @bristol.ac.uk | yusheng2077 | Developer | TBD |
 
 </div>
