@@ -4,9 +4,9 @@
 
 ## 🚢🌊♻️ - Sink or Pollute
 
-<p style="text-align: center;">
+<div align="center">
   <a href="https://uob-comsm0166.github.io/2025-group-18/">🖱️ Game Demo</a>
-</p>
+</div>
 
 <p align="center"><b>Live Demo</b></p>
 <div style="text-align: center;">
