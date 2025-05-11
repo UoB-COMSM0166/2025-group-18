@@ -290,7 +290,7 @@ const BOSS_MODEL = [
         type: BOSS_MODEL_BIRD_TYPE,
         xSize: 200,
         ySize: 200,
-        HP: 1000,
+        HP: 500,
         speed: 10,
         attackPower: 1.5,
         attackCD: 1,

@@ -91,6 +91,9 @@ class Game {
     }
 
     initRandomMap(loopCount = 0) {
+        normalFightMusic.setVolume(0.5);
+        bossFightMusic.setVolume(0);
+        playSound(normalFightMusic);
         // Randomly select background image
         const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
         frames.currentBackground = frames.background[randomBackgroundIndex];
@@ -112,6 +115,9 @@ class Game {
     }
 
     initRandomBossMap(loopCount = 0) {
+        normalFightMusic.setVolume(0);
+        bossFightMusic.setVolume(0.5);
+        playSound(bossFightMusic);
         // Randomly select background image
         const randomBackgroundIndex = Math.floor(Math.random() * frames.background.length);
         frames.currentBackground = frames.background[randomBackgroundIndex];
@@ -416,6 +422,8 @@ class Game {
 
 
         if (this.#player.HP <= 0) {
+            bossFightMusic.setVolume(0);
+            normalFightMusic.setVolume(0);
             this.#gameOver = true;
             this.deathReason = "hp";
             console.log("Game Over! HP depleted");
@@ -462,6 +470,8 @@ class Game {
         }
 
         if (this.#enemies.length == 0) {
+            bossFightMusic.setVolume(0);
+            normalFightMusic.setVolume(0.5);
             this.#gameWin = true;
         }
 

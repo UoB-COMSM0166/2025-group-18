@@ -295,6 +295,12 @@ function preload() {
     frames.mapIcon.mapBG = loadImage('images/docs/img/png/mapIcon/mapBG.webp');
     frames.mapIcon.mapMask = loadImage('images/docs/img/png/mapIcon/mask.webp');
 
+    //  load Music
+    normalFightMusic = loadSound('./MusicPack/InGameMusic/NormalFight.ogg');
+    normalFightMusic.setVolume(0.5);
+    bossFightMusic = loadSound('./MusicPack/InGameMusic/BossFight.ogg');
+    bossFightMusic.setVolume(0.5);
+    
     // Theme song audio
     teamThemeMusic = loadSound('./MusicPack/InGameMusic/TidesofAshes.ogg');
 

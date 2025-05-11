@@ -128,8 +128,10 @@ class Main {
     updateAll() {
         // push();
         // logicCanvas.push();
+        playSound(normalFightMusic);
         switch (this.#step) {
             case MAIN_STEP_CAPTAIN_UI: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showCaptainUI();
                 break;
             }
@@ -151,6 +153,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_MAP_UI: {
+                normalFightMusic.setVolume(0.5);
                 logicCanvas.push();
                 logicCanvas.translate(- logicWidth / 2, - logicHeight / 2);
                 this.#UI.showMapUI();
@@ -173,6 +176,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_SHOP: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showShopUI(this.#status.getShipStatus().gold);
                 break;
             }
@@ -189,14 +193,17 @@ class Main {
                 break;
             }
             case MAIN_STEP_WIN_BOSS: {
+
                 this.#UI.showGameWinBossUI();
                 break;
             }
             case MAIN_STEP_START_UI_TEAM: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showTeamUI();
                 break;
             }
             case MAIN_STEP_MORSE_CODE: {
+                normalFightMusic.setVolume(0);
                 this.#UI.showMorseCodeUI();
                 break;
             }
