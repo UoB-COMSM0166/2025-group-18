@@ -39,6 +39,7 @@ class Status {
         this.#playerStatus.basicDamage = SHIP_MODEL[shipType].basicDamage;
         this.#playerStatus.bulletNumber = SHIP_MODEL[shipType].bulletNumber;
         this.#playerStatus.pollution = SHIP_MODEL[shipType].pollutionStart;
+        this.#playerStatus.gold = SHIP_MODEL[shipType].gold;
         this.#playerStatus.pollutionLevel = 1;
         this.#playerStatus.loopCount = 0;
     }
