@@ -132,7 +132,7 @@ class Game {
     }
 
 
-    initEnemies(loopCount = 0) {
+    initEnemies(enemyInfo, loopCount = 0) {
         if (this.#enemyWave >= this.#allEnemies.length) {
             return;
         }
@@ -451,7 +451,7 @@ class Game {
         }
         if (this.#enemies.length == 0) {
             if (this.#bossCount == 0) {
-                this.initEnemies(this.#loopCount);
+                this.initEnemies(this.#allEnemies[this.#enemyWave], this.#loopCount);
             } else {
                 if (this.#pollution.getEffect().secondBoss) {
                     this.initBoss(this.#loopCount);
