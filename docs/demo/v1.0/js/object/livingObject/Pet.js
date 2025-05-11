@@ -108,15 +108,15 @@ class Pet extends BasicObject {
             fill(255, 0, 0);
             rect(this.xCoordinate - this.xSize/2, imageTopY - 10, hpBar, 5);
             
-            // Test text
-            fill(255);
-            textSize(12);
-            textAlign(CENTER, CENTER);
-            let textBaseY = this.yCoordinate + this.ySize;
-            text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
-            text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
-            text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
-            text('name: ' + this.name, this.xCoordinate, textBaseY + 60);
+            // // Test text
+            // fill(255);
+            // textSize(12);
+            // textAlign(CENTER, CENTER);
+            // let textBaseY = this.yCoordinate + this.ySize;
+            // text(`${Math.floor(this.HP)}/${Math.floor(this.maxHP)}`, this.xCoordinate, textBaseY + 15);
+            // text(`ATK: ${Math.floor(this.attackPower)}`, this.xCoordinate, textBaseY + 30);
+            // text(`SPD: ${this.speed.toFixed(2)}`, this.xCoordinate, textBaseY + 45);
+            // text('name: ' + this.name, this.xCoordinate, textBaseY + 60);
         }
     }
 
