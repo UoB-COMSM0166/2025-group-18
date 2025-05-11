@@ -388,12 +388,12 @@ In conclusion, while we’ve made great progress, the game is still a work in pr
 
 <div align="center">
 
-| Name | Game - Internal battle | Game - External part | Report | Video | Weight |
-|:-----|:----------------------|:---------------------|:-------|:------|:------:|
-| Tianyu Qi | TBD | TBD | TBD | TBD | TBD |
-| Likun Liang | TBD | TBD | TBD | TBD | TBD |
-| Yutong Liu | TBD | TBD | TBD | TBD | TBD |
-| Zihao Xia | TBD | TBD | TBD | TBD | TBD |
-| Guanglong Xia | TBD | TBD | TBD | TBD | TBD |
+| Name | Contribution | Weight |
+|:-----|:-------------|:------:|
+| Tianyu Qi | TBD | 1 |
+| Likun Liang | TBD | 1 |
+| Yutong Liu | TBD | 1 |
+| Zihao Xia | TBD | 1 |
+| Guanglong Xia | TBD | 1 |
 
 </div>
