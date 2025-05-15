@@ -606,7 +606,7 @@ class MainUI {
 
     #handleGameWinBoss(selectedType) {
         const bossReward = this.#gameWinBossUI ? this.#gameWinBossUI.bossReward : 300;
-
+        
         if (selectedType == MAIN_STEP_MAP_UI) {
             main.incrementLoopCount();
 
@@ -648,6 +648,8 @@ class MainUI {
     }
 
     #handleGameSummaryComplete() {
+        this.#shopUI.init();
+        this.#shopUI.stopShopMusic();
         if (this.updateStep) {
             this.updateStep(MAIN_STEP_START_UI_TEAM);
         }

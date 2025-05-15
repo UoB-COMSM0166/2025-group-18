@@ -195,7 +195,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_OVER: {
-                this.#UI.getShopUI().init();
+                // this.#UI.getShopUI().init();
                 this.#UI.showGameOverUI();
                 this.initMain();
                 break;

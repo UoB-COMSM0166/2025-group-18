@@ -123,7 +123,7 @@ class ShopUI {
     // Initialize the shop UI
     // items: [{ label: 'Item A', price: 100, ... }, ... ]
     init() {
-        console.log(BUFF_MODEL);
+        //console.log(BUFF_MODEL);
         let items = [
             { label: BUFF_MODEL[BuffTypes.DAMAGE_CHANGE].name, price: 100, effect: BuffTypes.DAMAGE_CHANGE, times: -1, priceIncrease: 100 },
             { label: BUFF_MODEL[BuffTypes.BULLET_NUMBER_CHANGE].name, price: 250, effect: BuffTypes.BULLET_NUMBER_CHANGE, times: -1, priceIncrease: 250 },
