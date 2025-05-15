@@ -137,8 +137,10 @@ class Main {
             }
             case MAIN_STEP_START_UI: {
                 normalFightMusic.setVolume(0.5);
-                this.#UI.getShopUI().init();
-                this.#UI.getShopUI().stopShopMusic();
+                if (!this.#UI.getShopUI().isInit()) {
+                    this.#UI.getShopUI().init();
+                    this.#UI.getShopUI().stopShopMusic();
+                }
                 this.#UI.showStartUI();
                 break;
             }
@@ -196,6 +198,7 @@ class Main {
             }
             case MAIN_STEP_GAME_OVER: {
                 // this.#UI.getShopUI().init();
+                this.#UI.getShopUI().setIsInit(false);
                 this.#UI.showGameOverUI();
                 this.initMain();
                 break;
@@ -216,6 +219,7 @@ class Main {
                 break;
             }
             case MAIN_STEP_GAME_SUMMARY: {
+                this.#UI.getShopUI().setIsInit(false);
                 this.#UI.showGameSummaryUI(this.#status.getShipStatus());
                 break;
             }

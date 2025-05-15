@@ -143,6 +143,10 @@ class ShopUI {
     isInit() {
         return this.#isInit;
     }
+
+    setIsInit(x) {
+        this.#isInit = x;
+    }
   
     // Create transaction buttons + exit button
     createButtons(items) {
