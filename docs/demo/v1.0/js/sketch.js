@@ -313,7 +313,7 @@ function preload() {
     laserShotSound.setVolume(1);
 
     // player shoot audio
-    playerShootSound = loadSound('./MusicPack/player/shoot/player-01.ogg');
+    playerShootSound = loadSound('./MusicPack/player/shoot/player-01.mp3');
     playerShootSound.setVolume(0.5);
 
     // player skill audio

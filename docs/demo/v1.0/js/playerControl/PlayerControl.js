@@ -12,7 +12,7 @@ class PlayerControl {
             left: false,
             right: false
         };
-        this.shootCD = 0.1;
+        this.shootCD = 0.3;
         this.lastShootTime = 0;
         this.shootKey = false;
     }
@@ -97,9 +97,10 @@ class PlayerControl {
             }
         }
 
-        if (typeof playerShootSound != 'undefined') {
-            playerShootSound.play();
-        }
+        // if (typeof playerShootSound != 'undefined') {
+        //     playerShootSound.play();
+        // }
+        playSound(playerShootSound);
         this.lastShootTime = millis();
     }
 
